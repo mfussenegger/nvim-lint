@@ -18,6 +18,7 @@ M.linters = setmetatable({}, {
 M.linters_by_ft = {
   text = {'vale',},
   markdown = {'vale',},
+  rst = {'vale',},
 }
 
 
