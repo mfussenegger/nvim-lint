@@ -15,7 +15,7 @@ M.linters = setmetatable({}, {
 })
 
 
-M.linter_by_ft = {
+M.linters_by_ft = {
   text = {'vale',},
   markdown = {'vale',},
 }
@@ -23,7 +23,7 @@ M.linter_by_ft = {
 
 local function resolve_linters()
   local ft = vim.api.nvim_buf_get_option(0, 'filetype')
-  local linter_names = M.linter_by_ft[ft]
+  local linter_names = M.linters_by_ft[ft]
   return vim.tbl_map(
     function(name)
       return assert(M.linters[name], 'Linter with name `' .. name .. '` not available')

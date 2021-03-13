@@ -42,7 +42,7 @@ inadequate and a better standalone linter exists.
 Configure the linters you want to run per filetype. For example:
 
 ```lua
-require('lint').linter_by_ft = {
+require('lint').linters_by_ft = {
   markdown = {'vale',}
 }
 ```
