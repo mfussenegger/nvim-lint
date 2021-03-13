@@ -4,7 +4,7 @@ return {
   cmd = 'languagetool',
   args = {'--autoDetect', '--json'},
   stream = 'stderr',
-  parser = function(bufnr, output)
+  parser = function(output, bufnr)
     local decoded = vim.fn.json_decode(output)
     local diagnostics = {}
     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, true)
