@@ -23,7 +23,7 @@ return {
     local decoded = vim.fn.json_decode(output)
     local diagnostics = {}
     local items = decoded['stdin' .. get_cur_file_extension(bufnr)]
-    for _, item in pairs(items) do
+    for _, item in pairs(items or {}) do
       table.insert(diagnostics, {
         range = {
           ['start'] = {
