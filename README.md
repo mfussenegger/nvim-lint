@@ -1,6 +1,6 @@
 # nvim-lint
 
-A asynchronous linter plugin for Neovim (>= 0.5) complementary to the
+An asynchronous linter plugin for Neovim (>= 0.5) complementary to the
 built-in Language Server Protocol support.
 
 It uses the same API to report diagnostics as the language server client
