@@ -64,6 +64,7 @@ example on the `InsertLeave` or `TextChanged` events.
 - [Vale][8]
 - [ShellCheck][10]
 - [Mypy][11]
+- [HTML Tidy][12]
 
 
 ## Custom Linters
@@ -176,3 +177,4 @@ export interface Diagnostic {
 [9]: https://microsoft.github.io/language-server-protocol/specifications/specification-current/#diagnostic
 [10]: https://www.shellcheck.net/
 [11]: http://mypy-lang.org/
+[12]: https://www.html-tidy.org/
