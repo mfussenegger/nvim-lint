@@ -63,6 +63,7 @@ example on the `InsertLeave` or `TextChanged` events.
 - [Languagetool][5]
 - [Vale][8]
 - [ShellCheck][10]
+- [Mypy][11]
 
 
 ## Custom Linters
@@ -174,3 +175,4 @@ export interface Diagnostic {
 [8]: https://github.com/errata-ai/vale
 [9]: https://microsoft.github.io/language-server-protocol/specifications/specification-current/#diagnostic
 [10]: https://www.shellcheck.net/
+[11]: http://mypy-lang.org/
