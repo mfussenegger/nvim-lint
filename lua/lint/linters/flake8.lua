@@ -1,11 +1,11 @@
 -- path/to/file:line:col: code message
-local pattern = "[^:]+:(%d+):(%d+): (%w+) (.*)"
+local pattern = "[^:]+:(%d+):(%d+):(%w+):(.+)"
 
 return {
   cmd = 'flake8',
   stdin = false,
   args = {
-    '--format=default',
+    '--format=%(path)s:%(row)d:%(col)d:%(code)s:%(text)s',
     '--no-show-source',
   },
   parser = require('lint.parser').from_pattern(
