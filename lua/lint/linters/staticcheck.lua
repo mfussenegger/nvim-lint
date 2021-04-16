@@ -10,6 +10,7 @@ return {
   args = {
     '-f', 'json',
   },
+  ignore_exitcode = true,
   parser = function(output, bufnr)
     local result = vim.fn.split(output, "\n")
     local diagnostics = {}
