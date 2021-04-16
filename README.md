@@ -25,7 +25,6 @@ inadequate and a better standalone linter exists.
 
 ## TODO
 
-- [ ] Add parser combinators to create a parser from a pattern
 - [ ] Include more linters for languages with a lack of good language servers
 
 
