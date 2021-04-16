@@ -12,7 +12,11 @@ return {
   stdin = false,
   args = {
     '--show-column-numbers',
+    '--hide-error-codes',
+    '--hide-error-context',
+    '--no-color-output',
     '--no-error-summary',
+    '--no-pretty',
   },
   parser = function(output, bufnr)
     local result = vim.fn.split(output, "\n")
