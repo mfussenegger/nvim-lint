@@ -4,7 +4,10 @@ local pattern = "[^:]+:(%d+):(%d+): (%w+) (.*)"
 return {
   cmd = 'flake8',
   stdin = false,
-  args = {},
+  args = {
+    '--format=default',
+    '--no-show-source',
+  },
   parser = require('lint.parser').from_pattern(
     pattern,
     {
