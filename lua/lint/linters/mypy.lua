@@ -10,11 +10,12 @@ local pattern  = "([^:]+):(%d+):(%d+): (%a+): (.*)"
 return {
   cmd = 'mypy',
   stdin = false,
-  args = {'--show-column-numbers'},
+  args = {
+    '--show-column-numbers',
+    '--no-error-summary',
+  },
   parser = function(output, bufnr)
     local result = vim.fn.split(output, "\n")
-    -- Remove the last message 'found n errors... / Success: no issues ...'
-    table.remove(result)
     local diagnostics = {}
     local buf_file = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':~:.')
 
