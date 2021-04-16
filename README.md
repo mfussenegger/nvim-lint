@@ -80,6 +80,7 @@ require('lint').linters.your_linter_name = {
   stdin = true -- or false if it doesn't support content input via stdin. In that case the filename is automatically added to the arguments.
   args = {}, -- list of arguments. Can contain functions with zero arguments that will be evaluated once the linter is used.
   stream = nil, -- ('stdout' | 'stderr') configure the stream to which the linter outputs the linting result.
+  ignore_exitcode = false, -- set this to true if the linter exits with a code != 0 and that's considered normal.
   parser = your_parse_function
 }
 ```
