@@ -107,7 +107,7 @@ function M.lint(linter, client_id)
     stdout:close()
     stderr:close()
     handle:close()
-    if code ~= 0 then
+    if code ~= 0 and not linter.ignore_exitcode then
       print('Linter exited with code', code)
     end
   end)
