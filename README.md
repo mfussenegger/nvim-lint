@@ -66,6 +66,7 @@ example on the `InsertLeave` or `TextChanged` events.
 - [HTML Tidy][12]
 - [Flake8][13]
 - [Revive][14]
+- [Pylint][15]
 
 
 ## Custom Linters
@@ -182,3 +183,4 @@ export interface Diagnostic {
 [12]: https://www.html-tidy.org/
 [13]: https://flake8.pycqa.org/
 [14]: https://github.com/mgechev/revive
+[15]: https://pylint.org/
