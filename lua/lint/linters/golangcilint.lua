@@ -34,11 +34,11 @@ return {
         range = {
           ['start'] = {
             line = item.Pos.Line - 1,
-            character = item.Pos.Column,
+            character = item.Pos.Column - 1,
           },
           ['end'] = {
             line = item.Pos.Line - 1,
-            character = item.Pos.Column + 1,
+            character = item.Pos.Column - 1,
           },
         },
         severity = sv,
