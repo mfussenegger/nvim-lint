@@ -67,6 +67,7 @@ example on the `InsertLeave` or `TextChanged` events.
 - [Flake8][13]
 - [Revive][14]
 - [Pylint][15]
+- [Golangci-lint][16]
 
 
 ## Custom Linters
@@ -184,3 +185,4 @@ export interface Diagnostic {
 [13]: https://flake8.pycqa.org/
 [14]: https://github.com/mgechev/revive
 [15]: https://pylint.org/
+[16]: https://golangci-lint.run/
