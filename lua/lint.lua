@@ -20,6 +20,7 @@ M.linters_by_ft = {
   markdown = {'vale',},
   rst = {'vale',},
   ruby = {'ruby',},
+  inko = {'inko',},
 }
 
 
