@@ -69,6 +69,7 @@ example on the `InsertLeave` or `TextChanged` events.
 - [Pylint][15]
 - [Golangci-lint][16]
 - Ruby
+- [Inko][17]
 
 
 ## Custom Linters
@@ -187,3 +188,4 @@ export interface Diagnostic {
 [14]: https://github.com/mgechev/revive
 [15]: https://pylint.org/
 [16]: https://golangci-lint.run/
+[17]: https://inko-lang.org/
