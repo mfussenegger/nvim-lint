@@ -103,8 +103,31 @@ function M.lint(linter, client_id)
     cwd = vim.fn.getcwd(),
     detached = true
   }
-  assert(linter.cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
-  handle, pid_or_err = uv.spawn(linter.cmd, opts, function(code)
+  local cmd = linter.cmd
+  if type(cmd) == 'function' then
+    cmd = cmd(bufnr)
+  end
+  -- When the function returns a table, the first value becomes the new
+  -- command. All other values are added to the start of the arguments list.
+  -- This makes it possible to dynamically switch between using for example
+  -- `rubocop` and `bundle exec rubocop` as the command.
+  if type(cmd) == 'table' then
+    local new_args = {}
+    local new_cmd = table.remove(cmd, 1)
+
+    for _, arg in ipairs(cmd) do
+      table.insert(new_args, arg)
+    end
+
+    for _, arg in ipairs(opts.args) do
+      table.insert(new_args, arg)
+    end
+
+    cmd = new_cmd
+    opts.args = new_args
+  end
+  assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
+  handle, pid_or_err = uv.spawn(cmd, opts, function(code)
     stdout:close()
     stderr:close()
     handle:close()
@@ -112,7 +135,7 @@ function M.lint(linter, client_id)
       print('Linter exited with code', code)
     end
   end)
-  assert(handle, 'Error running ' .. linter.cmd .. ': ' .. pid_or_err)
+  assert(handle, 'Error running ' .. cmd .. ': ' .. pid_or_err)
   local parser = linter.parser
   if type(parser) == 'function' then
     parser = require('lint.parser').accumulate_chunks(parser)

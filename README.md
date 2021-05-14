@@ -88,6 +88,36 @@ require('lint').linters.your_linter_name = {
 }
 ```
 
+The `cmd` option can either be a string, or a function that takes a buffer
+number as its argument. When using a function, it's expected the function
+returns the command to run as a string or a table:
+
+```lua
+require('lint').linters.your_linter_name = {
+  cmd = function(bufnr)
+    return 'linter_cmd'
+  end,
+  ...
+}
+```
+
+When a table is returned, the first value becomes the command to run; all other
+values are added to the start of the arguments list. To illustrate:
+
+```lua
+require('lint').linters.your_linter_name = {
+  cmd = function(bufnr)
+    return { 'foo', 'bar' }
+  end,
+  args = {
+    '--bla'
+  }
+  ...
+}
+```
+
+This would run the linter as `foo bar --bla`.
+
 `your_parse_function` can be a function which takes two arguments:
 
 - `output`
