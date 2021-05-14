@@ -68,6 +68,7 @@ example on the `InsertLeave` or `TextChanged` events.
 - [Revive][14]
 - [Pylint][15]
 - [Golangci-lint][16]
+- Ruby
 
 
 ## Custom Linters
