@@ -63,8 +63,21 @@ local function read_output(bufnr, parser, client_id)
 end
 
 
-function M.try_lint()
-  local linters = resolve_linters()
+function M.try_lint(names)
+  if type(names) == "string" then
+    names = { names }
+  end
+  local linters
+  if names then
+    linters = vim.tbl_map(
+      function(name)
+        return assert(M.linters[name], 'Linter with name `' .. name .. '` not available')
+      end,
+      names
+    )
+  else
+    linters = resolve_linters()
+  end
   for i, linter in pairs(linters) do
     local ok, err = pcall(M.lint, linter, CLIENT_ID_OFFSET + i)
     if not ok then
@@ -92,10 +105,13 @@ function M.lint(linter, client_id)
   local pid_or_err
   local args = {}
   local bufnr = api.nvim_get_current_buf()
+  if type(linter) == "function" then
+    linter = linter()
+  end
   if linter.args then
     vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))
   end
-  if not linter.stdin then
+  if not linter.stdin and linter.append_fname ~= false then
     table.insert(args, api.nvim_buf_get_name(bufnr))
   end
   local opts = {
@@ -110,7 +126,7 @@ function M.lint(linter, client_id)
     stderr:close()
     handle:close()
     if code ~= 0 and not linter.ignore_exitcode then
-      print('Linter exited with code', code)
+      print('Linter command', linter.cmd, 'exited with code', code)
     end
   end)
   assert(handle, 'Error running ' .. linter.cmd .. ': ' .. pid_or_err)
