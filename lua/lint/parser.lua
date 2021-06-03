@@ -1,6 +1,32 @@
 local M = {}
 
 
+-- Return a parse function that uses an errorformat to parse the output.
+-- See `:help errorformat`
+function M.from_errorformat(efm)
+  return function(output)
+    local lines = vim.split(output, '\n')
+    local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
+    local result = {}
+    for _, item in pairs(qflist.items) do
+      if item.valid == 1 then
+        local col = item.col > 0 and item.col -1 or 0
+        local position = { line = item.lnum - 1, character = col }
+        table.insert(result, {
+          range = {
+            ['start'] = position,
+            ['end'] = position,
+          },
+          message = item.text,
+          severity = vim.lsp.protocol.DiagnosticSeverity.Error
+        })
+      end
+    end
+    return result
+  end
+end
+
+
 -- Return a parse function that uses a pattern to parse the output.
 --
 -- The first argument is a lua pattern.
