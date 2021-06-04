@@ -71,7 +71,7 @@ Other dedicated linters that are built-in are:
 | [Flake8][13]        | `mypy`          |
 | [Revive][14]        | `revive`        |
 | [Pylint][15]        | `pylint`        |
-| [Golangci-lint][16] | `golangci-lint` |
+| [Golangci-lint][16] | `golangcilint`  |
 | Ruby                | `ruby`          |
 | [Inko][17]          | `inko`          |
 
