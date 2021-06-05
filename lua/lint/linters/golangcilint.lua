@@ -12,6 +12,10 @@ return {
     'run',
     '--out-format',
     'json',
+    function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      return vim.api.nvim_buf_get_name(bufnr)
+    end
   },
   stream = 'stdout',
   ignore_exitcode = true,
