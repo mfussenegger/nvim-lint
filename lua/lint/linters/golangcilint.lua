@@ -26,17 +26,18 @@ return {
 
     local diagnostics = {}
     for _, item in ipairs(decoded["Issues"]) do
-      local sv = vim.lsp.protocol.DiagnosticSeverity.Warning
-      if severities[item.Severity] ~= nil then
-        sv = severities[item.Severity]
-      end
-      table.insert(diagnostics, {
-        range = {
-          ['start'] = {
-            line = item.Pos.Line - 1,
-            character = item.Pos.Column - 1,
-          },
-          ['end'] = {
+      local curfile = vim.api.nvim_buf_get_name(bufnr)
+      local lintedfile = vim.fn.getcwd() .. "/" .. item.Pos.Filename
+      if curfile == lintedfile then
+        -- only publish if those are the current file diagnostics
+        local sv = severities[item.Severity] or severities.warning
+        table.insert(diagnostics, {
+          range = {
+            ['start'] = {
+              line = item.Pos.Line - 1,
+              character = item.Pos.Column - 1,
+            },
+            ['end'] = {
             line = item.Pos.Line - 1,
             character = item.Pos.Column - 1,
           },
@@ -45,6 +46,7 @@ return {
         message = item.Text,
       })
     end
-    return diagnostics
   end
+  return diagnostics
+end
 }
