@@ -23,7 +23,7 @@ return {
     '-language', 'en',
     '--gnu-emacs', 'yes',
   },
-  parser = function(output, bufnr)
+  parser = function(output)
     local diagnostics = {}
     for item in vim.gsplit(output, '\n') do
       local line, column, severity, message = string.match(item, pattern)

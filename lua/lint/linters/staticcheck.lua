@@ -11,7 +11,7 @@ return {
     '-f', 'json',
   },
   ignore_exitcode = true,
-  parser = function(output, bufnr)
+  parser = function(output)
     local result = vim.fn.split(output, "\n")
     local diagnostics = {}
     for _, message in ipairs(result) do

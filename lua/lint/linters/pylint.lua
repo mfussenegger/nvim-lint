@@ -11,7 +11,7 @@ return {
   args = {
     '-f', 'json'
   },
-  parser = function(output, bufnr)
+  parser = function(output)
     local decoded = vim.fn.json_decode(output)
     local diagnostics = {}
     for _, item in ipairs(decoded or {}) do

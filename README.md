@@ -134,7 +134,7 @@ used to provide default values - for example to set a `severity`.
 <details>
   <summary>Diagnostic interface description</summary>
 
-```
+```typescript
 export interface Diagnostic {
     /**
       * The range at which the message applies.

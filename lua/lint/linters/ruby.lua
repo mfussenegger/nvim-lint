@@ -6,7 +6,7 @@ return {
   args = { '-w', '-c' },
   ignore_exitcode = true,
   stream = 'stderr',
-  parser = function(output, bufnr)
+  parser = function(output)
     local items = {}
 
     for line in vim.gsplit(output, '\n') do
