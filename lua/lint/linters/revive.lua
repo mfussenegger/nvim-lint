@@ -1,5 +1,5 @@
 -- path/to/file:line:col: code message
-local pattern = "[^:]+:(%d+):(%d+): (%w+) (.*)"
+local pattern = "[^:]+:(%d+):(%d+): (.*) (.*)"
 
 return {
   cmd = 'revive',
