@@ -43,6 +43,9 @@ function M.from_pattern(pattern, diagnostic_skeleton)
 
     for _, message in ipairs(result) do
       local lineno, offset, code, msg = string.match(message, pattern)
+      if code == nil or code == "" or msg == nil or msg == "" then
+        error("The provided linter pattern failed to match on the linters output.")
+      end
       lineno = tonumber(lineno or 1) - 1
       offset = tonumber(offset or 1) - 1
       local d = vim.deepcopy(diagnostic_skeleton)
