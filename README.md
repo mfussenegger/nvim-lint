@@ -74,6 +74,7 @@ Other dedicated linters that are built-in are:
 | [Golangci-lint][16] | `golangcilint`  |
 | Ruby                | `ruby`          |
 | [Inko][17]          | `inko`          |
+| cppcheck            | `cppcheck`      |
 
 
 ## Custom Linters
