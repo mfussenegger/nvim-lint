@@ -25,7 +25,7 @@ inadequate and a better standalone linter exists.
 
 ## Installation
 
-- Requires [Neovim HEAD/nightly][2]
+- Requires Neovim >= 0.5
 - `nvim-lint` is a plugin. Install it like any other Neovim plugin.
   - If using [vim-plug][3]: `Plug 'mfussenegger/nvim-lint'`
   - If using [packer.nvim][4]: `use 'mfussenegger/nvim-lint'`
@@ -206,7 +206,6 @@ export interface Diagnostic {
 
 
 [1]: https://github.com/dense-analysis/ale
-[2]: https://github.com/neovim/neovim/releases/tag/nightly
 [3]: https://github.com/junegunn/vim-plug
 [4]: https://github.com/wbthomason/packer.nvim
 [5]: https://languagetool.org/
