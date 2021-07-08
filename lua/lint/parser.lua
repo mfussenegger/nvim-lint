@@ -3,23 +3,29 @@ local M = {}
 
 -- Return a parse function that uses an errorformat to parse the output.
 -- See `:help errorformat`
-function M.from_errorformat(efm)
+function M.from_errorformat(efm, skeleton)
   return function(output)
     local lines = vim.split(output, '\n')
     local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
     local result = {}
+    local defaults = {
+      severity = vim.lsp.protocol.DiagnosticSeverity.Error
+    }
     for _, item in pairs(qflist.items) do
       if item.valid == 1 then
         local col = item.col > 0 and item.col -1 or 0
         local position = { line = item.lnum - 1, character = col }
-        table.insert(result, {
+        local diagnostic = {
           range = {
             ['start'] = position,
             ['end'] = position,
           },
           message = item.text,
-          severity = vim.lsp.protocol.DiagnosticSeverity.Error
-        })
+        }
+        table.insert(
+          result,
+          vim.tbl_extend('keep', diagnostic, skeleton and skeleton or defaults)
+        )
       end
     end
     return result
