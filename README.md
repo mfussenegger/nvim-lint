@@ -77,6 +77,7 @@ Other dedicated linters that are built-in are:
 | cppcheck            | `cppcheck`     |
 | [codespell][18]     | `codespell`    |
 | [luacheck][19]      | `luacheck`     |
+| [chktex][20]        | `chktex`       |
 
 
 ## Custom Linters
@@ -225,3 +226,4 @@ export interface Diagnostic {
 [17]: https://inko-lang.org/
 [18]: https://github.com/codespell-project/codespell
 [19]: https://github.com/mpeterv/luacheck
+[20]: https://www.nongnu.org/chktex
