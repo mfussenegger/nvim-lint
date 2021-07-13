@@ -76,6 +76,7 @@ Other dedicated linters that are built-in are:
 | [Inko][17]          | `inko`         |
 | cppcheck            | `cppcheck`     |
 | [codespell][18]     | `codespell`    |
+| [luacheck][19]      | `luacheck`     |
 
 
 ## Custom Linters
@@ -223,3 +224,4 @@ export interface Diagnostic {
 [16]: https://golangci-lint.run/
 [17]: https://inko-lang.org/
 [18]: https://github.com/codespell-project/codespell
+[19]: https://github.com/mpeterv/luacheck
