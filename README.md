@@ -61,7 +61,7 @@ Other dedicated linters that are built-in are:
 
 
 | Tool                | Linter name    |
-| ----                | -----------    |
+| ------------------- | -------------- |
 | Set via `makeprg`   | `compiler`     |
 | [Languagetool][5]   | `languagetool` |
 | [Vale][8]           | `vale`         |
@@ -78,6 +78,7 @@ Other dedicated linters that are built-in are:
 | [codespell][18]     | `codespell`    |
 | [luacheck][19]      | `luacheck`     |
 | [chktex][20]        | `chktex`       |
+| [vint][21]          | `vint`         |
 
 
 ## Custom Linters
@@ -227,3 +228,4 @@ export interface Diagnostic {
 [18]: https://github.com/codespell-project/codespell
 [19]: https://github.com/mpeterv/luacheck
 [20]: https://www.nongnu.org/chktex
+[21]: https://github.com/Vimjas/vint
