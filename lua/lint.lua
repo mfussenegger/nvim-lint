@@ -106,7 +106,7 @@ function M.lint(linter, client_id)
   local args = {}
   local bufnr = api.nvim_get_current_buf()
   if type(linter) == "function" then
-    linter = linter()
+    linter = linter(bufnr)
   end
   if linter.args then
     vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))

@@ -99,7 +99,20 @@ require('lint').linters.your_linter_name = {
 
 Instead of declaring the linter as a table, you can also declare it as a
 function which returns the linter table in case you want to dynamically
-generate some of the properties.
+generate some of the properties. This function is passed the buffer number of
+the buffer being linted:
+
+```lua
+return function(bufnr)
+  local cmd = ...; -- set command based on current buffer
+  local args = ...; -- set args based on current buffer
+  return {
+    cmd = cmd,
+    args = args,
+    ...
+  }
+end
+```
 
 `your_parse_function` can be a function which takes two arguments:
 

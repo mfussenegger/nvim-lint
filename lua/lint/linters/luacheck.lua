@@ -5,9 +5,8 @@ local severities = {
 
 local pattern = '[^:]+:(%d+):(%d+)-(%d+): %((%a)(%d+)%) (.*)'
 
-return function()
+return function(bufnr)
     local args = {'--formatter', 'plain', '--codes', '--ranges', '-'}
-    local bufnr = vim.api.nvim_get_current_buf()
     local filename = vim.api.nvim_buf_get_name(bufnr)
     for path in vim.gsplit(vim.o.runtimepath, ',') do
         if filename:find('^' .. path) then
