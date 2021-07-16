@@ -74,7 +74,8 @@ Other dedicated linters that are built-in are:
 | [Golangci-lint][16] | `golangcilint` |
 | Ruby                | `ruby`         |
 | [Inko][17]          | `inko`         |
-| cppcheck            | `cppcheck`     |
+| [cppcheck][22]      | `cppcheck`     |
+| [clang-tidy][23]    | `clangtidy`    |
 | [codespell][18]     | `codespell`    |
 | [luacheck][19]      | `luacheck`     |
 | [chktex][20]        | `chktex`       |
@@ -229,3 +230,5 @@ export interface Diagnostic {
 [19]: https://github.com/mpeterv/luacheck
 [20]: https://www.nongnu.org/chktex
 [21]: https://github.com/Vimjas/vint
+[22]: https://github.com/danmar/cppcheck/
+[23]: https://clang.llvm.org/extra/clang-tidy/
