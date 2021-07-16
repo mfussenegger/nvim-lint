@@ -83,6 +83,7 @@ Other dedicated linters that are built-in are:
 | [clj-kondo][24]     | `clj-kondo`    |
 | [eslint][25]        | `eslint`       |
 | nix                 | `nix`          |
+| [markdownlint][26]  | `markdownlint` |
 
 
 ## Custom Linters
@@ -256,3 +257,4 @@ export interface Diagnostic {
 [23]: https://clang.llvm.org/extra/clang-tidy/
 [24]: https://github.com/clj-kondo/clj-kondo
 [25]: https://github.com/eslint/eslint
+[26]: https://github.com/DavidAnson/markdownlint
