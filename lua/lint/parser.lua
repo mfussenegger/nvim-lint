@@ -30,7 +30,7 @@ end
 
 --- Parse a linter's output using a regex pattern
 -- @param pattern The regex pattern
--- @param groups The groups defined by the pattern: {"lineno", "colno", "message", ["code", "codeDesc", "severity"]}
+-- @param groups The groups defined by the pattern: {"lineno", "message", ("colno" | "colbeg", "colend") [")code", "codeDesc", "severity", "colbeg", "colend"]}
 -- @param severity_map An optional table mapping the severity values to their codes
 -- @param defaults An optional table of diagnostic default values
 function M.from_pattern(pattern, groups, severity_map, defaults)
@@ -52,7 +52,16 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
     end,
 
     range = function(entries)
-      local lineno, colno = tonumber(entries['lineno']), tonumber(entries['colno'])
+      local lineno = tonumber(entries['lineno'])
+      if entries['colbeg'] ~= nil and entries['colend'] ~= nil then
+        local colbeg, colend = tonumber(entries['colbeg']), tonumber(entries['colend'])
+        return {
+          ['start'] = { line = lineno - 1, character = colbeg - 1 },
+          ['end'] = { line = lineno - 1, character = colend },
+        }
+      end
+
+      local colno = entries['colno'] ~= nil and tonumber(entries['colno']) or 1
       return {
         ['start'] = { line = lineno - 1, character = colno - 1 },
         ['end'] = { line = lineno - 1, character = colno },
