@@ -1,3 +1,5 @@
+local pattern = 'line (%d+) column (%d+) %- (%a+): (.+)'
+local groups = { 'lineno', 'colno', 'severity', 'severity', 'message' }
 local severities = {
   Info = vim.lsp.protocol.DiagnosticSeverity.Information,
   Warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
@@ -11,8 +13,6 @@ local severities = {
   Footnote = vim.lsp.protocol.DiagnosticSeverity.Information,
 }
 
-local pattern = 'line (%d+) column (%d+) %- (%a+): (.+)'
-
 return {
   cmd = 'tidy',
   stdin = true,
@@ -20,31 +20,10 @@ return {
   args = {
     '-quiet',
     '-errors',
-    '-language', 'en',
-    '--gnu-emacs', 'yes',
+    '-language',
+    'en',
+    '--gnu-emacs',
+    'yes',
   },
-  parser = function(output)
-    local diagnostics = {}
-    for item in vim.gsplit(output, '\n') do
-      local line, column, severity, message = string.match(item, pattern)
-      if line and column then
-        table.insert(diagnostics, {
-          source = 'tidy',
-          range = {
-            ['start'] = {
-              line = tonumber(line) - 1,
-              character = tonumber(column) - 1,
-            },
-            ['end'] = {
-              line = tonumber(line) - 1,
-              character = tonumber(column),
-            },
-          },
-          message = message,
-          severity = assert(severities[severity], 'missing mapping for severity ' .. severity),
-        })
-      end
-    end
-    return diagnostics
-  end,
+  parser = require('lint.parser').from_pattern(pattern, groups, severities, { ['source'] = 'tidy' }),
 }
