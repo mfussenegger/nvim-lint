@@ -30,7 +30,7 @@ end
 
 --- Parse a linter's output using a regex pattern
 -- @param pattern The regex pattern
--- @param groups The groups defined by the pattern: {"lineno", "message", ("colno" | "colbeg", "colend") [")code", "codeDesc", "severity", "colbeg", "colend"]}
+-- @param groups The groups defined by the pattern: {"lineno", "message", ("colno" | "colbeg", "colend"), ["code"], ["codeDesc"], ["file"], ["severity"]}
 -- @param severity_map An optional table mapping the severity values to their codes
 -- @param defaults An optional table of diagnostic default values
 function M.from_pattern(pattern, groups, severity_map, defaults)

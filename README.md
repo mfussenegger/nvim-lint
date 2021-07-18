@@ -127,15 +127,34 @@ The function takes a single argument which is the `errorformat`.
 ### from_pattern
 
 ```lua
-parser = require('lint.parser').from_pattern(pattern, skeleton)
+parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defaults)
 ```
 
-The function takes two arguments. The first is a lua pattern that must match
-four groups in order: line number, offset, code and message.
+The function allows to parse the linter's output using a lua regex pattern.
 
-The second argument is a skeleton used to create each diagnostic. This can be
-used to provide default values - for example to set a `severity`.
+- pattern: The regex pattern applied on each line of the output
+- groups: The groups specified by the pattern
 
+``` lua
+groups = {"lineno", "message", ("colno" | ("colbeg", "colend")), ["code"], ["codeDesc"], ["file"], ["severity"]}
+```
+
+- severity: A mapping from severity codes to diagnostic codes
+
+``` lua
+default_severity = {
+['error'] = vim.lsp.protocol.DiagnosticSeverity.Error,
+['warning'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
+['information'] = vim.lsp.protocol.DiagnosticSeverity.Information,
+['hint'] = vim.lsp.protocol.DiagnosticSeverity.Hint,
+}
+```
+
+- defaults: The defaults diagnostic values
+
+``` lua
+defaults = {["source"] = "mylint-name"}
+```
 
 <details>
   <summary>Diagnostic interface description</summary>
