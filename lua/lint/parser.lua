@@ -93,8 +93,10 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
       ['hint'] = vim.lsp.protocol.DiagnosticSeverity.Hint,
     }
   defaults = defaults or {}
-  return function(output)
+  return function(output, bufnr)
     local diagnostics = {}
+    local buffer_path = vim.api.nvim_buf_get_name(bufnr)
+
     for _, line in ipairs(vim.fn.split(output, '\n')) do
       local results = { line:gmatch(pattern)() }
       local entries = {}
@@ -105,12 +107,15 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
           entries[groups[i]] = match
         end
 
-        local diagnostic = {}
+        -- Use the file group to filter diagnostics related to other files
+        if not entries['file'] or entries['file'] == buffer_path then
+          local diagnostic = {}
 
-        for key, handler in pairs(group_handler) do
-          diagnostic[key] = handler(entries) or defaults[key]
+          for key, handler in pairs(group_handler) do
+            diagnostic[key] = handler(entries) or defaults[key]
+          end
+          table.insert(diagnostics, diagnostic)
         end
-        table.insert(diagnostics, diagnostic)
       end
     end
 
