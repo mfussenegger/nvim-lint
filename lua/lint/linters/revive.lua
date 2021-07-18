@@ -7,6 +7,6 @@ return {
   stdin = false,
   args = {},
   parser = require('lint.parser').from_pattern(pattern, groups, nil, {
-    source = 'revive',
+    ['source'] = 'revive',
   }),
 }

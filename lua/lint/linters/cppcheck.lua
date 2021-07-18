@@ -21,5 +21,5 @@ return {
     '--template={file}:{line}:{column}: [{id}] {severity}: {message}',
   },
   stream = 'stderr',
-  parser = require('lint.parser').from_pattern(pattern, groups, severity_map),
+  parser = require('lint.parser').from_pattern(pattern, groups, severity_map, { ['source'] = 'cppcheck' }),
 }

@@ -10,6 +10,6 @@ return {
     '--no-show-source',
   },
   parser = require('lint.parser').from_pattern(pattern, groups, nil, {
-    source = 'flake8',
+    ['source'] = 'flake8',
   }),
 }

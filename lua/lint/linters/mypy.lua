@@ -18,5 +18,5 @@ return {
     '--no-error-summary',
     '--no-pretty',
   },
-  parser = require('lint.parser').from_pattern(pattern, groups, severities),
+  parser = require('lint.parser').from_pattern(pattern, groups, severities, { ['source'] = 'mypy' }),
 }
