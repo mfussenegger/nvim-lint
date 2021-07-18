@@ -73,7 +73,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
     end,
 
     severity = function(entries)
-      return severity_map[entries['severity']] or severity_map['error']
+      return severity_map[entries['severity']] or defaults['severity'] or severity_map['error']
     end,
 
     source = function(_)
