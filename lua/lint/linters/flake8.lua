@@ -1,6 +1,6 @@
 -- path/to/file:line:col: code message
 local pattern = '[^:]+:(%d+):(%d+):(%w+):(.+)'
-local groups = { 'file', 'lineno', 'colno', 'code', 'message' }
+local groups = { 'lineno', 'colno', 'code', 'message' }
 
 return {
   cmd = 'flake8',

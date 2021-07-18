@@ -1,5 +1,5 @@
 local pattern = 'line (%d+) column (%d+) %- (%a+): (.+)'
-local groups = { 'lineno', 'colno', 'severity', 'severity', 'message' }
+local groups = { 'lineno', 'colno', 'severity', 'message' }
 local severities = {
   Info = vim.lsp.protocol.DiagnosticSeverity.Information,
   Warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
