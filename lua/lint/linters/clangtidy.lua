@@ -1,5 +1,5 @@
 local pattern = [[([^:]*):(%d+):(%d+): (%w+): ([^[]+)]]
-local groups = { 'file', 'lineno', 'colno', 'severity', 'message' }
+local groups = { 'file', 'line', 'start_col', 'severity', 'message' }
 
 return {
   cmd = 'clang-tidy',

@@ -136,7 +136,7 @@ The function allows to parse the linter's output using a lua regex pattern.
 - groups: The groups specified by the pattern
 
 ``` lua
-groups = {"lineno", "message", ("colno" | ("colbeg", "colend")), ["code"], ["codeDesc"], ["file"], ["severity"]}
+groups = {"line", "message", "start_col", ["end_col"], ["code"], ["code_desc"], ["file"], ["severity"]}
 ```
 
 - severity: A mapping from severity codes to diagnostic codes

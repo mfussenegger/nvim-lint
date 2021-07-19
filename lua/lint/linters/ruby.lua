@@ -1,8 +1,8 @@
 local pattern1 = '([^:]+):(%d+): warning: (.+)'
-local groups1 = { 'file', 'lineno', 'message' }
+local groups1 = { 'file', 'line', 'message' }
 
 local pattern2 = '([^:]+):(%d+): syntax error, (.+)'
-local groups2 = { 'file', 'lineno', 'message' }
+local groups2 = { 'file', 'line', 'message' }
 
 local parsers = {
   require('lint.parser').from_pattern(

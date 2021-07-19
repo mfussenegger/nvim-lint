@@ -1,6 +1,6 @@
 -- path/to/file:line:col: severity: message
 local pattern = '([^:]+):(%d+):(%d+): (%a+): (.*)'
-local groups = { 'file', 'lineno', 'colno', 'severity', 'message' }
+local groups = { 'file', 'line', 'start_col', 'severity', 'message' }
 local severities = {
   error = vim.lsp.protocol.DiagnosticSeverity.Error,
   warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
