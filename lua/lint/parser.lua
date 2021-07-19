@@ -43,10 +43,6 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
       return entries['code_desc']
     end,
 
-    data = function(_)
-      return nil -- Unsupported
-    end,
-
     message = function(entries)
       return entries['message']
     end,
@@ -61,20 +57,8 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
       }
     end,
 
-    relatedInformation = function(_)
-      return nil -- Unsupported
-    end,
-
     severity = function(entries)
       return severity_map[entries['severity']] or defaults['severity'] or severity_map['error']
-    end,
-
-    source = function(_)
-      return nil -- Unsupported
-    end,
-
-    tags = function(_)
-      return nil -- Unsupported
     end,
   }
 
