@@ -20,7 +20,7 @@ return {
             off = tonumber(off or 1) - 1
             d = tonumber(d or 1)
             table.insert(diagnostics, {
-                source = 'luacheck',
+                source = 'chktex',
                 range = {
                     ['start'] = {line = lineno, character = off},
                     ['end'] = {line = lineno, character = off + d}
