@@ -82,6 +82,7 @@ Other dedicated linters that are built-in are:
 | [vint][21]          | `vint`         |
 | [clj-kondo][24]     | `clj-kondo`    |
 | [eslint][25]        | `eslint`       |
+| nix                 | `nix`          |
 
 
 ## Custom Linters
