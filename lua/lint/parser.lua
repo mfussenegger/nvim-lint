@@ -75,7 +75,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
     local buffer_path = vim.api.nvim_buf_get_name(bufnr)
 
     for _, line in ipairs(vim.fn.split(output, '\n')) do
-      local results = { line:gmatch(pattern)() }
+      local results = { line:match(pattern) }
       local entries = {}
 
       -- Check that the regex matched
