@@ -81,6 +81,7 @@ Other dedicated linters that are built-in are:
 | [chktex][20]        | `chktex`       |
 | [vint][21]          | `vint`         |
 | [clj-kondo][24]     | `clj-kondo`    |
+| [eslint][25]        | `eslint`       |
 
 
 ## Custom Linters
@@ -253,3 +254,4 @@ export interface Diagnostic {
 [22]: https://github.com/danmar/cppcheck/
 [23]: https://clang.llvm.org/extra/clang-tidy/
 [24]: https://github.com/clj-kondo/clj-kondo
+[25]: https://github.com/eslint/eslint
