@@ -9,6 +9,7 @@ local severities = {
   warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
   information = vim.lsp.protocol.DiagnosticSeverity.Information,
   hint = vim.lsp.protocol.DiagnosticSeverity.Hint,
+  suggestion = vim.lsp.protocol.DiagnosticSeverity.Hint,
 }
 
 return {
