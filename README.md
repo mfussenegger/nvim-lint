@@ -80,6 +80,7 @@ Other dedicated linters that are built-in are:
 | [luacheck][19]      | `luacheck`     |
 | [chktex][20]        | `chktex`       |
 | [vint][21]          | `vint`         |
+| [clj-kondo][24]     | `clj-kondo`    |
 
 
 ## Custom Linters
@@ -251,3 +252,4 @@ export interface Diagnostic {
 [21]: https://github.com/Vimjas/vint
 [22]: https://github.com/danmar/cppcheck/
 [23]: https://clang.llvm.org/extra/clang-tidy/
+[24]: https://github.com/clj-kondo/clj-kondo

@@ -21,6 +21,7 @@ M.linters_by_ft = {
   rst = {'vale',},
   ruby = {'ruby',},
   inko = {'inko',},
+  clojure = {'clj-kondo',},
 }
 
 
