@@ -73,6 +73,7 @@ Other dedicated linters that are built-in are:
 | [Pylint][15]        | `pylint`       |
 | [Golangci-lint][16] | `golangcilint` |
 | Ruby                | `ruby`         |
+| [StandardRB][27]    | `standardrb`   |
 | [Inko][17]          | `inko`         |
 | [cppcheck][22]      | `cppcheck`     |
 | [clang-tidy][23]    | `clangtidy`    |
@@ -258,3 +259,4 @@ export interface Diagnostic {
 [24]: https://github.com/clj-kondo/clj-kondo
 [25]: https://github.com/eslint/eslint
 [26]: https://github.com/DavidAnson/markdownlint
+[27]: https://github.com/testdouble/standard
