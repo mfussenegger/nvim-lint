@@ -85,6 +85,7 @@ Other dedicated linters that are built-in are:
 | [eslint][25]        | `eslint`       |
 | nix                 | `nix`          |
 | [markdownlint][26]  | `markdownlint` |
+| [hadolint][28]      | `hadolint`     |
 
 
 ## Custom Linters
@@ -260,3 +261,4 @@ export interface Diagnostic {
 [25]: https://github.com/eslint/eslint
 [26]: https://github.com/DavidAnson/markdownlint
 [27]: https://github.com/testdouble/standard
+[28]: https://github.com/hadolint/hadolint

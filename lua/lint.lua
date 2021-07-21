@@ -22,6 +22,7 @@ M.linters_by_ft = {
   ruby = {'ruby',},
   inko = {'inko',},
   clojure = {'clj-kondo',},
+  dockerfile = {'hadolint',},
 }
 
 
