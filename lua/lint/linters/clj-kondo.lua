@@ -3,8 +3,8 @@ local severities = {
   warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
 }
 
-local function get_file_name(bufnr)
-  return vim.api.nvim_buf_get_name(bufnr)
+local function get_file_name()
+  return vim.api.nvim_buf_get_name(0)
 end
 
 return {
