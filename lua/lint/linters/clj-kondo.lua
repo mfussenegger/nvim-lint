@@ -3,13 +3,17 @@ local severities = {
   warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
 }
 
+local function get_file_name(bufnr)
+  return vim.api.nvim_buf_get_name(bufnr)
+end
+
 return {
   cmd = 'clj-kondo',
   stdin = true,
   stream = 'stdout',
   ignore_exitcode = true,
   args = {
-    '--config', '{:output {:format :json}}', '--parallel', '--lint', '-',
+    '--config', '{:output {:format :json}}', '--filename', get_file_name, '--lint', '-',
   },
   parser = function(output)
     local decoded = vim.fn.json_decode(output) or {}
