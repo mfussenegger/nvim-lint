@@ -89,8 +89,10 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
           local diagnostic = {}
 
           for key, handler in pairs(group_handler) do
-            diagnostic[key] = handler(entries) or defaults[key]
+            diagnostic[key] = handler(entries)
           end
+
+          diagnostic = vim.tbl_deep_extend("force", defaults, diagnostic)
           table.insert(diagnostics, diagnostic)
         end
       end
