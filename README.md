@@ -230,9 +230,11 @@ export interface Diagnostic {
 
 ## Alternatives
 
+- [null-ls.nvim][null-ls]
 - [Ale][1]
 - [efm-langserver][6]
 - [diagnostic-languageserver][7]
+
 
 
 [1]: https://github.com/dense-analysis/ale
@@ -262,3 +264,4 @@ export interface Diagnostic {
 [26]: https://github.com/DavidAnson/markdownlint
 [27]: https://github.com/testdouble/standard
 [28]: https://github.com/hadolint/hadolint
+[null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
