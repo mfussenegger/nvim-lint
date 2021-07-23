@@ -236,6 +236,24 @@ export interface Diagnostic {
 - [diagnostic-languageserver][7]
 
 
+## Development ☢️
+
+
+### Run tests
+
+Running tests requires [plenary.nvim][plenary] to be checked out in the parent directory of *this* repository.
+You can then run:
+
+```bash
+nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/ {minimal_init = 'tests/minimal.vim'}"
+```
+
+Or if you want to run a single test file:
+
+```bash
+nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/vale_spec.lua {minimal_init = 'tests/minimal.vim'}"
+```
+
 
 [1]: https://github.com/dense-analysis/ale
 [3]: https://github.com/junegunn/vim-plug
@@ -265,3 +283,4 @@ export interface Diagnostic {
 [27]: https://github.com/testdouble/standard
 [28]: https://github.com/hadolint/hadolint
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
+[plenary]: https://github.com/nvim-lua/plenary.nvim
