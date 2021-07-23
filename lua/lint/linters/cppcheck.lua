@@ -14,7 +14,6 @@ return {
   args = {
     '--enable=warning,style,performance,information',
     '--language=c++',
-    '--project=build/compile_commands.json',
     '--inline-suppr',
     '--quiet',
     '--cppcheck-build-dir=build',
