@@ -9,6 +9,7 @@ return {
     '--format=%(path)s:%(row)d:%(col)d:%(code)s:%(text)s',
     '--no-show-source',
   },
+  ignore_exitcode = true,
   parser = require('lint.parser').from_pattern(pattern, groups, nil, {
     ['source'] = 'flake8',
   }),
