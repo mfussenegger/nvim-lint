@@ -27,6 +27,6 @@ return {
       })
     end
 
-   return diagnostics
- end,
+    return diagnostics
+  end,
 }
