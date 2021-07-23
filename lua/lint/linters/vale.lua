@@ -21,6 +21,9 @@ return {
     '--ext', get_cur_file_extension
   },
   parser = function(output, bufnr)
+    if vim.trim(output) == '' then
+      return {}
+    end
     local decoded = vim.fn.json_decode(output)
     local diagnostics = {}
     local items = decoded['stdin' .. get_cur_file_extension(bufnr)]
