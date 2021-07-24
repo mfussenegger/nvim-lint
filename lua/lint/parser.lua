@@ -72,7 +72,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
   defaults = defaults or {}
   return function(output, bufnr)
     local diagnostics = {}
-    local buffer_path = vim.api.nvim_buf_get_name(bufnr)
+    local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":~:.")
 
     for _, line in ipairs(vim.fn.split(output, '\n')) do
       local results = { line:match(pattern) }
@@ -85,7 +85,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
         end
 
         -- Use the file group to filter diagnostics related to other files
-        if not entries['file'] or entries['file'] == buffer_path then
+        if not entries['file'] or vim.fn.fnamemodify(entries['file'], ":~:.") == buffer_path then
           local diagnostic = {}
 
           for key, handler in pairs(group_handler) do
