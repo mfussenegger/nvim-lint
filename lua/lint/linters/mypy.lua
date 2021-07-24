@@ -10,6 +10,7 @@ local severities = {
 return {
   cmd = 'mypy',
   stdin = false,
+  ignore_exitcode = true,
   args = {
     '--show-column-numbers',
     '--hide-error-codes',
