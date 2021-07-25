@@ -83,6 +83,7 @@ Other dedicated linters that are built-in are:
 | [vint][21]          | `vint`         |
 | [clj-kondo][24]     | `clj-kondo`    |
 | [eslint][25]        | `eslint`       |
+| [stylelint][29]     | `stylelint`    |
 | nix                 | `nix`          |
 | [markdownlint][26]  | `markdownlint` |
 | [hadolint][28]      | `hadolint`     |
@@ -282,5 +283,6 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [26]: https://github.com/DavidAnson/markdownlint
 [27]: https://github.com/testdouble/standard
 [28]: https://github.com/hadolint/hadolint
+[29]: https://github.com/stylelint/stylelint
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
