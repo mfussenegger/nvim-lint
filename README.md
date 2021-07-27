@@ -60,33 +60,34 @@ There is a generic linter called `compiler` that uses the `makeprg` and
 Other dedicated linters that are built-in are:
 
 
-| Tool                | Linter name    |
-| ------------------- | -------------- |
-| Set via `makeprg`   | `compiler`     |
-| [Languagetool][5]   | `languagetool` |
-| [Vale][8]           | `vale`         |
-| [ShellCheck][10]    | `shellcheck`   |
-| [Mypy][11]          | `mypy`         |
-| [HTML Tidy][12]     | `tidy`         |
-| [Flake8][13]        | `mypy`         |
-| [Revive][14]        | `revive`       |
-| [Pylint][15]        | `pylint`       |
-| [Golangci-lint][16] | `golangcilint` |
-| Ruby                | `ruby`         |
-| [StandardRB][27]    | `standardrb`   |
-| [Inko][17]          | `inko`         |
-| [cppcheck][22]      | `cppcheck`     |
-| [clang-tidy][23]    | `clangtidy`    |
-| [codespell][18]     | `codespell`    |
-| [luacheck][19]      | `luacheck`     |
-| [chktex][20]        | `chktex`       |
-| [vint][21]          | `vint`         |
-| [clj-kondo][24]     | `clj-kondo`    |
-| [eslint][25]        | `eslint`       |
-| [stylelint][29]     | `stylelint`    |
-| nix                 | `nix`          |
-| [markdownlint][26]  | `markdownlint` |
-| [hadolint][28]      | `hadolint`     |
+| Tool                         | Linter name    |
+| -------------------          | -------------- |
+| Set via `makeprg`            | `compiler`     |
+| [ansible-lint][ansible-lint] | `ansible_lint` |
+| [chktex][20]                 | `chktex`       |
+| [clang-tidy][23]             | `clangtidy`    |
+| [clj-kondo][24]              | `clj-kondo`    |
+| [codespell][18]              | `codespell`    |
+| [cppcheck][22]               | `cppcheck`     |
+| [eslint][25]                 | `eslint`       |
+| [Flake8][13]                 | `mypy`         |
+| [Golangci-lint][16]          | `golangcilint` |
+| [hadolint][28]               | `hadolint`     |
+| [HTML Tidy][12]              | `tidy`         |
+| [Inko][17]                   | `inko`         |
+| [Languagetool][5]            | `languagetool` |
+| [luacheck][19]               | `luacheck`     |
+| nix                          | `nix`          |
+| [markdownlint][26]           | `markdownlint` |
+| [Mypy][11]                   | `mypy`         |
+| [Pylint][15]                 | `pylint`       |
+| [Revive][14]                 | `revive`       |
+| Ruby                         | `ruby`         |
+| [ShellCheck][10]             | `shellcheck`   |
+| [StandardRB][27]             | `standardrb`   |
+| [stylelint][29]              | `stylelint`    |
+| [Vale][8]                    | `vale`         |
+| [vint][21]                   | `vint`         |
 
 
 ## Custom Linters
@@ -286,3 +287,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [29]: https://github.com/stylelint/stylelint
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
+[ansible-lint]: https://docs.ansible.com/lint.html
