@@ -12,5 +12,6 @@ return {
   ignore_exitcode = true,
   parser = require('lint.parser').from_pattern(pattern, groups, nil, {
     ['source'] = 'flake8',
+    ['severity'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
   }),
 }
