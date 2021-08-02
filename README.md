@@ -70,7 +70,7 @@ Other dedicated linters that are built-in are:
 | [codespell][18]              | `codespell`    |
 | [cppcheck][22]               | `cppcheck`     |
 | [eslint][25]                 | `eslint`       |
-| [Flake8][13]                 | `mypy`         |
+| [Flake8][13]                 | `flake8`       |
 | [Golangci-lint][16]          | `golangcilint` |
 | [hadolint][28]               | `hadolint`     |
 | [HTML Tidy][12]              | `tidy`         |
