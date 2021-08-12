@@ -1,11 +1,10 @@
-local pattern = '(.*):(%d+):(%d+) (.*)'
-local groups  = { '_', 'line', 'start_col', 'message'}
+local efm = '%f:%l:%c %m,%f:%l %m'
 return {
     cmd = 'markdownlint',
     ignore_exitcode = true,
     stream = 'stderr',
-    parser =  require('lint.parser').from_pattern(pattern, groups, nil, {
-        ['source'] = 'markdownlint',
-        ['severity'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
+    parser =  require('lint.parser').from_errorformat(efm, {
+        source = 'markdownlint',
+        severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
     })
 }
