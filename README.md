@@ -69,24 +69,25 @@ Other dedicated linters that are built-in are:
 | [clj-kondo][24]              | `clj-kondo`    |
 | [codespell][18]              | `codespell`    |
 | [cppcheck][22]               | `cppcheck`     |
+| [credo][30]                  | `credo`        |
 | [eslint][25]                 | `eslint`       |
 | [Flake8][13]                 | `flake8`       |
 | [Golangci-lint][16]          | `golangcilint` |
 | [hadolint][28]               | `hadolint`     |
 | [HTML Tidy][12]              | `tidy`         |
 | [Inko][17]                   | `inko`         |
-| [Languagetool][5]            | `languagetool` |
+| [Languagetool][5]           | `languagetool` |
 | [luacheck][19]               | `luacheck`     |
-| nix                          | `nix`          |
+| nix                    | `nix`          |
 | [markdownlint][26]           | `markdownlint` |
 | [Mypy][11]                   | `mypy`         |
 | [Pylint][15]                 | `pylint`       |
 | [Revive][14]                 | `revive`       |
-| Ruby                         | `ruby`         |
+| Ruby                   | `ruby`         |
 | [ShellCheck][10]             | `shellcheck`   |
 | [StandardRB][27]             | `standardrb`   |
 | [stylelint][29]              | `stylelint`    |
-| [Vale][8]                    | `vale`         |
+| [Vale][8]                   | `vale`         |
 | [vint][21]                   | `vint`         |
 
 
@@ -285,6 +286,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [27]: https://github.com/testdouble/standard
 [28]: https://github.com/hadolint/hadolint
 [29]: https://github.com/stylelint/stylelint
+[30]: https://github.com/rrrene/credo
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
