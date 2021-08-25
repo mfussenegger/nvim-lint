@@ -104,6 +104,7 @@ function M.lint(linter, client_id)
   local stdout = uv.new_pipe(false)
   local stderr = uv.new_pipe(false)
   local handle
+  local env
   local pid_or_err
   local args = {}
   local bufnr = api.nvim_get_current_buf()
@@ -116,9 +117,19 @@ function M.lint(linter, client_id)
   if not linter.stdin and linter.append_fname ~= false then
     table.insert(args, api.nvim_buf_get_name(bufnr))
   end
+  if linter.env then
+    if not linter.env["PATH"] then
+      -- Always include PATH as we need it to execute the linter command
+      env = {"PATH=" .. os.getenv("PATH")}
+    end
+    for k, v in pairs(linter.env) do
+      table.insert(env, k .. "=" .. v)
+    end
+  end
   local opts = {
     args = args,
     stdio = {stdin, stdout, stderr},
+    env = env,
     cwd = vim.fn.getcwd(),
     detached = true
   }
