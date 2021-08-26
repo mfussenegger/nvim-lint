@@ -60,34 +60,35 @@ There is a generic linter called `compiler` that uses the `makeprg` and
 Other dedicated linters that are built-in are:
 
 
-| Tool                         | Linter name    |
-| -------------------          | -------------- |
-| Set via `makeprg`            | `compiler`     |
-| [ansible-lint][ansible-lint] | `ansible_lint` |
-| [chktex][20]                 | `chktex`       |
-| [clang-tidy][23]             | `clangtidy`    |
-| [clj-kondo][24]              | `clj-kondo`    |
-| [codespell][18]              | `codespell`    |
-| [cppcheck][22]               | `cppcheck`     |
-| [eslint][25]                 | `eslint`       |
-| [Flake8][13]                 | `flake8`       |
-| [Golangci-lint][16]          | `golangcilint` |
-| [hadolint][28]               | `hadolint`     |
-| [HTML Tidy][12]              | `tidy`         |
-| [Inko][17]                   | `inko`         |
-| [Languagetool][5]            | `languagetool` |
-| [luacheck][19]               | `luacheck`     |
-| nix                          | `nix`          |
-| [markdownlint][26]           | `markdownlint` |
-| [Mypy][11]                   | `mypy`         |
-| [Pylint][15]                 | `pylint`       |
-| [Revive][14]                 | `revive`       |
-| Ruby                         | `ruby`         |
-| [ShellCheck][10]             | `shellcheck`   |
-| [StandardRB][27]             | `standardrb`   |
-| [stylelint][29]              | `stylelint`    |
-| [Vale][8]                    | `vale`         |
-| [vint][21]                   | `vint`         |
+| Tool                         | Linter name       |
+| -------------------          | --------------    |
+| Set via `makeprg`            | `compiler`        |
+| Set via `makeprg`            | `compiler_stdout` |
+| [ansible-lint][ansible-lint] | `ansible_lint`    |
+| [chktex][20]                 | `chktex`          |
+| [clang-tidy][23]             | `clangtidy`       |
+| [clj-kondo][24]              | `clj-kondo`       |
+| [codespell][18]              | `codespell`       |
+| [cppcheck][22]               | `cppcheck`        |
+| [eslint][25]                 | `eslint`          |
+| [Flake8][13]                 | `flake8`          |
+| [Golangci-lint][16]          | `golangcilint`    |
+| [hadolint][28]               | `hadolint`        |
+| [HTML Tidy][12]              | `tidy`            |
+| [Inko][17]                   | `inko`            |
+| [Languagetool][5]            | `languagetool`    |
+| [luacheck][19]               | `luacheck`        |
+| nix                          | `nix`             |
+| [markdownlint][26]           | `markdownlint`    |
+| [Mypy][11]                   | `mypy`            |
+| [Pylint][15]                 | `pylint`          |
+| [Revive][14]                 | `revive`          |
+| Ruby                         | `ruby`            |
+| [ShellCheck][10]             | `shellcheck`      |
+| [StandardRB][27]             | `standardrb`      |
+| [stylelint][29]              | `stylelint`       |
+| [Vale][8]                    | `vale`            |
+| [vint][21]                   | `vint`            |
 
 
 ## Custom Linters

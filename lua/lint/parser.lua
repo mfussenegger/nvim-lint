@@ -10,7 +10,7 @@ function M.from_errorformat(efm, skeleton)
     local defaults = {
       severity = vim.lsp.protocol.DiagnosticSeverity.Error,
     }
-    for _, item in pairs(qflist.items) do
+    for _, item in pairs(qflist.items or {}) do
       if item.valid == 1 then
         local col = item.col > 0 and item.col - 1 or 0
         local position = { line = item.lnum - 1, character = col }
