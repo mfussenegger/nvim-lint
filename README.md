@@ -69,6 +69,7 @@ Other dedicated linters that are built-in are:
 | [clj-kondo][24]              | `clj-kondo`    |
 | [codespell][18]              | `codespell`    |
 | [cppcheck][22]               | `cppcheck`     |
+| [clazy][30]                  | `clazy`        |
 | [eslint][25]                 | `eslint`       |
 | fennel                       | `fennel`       |
 | [Flake8][13]                 | `flake8`       |
@@ -298,6 +299,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [27]: https://github.com/testdouble/standard
 [28]: https://github.com/hadolint/hadolint
 [29]: https://github.com/stylelint/stylelint
+[30]: https://github.com/KDE/clazy
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
