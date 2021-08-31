@@ -7,7 +7,7 @@ describe('compiler', function()
     a.nvim_buf_set_option(bufnr, 'makeprg', '/usr/bin/python tests/both.py')
 
     local result = nil
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = function(_, _, diagnostics)
+    vim.lsp.handlers['textDocument/publishDiagnostics'] = function(_, diagnostics)
       result = diagnostics
     end
     require('lint').try_lint('compiler')
