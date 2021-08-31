@@ -7,8 +7,8 @@ local severities = {
 
 return {
   cmd = 'luacheck',
-  stdin = false,
-  args = { '--formatter', 'plain', '--codes', '--ranges'},
+  stdin = true,
+  args = { '--formatter', 'plain', '--codes', '--ranges', '-' },
   ignore_exitcode = true,
   parser = require('lint.parser').from_pattern(pattern, groups, severities, { ['source'] = 'luacheck' }),
 }
