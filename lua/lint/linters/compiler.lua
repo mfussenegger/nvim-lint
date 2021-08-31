@@ -14,7 +14,7 @@ return function()
     args = args,
     stdin = false,
     append_fname = false,
-    stream = 'stderr',
+    stream = 'both',
     ignore_exitcode = true,
     parser = require('lint.parser').from_errorformat(errorformat)
   }

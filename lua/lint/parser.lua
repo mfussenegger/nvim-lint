@@ -110,12 +110,46 @@ function M.accumulate_chunks(parse)
     end,
     on_done = function(publish, bufnr)
       vim.schedule(function()
-        local ok, diagnostics = pcall(parse, table.concat(chunks), bufnr)
-        assert(ok, diagnostics)
-        publish(diagnostics)
+        local output = table.concat(chunks)
+        local diagnostics = parse(output, bufnr)
+        publish(diagnostics, bufnr)
       end)
     end,
   }
 end
+
+
+function M.split(parser)
+  local remaining_calls = 2
+  local chunks1 = {}
+  local chunks2 = {}
+  local function on_done(publish, bufnr)
+    remaining_calls = remaining_calls - 1
+    if remaining_calls == 0 then
+      -- Ensure stdout/stderr output is not interleaved
+      for _, chunk in pairs(chunks1) do
+        parser.on_chunk(chunk)
+      end
+      for _, chunk in pairs(chunks2) do
+        parser.on_chunk(chunk)
+      end
+      parser.on_done(publish, bufnr)
+    end
+  end
+  local parser1 = {
+    on_chunk = function(chunk)
+      table.insert(chunks1, chunk)
+    end,
+    on_done = on_done,
+  }
+  local parser2 = {
+    on_chunk = function(chunk)
+      table.insert(chunks2, chunk)
+    end,
+    on_done = on_done,
+  }
+  return parser1, parser2
+end
+
 
 return M

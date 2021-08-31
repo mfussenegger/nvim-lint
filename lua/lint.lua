@@ -38,9 +38,9 @@ local function resolve_linters()
 end
 
 
-local function mk_publish_diagnostics(bufnr, client_id)
+local function mk_publish_diagnostics(client_id)
   local method = 'textDocument/publishDiagnostics'
-  return vim.schedule_wrap(function(diagnostics)
+  return function(diagnostics, bufnr)
     local result = {
       uri = vim.uri_from_bufnr(bufnr),
       diagnostics = assert(
@@ -49,18 +49,35 @@ local function mk_publish_diagnostics(bufnr, client_id)
       ),
     }
     vim.lsp.handlers[method](nil, method, result, client_id, bufnr)
-  end)
+  end
 end
 
 
-local function read_output(bufnr, parser, client_id)
+local function read_output(bufnr, parser, publish_fn)
   return function(err, chunk)
     assert(not err, err)
     if chunk then
       parser.on_chunk(chunk, bufnr)
     else
-      parser.on_done(mk_publish_diagnostics(bufnr, client_id), bufnr)
+      parser.on_done(publish_fn, bufnr)
     end
+  end
+end
+
+
+local function start_read(stream, stdout, stderr, bufnr, parser, client_id)
+  local publish = mk_publish_diagnostics(client_id)
+
+  if not stream or stream == 'stdout' then
+    stdout:read_start(read_output(bufnr, parser, publish))
+  elseif stream == 'stderr' then
+    stderr:read_start(read_output(bufnr, parser, publish))
+  elseif stream == 'both' then
+    local parser1, parser2 = require('lint.parser').split(parser)
+    stdout:read_start(read_output(bufnr, parser1, publish))
+    stderr:read_start(read_output(bufnr, parser2, publish))
+  else
+    error('Invalid `stream` setting: ' .. stream)
   end
 end
 
@@ -155,11 +172,7 @@ function M.lint(linter, client_id)
     parser.on_done and type(parser.on_done == 'function'),
     'Parser requires a `on_done` function'
   )
-  if not linter.stream or linter.stream == 'stdout' then
-    stdout:read_start(read_output(bufnr, parser, client_id))
-  else
-    stderr:read_start(read_output(bufnr, parser, client_id))
-  end
+  start_read(linter.stream, stdout, stderr, bufnr, parser, client_id)
   if linter.stdin then
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
     for _, line in ipairs(lines) do
