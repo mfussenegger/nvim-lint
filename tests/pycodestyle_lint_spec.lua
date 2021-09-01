@@ -1,4 +1,10 @@
 describe('linter.pycodestyle', function()
+  it("doesn't error on empty output", function()
+    local parser = require('lint.linters.pycodestyle').parser
+    parser('')
+    parser('  ')
+  end)
+
   it('can parse the output', function()
     local parser = require('lint.linters.pycodestyle').parser
     local result = parser([[
@@ -8,7 +14,7 @@ describe('linter.pycodestyle', function()
     test.py:411:13:E128:continuation line under-indented for visual indent
     ]])
     assert.are.same(4, #result)
-    local expected = {
+    local expected_error = {
       source = 'pycodestyle',
       code = 'E302',
       message = 'expected 2 blank lines, found 1',
@@ -24,8 +30,8 @@ describe('linter.pycodestyle', function()
       },
       severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
     }
-    assert.are.same(expected, result[1])
-    local expected = {
+    assert.are.same(expected_error, result[1])
+    local expected_warning = {
       source = 'pycodestyle',
       code = 'W291',
       message = 'trailing whitespace',
@@ -41,6 +47,6 @@ describe('linter.pycodestyle', function()
       },
       severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
     }
-    assert.are.same(expected, result[3])
+    assert.are.same(expected_warning, result[3])
   end)
 end)
