@@ -1,4 +1,4 @@
-local efm = "%EParse error in %f:%l,%ECompile error in %f:%l,%C%*\\s%m,%-C%p^,%-G%.%#"
+local efm = "%C%[%^^]%#,%E%>Parse error in %f:%l,%E%>Compile error in %f:%l,%-Z%p^%.%#,%C%m,%-G* %.%#"
 
 local M
 
