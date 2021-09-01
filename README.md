@@ -90,6 +90,7 @@ Other dedicated linters that are built-in are:
 | [stylelint][29]              | `stylelint`    |
 | [Vale][8]                    | `vale`         |
 | [vint][21]                   | `vint`         |
+| [pycodestyle][pcs-docs]      | `pycodestyle`  |
 
 
 ## Custom Linters
@@ -303,3 +304,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
+[pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
