@@ -49,7 +49,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
 
     range = function(entries)
       local line = tonumber(entries['line'])
-      local start_col = tonumber(entries['start_col'])
+      local start_col = tonumber(entries['start_col']) or 1
       local end_col = entries['end_col'] and tonumber(entries['end_col']) or start_col
       return {
         ['start'] = { line = line - 1, character = start_col - 1 },
