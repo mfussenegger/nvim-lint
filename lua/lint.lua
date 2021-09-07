@@ -48,7 +48,7 @@ local function mk_publish_diagnostics(client_id)
         'Linter parser is supposed to return a list of diagnostics, got: ' .. vim.inspect(diagnostics)
       ),
     }
-    if vim.fn.has('nvim-0.5.1') then
+    if vim.fn.has('nvim-0.5.1') == 1 then
       vim.lsp.handlers[method](nil, result, { method = method, client_id = client_id, bufnr = bufnr })
     else
       vim.lsp.handlers[method](nil, method, result, client_id, bufnr)
