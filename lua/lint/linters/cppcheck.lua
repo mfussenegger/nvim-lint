@@ -1,4 +1,5 @@
-local pattern = [[([^:]*):(%d*):(%d*): %[([^%]\]*)%] ([^:]*): (.*)]]
+-- cppcheck <= 1.84 doesn't support {column} so the start_col group is ambiguous
+local pattern = [[([^:]*):(%d*):([^:]*): %[([^%]\]*)%] ([^:]*): (.*)]]
 local groups = { 'file', 'line', 'start_col', 'code', 'severity', 'message' }
 local severity_map = {
   ['error'] = vim.lsp.protocol.DiagnosticSeverity.Error,
