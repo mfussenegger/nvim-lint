@@ -155,6 +155,22 @@ function M.lint(linter, client_id)
     detached = true
   }
   assert(linter.cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
+
+  local cmd_type = type(linter.cmd)
+  assert((cmd_type == 'table' or cmd_type == 'string'), 'Expected `cmd` to be either string or table')
+
+  if cmd_type == "table" then
+    for _, cmd in ipairs(linter.cmd) do
+      assert(type(cmd) == 'string', 'Expected elements of table `cmd` to be string')
+      if vim.fn.executable(cmd) == 1 then
+        linter.cmd = cmd
+        goto start_lint
+      end
+    end
+    error("Could not find installed linter on your system")
+  end
+  ::start_lint::
+
   handle, pid_or_err = uv.spawn(linter.cmd, opts, function(code)
     stdout:close()
     stderr:close()
