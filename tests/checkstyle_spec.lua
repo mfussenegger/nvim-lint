@@ -20,9 +20,8 @@ Checkstyle ends with 1 errors.
         ['end'] = {
           character = 0,
           line = 186,
-        }
+        },
       },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Information,
     }
     assert.are.same(expected, result[2])
     local expected = {
@@ -36,9 +35,8 @@ Checkstyle ends with 1 errors.
         ['end'] = {
           character = 0,
           line = 74,
-        }
+        },
       },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Information,
     }
     assert.are.same(expected, result[1])
   end)
