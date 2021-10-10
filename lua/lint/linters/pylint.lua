@@ -11,6 +11,7 @@ return {
   args = {
     '-f', 'json'
   },
+  ignore_exitcode = true,
   parser = function(output)
     local decoded = vim.fn.json_decode(output)
     local diagnostics = {}
