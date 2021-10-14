@@ -16,7 +16,8 @@ M = {
   parser = require('lint.parser').from_errorformat(format, {
     source = 'checkstyle',
   }),
-  config_file = nil
+  -- use the bundled Google style by default
+  config_file = '/google_checks.xml'
 }
 
 return M
