@@ -24,7 +24,7 @@ Checkstyle ends with 1 errors.
       },
     }
     assert.are.same(expected, result[2])
-    local expected = {
+    expected = {
       source = 'checkstyle',
       message = "'member def modifier' has incorrect indentation level 0, expected level should be 2. [Indentation]",
       range = {

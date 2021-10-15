@@ -64,6 +64,7 @@ Other dedicated linters that are built-in are:
 | -------------------          | -------------- |
 | Set via `makeprg`            | `compiler`     |
 | [ansible-lint][ansible-lint] | `ansible_lint` |
+| [checkstyle][checkstyle]     | `checkstyle`   |
 | [chktex][20]                 | `chktex`       |
 | [clang-tidy][23]             | `clangtidy`    |
 | [clj-kondo][24]              | `clj-kondo`    |
@@ -307,3 +308,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
 [pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
+[checkstyle]: https://checkstyle.sourceforge.io/
