@@ -22,6 +22,7 @@ Checkstyle ends with 1 errors.
           line = 186,
         },
       },
+      severity = vim.lsp.protocol.DiagnosticSeverity.Error
     }
     assert.are.same(expected, result[2])
     expected = {
@@ -37,6 +38,7 @@ Checkstyle ends with 1 errors.
           line = 74,
         },
       },
+      severity = vim.lsp.protocol.DiagnosticSeverity.Warning
     }
     assert.are.same(expected, result[1])
   end)

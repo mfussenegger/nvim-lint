@@ -1,5 +1,14 @@
 local M = {}
 
+local DiagnosticSeverity = vim.lsp.protocol.DiagnosticSeverity
+
+local severity_by_qftype = {
+  E = DiagnosticSeverity.Error,
+  W = DiagnosticSeverity.Warning,
+  I = DiagnosticSeverity.Information,
+  N = DiagnosticSeverity.Hint,
+}
+
 -- Return a parse function that uses an errorformat to parse the output.
 -- See `:help errorformat`
 function M.from_errorformat(efm, skeleton)
@@ -8,7 +17,7 @@ function M.from_errorformat(efm, skeleton)
     local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
     local result = {}
     local defaults = {
-      severity = vim.lsp.protocol.DiagnosticSeverity.Error,
+      severity = DiagnosticSeverity.Error,
     }
     for _, item in pairs(qflist.items) do
       if item.valid == 1 then
@@ -20,6 +29,7 @@ function M.from_errorformat(efm, skeleton)
             ['end'] = position,
           },
           message = item.text,
+          severity = severity_by_qftype[item.type]
         }
         table.insert(result, vim.tbl_extend('keep', diagnostic, skeleton and skeleton or defaults))
       end
@@ -64,10 +74,10 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
 
   severity_map = severity_map
     or {
-      ['error'] = vim.lsp.protocol.DiagnosticSeverity.Error,
-      ['warning'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
-      ['information'] = vim.lsp.protocol.DiagnosticSeverity.Information,
-      ['hint'] = vim.lsp.protocol.DiagnosticSeverity.Hint,
+      ['error'] = DiagnosticSeverity.Error,
+      ['warning'] = DiagnosticSeverity.Warning,
+      ['information'] = DiagnosticSeverity.Information,
+      ['hint'] = DiagnosticSeverity.Hint,
     }
   defaults = defaults or {}
   return function(output, bufnr)
