@@ -36,7 +36,7 @@ return {
           },
           ['end'] = {
             line = item.Line - 1,
-            character = item.Span[2] - 1,
+            character = item.Span[2],
           },
         },
         message = item.Message,
