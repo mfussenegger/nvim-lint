@@ -1,3 +1,9 @@
+local severities = {
+	error = vim.lsp.protocol.DiagnosticSeverity.Error,
+	warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
+	suggestion = vim.lsp.protocol.DiagnosticSeverity.Hint,
+}
+
 return {
 	cmd = "hlint",
 	args = { "--json" },
@@ -10,7 +16,7 @@ return {
 					["start"] = { line = item.startLine, character = item.startColumn },
 					["end"] = { line = item.endLine, character = item.endColumn },
 				},
-				severity = vim.lsp.protocol.DiagnosticSeverity.Error,
+				severity = severities[item.severity],
 				source = "hlint",
 				message = item.hint,
 			})
