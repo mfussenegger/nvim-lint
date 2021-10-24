@@ -16,7 +16,7 @@ return {
 					["start"] = { line = item.startLine, character = item.startColumn },
 					["end"] = { line = item.endLine, character = item.endColumn },
 				},
-				severity = severities[item.severity],
+				severity = severities[item.severity:lower()],
 				source = "hlint",
 				message = item.hint,
 			})
