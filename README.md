@@ -76,6 +76,7 @@ Other dedicated linters that are built-in are:
 | [Flake8][13]                 | `flake8`       |
 | [Golangci-lint][16]          | `golangcilint` |
 | [hadolint][28]               | `hadolint`     |
+| [hlint][32]                  | `hlint`     |
 | [HTML Tidy][12]              | `tidy`         |
 | [Inko][17]                   | `inko`         |
 | [Languagetool][5]            | `languagetool` |
@@ -304,6 +305,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [29]: https://github.com/stylelint/stylelint
 [30]: https://github.com/KDE/clazy
 [31]: https://github.com/Kampfkarren/selene
+[32]: https://github.com/ndmitchell/hlint
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
