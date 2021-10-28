@@ -152,7 +152,7 @@ function M.lint(linter, client_id)
     stdio = {stdin, stdout, stderr},
     env = env,
     cwd = vim.fn.getcwd(),
-    detached = true
+    detached = false
   }
   assert(linter.cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(linter.cmd, opts, function(code)
