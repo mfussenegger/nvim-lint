@@ -3,6 +3,7 @@ local groups = { 'line', 'start_col', 'severity', 'message', 'code' }
 local severity_map = {
   ['error'] = vim.lsp.protocol.DiagnosticSeverity.Error,
   ['warn'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
+  ['warning'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
 }
 
 return {
