@@ -7,7 +7,8 @@ describe('compiler', function()
     a.nvim_buf_set_option(bufnr, 'makeprg', '/usr/bin/python tests/both.py')
 
     local result = nil
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = function(_, diagnostics)
+    -- this is nasty, but fine for tests
+    vim.diagnostic.set = function(_, _, diagnostics)
       result = diagnostics
     end
     require('lint').try_lint('compiler')
@@ -15,22 +16,30 @@ describe('compiler', function()
     vim.wait(5000, function() return result ~= nil end)
     local expected = {
       {
+        col = 0,
+        end_col = 0,
+        lnum = 9,
+        end_lnum = 9,
         message = 'foo',
-        range = {
-          start = { line = 9, character = 0, },
-          ['end'] = { line = 9, character = 0 },
-        },
         severity = 1,
+        user_data = {
+          lsp = {
+          }
+        }
       },
       {
+        col = 0,
+        end_col = 0,
+        end_lnum = 19,
+        lnum = 19,
         message = 'bar',
-        range = {
-          start = { line = 19, character = 0, },
-          ['end'] = { line = 19, character = 0 },
-        },
         severity = 1,
+        user_data = {
+          lsp = {
+          }
+        }
       },
     }
-    assert.are.same(expected, result.diagnostics)
+    assert.are.same(expected, result)
   end)
 end)

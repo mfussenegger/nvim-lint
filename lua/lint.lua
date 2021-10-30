@@ -38,7 +38,49 @@ local function resolve_linters()
 end
 
 
-local function mk_publish_diagnostics(client_id)
+local namespaces = setmetatable({}, {
+  __index = function(tbl, key)
+    local ns = api.nvim_create_namespace(key)
+    rawset(tbl, key, ns)
+    return ns
+  end
+})
+
+
+local function mk_publish_diagnostics(client_id, linter_key)
+  if vim.diagnostic then
+    -- This is temporary for 0.5.x/master compatibility.
+    -- Once support for 0.5 gets dropped it will only use vim.diagnostic
+    -- and each parser must return the format expected by vim.diagnostic
+    local ns = namespaces[linter_key]
+    return function(lsp_diagnostics, bufnr)
+      local diagnostics = vim.tbl_map(function(diagnostic)
+        local start = diagnostic.range.start
+        local _end = diagnostic.range['end']
+        -- Ignore utf-16 for now,
+        -- I suspect most parsers ignored this anyway and use different offsets
+        return {
+          lnum = start.line,
+          col = start.character,
+          end_lnum = _end.line,
+          end_col = _end.character,
+          severity = diagnostic.severity,
+          message = diagnostic.message,
+          source = diagnostic.source,
+          user_data = {
+            lsp = {
+              code = diagnostic.code,
+              codeDescription = diagnostic.codeDescription,
+              tags = diagnostic.tags,
+              relatedInformation = diagnostic.relatedInformation,
+              data = diagnostic.data,
+            },
+          },
+        }
+      end, lsp_diagnostics)
+      vim.diagnostic.set(ns, bufnr, diagnostics)
+    end
+  end
   local method = 'textDocument/publishDiagnostics'
   return function(diagnostics, bufnr)
     local result = {
@@ -69,8 +111,8 @@ local function read_output(bufnr, parser, publish_fn)
 end
 
 
-local function start_read(stream, stdout, stderr, bufnr, parser, client_id)
-  local publish = mk_publish_diagnostics(client_id)
+local function start_read(stream, stdout, stderr, bufnr, parser, client_id, linter_key)
+  local publish = mk_publish_diagnostics(client_id, linter_key)
 
   if not stream or stream == 'stdout' then
     stdout:read_start(read_output(bufnr, parser, publish))
@@ -176,7 +218,7 @@ function M.lint(linter, client_id)
     parser.on_done and type(parser.on_done == 'function'),
     'Parser requires a `on_done` function'
   )
-  start_read(linter.stream, stdout, stderr, bufnr, parser, client_id)
+  start_read(linter.stream, stdout, stderr, bufnr, parser, client_id, linter.cmd)
   if linter.stdin then
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
     for _, line in ipairs(lines) do
