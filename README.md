@@ -90,6 +90,7 @@ Other dedicated linters that are built-in are:
 | [Selene][31]                 | `selene`       |
 | [ShellCheck][10]             | `shellcheck`   |
 | [StandardRB][27]             | `standardrb`   |
+| [statix check][33]           | `statix`       |
 | [stylelint][29]              | `stylelint`    |
 | [Vale][8]                    | `vale`         |
 | [vint][21]                   | `vint`         |
@@ -306,6 +307,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [30]: https://github.com/KDE/clazy
 [31]: https://github.com/Kampfkarren/selene
 [32]: https://github.com/ndmitchell/hlint
+[33]: https://github.com/NerdyPepper/statix
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
