@@ -12,7 +12,7 @@ return {
   cmd = "mlint",
   stdin = false,
   stream = "stderr",
-  args = { "-cyc", "-id", "-severity", "-aa" },
+  args = { "-cyc", "-id", "-severity" },
   ignore_exitcode = true,
   parser = function(output, _)
     local result = vim.fn.split(output, "\n")
