@@ -83,6 +83,7 @@ Other dedicated linters that are built-in are:
 | [luacheck][19]               | `luacheck`     |
 | nix                          | `nix`          |
 | [markdownlint][26]           | `markdownlint` |
+| [mlint][34]                  | `mlint`        |
 | [Mypy][11]                   | `mypy`         |
 | [Pylint][15]                 | `pylint`       |
 | [Revive][14]                 | `revive`       |
@@ -308,6 +309,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [31]: https://github.com/Kampfkarren/selene
 [32]: https://github.com/ndmitchell/hlint
 [33]: https://github.com/NerdyPepper/statix
+[34]: https://www.mathworks.com/help/matlab/ref/mlint.html
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
