@@ -2,7 +2,7 @@
 --
 -- vuln.c:6:3:  [5] (buffer) gets:Does not check for buffer overflows (CWE-120, CWE-20).  Use fgets() instead.
 
-local pattern = [[^(.*):(\d+):(\d+): *\[([0-5])\] (.*)$]]
+local pattern = [[^(.*):(%d+):(%d+): *%[([0-5])%] (.*)$]]
 local groups = { 'file', 'line', 'start_col', 'severity', 'message' }
 
 local DiagnosticSeverity = vim.lsp.protocol.DiagnosticSeverity
