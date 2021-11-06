@@ -74,6 +74,7 @@ Other dedicated linters that are built-in are:
 | [eslint][25]                 | `eslint`       |
 | fennel                       | `fennel`       |
 | [Flake8][13]                 | `flake8`       |
+| [flawfinder][35]             | `flawfinder`   |
 | [Golangci-lint][16]          | `golangcilint` |
 | [hadolint][28]               | `hadolint`     |
 | [hlint][32]                  | `hlint`     |
@@ -310,6 +311,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [32]: https://github.com/ndmitchell/hlint
 [33]: https://github.com/NerdyPepper/statix
 [34]: https://www.mathworks.com/help/matlab/ref/mlint.html
+[35]: https://github.com/david-a-wheeler/flawfinder
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
