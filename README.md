@@ -69,6 +69,7 @@ Other dedicated linters that are built-in are:
 | [clang-tidy][23]             | `clangtidy`    |
 | [clj-kondo][24]              | `clj-kondo`    |
 | [codespell][18]              | `codespell`    |
+| [cspell][36]                 | `cspell`       |
 | [cppcheck][22]               | `cppcheck`     |
 | [clazy][30]                  | `clazy`        |
 | [eslint][25]                 | `eslint`       |
@@ -312,6 +313,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [33]: https://github.com/NerdyPepper/statix
 [34]: https://www.mathworks.com/help/matlab/ref/mlint.html
 [35]: https://github.com/david-a-wheeler/flawfinder
+[36]: https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
