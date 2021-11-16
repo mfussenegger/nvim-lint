@@ -1,7 +1,7 @@
 describe('linter.pylint', function()
   it('can parse pylint output', function()
     local parser = require('lint.linters.pylint').parser
-    local bufnr = vim.uri_to_bufnr('file:///file.py')
+    local bufnr = vim.uri_to_bufnr('file:///two.py')
     local result = parser([[
 [
   {
@@ -10,7 +10,7 @@ describe('linter.pylint', function()
     "obj": "",
     "line": 4,
     "column": 0,
-    "path": "two.py",
+    "path": "/two.py",
     "symbol": "bad-indentation",
     "message": "Bad indentation. Found 2 spaces, expected 4",
     "message-id": "W0311"
@@ -21,7 +21,7 @@ describe('linter.pylint', function()
     "obj": "",
     "line": 1,
     "column": 0,
-    "path": "two.py",
+    "path": "/two.py",
     "symbol": "missing-module-docstring",
     "message": "Missing module docstring",
     "message-id": "C0114"
@@ -32,7 +32,7 @@ describe('linter.pylint', function()
     "obj": "",
     "line": 3,
     "column": 3,
-    "path": "two.py",
+    "path": "/two.py",
     "symbol": "comparison-with-itself",
     "message": "Redundant comparison - 1 == 1",
     "message-id": "R0124"
