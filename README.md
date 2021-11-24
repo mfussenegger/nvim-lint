@@ -67,28 +67,31 @@ Other dedicated linters that are built-in are:
 | [checkstyle][checkstyle]     | `checkstyle`   |
 | [chktex][20]                 | `chktex`       |
 | [clang-tidy][23]             | `clangtidy`    |
+| [clazy][30]                  | `clazy`        |
 | [clj-kondo][24]              | `clj-kondo`    |
 | [codespell][18]              | `codespell`    |
-| [cspell][36]                 | `cspell`       |
 | [cppcheck][22]               | `cppcheck`     |
-| [clazy][30]                  | `clazy`        |
+| [cspell][36]                 | `cspell`       |
 | [eslint][25]                 | `eslint`       |
 | fennel                       | `fennel`       |
 | [Flake8][13]                 | `flake8`       |
 | [flawfinder][35]             | `flawfinder`   |
 | [Golangci-lint][16]          | `golangcilint` |
 | [hadolint][28]               | `hadolint`     |
-| [hlint][32]                  | `hlint`     |
+| [hlint][32]                  | `hlint`        |
 | [HTML Tidy][12]              | `tidy`         |
 | [Inko][17]                   | `inko`         |
+| [jshint][jshint]             | `jshint`       |
 | [Languagetool][5]            | `languagetool` |
 | [luacheck][19]               | `luacheck`     |
-| nix                          | `nix`          |
 | [markdownlint][26]           | `markdownlint` |
 | [mlint][34]                  | `mlint`        |
 | [Mypy][11]                   | `mypy`         |
+| nix                          | `nix`          |
+| [pycodestyle][pcs-docs]      | `pycodestyle`  |
 | [Pylint][15]                 | `pylint`       |
 | [Revive][14]                 | `revive`       |
+| [rflint][rflint]             | `rflint`       |
 | Ruby                         | `ruby`         |
 | [Selene][31]                 | `selene`       |
 | [ShellCheck][10]             | `shellcheck`   |
@@ -97,7 +100,6 @@ Other dedicated linters that are built-in are:
 | [stylelint][29]              | `stylelint`    |
 | [Vale][8]                    | `vale`         |
 | [vint][21]                   | `vint`         |
-| [pycodestyle][pcs-docs]      | `pycodestyle`  |
 
 
 ## Custom Linters
@@ -319,3 +321,5 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [ansible-lint]: https://docs.ansible.com/lint.html
 [pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
 [checkstyle]: https://checkstyle.sourceforge.io/
+[jshint]: https://jshint.com/
+[rfhint]: https://github.com/boakley/robotframework-lint
