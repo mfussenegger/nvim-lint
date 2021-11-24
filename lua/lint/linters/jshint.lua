@@ -1,10 +1,10 @@
 return {
   cmd = 'jshint',
   stdin = false,
-  args = {'--verbose'},
+  args = {'--reporter', 'unix', '--extract', 'auto'},
   stream = 'stdout',
   ignore_exitcode = true,
-  parser = require('lint.parser').from_errorformat('%f: line %l\\, col %c\\, %m', {
+  parser = require('lint.parser').from_errorformat('%f:%l:%c: %m', {
     source = 'jshint',
     severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
   })
