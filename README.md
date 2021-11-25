@@ -92,6 +92,7 @@ Other dedicated linters that are built-in are:
 | [Pylint][15]                 | `pylint`       |
 | [Revive][14]                 | `revive`       |
 | [rflint][rflint]             | `rflint`       |
+| [robocop][robocop]           | `robocop`      |
 | Ruby                         | `ruby`         |
 | [Selene][31]                 | `selene`       |
 | [ShellCheck][10]             | `shellcheck`   |
@@ -322,4 +323,5 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
 [checkstyle]: https://checkstyle.sourceforge.io/
 [jshint]: https://jshint.com/
-[rfhint]: https://github.com/boakley/robotframework-lint
+[rflint]: https://github.com/boakley/robotframework-lint
+[robocop]: https://github.com/MarketSquare/robotframework-robocop
