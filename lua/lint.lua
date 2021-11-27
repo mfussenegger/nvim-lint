@@ -54,6 +54,11 @@ local function mk_publish_diagnostics(client_id, linter_key)
     -- and each parser must return the format expected by vim.diagnostic
     local ns = namespaces[linter_key]
     return function(lsp_diagnostics, bufnr)
+      if not api.nvim_buf_is_valid(bufnr) then
+        -- by the time the linter is finished the user might have deleted the buffer
+        -- bail out if this is the case
+        return
+      end
       local diagnostics = vim.tbl_map(function(diagnostic)
         local start = diagnostic.range.start
         local _end = diagnostic.range['end']
