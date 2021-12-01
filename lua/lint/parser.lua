@@ -28,7 +28,7 @@ function M.from_errorformat(efm, skeleton)
             ['start'] = position,
             ['end'] = position,
           },
-          message = item.text,
+          message = item.text:match('^%s*(.-)%s*$'),
           severity = severity_by_qftype[item.type]
         }
         table.insert(result, vim.tbl_extend('keep', diagnostic, skeleton and skeleton or defaults))
