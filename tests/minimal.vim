@@ -1,3 +1,2 @@
-set rtp+=.
-set rtp+=../plenary.nvim
+set rtp=.,../plenary.nvim,$VIMRUNTIME
 runtime! plugin/plenary.vim
