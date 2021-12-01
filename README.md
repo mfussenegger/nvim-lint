@@ -89,6 +89,7 @@ Other dedicated linters that are built-in are:
 | [Mypy][11]                   | `mypy`         |
 | nix                          | `nix`          |
 | [pycodestyle][pcs-docs]      | `pycodestyle`  |
+| [pydocstyle][pydocstyle]     | `pydocstyle`   |
 | [Pylint][15]                 | `pylint`       |
 | [Revive][14]                 | `revive`       |
 | [rflint][rflint]             | `rflint`       |
@@ -321,6 +322,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
 [pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
+[pydocstyle]: https://www.pydocstyle.org/en/stable/
 [checkstyle]: https://checkstyle.sourceforge.io/
 [jshint]: https://jshint.com/
 [rflint]: https://github.com/boakley/robotframework-lint
