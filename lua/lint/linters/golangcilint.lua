@@ -43,6 +43,7 @@ return {
           },
         },
         severity = sv,
+        source = item.FromLinter,
         message = item.Text,
       })
     end
