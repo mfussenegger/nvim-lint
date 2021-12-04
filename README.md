@@ -33,7 +33,7 @@ inadequate and a better standalone linter exists.
 
 ## Usage
 
-Configure the linters you want to run per filetype. For example:
+Configure the linters you want to run per file type. For example:
 
 ```lua
 require('lint').linters_by_ft = {
@@ -72,7 +72,7 @@ Other dedicated linters that are built-in are:
 | [codespell][18]              | `codespell`    |
 | [cppcheck][22]               | `cppcheck`     |
 | [cspell][36]                 | `cspell`       |
-| [eslint][25]                 | `eslint`       |
+| [ESLint][25]                 | `eslint`       |
 | fennel                       | `fennel`       |
 | [Flake8][13]                 | `flake8`       |
 | [flawfinder][35]             | `flawfinder`   |
@@ -164,9 +164,9 @@ The function takes a single argument which is the `errorformat`.
 parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defaults)
 ```
 
-The function allows to parse the linter's output using a lua regex pattern.
+The function allows to parse the linter's output using a Lua regular expression pattern.
 
-- pattern: The regex pattern applied on each line of the output
+- pattern: The regular expression pattern applied on each line of the output
 - groups: The groups specified by the pattern
 
 ``` lua
