@@ -229,8 +229,7 @@ function M.lint(linter, client_id)
     for _, line in ipairs(lines) do
       stdin:write(line .. '\n')
     end
-    stdin:write('', function()
-      stdin:shutdown()
+    stdin:shutdown(function()
       stdin:close()
     end)
   else
