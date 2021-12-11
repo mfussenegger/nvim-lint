@@ -16,36 +16,32 @@ describe('linter.pycodestyle', function()
     assert.are.same(4, #result)
     local expected_error = {
       source = 'pycodestyle',
-      code = 'E302',
       message = 'expected 2 blank lines, found 1',
-      range = {
-        ['start'] = {
-          character = 0,
-          line = 25
-        },
-        ['end'] = {
-          character = 1,
-          line = 25
-        },
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
+      lnum = 25,
+      col = 0,
+      end_lnum = 25,
+      end_col = 0,
+      severity = vim.diagnostic.severity.WARN,
+      user_data = {
+        lsp = {
+          code = 'E302',
+        }
+      }
     }
     assert.are.same(expected_error, result[1])
     local expected_warning = {
       source = 'pycodestyle',
-      code = 'W291',
       message = 'trailing whitespace',
-      range = {
-        ['start'] = {
-          character = 47,
-          line = 68
-        },
-        ['end'] = {
-          character = 48,
-          line = 68
-        },
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
+      lnum = 68,
+      end_lnum = 68,
+      col = 47,
+      end_col = 47,
+      severity = vim.diagnostic.severity.WARN,
+      user_data = {
+        lsp = {
+          code = 'W291',
+        }
+      }
     }
     assert.are.same(expected_warning, result[3])
   end)

@@ -1,4 +1,4 @@
-local sev = vim.lsp.protocol.DiagnosticSeverity
+local sev = vim.diagnostic.severity
 
 return {
   cmd = "standardrb",
@@ -11,19 +11,17 @@ return {
 
     for _, off in pairs(offences or {}) do
       table.insert(diagnostics, {
-        range = {
-          ['start'] = {
-            line = off.location.start_line - 1,
-            character = off.location.start_column - 1
-          },
-          ['end'] = {
-            line = off.location.last_line - 1,
-            character = off.location.last_column
-          },
-        },
-        severity = (off.severity == "error" and sev.Error or sev.Warning ),
+        lnum = off.location.start_line - 1,
+        col = off.location.start_column - 1,
+        end_lnum = off.location.last_line - 1,
+        end_col = off.location.last_column,
+        severity = (off.severity == "error" and sev.ERROR or sev.WARN ),
         message = off.message,
-        code = off.cop_name,
+        user_data = {
+          lsp = {
+            code = off.cop_name,
+          }
+        }
       })
     end
 

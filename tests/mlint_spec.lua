@@ -13,16 +13,14 @@ L 13 (C 1-3): RESWD: ML3: Invalid use of a reserved word.
   local expected = {
     source = 'mlint',
     message = 'The McCabe cyclomatic complexity is 2.',
-    code = 'SCABE',
-    severity = vim.lsp.protocol.DiagnosticSeverity.Hint,
-    range = {
-      ['start'] = {
-        character = 0,
-        line = 0,
-      },
-      ['end'] = {
-        character = 1,
-        line = 0,
+    severity = vim.diagnostic.severity.HINT,
+    lnum = 0,
+    col = 0,
+    end_lnum = 0,
+    end_col = 0,
+    user_data = {
+      lsp = {
+        code = 'SCABE',
       }
     },
   }
@@ -31,17 +29,15 @@ L 13 (C 1-3): RESWD: ML3: Invalid use of a reserved word.
   expected = {
     source = 'mlint',
     message = 'Parse error at recs: usage might be invalid MATLAB syntax.',
-    code = 'SYNER',
-    severity = vim.lsp.protocol.DiagnosticSeverity.Error,
-    range = {
-      ['start'] = {
-        character = 47,
-        line = 9,
+    severity = vim.diagnostic.severity.ERROR,
+    lnum = 9,
+    col = 47,
+    end_lnum = 9,
+    end_col = 50,
+    user_data = {
+      lsp = {
+        code = 'SYNER',
       },
-      ['end'] = {
-        character = 51,
-        line = 9,
-      }
     },
   }
   assert.are.same(expected, result[4])

@@ -19,17 +19,11 @@ Finished with 4 failure(s), 0 warning(s) on 1 files.
   local expected = {
     source = 'ansible-lint',
     message = 'git-latest Git checkouts must contain explicit version',
-    range = {
-      ['start'] = {
-        character = 0,
-        line = 13,
-      },
-      ['end'] = {
-        character = 0,
-        line = 13,
-      }
-    },
-    severity = vim.lsp.protocol.DiagnosticSeverity.Information,
+    lnum = 13,
+    col = 0,
+    end_lnum = 13,
+    end_col = 0,
+    severity = vim.diagnostic.severity.INFO,
   }
   assert.are.same(expected, result[1])
   end)

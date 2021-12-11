@@ -11,17 +11,11 @@ describe("linter.hlint", function()
     ]])
     assert.are.same(#result, 1)
     local expected = {
-      range = {
-        ["start"] = {
-          character = 1,
-          line = 2,
-        },
-        ["end"] = {
-          character = 1,
-          line = 2,
-        },
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Error,
+      lnum = 2,
+      col = 1,
+      end_lnum = 2,
+      end_col = 1,
+      severity = vim.diagnostic.severity.ERROR,
       source = "hlint",
       message = "Parse error: possibly incorrect indentation or mismatched brackets",
     }
@@ -40,17 +34,11 @@ describe("linter.hlint", function()
     ]])
     assert.are.same(#result, 1)
     local expected = {
-      range = {
-        ["start"] = {
-          character = 1,
-          line = 1,
-        },
-        ["end"] = {
-          character = 17,
-          line = 1,
-        },
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
+      lnum = 1,
+      col = 1,
+      end_lnum = 1,
+      end_col = 17,
+      severity = vim.diagnostic.severity.WARN,
       source = "hlint",
       message = "Use concatMap",
     }

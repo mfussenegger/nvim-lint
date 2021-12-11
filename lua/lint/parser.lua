@@ -1,116 +1,101 @@
 local M = {}
-
-local DiagnosticSeverity = vim.lsp.protocol.DiagnosticSeverity
+local vd = vim.diagnostic
 
 local severity_by_qftype = {
-  E = DiagnosticSeverity.Error,
-  W = DiagnosticSeverity.Warning,
-  I = DiagnosticSeverity.Information,
-  N = DiagnosticSeverity.Hint,
+  E = vd.severity.ERROR,
+  W = vd.severity.WARN,
+  I = vd.severity.INFO,
+  N = vd.severity.HINT,
 }
 
 -- Return a parse function that uses an errorformat to parse the output.
 -- See `:help errorformat`
 function M.from_errorformat(efm, skeleton)
+  skeleton = skeleton or {}
+  skeleton.severity = skeleton.severity or vd.severity.ERROR
   return function(output)
     local lines = vim.split(output, '\n')
     local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
     local result = {}
-    local defaults = {
-      severity = DiagnosticSeverity.Error,
-    }
     for _, item in pairs(qflist.items) do
       if item.valid == 1 then
-        local col = item.col > 0 and item.col - 1 or 0
-        local position = { line = item.lnum - 1, character = col }
+        local lnum = math.max(0, item.lnum - 1)
+        local col = math.max(0, item.col - 1)
+        local end_lnum = item.end_lnum > 0 and (item.end_lnum - 1) or lnum
+        local end_col = item.end_col > 0 and (item.end_col - 1) or col
+        local severity = item.type ~= "" and severity_by_qftype[item.type] or nil
         local diagnostic = {
-          range = {
-            ['start'] = position,
-            ['end'] = position,
-          },
+          lnum = lnum,
+          col = col,
+          end_lnum = end_lnum,
+          end_col = end_col,
+          severity = severity,
           message = item.text:match('^%s*(.-)%s*$'),
-          severity = severity_by_qftype[item.type]
         }
-        table.insert(result, vim.tbl_extend('keep', diagnostic, skeleton and skeleton or defaults))
+        table.insert(result, vim.tbl_extend('keep', diagnostic, skeleton or {}))
       end
     end
     return result
   end
 end
 
---- Parse a linter's output using a regex pattern
--- @param pattern The regex pattern
--- @param groups The groups defined by the pattern: {"line", "message", "start_col", ["end_col"], ["code"], ["code_desc"], ["file"], ["severity"]}
--- @param severity_map An optional table mapping the severity values to their codes
--- @param defaults An optional table of diagnostic default values
+--- Parse a linter's output using a Lua pattern
+--
 function M.from_pattern(pattern, groups, severity_map, defaults)
-  local group_handler = {
-    code = function(entries)
-      return entries['code']
-    end,
-
-    codeDescription = function(entries)
-      return entries['code_desc']
-    end,
-
-    message = function(entries)
-      return entries['message']
-    end,
-
-    range = function(entries)
-      local line = tonumber(entries['line'])
-      local start_col = tonumber(entries['start_col']) or 1
-      local end_col = entries['end_col'] and tonumber(entries['end_col']) or start_col
-      return {
-        ['start'] = { line = line - 1, character = start_col - 1 },
-        ['end'] = { line = line - 1, character = end_col },
-      }
-    end,
-
-    severity = function(entries)
-      return severity_map[entries['severity']] or defaults['severity'] or severity_map['error']
-    end,
-  }
-
-  severity_map = severity_map
-    or {
-      ['error'] = DiagnosticSeverity.Error,
-      ['warning'] = DiagnosticSeverity.Warning,
-      ['information'] = DiagnosticSeverity.Information,
-      ['hint'] = DiagnosticSeverity.Hint,
-    }
   defaults = defaults or {}
-  return function(output, bufnr)
-    local diagnostics = {}
-    local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":~:.")
-
-    for _, line in ipairs(vim.fn.split(output, '\n')) do
-      local results = { line:match(pattern) }
-      local entries = {}
-
-      -- Check that the regex matched
-      if #results >= 3 then
-        for i, match in ipairs(results) do
-          entries[groups[i]] = match
-        end
-
-        -- Use the file group to filter diagnostics related to other files
-        if not entries['file'] or vim.fn.fnamemodify(entries['file'], ":~:.") == buffer_path then
-          local diagnostic = {}
-
-          for key, handler in pairs(group_handler) do
-            diagnostic[key] = handler(entries)
-          end
-
-          diagnostic = vim.tbl_deep_extend("force", defaults, diagnostic)
-          table.insert(diagnostics, diagnostic)
-        end
+  severity_map = severity_map or {}
+  -- Like vim.diagnostic.match but also checks if a `file` group matches the buffer path
+  -- Some linters produce diagnostics for the full project and this should only produce buffer diagnostics
+  local match = function(buffer_path, line)
+    local matches = { line:match(pattern) }
+    if not next(matches) then
+      return nil
+    end
+    local captures = {}
+    for i, match in ipairs(matches) do
+      captures[groups[i]] = match
+    end
+    if captures.file then
+      local path = vim.fn.fnamemodify(captures.file, ':p')
+      if path ~= buffer_path then
+        return nil
       end
     end
-
-    return diagnostics
+    local lnum = tonumber(captures.lnum) - 1
+    local end_lnum = captures.end_lnum and (tonumber(captures.end_lnum) - 1) or lnum
+    local col = tonumber(captures.col) and tonumber(captures.col) - 1 or 0
+    local end_col = tonumber(captures.end_col) and tonumber(captures.end_col) - 1 or col
+    local diagnostic = {
+      lnum = assert(lnum, 'diagnostic requires a line number'),
+      end_lnum = end_lnum,
+      col = assert(col, 'diagnostic requires a column number'),
+      end_col = end_col,
+      severity = severity_map[captures.severity] or defaults.severity or vd.severity.ERROR,
+      message = assert(captures.message, 'diagnostic requires a message'),
+    }
+    if captures.code or captures.code_desc then
+      diagnostic.user_data = {
+        lsp = {
+          code = captures.code,
+          codeDescription = captures.code_desc,
+        }
+      }
+    end
+    return vim.tbl_extend('keep', diagnostic, defaults or {})
+  end
+  return function(output, bufnr)
+    local result = {}
+    local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p")
+    for _, line in ipairs(vim.fn.split(output, '\n')) do
+      local diagnostic = match(buffer_path, line)
+      if diagnostic then
+        table.insert(result, diagnostic)
+      end
+    end
+    return result
   end
 end
+
 
 function M.accumulate_chunks(parse)
   local chunks = {}

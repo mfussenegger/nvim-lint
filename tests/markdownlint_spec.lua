@@ -11,34 +11,22 @@ README.md:55:81 MD013/line-length Line length [Expected: 80; Actual: 244]
   local expected = {
     source = 'markdownlint',
     message = 'MD022/blanks-around-headings/blanks-around-headers Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Below] [Context: "## What\'s in this repo?"]',
-    range = {
-      ['start'] = {
-        character = 0,
-        line = 34,
-      },
-      ['end'] = {
-        character = 0,
-        line = 34,
-      }
-    },
-    severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
+    lnum = 34,
+    col = 0,
+    end_lnum = 34,
+    end_col = 0,
+    severity = vim.diagnostic.severity.WARN,
   }
   assert.are.same(expected, result[1])
 
   expected = {
     source = 'markdownlint',
     message = 'MD013/line-length Line length [Expected: 80; Actual: 114]',
-    range = {
-      ['start'] = {
-        character = 80,
-        line = 46,
-      },
-      ['end'] = {
-        character = 80,
-        line = 46,
-      }
-    },
-    severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
+    lnum = 46,
+    col = 80,
+    end_lnum = 46,
+    end_col = 80,
+    severity = vim.diagnostic.severity.WARN,
   }
   assert.are.same(expected, result[3])
   end)

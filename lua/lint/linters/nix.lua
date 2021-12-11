@@ -1,6 +1,6 @@
 local pattern = '^(%w+): (.+) at .+:(%d+):(%d+)$'
-local groups = { 'severity', 'message', 'line', 'start_col' }
-local severity_map = { error = vim.lsp.protocol.DiagnosticSeverity.Error }
+local groups = { 'severity', 'message', 'lnum', 'col' }
+local severity_map = { error = vim.diagnostic.severity.ERROR }
 
 return {
   cmd = 'nix-instantiate',
@@ -13,6 +13,6 @@ return {
   ignore_exitcode = true,
   parser = require('lint.parser').from_pattern(pattern, groups, severity_map, {
     ['source'] = 'nix',
-    ['severity'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
+    ['severity'] = vim.diagnostic.severity.WARN,
   })
 }

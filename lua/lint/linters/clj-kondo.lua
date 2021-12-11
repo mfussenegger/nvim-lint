@@ -1,6 +1,6 @@
 local severities = {
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
 }
 
 local function get_file_name()
@@ -22,16 +22,10 @@ return {
 
     for _, finding in pairs(findings or {}) do
       table.insert(diagnostics, {
-        range = {
-          ['start'] = {
-            line = finding.row - 1,
-            character = finding.col,
-          },
-          ['end'] = {
-            line = finding.row - 1,
-            character = finding.col,
-          },
-        },
+        lnum = finding.row - 1,
+        col = finding.col,
+        end_lnum = finding.row - 1,
+        end_col = finding.col,
         severity = assert(severities[finding.level], 'missing mapping for severity ' .. finding.level),
         message = finding.message,
       })

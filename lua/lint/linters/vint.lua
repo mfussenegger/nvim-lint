@@ -1,7 +1,7 @@
 local severities = {
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  style_problem = vim.lsp.protocol.DiagnosticSeverity.Hint,
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
+  style_problem = vim.diagnostic.severity.HINT,
 }
 
 return {
@@ -21,13 +21,17 @@ return {
       local col = item.column_number - 1
       table.insert(diagnostics, {
         source = 'vint',
-        range = {
-          ['start'] = { line = row, character = col },
-          ['end'] = { line = row, character = col },
-        },
+        lnum = row,
+        col = col,
+        end_lnum = row,
+        end_col = col,
         severity = severities[item.severity],
         message = item.description,
-        code = item.policy_name,
+        user_data = {
+          lsp = {
+            code = item.policy_name,
+          },
+        }
       })
     end
 

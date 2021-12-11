@@ -14,7 +14,7 @@ M = {
     stream = "stderr",
     parser = require("lint.parser").from_errorformat(efm, {
         source = "fennel",
-        severity = vim.lsp.protocol.DiagnosticSeverity.Error,
+        severity = vim.diagnostic.severity.ERROR,
     }),
 
     -- Users can modify this list like this:

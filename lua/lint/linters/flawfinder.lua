@@ -3,16 +3,14 @@
 -- vuln.c:6:3:  [5] (buffer) gets:Does not check for buffer overflows (CWE-120, CWE-20).  Use fgets() instead.
 
 local pattern = [[^(.*):(%d+):(%d+): *%[([0-5])%] (.*)$]]
-local groups = { 'file', 'line', 'start_col', 'severity', 'message' }
-
-local DiagnosticSeverity = vim.lsp.protocol.DiagnosticSeverity
+local groups = { 'file', 'lnum', 'col', 'severity', 'message' }
 
 local severity_map = {
-  ['5'] = DiagnosticSeverity.Warning,
-  ['4'] = DiagnosticSeverity.Warning,
-  ['3'] = DiagnosticSeverity.Warning,
-  ['2'] = DiagnosticSeverity.Warning,
-  ['1'] = DiagnosticSeverity.Warning,
+  ['5'] = vim.diagnostic.severity.WARN,
+  ['4'] = vim.diagnostic.severity.WARN,
+  ['3'] = vim.diagnostic.severity.WARN,
+  ['2'] = vim.diagnostic.severity.WARN,
+  ['1'] = vim.diagnostic.severity.WARN,
 }
 
 return {

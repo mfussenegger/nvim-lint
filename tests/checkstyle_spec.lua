@@ -12,33 +12,21 @@ Checkstyle ends with 1 errors.
     local expected = {
       source = 'checkstyle',
       message = "Line is longer than 120 characters (found 143). [LineLength]",
-      range = {
-        ['start'] = {
-          character = 0,
-          line = 186,
-        },
-        ['end'] = {
-          character = 0,
-          line = 186,
-        },
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Error
+      lnum = 186,
+      col = 0,
+      end_lnum = 186,
+      end_col = 0,
+      severity = vim.diagnostic.severity.ERROR,
     }
     assert.are.same(expected, result[2])
     expected = {
       source = 'checkstyle',
       message = "'member def modifier' has incorrect indentation level 0, expected level should be 2. [Indentation]",
-      range = {
-        ['start'] = {
-          character = 0,
-          line = 74,
-        },
-        ['end'] = {
-          character = 0,
-          line = 74,
-        },
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Warning
+      lnum = 74,
+      col = 0,
+      end_lnum = 74,
+      end_col = 0,
+      severity = vim.diagnostic.severity.WARN
     }
     assert.are.same(expected, result[1])
   end)

@@ -1,6 +1,6 @@
 local severities = {
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
+  warning = vim.diagnostic.severity.WARN,
+  error = vim.diagnostic.severity.ERROR,
 }
 
 return {
@@ -37,18 +37,16 @@ return {
     if decoded.errored then
       for _, message in ipairs(decoded.warnings) do
         table.insert(diagnostics, {
-          range = {
-            start = {
-              line = message.line - 1,
-              character = message.column - 1,
-            },
-            ["end"] = {
-              line = message.line - 1,
-              character = message.column,
-            },
-          },
+          lnum = message.line - 1,
+          col = message.column - 1,
+          end_lnum = message.line - 1,
+          end_col = message.column - 1,
           message = message.text,
-          code = message.rule,
+          user_data = {
+            lsp = {
+              code = message.rule,
+            }
+          },
           severity = severities[message.severity],
           source = "stylelint",
         })

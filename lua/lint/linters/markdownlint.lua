@@ -5,6 +5,6 @@ return {
     stream = 'stderr',
     parser =  require('lint.parser').from_errorformat(efm, {
         source = 'markdownlint',
-        severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
+        severity = vim.diagnostic.severity.WARN,
     })
 }

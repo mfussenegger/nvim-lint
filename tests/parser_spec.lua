@@ -11,32 +11,20 @@ dir2/file2.txt:20:25:W:300:Bigger mistake
     local expected = {
       {
         message = 'Big mistake',
-        range = {
-          ['start'] = {
-            line = 9,
-            character = 14,
-          },
-          ['end'] = {
-            line = 9,
-            character = 14,
-          }
-        },
-        severity = vim.lsp.protocol.DiagnosticSeverity.Error,
+        lnum = 9,
+        col = 14,
+        end_lnum = 9,
+        end_col = 14,
+        severity = vim.diagnostic.severity.ERROR,
         source = 'test_case',
       },
       {
         message = 'Bigger mistake',
-        range = {
-          ['start'] = {
-            line = 19,
-            character = 24,
-          },
-          ['end'] = {
-            line = 19,
-            character = 24,
-          }
-        },
-        severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
+        lnum = 19,
+        col = 24,
+        end_lnum = 19,
+        end_col = 24,
+        severity = vim.diagnostic.severity.WARN,
         source = 'test_case',
       },
     }
@@ -54,7 +42,7 @@ end)
 describe('from_pattern', function()
   it('Uses source from defaults', function()
     local pattern = '(.*):(%d+):(%d+) (.*)'
-    local groups = { '_', 'line', 'start_col', 'message' }
+    local groups = { '_', 'lnum', 'col', 'message' }
     local defaults = { source = 'test_case' }
     local severity_map = nil
     local parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defaults)
@@ -66,32 +54,20 @@ bar:209:14 Bigger mistake
     local expected = {
       {
         message = 'Big mistake',
-        range = {
-          ['start'] = {
-            line = 9,
-            character = 12,
-          },
-          ['end'] = {
-            line = 9,
-            character = 13,
-          }
-        },
-        severity = vim.lsp.protocol.DiagnosticSeverity.Error,
+        lnum = 9,
+        col = 12,
+        end_lnum = 9,
+        end_col = 12,
+        severity = vim.diagnostic.severity.ERROR,
         source = 'test_case',
       },
       {
         message = 'Bigger mistake',
-        range = {
-          ['start'] = {
-            line = 208,
-            character = 13,
-          },
-          ['end'] = {
-            line = 208,
-            character = 14,
-          }
-        },
-        severity = vim.lsp.protocol.DiagnosticSeverity.Error,
+        lnum = 208,
+        col = 13,
+        end_lnum = 208,
+        end_col = 13,
+        severity = vim.diagnostic.severity.ERROR,
         source = 'test_case',
       },
     }

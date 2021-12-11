@@ -1,6 +1,6 @@
 -- path/to/file:line:col: code message
 local pattern = '[^:]+:(%d+):(%d+):(%w+):(.+)'
-local groups = { 'line', 'start_col', 'code', 'message' }
+local groups = { 'lnum', 'col', 'code', 'message' }
 
 return {
   cmd = 'flake8',
@@ -13,6 +13,6 @@ return {
   ignore_exitcode = true,
   parser = require('lint.parser').from_pattern(pattern, groups, nil, {
     ['source'] = 'flake8',
-    ['severity'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
+    ['severity'] = vim.diagnostic.severity.WARN,
   }),
 }

@@ -1,7 +1,7 @@
 local severities = {
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  ignored = vim.lsp.protocol.DiagnosticSeverity.Information,
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
+  ignored = vim.diagnostic.severity.INFO,
 }
 
 return {
@@ -17,17 +17,15 @@ return {
     for _, message in ipairs(result) do
       local decoded = vim.fn.json_decode(message)
         table.insert(diagnostics, {
-          range = {
-            ['start'] = {
-              line = decoded.location.line - 1,
-              character = decoded.location.column - 1,
-            },
-            ['end'] = {
-              line = decoded["end"]["line"] - 1,
-              character = decoded["end"]["column"] - 1,
-            },
+          lnum = decoded.location.line - 1,
+          col = decoded.location.column - 1,
+          end_lnum = decoded["end"]["line"] - 1,
+          end_col = decoded["end"]["column"] - 1,
+          user_data = {
+            lsp = {
+              code = decoded.code,
+            }
           },
-          code = decoded.code,
           severity = assert(severities[decoded.severity], 'missing mapping for severity ' .. decoded.severity),
           message = decoded.message,
         })

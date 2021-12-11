@@ -1,14 +1,12 @@
 local pattern = [[([^:]*):(%d+):(%d+): (%w+): ([^[]+)]]
-local groups = { 'file', 'line', 'start_col', 'severity', 'message' }
-
-local DiagnosticSeverity = vim.lsp.protocol.DiagnosticSeverity
+local groups = { 'file', 'lnum', 'col', 'severity', 'message' }
 
 local severity_map = {
-  ['error'] = DiagnosticSeverity.Error,
-  ['warning'] = DiagnosticSeverity.Warning,
-  ['information'] = DiagnosticSeverity.Information,
-  ['hint'] = DiagnosticSeverity.Hint,
-  ['note'] = DiagnosticSeverity.Hint,
+  ['error'] = vim.diagnostic.severity.ERROR,
+  ['warning'] = vim.diagnostic.severity.WARN,
+  ['information'] = vim.diagnostic.severity.INFO,
+  ['hint'] = vim.diagnostic.severity.HINT,
+  ['note'] = vim.diagnostic.severity.HINT,
 }
 
 return {

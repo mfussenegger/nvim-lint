@@ -44,51 +44,33 @@ describe('linter.pylint', function()
 
     local expected_1 = {
       message = 'Bad indentation. Found 2 spaces, expected 4',
-      range = {
-        ['start'] = {
-          character = 0,
-          line = 3
-        },
-        ['end'] = {
-          character = 0,
-          line = 3
-        }
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Warning,
+      lnum = 3,
+      col = 0,
+      end_lnum = 3,
+      end_col = 0,
+      severity = vim.diagnostic.severity.WARN,
     }
 
     assert.are.same(expected_1, result[1])
 
     local expected_2 = {
       message = 'Missing module docstring',
-      range = {
-        ['start'] = {
-          character = 0,
-          line = 0
-        },
-        ['end'] = {
-          character = 0,
-          line = 0
-        }
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Hint,
+      lnum = 0,
+      col = 0,
+      end_lnum = 0,
+      end_col = 0,
+      severity = vim.diagnostic.severity.HINT,
     }
 
     assert.are.same(expected_2, result[2])
 
     local expected_3 = {
       message = 'Redundant comparison - 1 == 1',
-      range = {
-        ['start'] = {
-          character = 2,
-          line = 2
-        },
-        ['end'] = {
-          character = 2,
-          line = 2
-        }
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Information,
+      lnum = 2,
+      col = 2,
+      end_lnum = 2,
+      end_col = 2,
+      severity = vim.diagnostic.severity.INFO,
     }
 
     assert.are.same(expected_3, result[3])

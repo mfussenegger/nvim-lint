@@ -1,8 +1,8 @@
 local severities = {
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  refactor = vim.lsp.protocol.DiagnosticSeverity.Information,
-  convention = vim.lsp.protocol.DiagnosticSeverity.Hint,
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
+  refactor = vim.diagnostic.severity.INFO,
+  convention = vim.diagnostic.severity.HINT,
 }
 
 return {
@@ -32,22 +32,16 @@ return {
         -- only publish if those are the current file diagnostics
         local sv = severities[item.Severity] or severities.warning
         table.insert(diagnostics, {
-          range = {
-            ['start'] = {
-              line = item.Pos.Line - 1,
-              character = item.Pos.Column - 1,
-            },
-            ['end'] = {
-            line = item.Pos.Line - 1,
-            character = item.Pos.Column - 1,
-          },
-        },
-        severity = sv,
-        source = item.FromLinter,
-        message = item.Text,
-      })
+          lnum = item.Pos.Line - 1,
+          col = item.Pos.Column - 1,
+          end_lnum = item.Pos.Line - 1,
+          end_col = item.Pos.Column - 1,
+          severity = sv,
+          source = item.FromLinter,
+          message = item.Text,
+        })
+      end
     end
+    return diagnostics
   end
-  return diagnostics
-end
 }

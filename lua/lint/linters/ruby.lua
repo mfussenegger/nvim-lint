@@ -1,21 +1,21 @@
 local pattern1 = '([^:]+):(%d+): warning: (.+)'
-local groups1 = { 'file', 'line', 'message' }
+local groups1 = { 'file', 'lnum', 'message' }
 
 local pattern2 = '([^:]+):(%d+): syntax error, (.+)'
-local groups2 = { 'file', 'line', 'message' }
+local groups2 = { 'file', 'lnum', 'message' }
 
 local parsers = {
   require('lint.parser').from_pattern(
     pattern1,
     groups1,
     nil,
-    { ['severity'] = vim.lsp.protocol.DiagnosticSeverity.Warning, ['source'] = 'ruby' }
+    { ['severity'] = vim.diagnostic.severity.WARN, ['source'] = 'ruby' }
   ),
   require('lint.parser').from_pattern(
     pattern2,
     groups2,
     nil,
-    { ['severity'] = vim.lsp.protocol.DiagnosticSeverity.Error, ['source'] = 'ruby' }
+    { ['severity'] = vim.diagnostic.severity.ERROR, ['source'] = 'ruby' }
   ),
 }
 

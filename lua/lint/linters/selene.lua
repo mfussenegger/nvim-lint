@@ -28,25 +28,21 @@ return {
                     message = message .. ". " .. label.message
                 end
                 table.insert(diagnostics, {
-                    code = decoded.code,
-                    codeDescription = decoded.code,
+                    user_data = {
+                      lsp = {
+                        code = decoded.code,
+                        codeDescription = decoded.code,
+                      }
+                    },
                     source = "selene",
                     severity = assert(
-                        vim.lsp.protocol.DiagnosticSeverity[decoded.severity],
+                        vim.diagnostic.severity[decoded.severity],
                         "missing mapping for severity " .. decoded.severity
                     ),
-
-                    range = {
-                        ["start"] = {
-                            line = start_line - 1,
-                            character = start_offset - vim.fn.line2byte(start_line) - 1,
-                        },
-                        ["end"] = {
-                            line = end_line - 1,
-                            character = end_offset - vim.fn.line2byte(end_line) - 1,
-                        },
-                    },
-
+                    lnum = start_line - 1,
+                    col = start_offset - vim.fn.line2byte(start_line) - 1,
+                    end_lnum = end_line - 1,
+                    end_col = end_offset - vim.fn.line2byte(end_line) - 1,
                     message = message,
                 })
             end

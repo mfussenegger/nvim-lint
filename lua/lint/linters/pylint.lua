@@ -1,8 +1,8 @@
 local severities = {
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  refactor = vim.lsp.protocol.DiagnosticSeverity.Information,
-  convention = vim.lsp.protocol.DiagnosticSeverity.Hint,
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
+  refactor = vim.diagnostic.severity.INFO,
+  convention = vim.diagnostic.severity.HINT,
 }
 
 return {
@@ -23,16 +23,10 @@ return {
           column = item.column - 1
         end
         table.insert(diagnostics, {
-          range = {
-            ['start'] = {
-              line = item.line - 1,
-              character = column,
-            },
-            ['end'] = {
-              line = item.line - 1,
-              character = column,
-            },
-          },
+          lnum = item.line - 1,
+          col = column,
+          end_lnum = item.line - 1,
+          end_col = column,
           severity = assert(severities[item.type], 'missing mapping for severity ' .. item.type),
           message = item.message,
         })

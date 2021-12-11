@@ -1,7 +1,6 @@
 local uv = vim.loop
 local api = vim.api
 local M = {}
-local CLIENT_ID_OFFSET = 1000  -- arbitrary value that is large enough to not conflict with real clients
 
 
 M.linters = setmetatable({}, {
@@ -25,19 +24,6 @@ M.linters_by_ft = {
   dockerfile = {'hadolint',},
 }
 
-
-local function resolve_linters()
-  local ft = vim.api.nvim_buf_get_option(0, 'filetype')
-  local linter_names = M.linters_by_ft[ft]
-  return vim.tbl_map(
-    function(name)
-      return assert(M.linters[name], 'Linter with name `' .. name .. '` not available')
-    end,
-    linter_names or {}
-  )
-end
-
-
 local namespaces = setmetatable({}, {
   __index = function(tbl, key)
     local ns = api.nvim_create_namespace(key)
@@ -45,63 +31,6 @@ local namespaces = setmetatable({}, {
     return ns
   end
 })
-
-
-local function mk_publish_diagnostics(client_id, linter_key)
-  if vim.diagnostic then
-    -- This is temporary for 0.5.x/master compatibility.
-    -- Once support for 0.5 gets dropped it will only use vim.diagnostic
-    -- and each parser must return the format expected by vim.diagnostic
-    local ns = namespaces[linter_key]
-    return function(lsp_diagnostics, bufnr)
-      if not api.nvim_buf_is_valid(bufnr) then
-        -- by the time the linter is finished the user might have deleted the buffer
-        -- bail out if this is the case
-        return
-      end
-      local diagnostics = vim.tbl_map(function(diagnostic)
-        local start = diagnostic.range.start
-        local _end = diagnostic.range['end']
-        -- Ignore utf-16 for now,
-        -- I suspect most parsers ignored this anyway and use different offsets
-        return {
-          lnum = start.line,
-          col = start.character,
-          end_lnum = _end.line,
-          end_col = _end.character,
-          severity = diagnostic.severity,
-          message = diagnostic.message,
-          source = diagnostic.source,
-          user_data = {
-            lsp = {
-              code = diagnostic.code,
-              codeDescription = diagnostic.codeDescription,
-              tags = diagnostic.tags,
-              relatedInformation = diagnostic.relatedInformation,
-              data = diagnostic.data,
-            },
-          },
-        }
-      end, lsp_diagnostics)
-      vim.diagnostic.set(ns, bufnr, diagnostics)
-    end
-  end
-  local method = 'textDocument/publishDiagnostics'
-  return function(diagnostics, bufnr)
-    local result = {
-      uri = vim.uri_from_bufnr(bufnr),
-      diagnostics = assert(
-        diagnostics,
-        'Linter parser is supposed to return a list of diagnostics, got: ' .. vim.inspect(diagnostics)
-      ),
-    }
-    if vim.fn.has('nvim-0.5.1') == 1 then
-      vim.lsp.handlers[method](nil, result, { method = method, client_id = client_id, bufnr = bufnr })
-    else
-      vim.lsp.handlers[method](nil, method, result, client_id, bufnr)
-    end
-  end
-end
 
 
 local function read_output(bufnr, parser, publish_fn)
@@ -116,9 +45,13 @@ local function read_output(bufnr, parser, publish_fn)
 end
 
 
-local function start_read(stream, stdout, stderr, bufnr, parser, client_id, linter_key)
-  local publish = mk_publish_diagnostics(client_id, linter_key)
-
+local function start_read(stream, stdout, stderr, bufnr, parser, ns)
+  local publish = function(diagnostics)
+    -- By the time the linter is finished the user might have deleted the buffer
+    if api.nvim_buf_is_valid(bufnr) then
+      vim.diagnostic.set(ns, bufnr, diagnostics)
+    end
+  end
   if not stream or stream == 'stdout' then
     stdout:read_start(read_output(bufnr, parser, publish))
   elseif stream == 'stderr' then
@@ -134,24 +67,32 @@ end
 
 
 function M.try_lint(names)
+  assert(
+    vim.diagnostic,
+    "nvim-lint requires neovim 0.6.0+. If you're using an older version, use the `nvim-05` tag of nvim-lint'"
+  )
   if type(names) == "string" then
     names = { names }
   end
-  local linters
-  if names then
-    linters = vim.tbl_map(
-      function(name)
-        return assert(M.linters[name], 'Linter with name `' .. name .. '` not available')
-      end,
-      names
-    )
-  else
-    linters = resolve_linters()
+  if not names then
+    local ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    names = M.linters_by_ft[ft]
   end
-  for i, linter in pairs(linters) do
-    local ok, err = pcall(M.lint, linter, CLIENT_ID_OFFSET + i)
+
+  local lookup_linter = function(name)
+    local linter = M.linters[name]
+    assert(linter, 'Linter with name `' .. name .. '` not available')
+    if type(linter) == "function" then
+      linter = linter()
+    end
+    linter.name = linter.name or name
+    return linter
+  end
+  local linters = vim.tbl_map(lookup_linter, names)
+  for _, linter in pairs(linters) do
+    local ok, err = pcall(M.lint, linter)
     if not ok then
-      vim.notify(err)
+      vim.notify(err, vim.log.levels.WARN)
     end
   end
 end
@@ -166,7 +107,7 @@ local function eval_fn_or_id(x)
 end
 
 
-function M.lint(linter, client_id)
+function M.lint(linter)
   assert(linter, 'lint must be called with a linter')
   local stdin = uv.new_pipe(false)
   local stdout = uv.new_pipe(false)
@@ -176,9 +117,6 @@ function M.lint(linter, client_id)
   local pid_or_err
   local args = {}
   local bufnr = api.nvim_get_current_buf()
-  if type(linter) == "function" then
-    linter = linter()
-  end
   if linter.args then
     vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))
   end
@@ -223,7 +161,8 @@ function M.lint(linter, client_id)
     parser.on_done and type(parser.on_done == 'function'),
     'Parser requires a `on_done` function'
   )
-  start_read(linter.stream, stdout, stderr, bufnr, parser, client_id, linter.cmd)
+  local ns = namespaces[linter.name]
+  start_read(linter.stream, stdout, stderr, bufnr, parser, ns)
   if linter.stdin then
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
     for _, line in ipairs(lines) do

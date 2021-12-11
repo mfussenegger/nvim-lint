@@ -1,12 +1,12 @@
 -- cppcheck <= 1.84 doesn't support {column} so the start_col group is ambiguous
 local pattern = [[([^:]*):(%d*):([^:]*): %[([^%]\]*)%] ([^:]*): (.*)]]
-local groups = { 'file', 'line', 'start_col', 'code', 'severity', 'message' }
+local groups = { 'file', 'lnum', 'col', 'code', 'severity', 'message' }
 local severity_map = {
-  ['error'] = vim.lsp.protocol.DiagnosticSeverity.Error,
-  ['warning'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  ['performance'] = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  ['style'] = vim.lsp.protocol.DiagnosticSeverity.Information,
-  ['information'] = vim.lsp.protocol.DiagnosticSeverity.Information,
+  ['error'] = vim.diagnostic.severity.ERROR,
+  ['warning'] = vim.diagnostic.severity.WARN,
+  ['performance'] = vim.diagnostic.severity.WARN,
+  ['style'] = vim.diagnostic.severity.INFO,
+  ['information'] = vim.diagnostic.severity.INFO,
 }
 
 return {

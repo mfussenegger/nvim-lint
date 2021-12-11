@@ -19,34 +19,22 @@ test.py:20 in public class `Bar`:
     local expected_error = {
       source = 'pydocstyle',
       message = 'One-line docstring should fit on one line with quotes (found 3)',
-      range = {
-        ['start'] = {
-          line = 9,
-          character = 0,
-        },
-        ['end'] = {
-          line = 9,
-          character = 0,
-        },
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Hint,
+      lnum = 9,
+      col = 0,
+      end_lnum = 9,
+      end_col = 0,
+      severity = vim.diagnostic.severity.HINT,
     }
     assert.are.same(expected_error, result[1])
 
     local expected_warning = {
       source = 'pydocstyle',
       message = 'Docstring is over-indented',
-      range = {
-        ['start'] = {
-          line = 19,
-          character = 0,
-        },
-        ['end'] = {
-          line = 19,
-          character = 0,
-        },
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Hint,
+      lnum = 19,
+      col = 0,
+      end_lnum = 19,
+      end_col = 0,
+      severity = vim.diagnostic.severity.HINT,
     }
     assert.are.same(expected_warning, result[2])
   end)

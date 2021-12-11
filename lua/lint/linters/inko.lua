@@ -1,8 +1,8 @@
 local util = require('lint.util')
 
 local severities = {
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
 }
 
 -- Inko unit tests require the inclusion of an extra directory, otherwise we
@@ -46,16 +46,10 @@ return {
       if diag.file == bufpath then
         table.insert(items, {
           source = 'inko',
-          range = {
-            ['start'] = {
-              line = diag.line - 1,
-              character = diag.column - 1
-            },
-            ['end'] = {
-              line = diag.line - 1,
-              character = diag.column,
-            },
-          },
+          lnum = diag.line - 1,
+          col = diag.column - 1,
+          end_lnum = diag.line - 1,
+          end_col = diag.column,
           message = diag.message,
           severity = assert(
             severities[diag.level],

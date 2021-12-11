@@ -11,15 +11,11 @@ return {
       local byteidx = vim.fn.byteidx(content, match.offset)
       local line = vim.fn.byte2line(byteidx)
       local col = byteidx - vim.fn.line2byte(line)
-      local position = {
-        line = line - 1,
-        character = col + 1,
-      }
       table.insert(diagnostics, {
-        range = {
-          ['start'] = position,
-          ['end'] = position,
-        },
+        lnum = line - 1,
+        end_lnum = line - 1,
+        col = col + 1,
+        end_col = col + 1,
         message = match.message,
       })
     end

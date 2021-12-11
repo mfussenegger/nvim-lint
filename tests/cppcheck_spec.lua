@@ -13,37 +13,25 @@ describe('linter.cppcheck', function()
 
   local expected_1_88 = {
     source = 'cppcheck',
-    code = 'unusedVariable',
     message = 'Unused variable: fd',
-    range = {
-      ['start'] = {
-        character = 6,
-        line = 45,
-      },
-      ['end'] = {
-        character = 7,
-        line = 45,
-      }
-    },
-    severity = vim.lsp.protocol.DiagnosticSeverity.Information,
+    lnum = 45,
+    col = 6,
+    end_lnum = 45,
+    end_col = 6,
+    severity = vim.diagnostic.severity.INFO,
+    user_data = { lsp = { code = 'unusedVariable' } },
   }
   assert.are.same(expected_1_88, result[1])
 
   local expected_1_34 = {
     source = 'cppcheck',
-    code = 'unusedVariable',
+    user_data = { lsp = { code = 'unusedVariable' } },
     message = 'Unused variable: fd',
-    range = {
-      ['start'] = {
-        character = 0,
-        line = 45,
-      },
-      ['end'] = {
-        character = 1,
-        line = 45,
-      }
-    },
-    severity = vim.lsp.protocol.DiagnosticSeverity.Information,
+    lnum = 45,
+    col = 0,
+    end_lnum = 45,
+    end_col = 0,
+    severity = vim.diagnostic.severity.INFO,
   }
   assert.are.same(expected_1_34, result[3])
 

@@ -22,10 +22,6 @@ describe('compiler', function()
         end_lnum = 9,
         message = 'foo',
         severity = 1,
-        user_data = {
-          lsp = {
-          }
-        }
       },
       {
         col = 0,
@@ -34,10 +30,6 @@ describe('compiler', function()
         lnum = 19,
         message = 'bar',
         severity = 1,
-        user_data = {
-          lsp = {
-          }
-        }
       },
     }
     assert.are.same(expected, result)

@@ -14,68 +14,44 @@ describe('linter.cspell', function()
     local expected_1 = {
       source = 'cspell',
       message = 'Unknown word (langserver)',
-      range = {
-        ['start'] = {
-          character = 7,
-          line = 258
-        },
-        ['end'] = {
-          character = 7,
-          line = 258
-        }
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Information,
+      lnum = 258,
+      col = 7,
+      end_lnum = 258,
+      end_col = 7,
+      severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected_1, result[1])
 
     local expected_2 = {
       source = 'cspell',
       message = 'Unknown word (noplugin)',
-      range = {
-        ['start'] = {
-          character = 18,
-          line = 271
-        },
-        ['end'] = {
-          character = 18,
-          line = 271
-        }
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Information,
+      lnum = 271,
+      col = 18,
+      end_lnum = 271,
+      end_col = 18,
+      severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected_2, result[2])
 
     local expected_3 = {
       source = 'cspell',
       message = 'Unknown word (noplugin)',
-      range = {
-        ['start'] = {
-          character = 18,
-          line = 277
-        },
-        ['end'] = {
-          character = 18,
-          line = 277
-        }
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Information,
+      lnum = 277,
+      col = 18,
+      end_lnum = 277,
+      end_col = 18,
+      severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected_3, result[3])
 
     local expected_4 = {
       source = 'cspell',
       message = 'Unknown word (checkstyle)',
-      range = {
-        ['start'] = {
-          character = 1,
-          line = 320
-        },
-        ['end'] = {
-          character = 1,
-          line = 320
-        }
-      },
-      severity = vim.lsp.protocol.DiagnosticSeverity.Information,
+      lnum = 320,
+      col = 1,
+      end_lnum = 320,
+      end_col = 1,
+      severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected_4, result[4])
   end)

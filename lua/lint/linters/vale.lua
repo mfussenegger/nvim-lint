@@ -5,11 +5,11 @@ local function get_cur_file_extension(bufnr)
 end
 
 local severities = {
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  information = vim.lsp.protocol.DiagnosticSeverity.Information,
-  hint = vim.lsp.protocol.DiagnosticSeverity.Hint,
-  suggestion = vim.lsp.protocol.DiagnosticSeverity.Hint,
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
+  information = vim.diagnostic.severity.INFO,
+  hint = vim.diagnostic.severity.HINT,
+  suggestion = vim.diagnostic.severity.HINT,
 }
 
 return {
@@ -29,16 +29,10 @@ return {
     local items = decoded['stdin' .. get_cur_file_extension(bufnr)]
     for _, item in pairs(items or {}) do
       table.insert(diagnostics, {
-        range = {
-          ['start'] = {
-            line = item.Line - 1,
-            character = item.Span[1] - 1,
-          },
-          ['end'] = {
-            line = item.Line - 1,
-            character = item.Span[2],
-          },
-        },
+        lnum = item.Line - 1,
+        end_lnum = item.Line - 1,
+        col = item.Span[1] - 1,
+        end_col = item.Span[2],
         message = item.Message,
         severity = assert(severities[item.Severity], 'missing mapping for severity ' .. item.Severity),
       })

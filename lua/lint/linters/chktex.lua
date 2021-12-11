@@ -1,8 +1,8 @@
 local pattern = '(%d+):(%d+):(%d+):(.+):(%d+):(.*)'
 local severities = {
-    Error = vim.lsp.protocol.DiagnosticSeverity.Error,
-    Warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-    Message = vim.lsp.protocol.DiagnosticSeverity.Information
+    Error = vim.diagnostic.severity.ERROR,
+    Warning = vim.diagnostic.severity.WARN,
+    Message = vim.diagnostic.severity.INFO
 }
 
 return {
@@ -21,14 +21,18 @@ return {
             d = tonumber(d or 1)
             table.insert(diagnostics, {
                 source = 'chktex',
-                range = {
-                    ['start'] = {line = lineno, character = off},
-                    ['end'] = {line = lineno, character = off + d}
-                },
+                lnum = lineno,
+                col = off,
+                end_lnum = lineno,
+                end_col = off + d,
                 message = desc,
                 severity = assert(severities[sev],
                                   'missing mapping for severity ' .. sev),
-                code = code
+                user_data = {
+                  lsp = {
+                    code = code
+                  },
+                }
             })
         end
         return diagnostics

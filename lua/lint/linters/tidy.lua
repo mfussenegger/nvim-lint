@@ -1,16 +1,16 @@
 local pattern = 'line (%d+) column (%d+) %- (%a+): (.+)'
-local groups = { 'line', 'start_col', 'severity', 'message' }
+local groups = { 'lnum', 'col', 'severity', 'message' }
 local severities = {
-  Info = vim.lsp.protocol.DiagnosticSeverity.Information,
-  Warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  Config = vim.lsp.protocol.DiagnosticSeverity.Error,
-  Access = vim.lsp.protocol.DiagnosticSeverity.Information,
-  Error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  Document = vim.lsp.protocol.DiagnosticSeverity.Error,
-  Panic = vim.lsp.protocol.DiagnosticSeverity.Error,
-  Summary = vim.lsp.protocol.DiagnosticSeverity.Information,
-  Information = vim.lsp.protocol.DiagnosticSeverity.Information,
-  Footnote = vim.lsp.protocol.DiagnosticSeverity.Information,
+  Info = vim.diagnostic.severity.INFO,
+  Warning = vim.diagnostic.severity.WARN,
+  Config = vim.diagnostic.severity.ERROR,
+  Access = vim.diagnostic.severity.INFO,
+  Error = vim.diagnostic.severity.ERROR,
+  Document = vim.diagnostic.severity.ERROR,
+  Panic = vim.diagnostic.severity.ERROR,
+  Summary = vim.diagnostic.severity.INFO,
+  Information = vim.diagnostic.severity.INFO,
+  Footnote = vim.diagnostic.severity.INFO,
 }
 
 return {

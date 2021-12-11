@@ -1,6 +1,6 @@
 -- path/to/file:line:col: code message
 local pattern = '[^:]+:(%d+):(%d+): (.*)'
-local groups = { 'line', 'start_col', 'message' }
+local groups = { 'lnum', 'col', 'message' }
 
 return {
   cmd = 'revive',

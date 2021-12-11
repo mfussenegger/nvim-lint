@@ -1,7 +1,7 @@
 local severities = {
-  error = vim.lsp.protocol.DiagnosticSeverity.Error,
-  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
-  info = vim.lsp.protocol.DiagnosticSeverity.Information,
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
+  info = vim.diagnostic.severity.INFO,
 }
 
 return {
@@ -16,16 +16,10 @@ return {
 
     for _, finding in pairs(findings or {}) do
       table.insert(diagnostics, {
-        range = {
-          ['start'] = {
-            line = finding.line - 1,
-            character = finding.column,
-          },
-          ['end'] = {
-            line = finding.line - 1,
-            character = finding.column,
-          },
-        },
+        lnum = finding.line - 1,
+        col = finding.column,
+        end_lnum = finding.line - 1,
+        end_col = finding.column,
         severity = assert(severities[finding.level], 'missing mapping for severity ' .. finding.level),
         message = finding.message,
       })
