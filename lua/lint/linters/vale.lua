@@ -34,6 +34,7 @@ return {
         col = item.Span[1] - 1,
         end_col = item.Span[2],
         message = item.Message,
+        source = 'vale',
         severity = assert(severities[item.Severity], 'missing mapping for severity ' .. item.Severity),
       })
     end
