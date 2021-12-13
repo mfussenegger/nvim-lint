@@ -76,7 +76,7 @@ function M.try_lint(names)
   end
   if not names then
     local ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    names = M.linters_by_ft[ft]
+    names = M.linters_by_ft[ft] or {}
   end
 
   local lookup_linter = function(name)
