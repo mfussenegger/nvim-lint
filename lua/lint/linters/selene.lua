@@ -36,7 +36,7 @@ return {
                     },
                     source = "selene",
                     severity = assert(
-                        vim.diagnostic.severity[decoded.severity],
+                        vim.diagnostic.severity[string.upper(decoded.severity)],
                         "missing mapping for severity " .. decoded.severity
                     ),
                     lnum = start_line - 1,
