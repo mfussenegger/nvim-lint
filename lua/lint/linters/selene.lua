@@ -1,3 +1,8 @@
+local severities = {
+  Error = vim.diagnostic.severity.ERROR,
+  Warning = vim.diagnostic.severity.WARN,
+}
+
 return {
     cmd = "selene",
     stdin = false,
@@ -36,7 +41,7 @@ return {
                     },
                     source = "selene",
                     severity = assert(
-                        vim.diagnostic.severity[string.upper(decoded.severity)],
+                        severities[decoded.severity],
                         "missing mapping for severity " .. decoded.severity
                     ),
                     lnum = start_line - 1,
