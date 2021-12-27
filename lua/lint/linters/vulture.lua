@@ -1,4 +1,4 @@
--- path/to/file:line:col: code message
+-- path/to/file:line: message
 local pattern = '([^:]+):(%d+):(.*)'
 local groups = { 'file', 'lnum', 'message' }
 
