@@ -99,6 +99,7 @@ Other dedicated linters that are built-in are:
 | [stylelint][29]              | `stylelint`    |
 | [Vale][8]                    | `vale`         |
 | [vint][21]                   | `vint`         |
+| [vulture][vulture]           | `vulture`      |
 
 
 ## Custom Linters
@@ -275,3 +276,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [jshint]: https://jshint.com/
 [rflint]: https://github.com/boakley/robotframework-lint
 [robocop]: https://github.com/MarketSquare/robotframework-robocop
+[vulture]: https://github.com/jendrikseipp/vulture
