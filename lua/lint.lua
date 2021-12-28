@@ -168,7 +168,7 @@ function M.lint(linter)
     for _, line in ipairs(lines) do
       stdin:write(line .. '\n')
     end
-    stdin:write('\n', function()
+    stdin:write('', function()
       stdin:shutdown(function()
         stdin:close()
       end)
