@@ -282,4 +282,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [vulture]: https://github.com/jendrikseipp/vulture
 [yamllint]: https://github.com/adrienverge/yamllint
 [cpplint]: https://github.com/cpplint/cpplint
-[proselint]: https://github.com/amperser/proselint 
+[proselint]: https://github.com/amperser/proselint
