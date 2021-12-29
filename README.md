@@ -86,6 +86,7 @@ Other dedicated linters that are built-in are:
 | [mlint][34]                  | `mlint`        |
 | [Mypy][11]                   | `mypy`         |
 | nix                          | `nix`          |
+| [proselint][proselint]       | `proselint`    |
 | [pycodestyle][pcs-docs]      | `pycodestyle`  |
 | [pydocstyle][pydocstyle]     | `pydocstyle`   |
 | [Pylint][15]                 | `pylint`       |
@@ -281,3 +282,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [vulture]: https://github.com/jendrikseipp/vulture
 [yamllint]: https://github.com/adrienverge/yamllint
 [cpplint]: https://github.com/cpplint/cpplint
+[proselint]: https://github.com/amperser/proselint 
