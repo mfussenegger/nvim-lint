@@ -66,6 +66,7 @@ Other dedicated linters that are built-in are:
 | [clang-tidy][23]             | `clangtidy`    |
 | [clazy][30]                  | `clazy`        |
 | [clj-kondo][24]              | `clj-kondo`    |
+| [cmakelint][cmakelint]       | `cmakelint`    |
 | [codespell][18]              | `codespell`    |
 | [cppcheck][22]               | `cppcheck`     |
 | [cpplint][cpplint]           | `cpplint`      |
@@ -283,3 +284,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [yamllint]: https://github.com/adrienverge/yamllint
 [cpplint]: https://github.com/cpplint/cpplint
 [proselint]: https://github.com/amperser/proselint
+[cmakelint]: https://github.com/cmake-lint/cmake-lint
