@@ -68,6 +68,7 @@ Other dedicated linters that are built-in are:
 | [clj-kondo][24]              | `clj-kondo`    |
 | [codespell][18]              | `codespell`    |
 | [cppcheck][22]               | `cppcheck`     |
+| [cpplint][cpplint]           | `cpplint`      |
 | [cspell][36]                 | `cspell`       |
 | [ESLint][25]                 | `eslint`       |
 | fennel                       | `fennel`       |
@@ -279,3 +280,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [robocop]: https://github.com/MarketSquare/robotframework-robocop
 [vulture]: https://github.com/jendrikseipp/vulture
 [yamllint]: https://github.com/adrienverge/yamllint
+[cpplint]: https://github.com/cpplint/cpplint
