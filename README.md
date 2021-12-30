@@ -95,6 +95,7 @@ Other dedicated linters that are built-in are:
 | [rflint][rflint]             | `rflint`       |
 | [robocop][robocop]           | `robocop`      |
 | [rstcheck][rstcheck]         | `rstcheck`     |
+| [rstlint][rstlint]           | `rstlint`      |
 | Ruby                         | `ruby`         |
 | [Selene][31]                 | `selene`       |
 | [ShellCheck][10]             | `shellcheck`   |
@@ -287,3 +288,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [proselint]: https://github.com/amperser/proselint
 [cmakelint]: https://github.com/cmake-lint/cmake-lint
 [rstcheck]: https://github.com/myint/rstcheck
+[rstlint]: https://github.com/twolfson/restructuredtext-lint
