@@ -66,6 +66,25 @@ local function start_read(stream, stdout, stderr, bufnr, parser, ns)
 end
 
 
+function M._resolve_linter_by_ft(ft)
+  local names = M.linters_by_ft[ft]
+  if names then
+    return names
+  end
+  local dedup_linters = {}
+  local filetypes = vim.split(ft, '.', { plain = true })
+  for _, ft_ in pairs(filetypes) do
+    local linters = M.linters_by_ft[ft_]
+    if linters then
+      for _, linter in ipairs(linters) do
+        dedup_linters[linter] = true
+      end
+    end
+  end
+  return vim.tbl_keys(dedup_linters)
+end
+
+
 function M.try_lint(names)
   assert(
     vim.diagnostic,
@@ -75,8 +94,7 @@ function M.try_lint(names)
     names = { names }
   end
   if not names then
-    local ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    names = M.linters_by_ft[ft] or {}
+    names = M._resolve_linter_by_ft(vim.bo.filetype)
   end
 
   local lookup_linter = function(name)
