@@ -7,7 +7,7 @@ L 1 (C 7-9): CLALL: ML0: Using 'clear' with the 'all' option usually decreases c
 L 7 (C 18): ACABE: ML5: The McCabe cyclomatic complexity of the anonymous function on line 7 is 1.
 L 10 (C 48-51): SYNER: ML3: Parse error at recs: usage might be invalid MATLAB syntax.
 L 13 (C 1-3): RESWD: ML3: Invalid use of a reserved word.
-]])
+]], vim.api.nvim_get_current_buf())
   assert.are.same(5, #result)
 
   local expected = {

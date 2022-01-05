@@ -1,8 +1,8 @@
 describe('linter.pycodestyle', function()
   it("doesn't error on empty output", function()
     local parser = require('lint.linters.pycodestyle').parser
-    parser('')
-    parser('  ')
+    parser('', vim.api.nvim_get_current_buf())
+    parser('  ', vim.api.nvim_get_current_buf())
   end)
 
   it('can parse the output', function()
@@ -12,7 +12,7 @@ describe('linter.pycodestyle', function()
     test.py:37:80:E501:line too long (88 > 79 characters)
     test.py:69:48:W291:trailing whitespace
     test.py:411:13:E128:continuation line under-indented for visual indent
-    ]])
+    ]], vim.api.nvim_get_current_buf())
     assert.are.same(4, #result)
     local expected_error = {
       source = 'pycodestyle',
