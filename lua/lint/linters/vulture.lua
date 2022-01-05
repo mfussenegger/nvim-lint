@@ -6,13 +6,11 @@ return {
   cmd = 'vulture',
   stdin = false,
   args = {"--exclude='/**/docs/*.py,/**/build/*.py'", function()
-    local output = vim.fn.system("git rev-parse --show-toplevel"):sub(1, -2)
-    if output:match("^([%w]+)") == "fatal" then
-        -- Return the current dir
+    local git_root_or_err = vim.fn.system("git rev-parse --show-toplevel"):sub(1, -2)
+    if vim.startswith(git_root_or_err, 'fatal') then
         return vim.fn.getcwd()
     else
-        -- Return the path to git root directory
-        return output
+        return git_root_or_err
     end
   end},
   ignore_exitcode = true,
