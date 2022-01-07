@@ -50,7 +50,11 @@ describe('linter.pylint', function()
       end_lnum = 3,
       end_col = 0,
       severity = vim.diagnostic.severity.WARN,
-      code = 'W0311',
+      user_data = {
+        lsp = {
+          code = 'W0311',
+        },
+      },
     }
 
     assert.are.same(expected_1, result[1])
@@ -63,7 +67,11 @@ describe('linter.pylint', function()
       end_lnum = 0,
       end_col = 0,
       severity = vim.diagnostic.severity.HINT,
-      code = 'C0114',
+      user_data = {
+        lsp = {
+          code = 'C0114',
+        },
+      },
     }
 
     assert.are.same(expected_2, result[2])
@@ -76,7 +84,11 @@ describe('linter.pylint', function()
       end_lnum = 2,
       end_col = 2,
       severity = vim.diagnostic.severity.INFO,
-      code = 'R0124',
+      user_data = {
+        lsp = {
+          code = 'R0124',
+        },
+      },
     }
 
     assert.are.same(expected_3, result[3])
