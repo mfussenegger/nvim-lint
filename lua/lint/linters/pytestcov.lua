@@ -75,10 +75,10 @@ return {
 
     if tonumber(percentage_cover) == 0 then
       table.insert(diagnostics, {
-         lnum = 0,
-         col = 0,
-         severity = assert(vim.diagnostic.severity.INFO, 'missing mapping for severity info'),
-         message = messages.file_not_covered,
+        lnum = 0,
+        col = 0,
+        severity = assert(vim.diagnostic.severity.INFO, 'missing mapping for severity info'),
+        message = messages.file_not_covered,
       })
     else
       for non_covered_lines in non_covered_blocks:gmatch("([^,]+),?") do
