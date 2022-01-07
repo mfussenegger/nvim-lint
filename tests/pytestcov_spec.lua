@@ -26,6 +26,7 @@ describe('linter.pytestcov', function()
     local bufnr_1 = vim.uri_to_bufnr('file:///home/repo/one.py')
     local result_1 = parser(output_str, bufnr_1)
     local expected_1 = {{
+      source = 'pytest-cov',
       lnum = 0,
       col = 0,
       severity = vim.diagnostic.severity.INFO,
@@ -38,20 +39,23 @@ describe('linter.pytestcov', function()
     local result_2 = parser(output_str, bufnr_2)
     local expected_2 = {
     {
+      source = 'pytest-cov',
       lnum = 98,
       col = 0,
       end_lnum = 103,
       severity = vim.diagnostic.severity.INFO,
-      message = 'No test coverage found for these lines',
+      message = 'No test coverage found for these lines (until line 103)',
     },
     {
+      source = 'pytest-cov',
       lnum = 110,
       col = 0,
       end_lnum = 114,
       severity = vim.diagnostic.severity.INFO,
-      message = 'No test coverage found for these lines',
+      message = 'No test coverage found for these lines (until line 114)',
     },
     {
+      source = 'pytest-cov',
       lnum = 123,
       col = 0,
       end_lnum = 124,
@@ -70,6 +74,7 @@ describe('linter.pytestcov', function()
     local bufnr_4 = vim.uri_to_bufnr('file:///home/repo/four.py')
     local result_4 = parser(output_str, bufnr_4)
     local expected_4 = {{
+      source = 'pytest-cov',
       lnum = 0,
       col = 0,
       severity = vim.diagnostic.severity.INFO,
@@ -81,6 +86,7 @@ describe('linter.pytestcov', function()
     local bufnr_5 = vim.uri_to_bufnr('file:///home/repo/four.py')
     local result_5 = parser(errors_launching_tests, bufnr_5)
     local expected_5 = {{
+      source = 'pytest-cov',
       lnum = 0,
       col = 0,
       severity = vim.diagnostic.severity.ERROR,

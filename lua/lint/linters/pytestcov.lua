@@ -15,7 +15,10 @@ local ignored_files = {
   "docs/conf.py",
   "test_.*.py",
   "__init__.py",
+  "conftest.py",
 }
+
+local source_pytestcov = "pytest-cov"
 
 return {
   cmd = 'pytest',
@@ -47,22 +50,23 @@ return {
 
     if string.find(output, "Interrupted: ") and buffer_report == nil then
       table.insert(diagnostics, {
-            lnum = 0,
-            col = 0,
-            severity = assert(severities.error, 'missing mapping for severity error'),
-            message = messages.testing_error,
+        source = source_pytestcov,
+        lnum = 0,
+        col = 0,
+        severity = assert(severities.error, 'missing mapping for severity error'),
+        message = messages.testing_error,
 
       })
       return diagnostics
     end
 
-
     if buffer_report == nil then
       table.insert(diagnostics, {
-            lnum = 0,
-            col = 0,
-            severity = assert(severities.info, 'missing mapping for severity info'),
-            message = messages.file_not_covered,
+        source = source_pytestcov,
+        lnum = 0,
+        col = 0,
+        severity = assert(severities.info, 'missing mapping for severity info'),
+        message = messages.file_not_covered,
       })
       return diagnostics
     end
@@ -75,6 +79,7 @@ return {
 
     if tonumber(percentage_cover) == 0 then
       table.insert(diagnostics, {
+        source = source_pytestcov,
         lnum = 0,
         col = 0,
         severity = assert(vim.diagnostic.severity.INFO, 'missing mapping for severity info'),
@@ -82,23 +87,26 @@ return {
       })
     else
       for non_covered_lines in non_covered_blocks:gmatch("([^,]+),?") do
-          if string.find(non_covered_lines, "-") then
-              table.insert(diagnostics, {
-                lnum = tonumber(string.match(non_covered_lines,"(%d+)")) - 1,
-                col = 0,
-                end_lnum = tonumber(string.match(non_covered_lines,"-(%d+)")),
-                severity = assert(severities.info, 'missing mapping for severity info'),
-                message = messages.multiple_lines_not_covered
-              })
-          else
-              table.insert(diagnostics, {
-                lnum = tonumber(string.match(non_covered_lines,"(%d+).*")) - 1,
-                col = 0,
-                end_lnum = tonumber(string.match(non_covered_lines,"(%d+).*")),
-                severity = assert(vim.diagnostic.severity.INFO, 'missing mapping for severity info'),
-                message = messages.line_not_covered
-              })
-          end
+        if string.find(non_covered_lines, "-") then
+          local end_block = tonumber(string.match(non_covered_lines,"-(%d+)"))
+          table.insert(diagnostics, {
+            source = source_pytestcov,
+            lnum = tonumber(string.match(non_covered_lines,"(%d+)")) - 1,
+            col = 0,
+            end_lnum = end_block,
+            severity = assert(severities.info, 'missing mapping for severity info'),
+            message = messages.multiple_lines_not_covered .. ' (until line ' .. end_block ..')',
+          })
+        else
+          table.insert(diagnostics, {
+            source = source_pytestcov,
+            lnum = tonumber(string.match(non_covered_lines,"(%d+).*")) - 1,
+            col = 0,
+            end_lnum = tonumber(string.match(non_covered_lines,"(%d+).*")),
+            severity = assert(vim.diagnostic.severity.INFO, 'missing mapping for severity info'),
+            message = messages.line_not_covered
+          })
+        end
       end
     end
     return diagnostics
