@@ -23,12 +23,18 @@ return {
           column = item.column - 1
         end
         table.insert(diagnostics, {
+          source = 'pylint',
           lnum = item.line - 1,
           col = column,
           end_lnum = item.line - 1,
           end_col = column,
           severity = assert(severities[item.type], 'missing mapping for severity ' .. item.type),
           message = item.message,
+          user_data = {
+            lsp = {
+              code = item['message-id'],
+            },
+          },
         })
       end
     end

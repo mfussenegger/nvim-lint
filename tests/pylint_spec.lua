@@ -43,34 +43,52 @@ describe('linter.pylint', function()
     assert.are.same(3, #result)
 
     local expected_1 = {
+      source = 'pylint',
       message = 'Bad indentation. Found 2 spaces, expected 4',
       lnum = 3,
       col = 0,
       end_lnum = 3,
       end_col = 0,
       severity = vim.diagnostic.severity.WARN,
+      user_data = {
+        lsp = {
+          code = 'W0311',
+        },
+      },
     }
 
     assert.are.same(expected_1, result[1])
 
     local expected_2 = {
+      source = 'pylint',
       message = 'Missing module docstring',
       lnum = 0,
       col = 0,
       end_lnum = 0,
       end_col = 0,
       severity = vim.diagnostic.severity.HINT,
+      user_data = {
+        lsp = {
+          code = 'C0114',
+        },
+      },
     }
 
     assert.are.same(expected_2, result[2])
 
     local expected_3 = {
+      source = 'pylint',
       message = 'Redundant comparison - 1 == 1',
       lnum = 2,
       col = 2,
       end_lnum = 2,
       end_col = 2,
       severity = vim.diagnostic.severity.INFO,
+      user_data = {
+        lsp = {
+          code = 'R0124',
+        },
+      },
     }
 
     assert.are.same(expected_3, result[3])
