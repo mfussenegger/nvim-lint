@@ -81,6 +81,7 @@ Other dedicated linters that are built-in are:
 | [HTML Tidy][12]              | `tidy`         |
 | [Inko][17]                   | `inko`         |
 | [jshint][jshint]             | `jshint`       |
+| [ktlint][ktlint]             | `ktlint`       |
 | [Languagetool][5]            | `languagetool` |
 | [luacheck][19]               | `luacheck`     |
 | [markdownlint][26]           | `markdownlint` |
@@ -289,3 +290,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [cmakelint]: https://github.com/cmake-lint/cmake-lint
 [rstcheck]: https://github.com/myint/rstcheck
 [rstlint]: https://github.com/twolfson/restructuredtext-lint
+[ktlint]: https://github.com/pinterest/ktlint
