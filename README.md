@@ -61,6 +61,7 @@ Other dedicated linters that are built-in are:
 | -------------------          | -------------- |
 | Set via `makeprg`            | `compiler`     |
 | [ansible-lint][ansible-lint] | `ansible_lint` |
+| [checkov][checkov]           | `checkov`      |
 | [checkstyle][checkstyle]     | `checkstyle`   |
 | [chktex][20]                 | `chktex`       |
 | [clang-tidy][23]             | `clangtidy`    |
@@ -289,3 +290,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [cmakelint]: https://github.com/cmake-lint/cmake-lint
 [rstcheck]: https://github.com/myint/rstcheck
 [rstlint]: https://github.com/twolfson/restructuredtext-lint
+[checkov]: https://github.com/bridgecrewio/checkov

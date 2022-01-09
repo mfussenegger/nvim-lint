@@ -22,6 +22,7 @@ M.linters_by_ft = {
   inko = {'inko',},
   clojure = {'clj-kondo',},
   dockerfile = {'hadolint',},
+  terraform = {'checkov',},
 }
 
 local namespaces = setmetatable({}, {
