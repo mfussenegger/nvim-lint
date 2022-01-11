@@ -23,7 +23,14 @@ local source_pytestcov = "pytest-cov"
 return {
   cmd = 'pytest',
   stdin = false,
-  args = {"--cov-reset", "--cov-report=term-missing", "--cov=."},
+  args = {"--cov-reset", "--cov-report=term-missing", "--cov=.", function ()
+    local git_root_dir = vim.fn.system("git rev-parse --show-toplevel"):sub(1, -2)
+    if vim.startswith(git_root_dir, 'fatal') then
+      return ''
+    else
+      return git_root_dir
+    end
+  end},
   append_fname = false,
   ignore_exitcode = true,
   parser = function(output, bufnr)
