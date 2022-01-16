@@ -88,6 +88,7 @@ Other dedicated linters that are built-in are:
 | [mlint][34]                  | `mlint`        |
 | [Mypy][11]                   | `mypy`         |
 | nix                          | `nix`          |
+| [phpcs][phpcs]               | `phpcs`        |
 | [proselint][proselint]       | `proselint`    |
 | [pycodestyle][pcs-docs]      | `pycodestyle`  |
 | [pydocstyle][pydocstyle]     | `pydocstyle`   |
@@ -291,3 +292,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [rstcheck]: https://github.com/myint/rstcheck
 [rstlint]: https://github.com/twolfson/restructuredtext-lint
 [ktlint]: https://github.com/pinterest/ktlint
+[phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
