@@ -3,7 +3,7 @@ return {
   args = {'--autoDetect', '--json'},
   stream = 'stdout',
   parser = function(output, bufnr)
-    local decoded = vim.fn.json_decode(output)
+    local decoded = vim.json.decode(output)
     local diagnostics = {}
     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, true)
     local content = table.concat(lines, '\n')

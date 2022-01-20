@@ -14,7 +14,7 @@ return {
   },
   ignore_exitcode = true,
   parser = function(output)
-    local decoded = vim.fn.json_decode(output)
+    local decoded = vim.json.decode(output)
     local diagnostics = {}
     for _, item in ipairs(decoded or {}) do
       table.insert(diagnostics, {

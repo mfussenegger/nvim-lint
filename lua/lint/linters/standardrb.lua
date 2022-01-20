@@ -6,7 +6,7 @@ return {
   stdin = true,
   parser = function(output)
     local diagnostics = {}
-    local decoded = vim.fn.json_decode(output)
+    local decoded = vim.json.decode(output)
     local offences = decoded.files[1].offenses
 
     for _, off in pairs(offences or {}) do

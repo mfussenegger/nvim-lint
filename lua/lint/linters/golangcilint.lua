@@ -19,7 +19,7 @@ return {
     if output == '' then
       return {}
     end
-    local decoded = vim.fn.json_decode(output)
+    local decoded = vim.json.decode(output)
     if decoded["Issues"] == nil or type(decoded["Issues"]) == 'userdata' then
       return {}
     end

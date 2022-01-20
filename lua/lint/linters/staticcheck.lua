@@ -15,7 +15,7 @@ return {
     local result = vim.fn.split(output, "\n")
     local diagnostics = {}
     for _, message in ipairs(result) do
-      local decoded = vim.fn.json_decode(message)
+      local decoded = vim.json.decode(message)
         table.insert(diagnostics, {
           lnum = decoded.location.line - 1,
           col = decoded.location.column - 1,

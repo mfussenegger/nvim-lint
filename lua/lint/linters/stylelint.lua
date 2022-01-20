@@ -16,7 +16,7 @@ return {
   stream = "stdout",
   ignore_exitcode = true,
   parser = function (output)
-    local status, decoded = pcall(vim.fn.json_decode, output)
+    local status, decoded = pcall(vim.json.decode, output)
     if status then
       decoded = decoded[1]
     else

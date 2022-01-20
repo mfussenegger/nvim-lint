@@ -16,7 +16,7 @@ return {
     '--config', '{:output {:format :json}}', '--filename', get_file_name, '--lint', '-',
   },
   parser = function(output)
-    local decoded = vim.fn.json_decode(output) or {}
+    local decoded = vim.json.decode(output) or {}
     local findings = decoded.findings
     local diagnostics = {}
 

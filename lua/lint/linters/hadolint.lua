@@ -11,7 +11,7 @@ return {
   ignore_exitcode = true,
   args = {'-f', 'json', '-'},
   parser = function(output)
-    local findings = vim.fn.json_decode(output)
+    local findings = vim.json.decode(output)
     local diagnostics = {}
 
     for _, finding in pairs(findings or {}) do

@@ -17,7 +17,7 @@ return {
       return {}
     end
 
-    local decoded = vim.fn.json_decode(output)
+    local decoded = vim.json.decode(output)
     local diagnostics = {}
     local messages = decoded['files']['STDIN']['messages']
 

@@ -39,7 +39,7 @@ return {
       return items
     end
 
-    local decoded = vim.fn.json_decode(output) or {}
+    local decoded = vim.json.decode(output) or {}
     local bufpath = vim.fn.expand('%:p')
 
     for _, diag in ipairs(decoded) do

@@ -5,7 +5,7 @@ return {
   stream = 'stderr',
   ignore_exitcode = true,
   parser = function(output)
-    local ktlint_output = vim.fn.json_decode(output)
+    local ktlint_output = vim.json.decode(output)
     if vim.tbl_isempty(ktlint_output) then
       return {}
     end

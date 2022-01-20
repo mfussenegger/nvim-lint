@@ -9,7 +9,7 @@ return {
   args = { "--json" },
   parser = function(output)
     local diagnostics = {}
-    local items = #output > 0 and vim.fn.json_decode(output) or {}
+    local items = #output > 0 and vim.json.decode(output) or {}
     for _, item in ipairs(items) do
       table.insert(diagnostics, {
         lnum = item.startLine,

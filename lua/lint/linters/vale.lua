@@ -24,7 +24,7 @@ return {
     if vim.trim(output) == '' then
       return {}
     end
-    local decoded = vim.fn.json_decode(output)
+    local decoded = vim.json.decode(output)
     local diagnostics = {}
     local items = decoded['stdin' .. get_cur_file_extension(bufnr)]
     for _, item in pairs(items or {}) do

@@ -13,7 +13,7 @@ return {
         local lines = vim.fn.split(output, "\n")
         local diagnostics = {}
         for _, line in ipairs(lines) do
-            local ok, decoded = pcall(vim.fn.json_decode, line)
+            local ok, decoded = pcall(vim.json.decode, line)
 
             if not ok then
                 return diagnostics
