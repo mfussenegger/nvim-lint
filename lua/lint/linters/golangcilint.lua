@@ -7,7 +7,7 @@ local severities = {
 
 return {
   cmd = 'golangci-lint',
-  stdin = true,
+  append_fname = true,
   args = {
     'run',
     '--out-format',
