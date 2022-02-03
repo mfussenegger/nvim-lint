@@ -32,10 +32,10 @@ return {
         -- only publish if those are the current file diagnostics
         local sv = severities[item.Severity] or severities.warning
         table.insert(diagnostics, {
-          lnum = item.Pos.Line - 1,
-          col = item.Pos.Column - 1,
-          end_lnum = item.Pos.Line - 1,
-          end_col = item.Pos.Column - 1,
+          lnum = item.Pos.Line > 0 and item.Pos.Line - 1 or 0,
+          col = item.Pos.Column > 0 and item.Pos.Column - 1 or 0,
+          end_lnum = item.Pos.Line > 0 and item.Pos.Line - 1 or 0,
+          end_col = item.Pos.Column > 0 and item.Pos.Column - 1 or 0,
           severity = sv,
           source = item.FromLinter,
           message = item.Text,
