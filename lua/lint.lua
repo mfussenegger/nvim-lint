@@ -157,16 +157,17 @@ function M.lint(linter)
     cwd = vim.fn.getcwd(),
     detached = false
   }
-  assert(linter.cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
-  handle, pid_or_err = uv.spawn(linter.cmd, opts, function(code)
+  local cmd = eval_fn_or_id(linter.cmd)
+  assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
+  handle, pid_or_err = uv.spawn(cmd, opts, function(code)
     stdout:close()
     stderr:close()
     handle:close()
     if code ~= 0 and not linter.ignore_exitcode then
-      print('Linter command', linter.cmd, 'exited with code', code)
+      print('Linter command', cmd, 'exited with code', code)
     end
   end)
-  assert(handle, 'Error running ' .. linter.cmd .. ': ' .. pid_or_err)
+  assert(handle, 'Error running ' .. cmd .. ': ' .. pid_or_err)
   local parser = linter.parser
   if type(parser) == 'function' then
     parser = require('lint.parser').accumulate_chunks(parser)

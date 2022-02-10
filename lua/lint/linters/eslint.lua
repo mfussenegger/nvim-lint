@@ -7,7 +7,14 @@ local severity_map = {
 }
 
 return {
-  cmd = 'eslint',
+  cmd = function()
+    local local_eslint = vim.fn.fnamemodify('./node_modules/.bin/eslint', ':p')
+    local stat = vim.loop.fs_stat(local_eslint)
+    if stat then
+      return local_eslint
+    end
+    return 'eslint'
+  end,
   args = {},
   stdin = false,
   stream = 'stdout',
