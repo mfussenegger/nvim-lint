@@ -213,6 +213,21 @@ defaults = {["source"] = "mylint-name"}
 ```
 
 
+## Customize built-in linter parameters
+
+You can import a linter and modify its properties. An example:
+
+```lua
+local phpcs = require('lint.linters.phpcs')
+phpcs.args = {
+  '-q',
+  -- <- Add a new parameter here
+  '--report=json',
+  '-'
+}
+```
+
+
 ## Alternatives
 
 - [null-ls.nvim][null-ls]
