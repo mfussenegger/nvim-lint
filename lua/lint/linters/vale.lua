@@ -29,7 +29,8 @@ return {
     local items = decoded['stdin' .. get_cur_file_extension(bufnr)]
     for _, item in pairs(items or {}) do
       local curline = unpack(vim.api.nvim_buf_get_lines(bufnr, item.Line-1, item.Line, false))
-      local column, end_column = string.find(curline, item.Match)
+      local column = vim.str_byteindex(curline, item.Span[1])
+      local end_column = vim.str_byteindex(curline, item.Span[2])
       table.insert(diagnostics, {
         lnum = item.Line - 1,
         end_lnum = item.Line - 1,
