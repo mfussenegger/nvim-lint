@@ -28,11 +28,13 @@ return {
     local diagnostics = {}
     local items = decoded['stdin' .. get_cur_file_extension(bufnr)]
     for _, item in pairs(items or {}) do
+      local curline = unpack(vim.api.nvim_buf_get_lines(bufnr, item.Line-1, item.Line, false))
+      local column, end_column = string.find(curline, item.Match)
       table.insert(diagnostics, {
         lnum = item.Line - 1,
         end_lnum = item.Line - 1,
-        col = item.Span[1] - 1,
-        end_col = item.Span[2],
+        col = column - 1,
+        end_col = end_column,
         message = item.Message,
         source = 'vale',
         severity = assert(severities[item.Severity], 'missing mapping for severity ' .. item.Severity),
