@@ -142,9 +142,10 @@ function M.lint(linter)
     table.insert(args, api.nvim_buf_get_name(bufnr))
   end
   if linter.env then
+    env = {}
     if not linter.env["PATH"] then
       -- Always include PATH as we need it to execute the linter command
-      env = {"PATH=" .. os.getenv("PATH")}
+      table.insert(env, "PATH=" .. os.getenv("PATH"))
     end
     for k, v in pairs(linter.env) do
       table.insert(env, k .. "=" .. v)
