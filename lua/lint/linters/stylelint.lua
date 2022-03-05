@@ -42,6 +42,7 @@ return {
           end_lnum = message.line - 1,
           end_col = message.column - 1,
           message = message.text,
+          code = message.rule,
           user_data = {
             lsp = {
               code = message.rule,

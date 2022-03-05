@@ -22,6 +22,7 @@ return {
         col = item.column - 1,
         end_lnum = item.endLine - 1,
         end_col = item.endColumn - 1,
+        code = item.code,
         user_data = {
           lsp = {
             code = item.code,

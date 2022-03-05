@@ -18,6 +18,7 @@ L 13 (C 1-3): RESWD: ML3: Invalid use of a reserved word.
     col = 0,
     end_lnum = 0,
     end_col = 0,
+    code = 'SCABE',
     user_data = {
       lsp = {
         code = 'SCABE',
@@ -34,6 +35,7 @@ L 13 (C 1-3): RESWD: ML3: Invalid use of a reserved word.
     col = 47,
     end_lnum = 9,
     end_col = 50,
+    code = 'SYNER',
     user_data = {
       lsp = {
         code = 'SYNER',

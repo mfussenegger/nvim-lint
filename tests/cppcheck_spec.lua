@@ -12,6 +12,7 @@ describe('linter.cppcheck', function()
   assert.are.same(4, #result)
 
   local expected_1_88 = {
+    code = 'unusedVariable',
     source = 'cppcheck',
     message = 'Unused variable: fd',
     lnum = 45,
@@ -24,6 +25,7 @@ describe('linter.cppcheck', function()
   assert.are.same(expected_1_88, result[1])
 
   local expected_1_34 = {
+    code = 'unusedVariable',
     source = 'cppcheck',
     user_data = { lsp = { code = 'unusedVariable' } },
     message = 'Unused variable: fd',

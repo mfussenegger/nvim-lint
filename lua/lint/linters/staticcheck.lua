@@ -21,6 +21,7 @@ return {
           col = decoded.location.column - 1,
           end_lnum = decoded["end"]["line"] - 1,
           end_col = decoded["end"]["column"] - 1,
+          code = decoded.code,
           user_data = {
             lsp = {
               code = decoded.code,
