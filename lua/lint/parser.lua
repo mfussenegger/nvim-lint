@@ -72,6 +72,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
       end_col = end_col,
       severity = severity_map[captures.severity] or defaults.severity or vd.severity.ERROR,
       message = assert(captures.message, 'diagnostic requires a message'),
+      code = captures.code
     }
     if captures.code or captures.code_desc then
       diagnostic.user_data = {

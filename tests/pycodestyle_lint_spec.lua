@@ -15,6 +15,7 @@ describe('linter.pycodestyle', function()
     ]], vim.api.nvim_get_current_buf())
     assert.are.same(4, #result)
     local expected_error = {
+      code = 'E302',
       source = 'pycodestyle',
       message = 'expected 2 blank lines, found 1',
       lnum = 25,
@@ -30,6 +31,7 @@ describe('linter.pycodestyle', function()
     }
     assert.are.same(expected_error, result[1])
     local expected_warning = {
+      code = 'W291',
       source = 'pycodestyle',
       message = 'trailing whitespace',
       lnum = 68,

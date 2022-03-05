@@ -17,6 +17,7 @@ return {
         end_col = off.location.last_column,
         severity = (off.severity == "error" and sev.ERROR or sev.WARN ),
         message = off.message,
+        code = off.cop_name,
         user_data = {
           lsp = {
             code = off.cop_name,

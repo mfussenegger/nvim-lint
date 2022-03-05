@@ -28,6 +28,7 @@ return {
                 message = desc,
                 severity = assert(severities[sev],
                                   'missing mapping for severity ' .. sev),
+                code = code,
                 user_data = {
                   lsp = {
                     code = code

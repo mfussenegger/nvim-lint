@@ -39,6 +39,7 @@ return {
                         codeDescription = decoded.code,
                       }
                     },
+                    code = decoded.code,
                     source = "selene",
                     severity = assert(
                         severities[decoded.severity],
