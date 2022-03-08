@@ -82,6 +82,7 @@ Other dedicated linters that are built-in are:
 | [Inko][17]                   | `inko`         |
 | [jshint][jshint]             | `jshint`       |
 | [ktlint][ktlint]             | `ktlint`       |
+| [lacheck][lacheck]           | `lacheck`      |
 | [Languagetool][5]            | `languagetool` |
 | [luacheck][19]               | `luacheck`     |
 | [markdownlint][26]           | `markdownlint` |
@@ -308,3 +309,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [rstlint]: https://github.com/twolfson/restructuredtext-lint
 [ktlint]: https://github.com/pinterest/ktlint
 [phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
+[lacheck]: https://www.ctan.org/tex-archive/support/lacheck
