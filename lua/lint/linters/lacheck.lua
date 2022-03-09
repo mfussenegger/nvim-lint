@@ -6,7 +6,7 @@ return {
   cmd = 'lacheck',
   stdin = false,
   args = {},
-  stream = stdout,
+  stream = 'stdout',
   ignore_exitcode = false,
   parser = require('lint.parser').from_pattern(pattern, groups, nil, {
     ["source"] = "lacheck",
