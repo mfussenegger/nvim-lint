@@ -140,6 +140,7 @@ Other dedicated linters that are built-in are:
 | [StandardRB][27]                   | `standardrb`      |
 | [statix check][33]                 | `statix`          |
 | [stylelint][29]                    | `stylelint`       |
+| [Solhint][solhint]                 | `solhint`         |
 | [Nagelfar][nagelfar]               | `nagelfar`        |
 | [Vale][8]                          | `vale`            |
 | [Verilator][verilator]             | `verilator`       |
@@ -379,3 +380,4 @@ busted tests/
 [tfsec]: https://github.com/aquasecurity/tfsec
 [djlint]: https://djlint.com/
 [buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
+[solhint]: https://protofire.github.io/solhint/
