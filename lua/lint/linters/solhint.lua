@@ -3,14 +3,9 @@ local vim = vim
 local severities = {}
 severities[2] = vim.diagnostic.severity.ERROR
 severities[3] = vim.diagnostic.severity.WARN
---   refactor = vim.diagnostic.severity.INFO,
---   convention = vim.diagnostic.severity.HINT
--- }
-
-local linter = "solhint"
 
 return {
-  cmd = linter,
+  cmd = "solhint",
   stdin = false,
   args = {
     "-f",
@@ -19,8 +14,13 @@ return {
   ignore_exitcode = true,
   parser = function(output, bufnr)
     local diagnostics = {}
+
+    if output == "" then
+      print("solhint: parse error")
+      return diagnostics
+    end
+
     local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":~:.")
-    print(buffer_path)
 
     output = vim.json.decode(output)[1]
     for _, item in ipairs(output.reports or {}) do
@@ -28,7 +28,7 @@ return {
         table.insert(
           diagnostics,
           {
-            source = linter,
+            source = "solhint",
             lnum = item.line - 1,
             end_lnum = item.line - 1,
             col = item.column - 1,
