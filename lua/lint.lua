@@ -1,5 +1,11 @@
 local uv = vim.loop
 local api = vim.api
+local notify
+if vim.notify_once then
+  notify = vim.notify_once
+else
+  notify = vim.notify
+end
 local M = {}
 
 
@@ -110,7 +116,7 @@ function M.try_lint(names)
   for _, linter in pairs(linters) do
     local ok, err = pcall(M.lint, linter)
     if not ok then
-      vim.notify(err, vim.log.levels.WARN)
+      notify(err, vim.log.levels.WARN)
     end
   end
 end
