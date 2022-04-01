@@ -1,6 +1,6 @@
 local errorfmt = '[%t] %. %f:%l:%c %m, [%t] %. %f:%l %m'
 
-return {  
+return {
   cmd = 'mix',
   stdin = true,
   args = { 'credo', 'list', '--format=oneline', '--read-from-stdin', '--strict'},
