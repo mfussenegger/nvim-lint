@@ -70,6 +70,7 @@ Other dedicated linters that are built-in are:
 | [codespell][18]              | `codespell`    |
 | [cppcheck][22]               | `cppcheck`     |
 | [cpplint][cpplint]           | `cpplint`      |
+| [credo][credo]               | `credo`        |
 | [cspell][36]                 | `cspell`       |
 | [ESLint][25]                 | `eslint`       |
 | fennel                       | `fennel`       |
@@ -310,3 +311,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [ktlint]: https://github.com/pinterest/ktlint
 [phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
 [lacheck]: https://www.ctan.org/tex-archive/support/lacheck
+[credo]: https://github.com/rrrene/credo
