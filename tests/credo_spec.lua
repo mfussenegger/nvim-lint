@@ -21,7 +21,7 @@ describe('linter.credo', function()
 
     assert.are.same(expected_error, result[1])
 
-    local expected_error = {
+    expected_error = {
       col = 4,
       end_col = 4,
       lnum = 8,
