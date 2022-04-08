@@ -11,11 +11,13 @@ return {
     '-f', 'json',
   },
   ignore_exitcode = true,
-  parser = function(output)
+  parser = function(output, bufnr)
     local result = vim.fn.split(output, "\n")
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
     local diagnostics = {}
     for _, message in ipairs(result) do
       local decoded = vim.json.decode(message)
+      if decoded.location.file == bufname then
         table.insert(diagnostics, {
           lnum = decoded.location.line - 1,
           col = decoded.location.column - 1,
@@ -30,6 +32,7 @@ return {
           severity = assert(severities[decoded.severity], 'missing mapping for severity ' .. decoded.severity),
           message = decoded.message,
         })
+      end
     end
     return diagnostics
   end,
