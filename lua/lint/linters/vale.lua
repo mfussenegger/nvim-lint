@@ -37,7 +37,7 @@ return {
         column = 1
       end
       local end_column
-      ok, end_column = vim.str_byteindex(curline, item.Span[2])
+      ok, end_column = pcall(vim.str_byteindex, curline, item.Span[2])
       if not ok then
         end_column = #curline
       end
