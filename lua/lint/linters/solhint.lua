@@ -14,15 +14,24 @@ return {
   ignore_exitcode = true,
   parser = function(output, bufnr)
     local diagnostics = {}
-
     if output == "" then
       print("solhint: parse error")
       return diagnostics
     end
 
+    if output == "Failed to load a solhint's config file." then
+      print(output)
+      return diagnostics
+    end
+
     local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":~:.")
 
-    output = vim.json.decode(output)[1]
+    output = vim.json.decode(output)
+    if output == nil or table.getn(output) == 0 then
+      return diagnostics
+    end
+    output = output[1]
+
     for _, item in ipairs(output.reports or {}) do
       if not item.path or vim.fn.fnamemodify(item.path, ":~:.") == buffer_path then
         table.insert(
