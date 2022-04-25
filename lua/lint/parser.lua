@@ -100,16 +100,22 @@ end
 
 function M.accumulate_chunks(parse)
   local chunks = {}
+  local already_published = false
   return {
     on_chunk = function(chunk)
       table.insert(chunks, chunk)
     end,
     on_done = function(publish, bufnr)
-      vim.schedule(function()
-        local output = table.concat(chunks)
-        local diagnostics = parse(output, bufnr)
-        publish(diagnostics, bufnr)
-      end)
+      if already_published then
+        return
+      else
+        already_published = true
+        vim.schedule(function()
+          local output = table.concat(chunks)
+          local diagnostics = parse(output, bufnr)
+          publish(diagnostics, bufnr)
+        end)
+      end
     end,
   }
 end
