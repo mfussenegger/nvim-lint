@@ -13,7 +13,7 @@ return {
     '--out-format',
     'json',
   },
-  stream = 'stdout',
+  stream = 'both',
   ignore_exitcode = true,
   parser = function(output, bufnr)
     if output == '' then
