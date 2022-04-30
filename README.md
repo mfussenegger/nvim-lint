@@ -74,6 +74,7 @@ Other dedicated linters that are built-in are:
 | [cspell][36]                 | `cspell`       |
 | [ESLint][25]                 | `eslint`       |
 | fennel                       | `fennel`       |
+| fish                         | `fish`         |
 | [Flake8][13]                 | `flake8`       |
 | [flawfinder][35]             | `flawfinder`   |
 | [Golangci-lint][16]          | `golangcilint` |
