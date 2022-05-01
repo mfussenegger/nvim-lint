@@ -77,6 +77,7 @@ Other dedicated linters that are built-in are:
 | [Flake8][13]                 | `flake8`       |
 | [flawfinder][35]             | `flawfinder`   |
 | [Golangci-lint][16]          | `golangcilint` |
+| [glslc][glslc]               | `glslc`        |
 | [hadolint][28]               | `hadolint`     |
 | [hlint][32]                  | `hlint`        |
 | [HTML Tidy][12]              | `tidy`         |
@@ -312,3 +313,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
 [lacheck]: https://www.ctan.org/tex-archive/support/lacheck
 [credo]: https://github.com/rrrene/credo
+[glslc]: https://github.com/google/shaderc
