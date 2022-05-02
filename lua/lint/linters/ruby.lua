@@ -25,10 +25,10 @@ return {
   args = { '-w', '-c' },
   ignore_exitcode = true,
   stream = 'stderr',
-  parser = function(output)
+  parser = function(output, bufnr)
     local diagnostics = {}
     for _, parser in ipairs(parsers) do
-      local result = parser(output)
+      local result = parser(output, bufnr)
       for _, diagnostic in ipairs(result) do
         table.insert(diagnostics, diagnostic)
       end
