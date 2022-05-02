@@ -39,19 +39,19 @@ local namespaces = setmetatable({}, {
 })
 
 
-local function read_output(bufnr, parser, publish_fn)
+local function read_output(cwd, bufnr, parser, publish_fn)
   return function(err, chunk)
     assert(not err, err)
     if chunk then
       parser.on_chunk(chunk, bufnr)
     else
-      parser.on_done(publish_fn, bufnr)
+      parser.on_done(publish_fn, bufnr, cwd)
     end
   end
 end
 
 
-local function start_read(stream, stdout, stderr, bufnr, parser, ns)
+local function start_read(stream, cwd, stdout, stderr, bufnr, parser, ns)
   local publish = function(diagnostics)
     -- By the time the linter is finished the user might have deleted the buffer
     if api.nvim_buf_is_valid(bufnr) then
@@ -63,18 +63,17 @@ local function start_read(stream, stdout, stderr, bufnr, parser, ns)
     stderr:close()
   end
   if not stream or stream == 'stdout' then
-    stdout:read_start(read_output(bufnr, parser, publish))
+    stdout:read_start(read_output(cwd, bufnr, parser, publish))
   elseif stream == 'stderr' then
-    stderr:read_start(read_output(bufnr, parser, publish))
+    stderr:read_start(read_output(cwd, bufnr, parser, publish))
   elseif stream == 'both' then
     local parser1, parser2 = require('lint.parser').split(parser)
-    stdout:read_start(read_output(bufnr, parser1, publish))
-    stderr:read_start(read_output(bufnr, parser2, publish))
+    stdout:read_start(read_output(cwd, bufnr, parser1, publish))
+    stderr:read_start(read_output(cwd, bufnr, parser2, publish))
   else
     error('Invalid `stream` setting: ' .. stream)
   end
 end
-
 
 function M._resolve_linter_by_ft(ft)
   local names = M.linters_by_ft[ft]
@@ -95,7 +94,7 @@ function M._resolve_linter_by_ft(ft)
 end
 
 
-function M.try_lint(names)
+function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
     "nvim-lint requires neovim 0.6.0+. If you're using an older version, use the `nvim-05` tag of nvim-lint'"
@@ -118,13 +117,12 @@ function M.try_lint(names)
   end
   local linters = vim.tbl_map(lookup_linter, names)
   for _, linter in pairs(linters) do
-    local ok, err = pcall(M.lint, linter)
+    local ok, err = pcall(M.lint, linter, opts)
     if not ok then
       notify(err, vim.log.levels.WARN)
     end
   end
 end
-
 
 local function eval_fn_or_id(x)
   if type(x) == 'function' then
@@ -135,7 +133,7 @@ local function eval_fn_or_id(x)
 end
 
 
-function M.lint(linter)
+function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
   local stdin = uv.new_pipe(false)
   local stdout = uv.new_pipe(false)
@@ -145,6 +143,7 @@ function M.lint(linter)
   local pid_or_err
   local args = {}
   local bufnr = api.nvim_get_current_buf()
+  opts = opts or {}
   if linter.args then
     vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))
   end
@@ -161,16 +160,16 @@ function M.lint(linter)
       table.insert(env, k .. "=" .. v)
     end
   end
-  local opts = {
+  local linter_opts = {
     args = args,
-    stdio = {stdin, stdout, stderr},
+    stdio = { stdin, stdout, stderr },
     env = env,
-    cwd = vim.fn.getcwd(),
+    cwd = opts.cwd or vim.fn.getcwd(),
     detached = false
   }
   local cmd = eval_fn_or_id(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
-  handle, pid_or_err = uv.spawn(cmd, opts, function(code)
+  handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
     handle:close()
     if code ~= 0 and not linter.ignore_exitcode then
       print('Linter command `' .. cmd .. '` exited with code: ' .. code, vim.log.levels.WARN)
@@ -196,7 +195,7 @@ function M.lint(linter)
     'Parser requires a `on_done` function'
   )
   local ns = namespaces[linter.name]
-  start_read(linter.stream, stdout, stderr, bufnr, parser, ns)
+  start_read(linter.stream, linter_opts.cwd, stdout, stderr, bufnr, parser, ns)
   if linter.stdin then
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
     for _, line in ipairs(lines) do
