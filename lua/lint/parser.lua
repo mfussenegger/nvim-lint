@@ -23,7 +23,7 @@ function M.from_errorformat(efm, skeleton)
         local col = math.max(0, item.col - 1)
         local end_lnum = item.end_lnum > 0 and (item.end_lnum - 1) or lnum
         local end_col = item.end_col > 0 and (item.end_col - 1) or col
-        local severity = item.type ~= "" and severity_by_qftype[item.type] or nil
+        local severity = item.type ~= "" and severity_by_qftype[item.type:upper()] or nil
         local diagnostic = {
           lnum = lnum,
           col = col,
