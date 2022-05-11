@@ -175,10 +175,16 @@ function M.lint(linter)
     end)
     handle:close()
     if code ~= 0 and not linter.ignore_exitcode then
-      print('Linter command', cmd, 'exited with code', code)
+      print('Linter command `' .. cmd .. '` exited with code: ' .. code, vim.log.levels.WARN)
     end
   end)
-  assert(handle, 'Error running ' .. cmd .. ': ' .. pid_or_err)
+  if not handle then
+    stdout:close()
+    stderr:close()
+    stdin:close()
+    vim.notify('Error running ' .. cmd .. ': ' .. pid_or_err, vim.log.levels.ERROR)
+    return
+  end
   local parser = linter.parser
   if type(parser) == 'function' then
     parser = require('lint.parser').accumulate_chunks(parser)
