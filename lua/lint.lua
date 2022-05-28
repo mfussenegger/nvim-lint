@@ -57,6 +57,10 @@ local function start_read(stream, stdout, stderr, bufnr, parser, ns)
     if api.nvim_buf_is_valid(bufnr) then
       vim.diagnostic.set(ns, bufnr, diagnostics)
     end
+    stdout:shutdown()
+    stdout:close()
+    stderr:shutdown()
+    stderr:close()
   end
   if not stream or stream == 'stdout' then
     stdout:read_start(read_output(bufnr, parser, publish))
@@ -167,12 +171,6 @@ function M.lint(linter)
   local cmd = eval_fn_or_id(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(cmd, opts, function(code)
-    stdout:shutdown(function()
-      stdout:close()
-    end)
-    stderr:shutdown(function()
-      stderr:close()
-    end)
     handle:close()
     if code ~= 0 and not linter.ignore_exitcode then
       print('Linter command `' .. cmd .. '` exited with code: ' .. code, vim.log.levels.WARN)
