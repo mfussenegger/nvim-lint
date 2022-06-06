@@ -3,6 +3,7 @@ local severities = {
   fatal = vim.diagnostic.severity.ERROR,
   warning = vim.diagnostic.severity.WARN,
   refactor = vim.diagnostic.severity.INFO,
+  info = vim.diagnostic.severity.INFO,
   convention = vim.diagnostic.severity.HINT,
 }
 
