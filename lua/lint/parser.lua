@@ -85,6 +85,9 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
     return vim.tbl_extend('keep', diagnostic, defaults or {})
   end
   return function(output, bufnr)
+    if not vim.api.nvim_buf_is_valid(bufnr) then
+      return {}
+    end
     local result = {}
     local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p")
     for _, line in ipairs(vim.fn.split(output, '\n')) do
