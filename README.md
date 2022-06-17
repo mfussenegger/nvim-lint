@@ -101,6 +101,7 @@ Other dedicated linters that are built-in are:
 | [robocop][robocop]           | `robocop`      |
 | [rstcheck][rstcheck]         | `rstcheck`     |
 | [rstlint][rstlint]           | `rstlint`      |
+| [RuboCop][rubocop]           | `rubocop`      |
 | Ruby                         | `ruby`         |
 | [Selene][31]                 | `selene`       |
 | [ShellCheck][10]             | `shellcheck`   |
@@ -314,3 +315,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [lacheck]: https://www.ctan.org/tex-archive/support/lacheck
 [credo]: https://github.com/rrrene/credo
 [glslc]: https://github.com/google/shaderc
+[rubocop]: https://github.com/rubocop/rubocop
