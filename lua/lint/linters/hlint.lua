@@ -6,7 +6,7 @@ local severities = {
 
 return {
   cmd = "hlint",
-  args = { "--json" },
+  args = { "--json", "--no-exit-code" },
   parser = function(output)
     local diagnostics = {}
     local items = #output > 0 and vim.json.decode(output) or {}
