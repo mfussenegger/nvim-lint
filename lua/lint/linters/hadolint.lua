@@ -2,6 +2,7 @@ local severities = {
   error = vim.diagnostic.severity.ERROR,
   warning = vim.diagnostic.severity.WARN,
   info = vim.diagnostic.severity.INFO,
+  style = vim.diagnostic.severity.HINT,
 }
 
 return {
