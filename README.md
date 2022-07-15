@@ -40,6 +40,16 @@ Then setup a autocmd to trigger linting. For example:
 au BufWritePost <buffer> lua require('lint').try_lint()
 ```
 
+or with Lua autocmds (requires 0.7):
+
+```lua
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
+```
+
 Some linters require a file to be saved to disk, others support linting `stdin`
 input. For such linters you could also define a more aggressive autocmd, for
 example on the `InsertLeave` or `TextChanged` events.
