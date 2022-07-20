@@ -37,7 +37,7 @@ require('lint').linters_by_ft = {
 Then setup a autocmd to trigger linting. For example:
 
 ```vimL
-au BufWritePost <buffer> lua require('lint').try_lint()
+au BufWritePost lua require('lint').try_lint()
 ```
 
 or with Lua autocmds (requires 0.7):
