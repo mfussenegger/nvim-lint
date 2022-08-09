@@ -71,6 +71,7 @@ Other dedicated linters that are built-in are:
 | -------------------           | -------------- |
 | Set via `makeprg`             | `compiler`     |
 | [ansible-lint][ansible-lint]  | `ansible_lint` |
+| [cfn-lint][cfn-lint]          | `cfn_lint`     |
 | [checkstyle][checkstyle]      | `checkstyle`   |
 | [chktex][20]                  | `chktex`       |
 | [clang-tidy][23]              | `clangtidy`    |
@@ -329,3 +330,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [glslc]: https://github.com/google/shaderc
 [rubocop]: https://github.com/rubocop/rubocop
 [dxc]: https://github.com/microsoft/DirectXShaderCompiler
+[cfn-lint]: https://github.com/aws-cloudformation/cfn-lint
