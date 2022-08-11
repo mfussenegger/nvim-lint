@@ -279,7 +279,6 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [6]: https://github.com/mattn/efm-langserver
 [7]: https://github.com/iamcco/diagnostic-languageserver
 [8]: https://github.com/errata-ai/vale
-[9]: https://microsoft.github.io/language-server-protocol/specifications/specification-current/#diagnostic
 [10]: https://www.shellcheck.net/
 [11]: http://mypy-lang.org/
 [12]: https://www.html-tidy.org/
