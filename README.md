@@ -84,7 +84,7 @@ Other dedicated linters that are built-in are:
 | [credo][credo]                | `credo`        |
 | [cspell][36]                  | `cspell`       |
 | [ESLint][25]                  | `eslint`       |
-| fennel                        | `fennel`       |
+| [fennel][fennel]              | `fennel`       |
 | [Flake8][13]                  | `flake8`       |
 | [flawfinder][35]              | `flawfinder`   |
 | [Golangci-lint][16]           | `golangcilint` |
@@ -102,7 +102,7 @@ Other dedicated linters that are built-in are:
 | [markdownlint][26]            | `markdownlint` |
 | [mlint][34]                   | `mlint`        |
 | [Mypy][11]                    | `mypy`         |
-| nix                           | `nix`          |
+| [Nix][nix]                    | `nix`          |
 | [phpcs][phpcs]                | `phpcs`        |
 | [proselint][proselint]        | `proselint`    |
 | [pycodestyle][pcs-docs]       | `pycodestyle`  |
@@ -113,7 +113,7 @@ Other dedicated linters that are built-in are:
 | [robocop][robocop]            | `robocop`      |
 | [rstcheck][rstcheck]          | `rstcheck`     |
 | [rstlint][rstlint]            | `rstlint`      |
-| Ruby                          | `ruby`         |
+| [Ruby][ruby]                  | `ruby`         |
 | [RuboCop][rubocop]            | `rubocop`      |
 | [Selene][31]                  | `selene`       |
 | [ShellCheck][10]              | `shellcheck`   |
@@ -330,3 +330,6 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [rubocop]: https://github.com/rubocop/rubocop
 [dxc]: https://github.com/microsoft/DirectXShaderCompiler
 [cfn-lint]: https://github.com/aws-cloudformation/cfn-lint
+[fennel]: https://github.com/bakpakin/Fennel
+[nix]: https://github.com/NixOS/nix
+[ruby]: https://github.com/ruby/ruby
