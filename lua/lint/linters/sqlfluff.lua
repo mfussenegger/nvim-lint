@@ -31,7 +31,7 @@ return {
         partial_diagnostic_per_output_line[output_i_line] = {
           source = 'sqlfluff',
           lnum = assert(tonumber(line_nr)) - 1,
-          col = assert(tonumber(col_nr)),
+          col = assert(tonumber(col_nr)) - 1,
           severity = vim.diagnostic.severity.ERROR,
           message = vim.trim(error_code) .. ": " .. vim.trim(partial_message),
         }
