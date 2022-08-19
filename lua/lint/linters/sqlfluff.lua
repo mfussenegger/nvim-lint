@@ -33,7 +33,8 @@ return {
           lnum = assert(tonumber(line_nr)) - 1,
           col = assert(tonumber(col_nr)) - 1,
           severity = vim.diagnostic.severity.ERROR,
-          message = vim.trim(error_code) .. ": " .. vim.trim(partial_message),
+          message = vim.trim(partial_message),
+          user_data = {lsp = {code = vim.trim(error_code)}},
         }
       end
     end
