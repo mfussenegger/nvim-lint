@@ -20,16 +20,14 @@ return {
 
     for _, item in ipairs(vim.json.decode(output) or {}) do
       if not item.path or vim.fn.fnamemodify(item.path, ":~:.") == buffer_path then
-        local column = 0
-        if item.column > 0 then
-          column = item.column - 1
-        end
+        local column = item.column > 0 and item.column or 0
+        local end_column = item.endColumn ~= vim.NIL and item.endColumn or column
         table.insert(diagnostics, {
           source = 'pylint',
           lnum = item.line - 1,
           col = column,
           end_lnum = item.line - 1,
-          end_col = column,
+          end_col = end_column,
           severity = assert(severities[item.type], 'missing mapping for severity ' .. item.type),
           message = item.message,
           user_data = {

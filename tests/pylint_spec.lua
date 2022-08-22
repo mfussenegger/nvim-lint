@@ -36,11 +36,24 @@ describe('linter.pylint', function()
     "symbol": "comparison-with-itself",
     "message": "Redundant comparison - 1 == 1",
     "message-id": "R0124"
+  },
+  {
+    "type": "warning",
+    "module": "two",
+    "obj": "",
+    "line": 5,
+    "column": 4,
+    "endLine": 5,
+    "endColumn": 8,
+    "path": "/two.py",
+    "symbol": "unused-variable",
+    "message": "Unused variable 'test'",
+    "message-id": "W0612"
   }
 ]
 ]], bufnr)
 
-    assert.are.same(3, #result)
+    assert.are.same(4, #result)
 
     local expected_1 = {
       source = 'pylint',
@@ -80,9 +93,9 @@ describe('linter.pylint', function()
       source = 'pylint',
       message = 'Redundant comparison - 1 == 1',
       lnum = 2,
-      col = 2,
+      col = 3,
       end_lnum = 2,
-      end_col = 2,
+      end_col = 3,
       severity = vim.diagnostic.severity.INFO,
       user_data = {
         lsp = {
@@ -92,5 +105,22 @@ describe('linter.pylint', function()
     }
 
     assert.are.same(expected_3, result[3])
+
+    local expected_4 = {
+      source = 'pylint',
+      message = "Unused variable 'test'",
+      lnum = 4,
+      col = 4,
+      end_lnum = 4,
+      end_col = 8,
+      severity = vim.diagnostic.severity.WARN,
+      user_data = {
+        lsp = {
+          code = 'W0612',
+        },
+      },
+    }
+
+    assert.are.same(expected_4, result[4])
   end)
 end)
