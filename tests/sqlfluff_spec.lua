@@ -22,7 +22,6 @@ describe('linter.sqlfluff', function()
 
     expected[2] = {
       source = 'sqlfluff',
-      -- mind the message has been joined into a single line
       message = 'Column expression without alias. Use explicit `AS` clause.',
       lnum = 67,
       col = 0,
