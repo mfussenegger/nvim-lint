@@ -38,18 +38,18 @@ describe('linter.pylint', function()
     "message-id": "R0124"
   },
   {
-     "type": "warning",
-     "module": "two",
-     "obj": "",
-     "line": 5,
-     "column": 4,
-     "endLine": 5,
-     "endColumn": 8,
-     "path": "/two.py",
-     "symbol": "unused-variable",
-     "message": "Unused variable 'test'",
-     "message-id": "W0612"
-    }
+    "type": "warning",
+    "module": "two",
+    "obj": "",
+    "line": 5,
+    "column": 4,
+    "endLine": 5,
+    "endColumn": 8,
+    "path": "/two.py",
+    "symbol": "unused-variable",
+    "message": "Unused variable 'test'",
+    "message-id": "W0612"
+  }
 ]
 ]], bufnr)
 
