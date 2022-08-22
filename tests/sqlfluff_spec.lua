@@ -4,19 +4,15 @@ describe('linter.sqlfluff', function()
     local bufnr = vim.uri_to_bufnr('file:///non-existent.sql')
     -- actual output I got from running sqlfluff
     local result = parser([[
-== [stdin] FAIL
-L:  68 | P:   1 | L003 | Expected 1 indentations, found 0 [compared to line 52]
-L:  68 | P:   1 | L013 | Column expression without alias. Use explicit `AS`
-                       | clause.
-All Finished 📜 🎉!
-65
+[{"filepath": "stdin", "violations": [{"line_no": 68, "line_pos": 1, "code": "L003", "description": "Expected 1 indentation, found 0 [compared to line 52]"}, {"line_no": 68, "line_pos": 1, "code": "L013", "description": "Column expression without alias. Use explicit `AS` clause."}]}]
+
 ]], bufnr)
     assert.are.same(2, #result)
 
     local expected = {}
     expected[1] = {
       source = 'sqlfluff',
-      message = 'Expected 1 indentations, found 0 [compared to line 52]',
+      message = 'Expected 1 indentation, found 0 [compared to line 52]',
       lnum = 67, -- mind the line indexing
       col = 0, -- mind the column indexing
       severity = vim.diagnostic.severity.ERROR,
