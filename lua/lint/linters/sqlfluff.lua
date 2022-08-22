@@ -11,7 +11,7 @@ return {
   args = {
     "lint",
     -- note: users will have to replace the --dialect argument accordingly
-    "--dialect=postgresql", "-",
+    "--dialect=postgres", "-",
   },
   ignore_exitcode = true,
   stdin = true,
