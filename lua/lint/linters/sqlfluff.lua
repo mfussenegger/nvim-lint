@@ -1,5 +1,3 @@
-local sqlfluff_pattern = 'L:([^|]+) | P:([^|]+) | ([^|]+) | (.*)'
-
 return {
   cmd = "sqlfluff",
   args = {
