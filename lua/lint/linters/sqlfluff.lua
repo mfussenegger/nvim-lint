@@ -8,7 +8,28 @@ return {
   ignore_exitcode = true,
   stdin = true,
   parser = function(output, _)
-    local per_filepath = #output > 0 and vim.json.decode(output) or {}
+    local per_filepath = {}
+    if #output > 0 then
+      local status, decoded = pcall(vim.json.decode, output)
+      if not status then
+        per_filepath = {
+          {
+            filepath = "stdin",
+            violations = {
+              {
+                source = 'sqlfluff',
+                line_no = 1,
+                line_pos = 1,
+                code = 'jsonparsingerror',
+                description = output,
+              },
+            },
+          },
+        }
+      else
+        per_filepath = decoded
+      end
+    end
     local diagnostics = {}
     for _, i_filepath in ipairs(per_filepath) do
       if i_filepath.filepath == "stdin" then -- only process stdin

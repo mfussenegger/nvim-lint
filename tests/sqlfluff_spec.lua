@@ -31,4 +31,17 @@ describe('linter.sqlfluff', function()
     assert.are.same(expected[2], result[2])
 
   end)
+  it("bad CLI args end in non-json output", function()
+    local parser = require('lint.linters.sqlfluff').parser
+    local bufnr = vim.uri_to_bufnr('file:///non-existent.sql')
+    -- when problems are encountered, sqlfluff will report with plain text and
+    -- not a formatted json
+    local status, _ = pcall(parser, [[
+Error: Unknown dialect 'postgresql'
+]], bufnr)
+
+    -- not breaking should be enough, the parsing error is reported as "problem in first line-col"
+    assert(status)
+
+  end)
 end)
