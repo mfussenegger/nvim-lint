@@ -13,7 +13,12 @@ return {
   },
   ignore_exitcode = true,
   parser = function(output, _)
-    if vim.trim(output) == '' then
+    if vim.trim(output) == '' or output == nil then
+      return {}
+    end
+
+    if not vim.startswith(output,'{') then
+      vim.notify(output)
       return {}
     end
 
