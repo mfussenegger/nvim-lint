@@ -20,7 +20,7 @@ Checkstyle ends with 1 errors.
       severity = vim.diagnostic.severity.ERROR,
     }
     assert.are.same(expected, result[3])
-    local expected = {
+    expected = {
       source = 'checkstyle',
       message = "Line is longer than 120 characters (found 143). [LineLength]",
       lnum = 186,
