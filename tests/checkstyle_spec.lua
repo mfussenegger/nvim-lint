@@ -5,11 +5,22 @@ describe('linter.checkstyle', function()
 Starting audit...
 [WARN] src/main/java/com/foo/bar/ApiClient.java:75:1: 'member def modifier' has incorrect indentation level 0, expected level should be 2. [Indentation]
 [ERROR] src/main/java/com/foo/bar/ApiClient.java:187: Line is longer than 120 characters (found 143). [LineLength]
+[ERROR] src/main/java/com/foo/bar/ApiClient.java:6:3: 'method def' child has incorrect indentation level 2, expected level should be 4. [Indentation]
 Audit done.
 Checkstyle ends with 1 errors.
 ]])
-    assert.are.same(2, #result)
+    assert.are.same(3, #result)
     local expected = {
+      source = 'checkstyle',
+      message = "'method def' child has incorrect indentation level 2, expected level should be 4. [Indentation]",
+      lnum = 5,
+      col = 2,
+      end_lnum = 5,
+      end_col = 2,
+      severity = vim.diagnostic.severity.ERROR,
+    }
+    assert.are.same(expected, result[3])
+    expected = {
       source = 'checkstyle',
       message = "Line is longer than 120 characters (found 143). [LineLength]",
       lnum = 186,
