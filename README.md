@@ -66,65 +66,64 @@ There is a generic linter called `compiler` that uses the `makeprg` and
 
 Other dedicated linters that are built-in are:
 
-
-| Tool                          | Linter name    |
-| -------------------           | -------------- |
-| Set via `makeprg`             | `compiler`     |
-| [ansible-lint][ansible-lint]  | `ansible_lint` |
-| [cfn-lint][cfn-lint]          | `cfn_lint`     |
-| [checkstyle][checkstyle]      | `checkstyle`   |
-| [chktex][20]                  | `chktex`       |
-| [clang-tidy][23]              | `clangtidy`    |
-| [clazy][30]                   | `clazy`        |
-| [clj-kondo][24]               | `clj-kondo`    |
-| [cmakelint][cmakelint]        | `cmakelint`    |
-| [codespell][18]               | `codespell`    |
-| [cppcheck][22]                | `cppcheck`     |
-| [cpplint][cpplint]            | `cpplint`      |
-| [credo][credo]                | `credo`        |
-| [cspell][36]                  | `cspell`       |
-| [ESLint][25]                  | `eslint`       |
-| [fennel][fennel]              | `fennel`       |
-| [Flake8][13]                  | `flake8`       |
-| [flawfinder][35]              | `flawfinder`   |
-| [Golangci-lint][16]           | `golangcilint` |
-| [glslc][glslc]                | `glslc`        |
-| [DirectX Shader Compiler][dxc]| `dxc`          |
-| [hadolint][28]                | `hadolint`     |
-| [hlint][32]                   | `hlint`        |
-| [HTML Tidy][12]               | `tidy`         |
-| [Inko][17]                    | `inko`         |
-| [jshint][jshint]              | `jshint`       |
-| [ktlint][ktlint]              | `ktlint`       |
-| [lacheck][lacheck]            | `lacheck`      |
-| [Languagetool][5]             | `languagetool` |
-| [luacheck][19]                | `luacheck`     |
-| [markdownlint][26]            | `markdownlint` |
-| [mlint][34]                   | `mlint`        |
-| [Mypy][11]                    | `mypy`         |
-| [Nix][nix]                    | `nix`          |
-| [phpcs][phpcs]                | `phpcs`        |
-| [proselint][proselint]        | `proselint`    |
-| [pycodestyle][pcs-docs]       | `pycodestyle`  |
-| [pydocstyle][pydocstyle]      | `pydocstyle`   |
-| [Pylint][15]                  | `pylint`       |
-| [Revive][14]                  | `revive`       |
-| [rflint][rflint]              | `rflint`       |
-| [robocop][robocop]            | `robocop`      |
-| [rstcheck][rstcheck]          | `rstcheck`     |
-| [rstlint][rstlint]            | `rstlint`      |
-| [Ruby][ruby]                  | `ruby`         |
-| [RuboCop][rubocop]            | `rubocop`      |
-| [Selene][31]                  | `selene`       |
-| [ShellCheck][10]              | `shellcheck`   |
-| [StandardRB][27]              | `standardrb`   |
-| [statix check][33]            | `statix`       |
-| [stylelint][29]               | `stylelint`    |
-| [Vale][8]                     | `vale`         |
-| [vint][21]                    | `vint`         |
-| [vulture][vulture]            | `vulture`      |
-| [yamllint][yamllint]          | `yamllint`     |
-
+| Tool                               | Linter name       |
+| ---------------------------------- | ----------------- |
+| Set via `makeprg`                  | `compiler`        |
+| [ansible-lint][ansible-lint]       | `ansible_lint`    |
+| [cfn-lint][cfn-lint]               | `cfn_lint`        |
+| [checkstyle][checkstyle]           | `checkstyle`      |
+| [chktex][20]                       | `chktex`          |
+| [clang-tidy][23]                   | `clangtidy`       |
+| [clazy][30]                        | `clazy`           |
+| [clj-kondo][24]                    | `clj-kondo`       |
+| [cmakelint][cmakelint]             | `cmakelint`       |
+| [codespell][18]                    | `codespell`       |
+| [cppcheck][22]                     | `cppcheck`        |
+| [cpplint][cpplint]                 | `cpplint`         |
+| [credo][credo]                     | `credo`           |
+| [cspell][36]                       | `cspell`          |
+| [ESLint][25]                       | `eslint`          |
+| [fennel][fennel]                   | `fennel`          |
+| [Flake8][13]                       | `flake8`          |
+| [flawfinder][35]                   | `flawfinder`      |
+| [Golangci-lint][16]                | `golangcilint`    |
+| [glslc][glslc]                     | `glslc`           |
+| [DirectX Shader Compiler][dxc]     | `dxc`             |
+| [hadolint][28]                     | `hadolint`        |
+| [hlint][32]                        | `hlint`           |
+| [HTML Tidy][12]                    | `tidy`            |
+| [Inko][17]                         | `inko`            |
+| [jshint][jshint]                   | `jshint`          |
+| [ktlint][ktlint]                   | `ktlint`          |
+| [lacheck][lacheck]                 | `lacheck`         |
+| [Languagetool][5]                  | `languagetool`    |
+| [luacheck][19]                     | `luacheck`        |
+| [markdownlint][26]                 | `markdownlint`    |
+| [mlint][34]                        | `mlint`           |
+| [Mypy][11]                         | `mypy`            |
+| [Nix][nix]                         | `nix`             |
+| [npm-groovy-lint][npm-groovy-lint] | `npm-groovy-lint` |
+| [phpcs][phpcs]                     | `phpcs`           |
+| [proselint][proselint]             | `proselint`       |
+| [pycodestyle][pcs-docs]            | `pycodestyle`     |
+| [pydocstyle][pydocstyle]           | `pydocstyle`      |
+| [Pylint][15]                       | `pylint`          |
+| [Revive][14]                       | `revive`          |
+| [rflint][rflint]                   | `rflint`          |
+| [robocop][robocop]                 | `robocop`         |
+| [rstcheck][rstcheck]               | `rstcheck`        |
+| [rstlint][rstlint]                 | `rstlint`         |
+| [Ruby][ruby]                       | `ruby`            |
+| [RuboCop][rubocop]                 | `rubocop`         |
+| [Selene][31]                       | `selene`          |
+| [ShellCheck][10]                   | `shellcheck`      |
+| [StandardRB][27]                   | `standardrb`      |
+| [statix check][33]                 | `statix`          |
+| [stylelint][29]                    | `stylelint`       |
+| [Vale][8]                          | `vale`            |
+| [vint][21]                         | `vint`            |
+| [vulture][vulture]                 | `vulture`         |
+| [yamllint][yamllint]               | `yamllint`        |
 
 ## Custom Linters
 
@@ -333,3 +332,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [fennel]: https://github.com/bakpakin/Fennel
 [nix]: https://github.com/NixOS/nix
 [ruby]: https://github.com/ruby/ruby
+[npm-groovy-lint]: https://github.com/nvuillam/npm-groovy-lint
