@@ -172,7 +172,9 @@ function M.lint(linter, opts)
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
     handle:close()
     if code ~= 0 and not linter.ignore_exitcode then
-      print('Linter command `' .. cmd .. '` exited with code: ' .. code, vim.log.levels.WARN)
+      vim.schedule(function()
+        vim.notify('Linter command `' .. cmd .. '` exited with code: ' .. code, vim.log.levels.WARN)
+      end)
     end
   end)
   if not handle then
