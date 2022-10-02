@@ -94,6 +94,7 @@ Other dedicated linters that are built-in are:
 | [HTML Tidy][12]                    | `tidy`            |
 | [Inko][17]                         | `inko`            |
 | [jshint][jshint]                   | `jshint`          |
+| [jsonlint][jsonlint]               | `jsonlint`          |
 | [ktlint][ktlint]                   | `ktlint`          |
 | [lacheck][lacheck]                 | `lacheck`         |
 | [Languagetool][5]                  | `languagetool`    |
@@ -312,6 +313,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [pydocstyle]: https://www.pydocstyle.org/en/stable/
 [checkstyle]: https://checkstyle.sourceforge.io/
 [jshint]: https://jshint.com/
+[jsonlint]: https://github.com/zaach/jsonlint
 [rflint]: https://github.com/boakley/robotframework-lint
 [robocop]: https://github.com/MarketSquare/robotframework-robocop
 [vulture]: https://github.com/jendrikseipp/vulture
