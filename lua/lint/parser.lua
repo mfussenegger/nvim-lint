@@ -41,9 +41,10 @@ end
 
 --- Parse a linter's output using a Lua pattern
 --
-function M.from_pattern(pattern, groups, severity_map, defaults)
+function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   defaults = defaults or {}
   severity_map = severity_map or {}
+  opts = opts or {}
   -- Like vim.diagnostic.match but also checks if a `file` group matches the buffer path
   -- Some linters produce diagnostics for the full project and this should only produce buffer diagnostics
   local match = function(linter_cwd, buffer_path, line)
@@ -66,10 +67,11 @@ function M.from_pattern(pattern, groups, severity_map, defaults)
         return nil
       end
     end
+    local end_col_offset = opts.end_col_offset or -1
     local lnum = tonumber(captures.lnum) - 1
     local end_lnum = captures.end_lnum and (tonumber(captures.end_lnum) - 1) or lnum
     local col = tonumber(captures.col) and tonumber(captures.col) - 1 or 0
-    local end_col = tonumber(captures.end_col) and tonumber(captures.end_col) - 1 or col
+    local end_col = tonumber(captures.end_col) and (tonumber(captures.end_col) + end_col_offset) or col
     local diagnostic = {
       lnum = assert(lnum, 'diagnostic requires a line number'),
       end_lnum = end_lnum,

@@ -185,7 +185,7 @@ The function takes a single argument which is the `errorformat`.
 ### from_pattern
 
 ```lua
-parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defaults)
+parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defaults, opts)
 ```
 
 The function allows to parse the linter's output using a Lua regular expression pattern.
@@ -228,6 +228,11 @@ default_severity = {
 ``` lua
 defaults = {["source"] = "mylint-name"}
 ```
+
+- opts: Additional options
+
+  - `end_col_offset`: offset added to `end_col`. Defaults to `-1`, assuming
+    that the end-column position is exclusive.
 
 
 ## Customize built-in linter parameters
