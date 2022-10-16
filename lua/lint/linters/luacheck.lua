@@ -10,5 +10,11 @@ return {
   stdin = true,
   args = { '--formatter', 'plain', '--codes', '--ranges', '-' },
   ignore_exitcode = true,
-  parser = require('lint.parser').from_pattern(pattern, groups, severities, { ['source'] = 'luacheck' }),
+  parser = require('lint.parser').from_pattern(
+    pattern,
+    groups,
+    severities,
+    { ['source'] = 'luacheck' },
+    { end_col_offset = 0 }
+  ),
 }
