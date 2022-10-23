@@ -148,8 +148,12 @@ function M.lint(linter, opts)
   if linter.args then
     vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))
   end
-  if not linter.stdin and linter.append_fname ~= false then
-    table.insert(args, api.nvim_buf_get_name(bufnr))
+  if not linter.stdin then
+    if linter.append_fname ~= false then
+      table.insert(args, api.nvim_buf_get_name(bufnr))
+    elseif linter.append_dname == true then
+      table.insert(args, vim.fn.fnamemodify(api.nvim_buf_get_name(bufnr), ":h"))
+    end
   end
   if linter.env then
     env = {}
