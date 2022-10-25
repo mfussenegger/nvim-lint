@@ -94,7 +94,7 @@ Other dedicated linters that are built-in are:
 | [HTML Tidy][12]                    | `tidy`            |
 | [Inko][17]                         | `inko`            |
 | [jshint][jshint]                   | `jshint`          |
-| [jsonlint][jsonlint]               | `jsonlint`          |
+| [jsonlint][jsonlint]               | `jsonlint`        |
 | [ktlint][ktlint]                   | `ktlint`          |
 | [lacheck][lacheck]                 | `lacheck`         |
 | [Languagetool][5]                  | `languagetool`    |
@@ -121,6 +121,7 @@ Other dedicated linters that are built-in are:
 | [StandardRB][27]                   | `standardrb`      |
 | [statix check][33]                 | `statix`          |
 | [stylelint][29]                    | `stylelint`       |
+| [Tcl][nagelfar]                    | `nagelfar`        |
 | [Vale][8]                          | `vale`            |
 | [vint][21]                         | `vint`            |
 | [vulture][vulture]                 | `vulture`         |
@@ -340,3 +341,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [nix]: https://github.com/NixOS/nix
 [ruby]: https://github.com/ruby/ruby
 [npm-groovy-lint]: https://github.com/nvuillam/npm-groovy-lint
+[nagelfar]: https://nagelfar.sourceforge.net/
