@@ -15,6 +15,11 @@ return {
   parser = function(output)
     local diagnostics = {}
     local decoded = vim.json.decode(output)
+
+    if not decoded.files[1] then
+      return diagnostics
+    end
+
     local offences = decoded.files[1].offenses
 
     for _, off in pairs(offences) do
