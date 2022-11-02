@@ -73,4 +73,10 @@ describe('linter.rubocop', function()
 
     assert.are.same(expected_2, result[2])
   end)
+
+  it('can handle rubocop excluding the file', function()
+    local parser = require('lint.linters.rubocop').parser
+    local result = parser([[{ "files": [] }]])
+    assert.are.same(0, #result)
+  end)
 end)
