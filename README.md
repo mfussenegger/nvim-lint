@@ -104,6 +104,7 @@ Other dedicated linters that are built-in are:
 | [Mypy][11]                         | `mypy`            |
 | [Nix][nix]                         | `nix`             |
 | [npm-groovy-lint][npm-groovy-lint] | `npm-groovy-lint` |
+| [oelint-adv][oelint-adv]           | `oelint-adv`      |
 | [phpcs][phpcs]                     | `phpcs`           |
 | [proselint][proselint]             | `proselint`       |
 | [pycodestyle][pcs-docs]            | `pycodestyle`     |
@@ -342,3 +343,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [ruby]: https://github.com/ruby/ruby
 [npm-groovy-lint]: https://github.com/nvuillam/npm-groovy-lint
 [nagelfar]: https://nagelfar.sourceforge.net/
+[oelint-adv]: https://github.com/priv-kweihmann/oelint-adv
