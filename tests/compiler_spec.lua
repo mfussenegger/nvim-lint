@@ -6,16 +6,16 @@ describe('compiler', function()
     a.nvim_buf_set_option(bufnr, 'errorformat', '%l: %m')
     a.nvim_buf_set_option(bufnr, 'makeprg', '/usr/bin/python tests/both.py')
 
-    local result = nil
-    -- this is nasty, but fine for tests
-    vim.diagnostic.set = function(_, _, diagnostics)
-      result = diagnostics
-    end
     require('lint').try_lint('compiler')
 
-    vim.wait(5000, function() return result ~= nil end)
+    vim.wait(5000, function() return next(vim.diagnostic.get(bufnr)) ~= nil end)
+    local result = vim.diagnostic.get(bufnr)
+    for _, d in pairs(result) do
+      d.namespace = nil
+    end
     local expected = {
       {
+        bufnr = bufnr,
         col = 0,
         end_col = 0,
         lnum = 9,
@@ -24,6 +24,7 @@ describe('compiler', function()
         severity = 1,
       },
       {
+        bufnr = bufnr,
         col = 0,
         end_col = 0,
         end_lnum = 19,
