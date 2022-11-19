@@ -2,6 +2,7 @@ return {
   cmd = 'psalm',
   args = {
     '--output-format=json',
+    '--show-info=true',
     '--no-progress',
   },
   parser = function(output)
