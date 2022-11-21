@@ -95,11 +95,14 @@ function M._resolve_linter_by_ft(ft)
 end
 
 
+---@param names? string|string[] name of the linter
+---@param opts? {cwd?: string, ignore_errors?: boolean} options
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
     "nvim-lint requires neovim 0.6.0+. If you're using an older version, use the `nvim-05` tag of nvim-lint'"
   )
+  opts = opts or {}
   if type(names) == "string" then
     names = { names }
   end
@@ -119,7 +122,7 @@ function M.try_lint(names, opts)
   local linters = vim.tbl_map(lookup_linter, names)
   for _, linter in pairs(linters) do
     local ok, err = pcall(M.lint, linter, opts)
-    if not ok then
+    if not ok and not opts.ignore_errors then
       notify(err, vim.log.levels.WARN)
     end
   end
