@@ -9,6 +9,24 @@ end
 local M = {}
 
 
+---@class lint.Parser
+---@field on_chunk fun(chunk: string)
+---@field on_done fun(publish: fun(diagnostics: Diagnostic[]), bufnr: number, linter_cwd: string)
+
+
+---@class lint.Linter
+---@field name string
+---@field cmd string
+---@field args? (string|fun():string)[] command arguments
+---@field stdin? boolean send content via stdin. Defaults to false
+---@field append_fname? boolean add current file name to the commands arguments
+---@field stream? "stdout"|"stderr"|"both" result stream. Defaults to stdout
+---@field ignore_exitcode? boolean if exit code != 1 should be ignored or result in a warning. Defaults to false
+---@field env? table
+---@field parser lint.Parser|fun(output:string, bufnr:number, linter_cwd:string):Diagnostic[]
+
+
+---@type table<string, lint.Linter|fun():lint.Linter>
 M.linters = setmetatable({}, {
   __index = function(tbl, key)
     local ok, linter = pcall(require, 'lint.linters.' .. key)
@@ -137,6 +155,8 @@ local function eval_fn_or_id(x)
 end
 
 
+---@param linter lint.Linter
+---@param opts? {cwd?: string}
 function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
   local stdin = uv.new_pipe(false)
