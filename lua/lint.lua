@@ -156,7 +156,7 @@ end
 
 
 ---@param linter lint.Linter
----@param opts? {cwd?: string}
+---@param opts? {cwd?: string, ignore_errors?: boolean}
 function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
   local stdin = uv.new_pipe(false)
@@ -205,7 +205,9 @@ function M.lint(linter, opts)
     stdout:close()
     stderr:close()
     stdin:close()
-    vim.notify('Error running ' .. cmd .. ': ' .. pid_or_err, vim.log.levels.ERROR)
+    if not opts.ignore_errors then
+      vim.notify('Error running ' .. cmd .. ': ' .. pid_or_err, vim.log.levels.ERROR)
+    end
     return
   end
   local parser = linter.parser
