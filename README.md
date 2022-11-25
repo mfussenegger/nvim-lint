@@ -71,6 +71,7 @@ Other dedicated linters that are built-in are:
 | Set via `makeprg`                  | `compiler`        |
 | [ansible-lint][ansible-lint]       | `ansible_lint`    |
 | [cfn-lint][cfn-lint]               | `cfn_lint`        |
+| [cfn_nag][cfn_nag]                 | `cfn_nag`         |
 | [checkstyle][checkstyle]           | `checkstyle`      |
 | [chktex][20]                       | `chktex`          |
 | [clang-tidy][23]                   | `clangtidy`       |
@@ -346,3 +347,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [npm-groovy-lint]: https://github.com/nvuillam/npm-groovy-lint
 [nagelfar]: https://nagelfar.sourceforge.net/
 [oelint-adv]: https://github.com/priv-kweihmann/oelint-adv
+[cfn_nag]: https://github.com/stelligent/cfn_nag
