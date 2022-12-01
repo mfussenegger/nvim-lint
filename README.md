@@ -119,6 +119,7 @@ Other dedicated linters that are built-in are:
 | [rstlint][rstlint]                 | `rstlint`         |
 | [Ruby][ruby]                       | `ruby`            |
 | [RuboCop][rubocop]                 | `rubocop`         |
+| [Ruff][ruff]                       | `ruff`            |
 | [Selene][31]                       | `selene`          |
 | [ShellCheck][10]                   | `shellcheck`      |
 | [StandardRB][27]                   | `standardrb`      |
@@ -348,3 +349,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [nagelfar]: https://nagelfar.sourceforge.net/
 [oelint-adv]: https://github.com/priv-kweihmann/oelint-adv
 [cfn_nag]: https://github.com/stelligent/cfn_nag
+[ruff]: https://github.com/charliermarsh/ruff
