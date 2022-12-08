@@ -84,6 +84,7 @@ Other dedicated linters that are built-in are:
 | [credo][credo]                     | `credo`           |
 | [cspell][36]                       | `cspell`          |
 | [ESLint][25]                       | `eslint`          |
+| [eslint_d][37]                     | `eslint_d`        |
 | [fennel][fennel]                   | `fennel`          |
 | [Flake8][13]                       | `flake8`          |
 | [flawfinder][35]                   | `flawfinder`      |
@@ -316,6 +317,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [34]: https://www.mathworks.com/help/matlab/ref/mlint.html
 [35]: https://github.com/david-a-wheeler/flawfinder
 [36]: https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell
+[37]: https://github.com/mantoni/eslint_d.js
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [plenary]: https://github.com/nvim-lua/plenary.nvim
 [ansible-lint]: https://docs.ansible.com/lint.html
