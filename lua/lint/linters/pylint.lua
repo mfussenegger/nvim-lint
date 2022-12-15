@@ -30,6 +30,7 @@ return {
           end_col = end_column,
           severity = assert(severities[item.type], 'missing mapping for severity ' .. item.type),
           message = item.message,
+          code = item['message-id'],
           user_data = {
             lsp = {
               code = item['message-id'],

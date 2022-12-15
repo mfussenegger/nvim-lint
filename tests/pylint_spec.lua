@@ -63,6 +63,7 @@ describe('linter.pylint', function()
       end_lnum = 3,
       end_col = 0,
       severity = vim.diagnostic.severity.WARN,
+      code = 'W0311',
       user_data = {
         lsp = {
           code = 'W0311',
@@ -80,6 +81,7 @@ describe('linter.pylint', function()
       end_lnum = 0,
       end_col = 0,
       severity = vim.diagnostic.severity.HINT,
+      code = 'C0114',
       user_data = {
         lsp = {
           code = 'C0114',
@@ -97,6 +99,7 @@ describe('linter.pylint', function()
       end_lnum = 2,
       end_col = 3,
       severity = vim.diagnostic.severity.INFO,
+      code = 'R0124',
       user_data = {
         lsp = {
           code = 'R0124',
@@ -114,6 +117,7 @@ describe('linter.pylint', function()
       end_lnum = 4,
       end_col = 8,
       severity = vim.diagnostic.severity.WARN,
+      code = 'W0612',
       user_data = {
         lsp = {
           code = 'W0612',
