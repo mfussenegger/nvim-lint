@@ -14,13 +14,13 @@ return {
   stdin = false,
   args = {
     "--enable=warning,style,performance,information",
-    (function()
+    function()
       if vim.bo.filetype == "cpp" then
         return "--language=c++"
       else
         return "--language=c"
       end
-    end)(),
+    end,
     "--inline-suppr",
     "--quiet",
     "--cppcheck-build-dir=build",
