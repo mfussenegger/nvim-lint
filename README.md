@@ -95,6 +95,7 @@ Other dedicated linters that are built-in are:
 | [hlint][32]                        | `hlint`           |
 | [HTML Tidy][12]                    | `tidy`            |
 | [Inko][17]                         | `inko`            |
+| [janet][janet]                     | `janet`           |
 | [jshint][jshint]                   | `jshint`          |
 | [jsonlint][jsonlint]               | `jsonlint`        |
 | [ktlint][ktlint]                   | `ktlint`          |
@@ -352,3 +353,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [oelint-adv]: https://github.com/priv-kweihmann/oelint-adv
 [cfn_nag]: https://github.com/stelligent/cfn_nag
 [ruff]: https://github.com/charliermarsh/ruff
+[janet]: https://github.com/janet-lang/janet
