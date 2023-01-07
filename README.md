@@ -269,7 +269,7 @@ phpcs.args = {
 
 ### Run tests
 
-Running tests requires [plenary.nvim][plenary] to be checked out in the parent directory of *this* repository.
+Running tests requires [plenary.nvim][plenary] to be checked out in the parent directory of *this* repository, as well as `python` resolvable via PATH.
 You can then run:
 
 ```bash
