@@ -4,7 +4,7 @@ describe('compiler', function()
     local bufnr = a.nvim_create_buf(true, true)
     a.nvim_set_current_buf(bufnr)
     a.nvim_buf_set_option(bufnr, 'errorformat', '%l: %m')
-    a.nvim_buf_set_option(bufnr, 'makeprg', '/usr/bin/python tests/both.py')
+    a.nvim_buf_set_option(bufnr, 'makeprg', 'python tests/both.py')
 
     require('lint').try_lint('compiler')
 
