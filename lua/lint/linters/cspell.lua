@@ -1,6 +1,7 @@
 return {
   cmd = 'cspell',
   stdin = true,
+  ignore_exitcode = true,
   args = {
     'lint',
     '--no-color',
