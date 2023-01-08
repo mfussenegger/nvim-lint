@@ -44,6 +44,7 @@ M.linters_by_ft = {
   markdown = {'vale',},
   rst = {'vale',},
   ruby = {'ruby',},
+  janet = {'janet',},
   inko = {'inko',},
   clojure = {'clj-kondo',},
   dockerfile = {'hadolint',},
