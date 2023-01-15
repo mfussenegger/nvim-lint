@@ -70,6 +70,7 @@ Other dedicated linters that are built-in are:
 | ---------------------------------- | ----------------- |
 | Set via `makeprg`                  | `compiler`        |
 | [ansible-lint][ansible-lint]       | `ansible_lint`    |
+| [bandit][bandit]                   | `bandit`          |
 | [cfn-lint][cfn-lint]               | `cfn_lint`        |
 | [cfn_nag][cfn_nag]                 | `cfn_nag`         |
 | [checkstyle][checkstyle]           | `checkstyle`      |
@@ -354,3 +355,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [cfn_nag]: https://github.com/stelligent/cfn_nag
 [ruff]: https://github.com/charliermarsh/ruff
 [janet]: https://github.com/janet-lang/janet
+[bandit]: https://bandit.readthedocs.io/en/latest/
