@@ -84,6 +84,7 @@ Other dedicated linters that are built-in are:
 | [cpplint][cpplint]                 | `cpplint`         |
 | [credo][credo]                     | `credo`           |
 | [cspell][36]                       | `cspell`          |
+| [curlylint][curlylint]             | `curlylint`       |
 | [ESLint][25]                       | `eslint`          |
 | [eslint_d][37]                     | `eslint_d`        |
 | [fennel][fennel]                   | `fennel`          |
@@ -356,3 +357,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [ruff]: https://github.com/charliermarsh/ruff
 [janet]: https://github.com/janet-lang/janet
 [bandit]: https://bandit.readthedocs.io/en/latest/
+[curlylint]: https://www.curlylint.org/
