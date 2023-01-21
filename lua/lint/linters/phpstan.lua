@@ -6,12 +6,12 @@ return {
     '--no-progress',
   },
   ignore_exitcode = true,
-  parser = function(output)
+  parser = function(output, bufnr)
     if output == nil then
       return {}
     end
 
-    local file = vim.json.decode(output).files[vim.api.nvim_buf_get_name(0)]
+    local file = vim.json.decode(output).files[vim.api.nvim_buf_get_name(bufnr)]
 
     if file == nil then
       return {}
