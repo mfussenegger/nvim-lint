@@ -111,6 +111,7 @@ Other dedicated linters that are built-in are:
 | [npm-groovy-lint][npm-groovy-lint] | `npm-groovy-lint` |
 | [oelint-adv][oelint-adv]           | `oelint-adv`      |
 | [phpcs][phpcs]                     | `phpcs`           |
+| [phpstan][phpstan]                 | `phpstan`         |
 | [proselint][proselint]             | `proselint`       |
 | [psalm][psalm]                     | `psalm`           |
 | [pycodestyle][pcs-docs]            | `pycodestyle`     |
@@ -340,6 +341,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [rstlint]: https://github.com/twolfson/restructuredtext-lint
 [ktlint]: https://github.com/pinterest/ktlint
 [phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
+[phpstan]: https://phpstan.org/
 [psalm]: https://psalm.dev/
 [lacheck]: https://www.ctan.org/tex-archive/support/lacheck
 [credo]: https://github.com/rrrene/credo
