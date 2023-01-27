@@ -1,0 +1,7 @@
+return {
+  cmd = 'rust_analyzer',
+  stdin = true,
+  args = {},
+  ignore_exitcode = true,
+  parser = require('lint.parser').from_errorformat('[%t] %. %f:%l:%c %m, [%t] %. %f:%l %m')
+}
