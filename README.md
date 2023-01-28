@@ -124,6 +124,7 @@ Other dedicated linters that are built-in are:
 | [rstlint][rstlint]                 | `rstlint`         |
 | [Ruby][ruby]                       | `ruby`            |
 | [RuboCop][rubocop]                 | `rubocop`         |
+| [rust_analyzer][rust_analyzer]     | `rust_analyzer`   |
 | [Ruff][ruff]                       | `ruff`            |
 | [Selene][31]                       | `selene`          |
 | [ShellCheck][10]                   | `shellcheck`      |
