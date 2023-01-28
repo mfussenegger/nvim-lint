@@ -71,6 +71,7 @@ Other dedicated linters that are built-in are:
 | Set via `makeprg`                  | `compiler`        |
 | [ansible-lint][ansible-lint]       | `ansible_lint`    |
 | [bandit][bandit]                   | `bandit`          |
+| [bean-check][bean-check]           | `bean_check`      |
 | [cfn-lint][cfn-lint]               | `cfn_lint`        |
 | [cfn_nag][cfn_nag]                 | `cfn_nag`         |
 | [checkstyle][checkstyle]           | `checkstyle`      |
@@ -359,4 +360,5 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [ruff]: https://github.com/charliermarsh/ruff
 [janet]: https://github.com/janet-lang/janet
 [bandit]: https://bandit.readthedocs.io/en/latest/
+[bean-check]: https://beancount.github.io/docs/running_beancount_and_generating_reports.html#bean-check
 [curlylint]: https://www.curlylint.org/
