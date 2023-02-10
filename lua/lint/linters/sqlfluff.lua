@@ -3,10 +3,10 @@ return {
   args = {
     "lint", "--format=json",
     -- note: users will have to replace the --dialect argument accordingly
-    "--dialect=postgres", "-",
+    "--dialect=postgres",
   },
   ignore_exitcode = true,
-  stdin = true,
+  stdin = false,
   parser = function(output, _)
     local per_filepath = {}
     if #output > 0 then
@@ -32,7 +32,6 @@ return {
     end
     local diagnostics = {}
     for _, i_filepath in ipairs(per_filepath) do
-      if i_filepath.filepath == "stdin" then -- only process stdin
         for _, violation in ipairs(i_filepath.violations) do
           table.insert(diagnostics, {
             source = 'sqlfluff',
@@ -43,7 +42,6 @@ return {
             user_data = {lsp = {code = violation.code}},
           })
         end
-      end
     end
     return diagnostics
   end,
