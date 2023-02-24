@@ -1,12 +1,17 @@
 -- path/to/file:line:col: code message
 local pattern = '[^:]+:(%d+):(%d+): (%w+) (.+)'
 local groups = { 'lnum', 'col', 'code', 'message' }
+local function get_file_name()
+  return vim.api.nvim_buf_get_name(0)
+end
 
 return {
   cmd = 'ruff',
   stdin = true,
   args = {
     '--quiet',
+    '--stdin-filename',
+    get_file_name,
     '-',
   },
   ignore_exitcode = true,
