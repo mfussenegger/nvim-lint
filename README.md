@@ -133,6 +133,7 @@ Other dedicated linters that are built-in are:
 | [stylelint][29]                    | `stylelint`       |
 | [Nagelfar][nagelfar]               | `nagelfar`        |
 | [Vale][8]                          | `vale`            |
+| [Verilator][verilator]             | `verilator`       |
 | [vint][21]                         | `vint`            |
 | [vulture][vulture]                 | `vulture`         |
 | [yamllint][yamllint]               | `yamllint`        |
@@ -362,3 +363,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [bandit]: https://bandit.readthedocs.io/en/latest/
 [bean-check]: https://beancount.github.io/docs/running_beancount_and_generating_reports.html#bean-check
 [curlylint]: https://www.curlylint.org/
+[verilator]: https://verilator.org/guide/latest/
