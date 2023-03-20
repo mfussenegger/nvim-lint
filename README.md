@@ -69,6 +69,7 @@ Other dedicated linters that are built-in are:
 | Tool                               | Linter name       |
 | ---------------------------------- | ----------------- |
 | Set via `makeprg`                  | `compiler`        |
+| [actionlint][actionlint]           | `actionlint`      |
 | [ansible-lint][ansible-lint]       | `ansible_lint`    |
 | [bandit][bandit]                   | `bandit`          |
 | [bean-check][bean-check]           | `bean_check`      |
@@ -364,3 +365,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [bean-check]: https://beancount.github.io/docs/running_beancount_and_generating_reports.html#bean-check
 [curlylint]: https://www.curlylint.org/
 [verilator]: https://verilator.org/guide/latest/
+[actionlint]: https://github.com/rhysd/actionlint
