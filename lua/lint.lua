@@ -139,12 +139,18 @@ function M.try_lint(names, opts)
     return linter
   end
   local linters = vim.tbl_map(lookup_linter, names)
-  for _, linter in pairs(linters) do
-    local ok, err = pcall(M.lint, linter, opts)
-    if not ok and not opts.ignore_errors then
-      notify(err, vim.log.levels.WARN)
+  local all_handles = vim.tbl_map(function(linter)
+    local ok, handle_or_error = pcall(M.lint, linter, opts)
+    if not ok then
+      if not opts.ignore_errors then
+        notify(handle_or_error, vim.log.levels.WARN)
+      end
+      return nil
     end
-  end
+    return handle_or_error
+  end, linters)
+  -- return all non-nil handles
+  return vim.tbl_filter(function(handle) return handle end, all_handles)
 end
 
 local function eval_fn_or_id(x)
@@ -158,6 +164,7 @@ end
 
 ---@param linter lint.Linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean}
+---@return uv_process_t|nil
 function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
   local stdin = uv.new_pipe(false)
@@ -209,7 +216,7 @@ function M.lint(linter, opts)
     if not opts.ignore_errors then
       vim.notify('Error running ' .. cmd .. ': ' .. pid_or_err, vim.log.levels.ERROR)
     end
-    return
+    return nil
   end
   local parser = linter.parser
   if type(parser) == 'function' then
@@ -238,6 +245,7 @@ function M.lint(linter, opts)
   else
     stdin:close()
   end
+  return handle
 end
 
 
