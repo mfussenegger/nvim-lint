@@ -10,7 +10,7 @@ return {
   append_fname = false,
   stdin = false,
   ignore_exitcode = true,
-  parser = function(output, bufnr, _)
+  parser = function(output, bufnr)
     local decoded = vim.json.decode(output) or {}
     local issues = decoded["issues"] or {}
     local diagnostics = {}
