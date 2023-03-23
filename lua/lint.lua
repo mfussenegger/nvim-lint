@@ -116,6 +116,7 @@ end
 
 ---@param names? string|string[] name of the linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean} options
+---@return uv_process_t[]
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
@@ -138,19 +139,17 @@ function M.try_lint(names, opts)
     linter.name = linter.name or name
     return linter
   end
-  local linters = vim.tbl_map(lookup_linter, names)
-  local all_handles = vim.tbl_map(function(linter)
+  local handles = {}
+  for _, linter_name in pairs(names) do
+    local linter = lookup_linter(linter_name)
     local ok, handle_or_error = pcall(M.lint, linter, opts)
-    if not ok then
-      if not opts.ignore_errors then
-        notify(handle_or_error, vim.log.levels.WARN)
-      end
-      return nil
+    if ok then
+      table.insert(handles, handle_or_error)
+    elseif not opts.ignore_errors then
+      notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
     end
-    return handle_or_error
-  end, linters)
-  -- return all non-nil handles
-  return vim.tbl_filter(function(handle) return handle end, all_handles)
+  end
+  return handles
 end
 
 local function eval_fn_or_id(x)
@@ -167,9 +166,9 @@ end
 ---@return uv_process_t|nil
 function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
-  local stdin = uv.new_pipe(false)
-  local stdout = uv.new_pipe(false)
-  local stderr = uv.new_pipe(false)
+  local stdin = assert(uv.new_pipe(false), "Must be able to create pipe")
+  local stdout = assert(uv.new_pipe(false), "Must be able to create pipe")
+  local stderr = assert(uv.new_pipe(false), "Must be able to create pipe")
   local handle
   local env
   local pid_or_err
@@ -202,7 +201,9 @@ function M.lint(linter, opts)
   local cmd = eval_fn_or_id(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
-    handle:close()
+    if handle and not handle:is_closing() then
+      handle:close()
+    end
     if code ~= 0 and not linter.ignore_exitcode then
       vim.schedule(function()
         vim.notify('Linter command `' .. cmd .. '` exited with code: ' .. code, vim.log.levels.WARN)
