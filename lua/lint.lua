@@ -114,6 +114,9 @@ function M._resolve_linter_by_ft(ft)
   return vim.tbl_keys(dedup_linters)
 end
 
+--- map from buffer to handles from processes spawned by previous try_lint() call
+---@type table<number, uv_handle_t>
+local buffer_to_running_handles = {}
 
 ---@param names? string|string[] name of the linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean} options
@@ -140,6 +143,16 @@ function M.try_lint(names, opts)
     linter.name = linter.name or name
     return linter
   end
+
+  -- kill any running process for this buffer
+  local bufnr = api.nvim_get_current_buf()
+  local previous_handles = buffer_to_running_handles[bufnr] or {}
+  for _, handle in ipairs(previous_handles) do
+    if handle and not handle:is_closing() then
+      handle:close()
+    end
+  end
+
   local handles = {}
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
@@ -150,9 +163,8 @@ function M.try_lint(names, opts)
       notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
     end
   end
-  return {
-    handles = handles
-  }
+  buffer_to_running_handles[bufnr] = handles
+  return {handles = handles}
 end
 
 local function eval_fn_or_id(x)
