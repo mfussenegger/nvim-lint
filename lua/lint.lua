@@ -116,7 +116,7 @@ end
 
 ---@param names? string|string[] name of the linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean} options
----@return uv_process_t[]
+---@return {handles: uv_process_t[]}
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
@@ -149,7 +149,9 @@ function M.try_lint(names, opts)
       notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
     end
   end
-  return handles
+  return {
+    handles = handles
+  }
 end
 
 local function eval_fn_or_id(x)
