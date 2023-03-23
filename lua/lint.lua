@@ -163,8 +163,9 @@ function M.try_lint(names, opts)
       notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
     end
   end
+
   buffer_to_running_handles[bufnr] = handles
-  return {handles = handles}
+
 end
 
 local function eval_fn_or_id(x)
