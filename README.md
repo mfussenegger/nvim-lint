@@ -73,6 +73,7 @@ Other dedicated linters that are built-in are:
 | [ansible-lint][ansible-lint]       | `ansible_lint`    |
 | [bandit][bandit]                   | `bandit`          |
 | [bean-check][bean-check]           | `bean_check`      |
+| [buf_lint][buf_lint]               | `buf_lint`        |
 | [cfn-lint][cfn-lint]               | `cfn_lint`        |
 | [cfn_nag][cfn_nag]                 | `cfn_nag`         |
 | [checkstyle][checkstyle]           | `checkstyle`      |
@@ -366,3 +367,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [curlylint]: https://www.curlylint.org/
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
+[buf_lint]: https://github.com/bufbuild/buf
