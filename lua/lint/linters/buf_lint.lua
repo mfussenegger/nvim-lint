@@ -3,7 +3,7 @@ return {
   args = { 'lint', '--error-format', 'json' },
   stdin = false,
   ignore_exitcode = true,
-  parser = function(output, bufnr)
+  parser = function(output)
     if output == '' then
       return {}
     end
@@ -14,15 +14,17 @@ return {
         break
       end
       local item = vim.json.decode(line)
-      table.insert(diagnostics, {
-        lnum = (item.start_line or 1) - 1,
-        col = (item.start_column or 1) - 1,
-        end_lnum = (item.end_line or 1) - 1,
-        end_col = (item.end_column or 1) - 1,
-        severity = vim.diagnostic.severity.WARN,
-        source = item.type,
-        message = item.message,
-      })
+      if item then
+        table.insert(diagnostics, {
+          lnum = (item.start_line or 1) - 1,
+          col = (item.start_column or 1) - 1,
+          end_lnum = (item.end_line or 1) - 1,
+          end_col = (item.end_column or 1) - 1,
+          severity = vim.diagnostic.severity.WARN,
+          source = item.type,
+          message = item.message,
+        })
+      end
     end
     return diagnostics
   end,
