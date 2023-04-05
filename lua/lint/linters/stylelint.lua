@@ -18,7 +18,9 @@ return {
     "json",
     "--stdin",
     "--stdin-filename",
-    "%:p",
+    function()
+      return vim.fn.expand("%:p")
+    end,
   },
   stream = "stdout",
   ignore_exitcode = true,
