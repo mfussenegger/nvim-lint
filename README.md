@@ -58,6 +58,10 @@ example on the `InsertLeave` or `TextChanged` events.
 If you want to customize how the diagnostics are displayed, read `:help
 vim.diagnostic.config`.
 
+By default, you will get a warning if a configured linter is not available. You can disable them by setting
+```lua
+vim.g.lint_ignore_missing = true
+````
 
 ## Available Linters
 
