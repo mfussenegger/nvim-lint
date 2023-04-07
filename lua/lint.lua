@@ -203,24 +203,27 @@ function M.lint(linter, opts)
   }
   local cmd = eval_fn_or_id(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
-  handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
-    if handle and not handle:is_closing() then
-      handle:close()
-    end
-    if code ~= 0 and not linter.ignore_exitcode then
-      vim.schedule(function()
-        vim.notify('Linter command `' .. cmd .. '` exited with code: ' .. code, vim.log.levels.WARN)
-      end)
-    end
-  end)
-  if not handle then
-    stdout:close()
-    stderr:close()
-    stdin:close()
-    if not opts.ignore_errors then
-      vim.notify('Error running ' .. cmd .. ': ' .. pid_or_err, vim.log.levels.ERROR)
-    end
-    return nil
+  local ignore_missing = vim.g.lint_ignore_missing or false
+  local should_execute = not ignore_missing or not vim.fn.executable('fd')
+  if should_execute then
+    handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
+      if handle and not handle:is_closing() then
+        handle:close()
+      end
+      if code ~= 0 and not linter.ignore_exitcode then
+        vim.schedule(function()
+            vim.notify('Linter command `' .. cmd .. '` exited with code: ' .. code, vim.log.levels.WARN)
+        end)
+      end
+    end)
+      if not handle then stdout:close()
+        stderr:close()
+        stdin:close()
+        if not opts.ignore_errors then
+          vim.notify('Error running ' .. cmd .. ': ' .. pid_or_err, vim.log.levels.ERROR)
+        end
+        return nil
+      end
   end
   local parser = linter.parser
   if type(parser) == 'function' then
