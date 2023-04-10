@@ -6,7 +6,7 @@ local severity_map = {
   ['warning'] = vim.diagnostic.severity.WARN,
 }
 
-return {
+return require('lint.util').call_with_cmd_exe_on_windows {
   cmd = function()
     local local_eslintd = vim.fn.fnamemodify('./node_modules/.bin/eslint_d', ':p')
     local stat = vim.loop.fs_stat(local_eslintd)
