@@ -130,6 +130,7 @@ Other dedicated linters that are built-in are:
 | [Ruff][ruff]                       | `ruff`            |
 | [Selene][31]                       | `selene`          |
 | [ShellCheck][10]                   | `shellcheck`      |
+| [sqlfluff][sqlfluff]               | `sqlfluff`        |
 | [StandardRB][27]                   | `standardrb`      |
 | [statix check][33]                 | `statix`          |
 | [stylelint][29]                    | `stylelint`       |
@@ -365,6 +366,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [bandit]: https://bandit.readthedocs.io/en/latest/
 [bean-check]: https://beancount.github.io/docs/running_beancount_and_generating_reports.html#bean-check
 [curlylint]: https://www.curlylint.org/
+[sqlfluff]: https://github.com/sqlfluff/sqlfluff
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
