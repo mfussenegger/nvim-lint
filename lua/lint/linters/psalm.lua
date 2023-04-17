@@ -1,5 +1,14 @@
 return {
-  cmd = 'psalm',
+  cmd = function ()
+    for _, fname in ipairs({ './vendor/bin/psalm', './vendor/bin/psalm.phar' }) do
+      local local_psalm = vim.fn.fnamemodify(fname, ':p')
+      local stat = vim.loop.fs_stat(local_psalm)
+      if stat then
+        return local_psalm
+      end
+    end
+    return 'psalm'
+  end,
   args = {
     '--output-format=json',
     '--show-info=true',
