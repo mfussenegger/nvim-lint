@@ -37,7 +37,7 @@ require('lint').linters_by_ft = {
 Then setup a autocmd to trigger linting. For example:
 
 ```vimL
-au BufWritePost lua require('lint').try_lint()
+au BufWritePost * lua require('lint').try_lint()
 ```
 
 or with Lua autocmds (requires 0.7):
@@ -69,9 +69,11 @@ Other dedicated linters that are built-in are:
 | Tool                               | Linter name       |
 | ---------------------------------- | ----------------- |
 | Set via `makeprg`                  | `compiler`        |
+| [actionlint][actionlint]           | `actionlint`      |
 | [ansible-lint][ansible-lint]       | `ansible_lint`    |
 | [bandit][bandit]                   | `bandit`          |
 | [bean-check][bean-check]           | `bean_check`      |
+| [buf_lint][buf_lint]               | `buf_lint`        |
 | [cfn-lint][cfn-lint]               | `cfn_lint`        |
 | [cfn_nag][cfn_nag]                 | `cfn_nag`         |
 | [checkstyle][checkstyle]           | `checkstyle`      |
@@ -134,6 +136,7 @@ Other dedicated linters that are built-in are:
 | [stylelint][29]                    | `stylelint`       |
 | [Nagelfar][nagelfar]               | `nagelfar`        |
 | [Vale][8]                          | `vale`            |
+| [Verilator][verilator]             | `verilator`       |
 | [vint][21]                         | `vint`            |
 | [vulture][vulture]                 | `vulture`         |
 | [yamllint][yamllint]               | `yamllint`        |
@@ -364,3 +367,6 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [bean-check]: https://beancount.github.io/docs/running_beancount_and_generating_reports.html#bean-check
 [curlylint]: https://www.curlylint.org/
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff
+[verilator]: https://verilator.org/guide/latest/
+[actionlint]: https://github.com/rhysd/actionlint
+[buf_lint]: https://github.com/bufbuild/buf

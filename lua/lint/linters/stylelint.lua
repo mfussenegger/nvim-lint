@@ -4,14 +4,23 @@ local severities = {
 }
 
 return {
-  cmd = "stylelint",
+  cmd = function()
+    local local_stylelint = vim.fn.fnamemodify("./node_modules/.bin/stylelint", ":p")
+    local stat = vim.loop.fs_stat(local_stylelint)
+    if stat then
+      return local_stylelint
+    end
+    return "stylelint"
+  end,
   stdin = true,
   args = {
     "-f",
     "json",
     "--stdin",
     "--stdin-filename",
-    "%:p",
+    function()
+      return vim.fn.expand("%:p")
+    end,
   },
   stream = "stdout",
   ignore_exitcode = true,
