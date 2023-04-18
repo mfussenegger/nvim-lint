@@ -18,7 +18,7 @@ return {
         end_col = item.endColumn,
         severity = severities[item.severity:lower()],
         source = "hlint",
-        message = item.hint .. item.to and (": " .. item.to),
+        message = item.hint .. (item.to and ": " .. item.to or ""),
       })
     end
     return diagnostics
