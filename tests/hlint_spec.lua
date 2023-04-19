@@ -40,7 +40,7 @@ describe("linter.hlint", function()
       end_col = 17,
       severity = vim.diagnostic.severity.WARN,
       source = "hlint",
-      message = "Use concatMap",
+      message = "Use concatMap: concatMap f x",
     }
     assert.are.same(result[1], expected)
   end)
