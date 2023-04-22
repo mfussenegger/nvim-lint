@@ -76,6 +76,7 @@ Other dedicated linters that are built-in are:
 | [buf_lint][buf_lint]               | `buf_lint`        |
 | [cfn-lint][cfn-lint]               | `cfn_lint`        |
 | [cfn_nag][cfn_nag]                 | `cfn_nag`         |
+| [checkpatch.pl][checkpatch]        | `checkpatch`      |
 | [checkstyle][checkstyle]           | `checkstyle`      |
 | [chktex][20]                       | `chktex`          |
 | [clang-tidy][23]                   | `clangtidy`       |
@@ -332,6 +333,7 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [ansible-lint]: https://docs.ansible.com/lint.html
 [pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
 [pydocstyle]: https://www.pydocstyle.org/en/stable/
+[checkpatch]: https://docs.kernel.org/dev-tools/checkpatch.html
 [checkstyle]: https://checkstyle.sourceforge.io/
 [jshint]: https://jshint.com/
 [jsonlint]: https://github.com/zaach/jsonlint
