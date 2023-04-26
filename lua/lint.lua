@@ -171,7 +171,7 @@ function M.try_lint(names, opts)
 
   buffer_to_running_handles[bufnr] = handles
 
-  if not buffer_handles_cleanup_au[bufnr] then
+  if not buffer_handles_cleanup_au[bufnr] and api.nvim_create_autocmd then
     buffer_handles_cleanup_au[bufnr] = api.nvim_create_autocmd("BufDelete", {
       buffer = bufnr,
       desc = string.format("lint cleanup after buffer %d", bufnr),
