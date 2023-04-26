@@ -149,7 +149,7 @@ function M.try_lint(names, opts)
   local previous_handles = buffer_to_running_handles[bufnr] or {}
   for _, handle in ipairs(previous_handles) do
     if handle and not handle:is_closing() then
-      handle:close()
+      handle:kill("SIGTERM")
     end
   end
 
