@@ -118,6 +118,11 @@ end
 ---@type table<number, uv_handle_t>
 local buffer_to_running_handles = {}
 
+--- autocommand for cleaning up handles when a buffer is deleted
+--- each buffer gets its own autocommand
+---@type table<number, number>
+local buffer_handles_cleanup_au = {}
+
 ---@param names? string|string[] name of the linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean} options
 ---@return {handles: uv_process_t[]}
@@ -165,6 +170,25 @@ function M.try_lint(names, opts)
   end
 
   buffer_to_running_handles[bufnr] = handles
+
+  if not buffer_handles_cleanup_au[bufnr] then
+    buffer_handles_cleanup_au[bufnr] = api.nvim_create_autocmd("BufDelete", {
+      buffer = bufnr,
+      desc = string.format("lint cleanup after buffer %d", bufnr),
+      once = true,
+      callback = function()
+        local handles_to_kill = buffer_to_running_handles[bufnr] or {}
+        for _, handle in ipairs(handles_to_kill) do
+          if handle and not handle:is_closing() then
+            handle:kill("SIGTERM")
+          end
+        end
+
+        buffer_to_running_handles[bufnr] = nil
+        buffer_handles_cleanup_au[bufnr] = nil
+      end,
+    })
+  end
 
 end
 
