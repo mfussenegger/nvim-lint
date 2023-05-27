@@ -12,6 +12,7 @@ return {
     '--quiet',
     '--stdin-filename',
     get_file_name,
+    '--no-fix',
     '-',
   },
   ignore_exitcode = true,
