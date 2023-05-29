@@ -1,6 +1,6 @@
--- path/to/file:line:col: [severity] message (code)
-local pattern = '([^:]+):(%d+):(%d+): %[(.+)%] (.+) %((.+)%)'
-local groups = { 'file', 'lnum', 'col', 'severity', 'message', 'code' }
+-- stdin:line:col: [severity] message (code)
+local pattern = 'stdin:(%d+):(%d+): %[(.+)%] (.+) %((.+)%)'
+local groups = { 'lnum', 'col', 'severity', 'message', 'code' }
 local severities = {
   ['error'] = vim.diagnostic.severity.ERROR,
   ['warning'] = vim.diagnostic.severity.WARN,
@@ -8,8 +8,9 @@ local severities = {
 
 return {
   cmd = 'yamllint',
-  stdin = false,
-  args = {'--format=parsable'},
+  stdin = true,
+  stream = 'stdout',
+  args = {'--format', 'parsable', '-'},
   ignore_exitcode = true,
   parser = require('lint.parser').from_pattern(pattern, groups, severities, {
     ['source'] = 'yamllint',
