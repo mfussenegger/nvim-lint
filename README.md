@@ -89,6 +89,7 @@ Other dedicated linters that are built-in are:
 | [credo][credo]                     | `credo`           |
 | [cspell][36]                       | `cspell`          |
 | [curlylint][curlylint]             | `curlylint`       |
+| [erb-lint][erb-lint]               | `erb_lint`        |
 | [ESLint][25]                       | `eslint`          |
 | [eslint_d][37]                     | `eslint_d`        |
 | [fennel][fennel]                   | `fennel`          |
@@ -372,3 +373,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
+[erb-lint]: https://github.com/shopify/erb-lint
