@@ -6,7 +6,7 @@ local severity_map = {
   ['warning'] = vim.diagnostic.severity.WARN,
 }
 
-return {
+return require('lint.util').inject_cmd_exe({
   cmd = function()
     local local_eslint = vim.fn.fnamemodify('./node_modules/.bin/eslint', ':p')
     local stat = vim.loop.fs_stat(local_eslint)
@@ -20,4 +20,4 @@ return {
   stream = 'stdout',
   ignore_exitcode = true,
   parser = require('lint.parser').from_pattern(pattern, groups, severity_map, { ['source'] = 'eslint' }),
-}
+})

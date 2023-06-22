@@ -3,7 +3,7 @@ local severities = {
   error = vim.diagnostic.severity.ERROR,
 }
 
-return {
+return require('lint.util').inject_cmd_exe({
   cmd = function()
     local local_stylelint = vim.fn.fnamemodify("./node_modules/.bin/stylelint", ":p")
     local stat = vim.loop.fs_stat(local_stylelint)
@@ -64,4 +64,4 @@ return {
     end
     return diagnostics
   end
-}
+})
