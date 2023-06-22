@@ -23,12 +23,11 @@ end
 
 -- Modifies the linter to call linter.cmd via cmd.exe on Windows.
 -- This is necessary for some linters called via their .cmd shim.
-function M.call_with_cmd_exe_on_windows(linter)
-  if vim.fn.has 'win32' ~= 1 then
+function M.inject_cmd_exe(linter)
+  if vim.fn.has('win32') ~= 1 then
     return linter
   end
-
-  return vim.tbl_extend("force", {}, linter, {
+  return vim.tbl_extend("force", linter, {
     cmd = "cmd.exe",
     args = { "/C", linter.cmd, unpack(linter.args) },
   })
