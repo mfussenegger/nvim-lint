@@ -5,6 +5,19 @@ describe('linter.phpmd', function()
     parser('  ')
   end)
 
+  it("handles the default JSON output when there are no coding violations", function()
+    local parser = require('lint.linters.phpmd').parser
+    local result = parser([[
+{
+    "version": "@package_version@",
+    "package": "phpmd",
+    "timestamp": "2023-07-12T20:09:31+01:00",
+    "files": []
+}
+    ]], vim.api.nvim_get_current_buf())
+    assert.are.same(0, #result)
+  end)
+
   it('parses json output correctly', function()
     local parser = require('lint.linters.phpmd').parser
     local result = parser([[
