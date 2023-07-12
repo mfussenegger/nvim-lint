@@ -6,7 +6,7 @@ severities[4] = vim.diagnostic.severity.HINT
 severities[5] = vim.diagnostic.severity.HINT
 
 return {
-  cmd = 'vendor/bin/phpmd',
+  cmd = 'phpmd',
   stdin = true,
   args = {
     '-',
