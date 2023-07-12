@@ -163,6 +163,7 @@ function M.try_lint(names, opts)
       notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
     end
   end
+  running_procs_by_buf[bufnr] = running_procs
 end
 
 local function eval_fn_or_id(x)
