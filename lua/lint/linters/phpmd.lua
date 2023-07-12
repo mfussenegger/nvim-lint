@@ -26,7 +26,6 @@ return {
       return {}
     end
 
-
     local decoded = vim.json.decode(output)
     local diagnostics = {}
     local messages = {}
