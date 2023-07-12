@@ -114,18 +114,14 @@ function M._resolve_linter_by_ft(ft)
   return vim.tbl_keys(dedup_linters)
 end
 
---- map from buffer to handles from processes spawned by previous try_lint() call
----@type table<number, uv_handle_t>
-local buffer_to_running_handles = {}
 
---- autocommand for cleaning up handles when a buffer is deleted
---- each buffer gets its own autocommand
----@type table<number, number>
-local buffer_handles_cleanup_au = {}
+--- Running processes by buffer -> by linter name
+---@type table<integer, table<string, uv_process_t>> bufnr: {linter: handle}
+local running_procs_by_buf = {}
+
 
 ---@param names? string|string[] name of the linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean} options
----@return {handles: uv_process_t[]}
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
@@ -149,47 +145,24 @@ function M.try_lint(names, opts)
     return linter
   end
 
-  -- kill any running process for this buffer
   local bufnr = api.nvim_get_current_buf()
-  local previous_handles = buffer_to_running_handles[bufnr] or {}
-  for _, handle in ipairs(previous_handles) do
-    if handle and not handle:is_closing() then
-      handle:kill("SIGTERM")
+  local running_procs = running_procs_by_buf[bufnr] or {}
+  for linter_name, proc in pairs(running_procs) do
+    if not proc:is_closing() then
+      proc:kill("sigterm")
     end
+    running_procs[linter_name] = nil
   end
 
-  local handles = {}
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
     local ok, handle_or_error = pcall(M.lint, linter, opts)
     if ok then
-      table.insert(handles, handle_or_error)
+      running_procs[linter.name] = handle_or_error
     elseif not opts.ignore_errors then
       notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
     end
   end
-
-  buffer_to_running_handles[bufnr] = handles
-
-  if not buffer_handles_cleanup_au[bufnr] and api.nvim_create_autocmd then
-    buffer_handles_cleanup_au[bufnr] = api.nvim_create_autocmd("BufDelete", {
-      buffer = bufnr,
-      desc = string.format("lint cleanup after buffer %d", bufnr),
-      once = true,
-      callback = function()
-        local handles_to_kill = buffer_to_running_handles[bufnr] or {}
-        for _, handle in ipairs(handles_to_kill) do
-          if handle and not handle:is_closing() then
-            handle:kill("SIGTERM")
-          end
-        end
-
-        buffer_to_running_handles[bufnr] = nil
-        buffer_handles_cleanup_au[bufnr] = nil
-      end,
-    })
-  end
-
 end
 
 local function eval_fn_or_id(x)
@@ -242,6 +215,11 @@ function M.lint(linter, opts)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
     if handle and not handle:is_closing() then
+      local procs = (running_procs_by_buf[bufnr] or {})
+      procs[linter.name] = nil
+      if not next(procs) then
+        running_procs_by_buf[bufnr] = nil
+      end
       handle:close()
     end
     if code ~= 0 and not linter.ignore_exitcode then
