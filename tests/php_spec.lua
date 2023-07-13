@@ -35,7 +35,7 @@ No syntax errors detected in Standard input code
     }
     assert.are.same(expected, result[1])
 
-    local expected = {
+    expected = {
       lnum = 3,
       end_lnum = 3,
       col = 0,

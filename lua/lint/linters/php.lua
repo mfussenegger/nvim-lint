@@ -1,8 +1,9 @@
-local efm=''
-efm = efm..'Deprecated:\\ %m\\ %tn\\ Standard\\ input\\ code\\ on\\ line\\ %l' -- nasty hack for %t
-efm = efm..',%tarning:\\ %m\\ in\\ Standard\\ input\\ code\\ on\\ line\\ %l'
-efm = efm..',Parse\\ %trror:\\ %m\\ in\\ Standard\\ input\\ code\\ on\\ line\\ %l'
-efm = efm..',Fatal\\ %trror:\\ %m\\ in\\ Standard\\ input\\ code\\ on\\ line\\ %l'
+local efm = table.concat({
+  'Deprecated:\\ %m\\ %tn\\ Standard\\ input\\ code\\ on\\ line\\ %l', -- nasty hack for %t
+  '%tarning:\\ %m\\ in\\ Standard\\ input\\ code\\ on\\ line\\ %l',
+  'Parse\\ %trror:\\ %m\\ in\\ Standard\\ input\\ code\\ on\\ line\\ %l',
+  'Fatal\\ %trror:\\ %m\\ in\\ Standard\\ input\\ code\\ on\\ line\\ %l',
+}, ',')
 
 return {
   cmd = 'php',
