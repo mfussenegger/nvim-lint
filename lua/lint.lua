@@ -115,9 +115,13 @@ function M._resolve_linter_by_ft(ft)
 end
 
 
+--- Running processes by buffer -> by linter name
+---@type table<integer, table<string, uv_process_t>> bufnr: {linter: handle}
+local running_procs_by_buf = {}
+
+
 ---@param names? string|string[] name of the linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean} options
----@return {handles: uv_process_t[]}
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
@@ -140,19 +144,26 @@ function M.try_lint(names, opts)
     linter.name = linter.name or name
     return linter
   end
-  local handles = {}
+
+  local bufnr = api.nvim_get_current_buf()
+  local running_procs = running_procs_by_buf[bufnr] or {}
+  for linter_name, proc in pairs(running_procs) do
+    if not proc:is_closing() then
+      proc:kill("sigterm")
+    end
+    running_procs[linter_name] = nil
+  end
+
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
     local ok, handle_or_error = pcall(M.lint, linter, opts)
     if ok then
-      table.insert(handles, handle_or_error)
+      running_procs[linter.name] = handle_or_error
     elseif not opts.ignore_errors then
       notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
     end
   end
-  return {
-    handles = handles
-  }
+  running_procs_by_buf[bufnr] = running_procs
 end
 
 local function eval_fn_or_id(x)
@@ -205,6 +216,11 @@ function M.lint(linter, opts)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
     if handle and not handle:is_closing() then
+      local procs = (running_procs_by_buf[bufnr] or {})
+      procs[linter.name] = nil
+      if not next(procs) then
+        running_procs_by_buf[bufnr] = nil
+      end
       handle:close()
     end
     if code ~= 0 and not linter.ignore_exitcode then
