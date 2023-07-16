@@ -41,6 +41,7 @@ return {
         col = 0,
         end_col = 0,
         message = msg.description,
+        code = msg.rule,
         source = 'phpmd',
         severity = assert(severities[msg.priority], 'missing mapping for severity ' .. msg.priority),
       })
