@@ -18,7 +18,7 @@ return require('lint.util').inject_cmd_exe({
   args = {
     '--stdin',
     '--stdin-filename',
-    vim.api.nvim_buf_get_name(0),
+    function() return vim.api.nvim_buf_get_name(0) end,
   },
   stdin = true,
   stream = 'stdout',
