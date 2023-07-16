@@ -81,6 +81,7 @@ describe('linter.phpmd', function()
       col = 0,
       end_col = 0,
       message = 'The class MyClass has an overall complexity of 61 which is very high. The configured complexity threshold is 50.',
+      code = 'ExcessiveClassComplexity',
       source = 'phpmd',
       severity = vim.diagnostic.severity.INFO
     }
@@ -92,6 +93,7 @@ describe('linter.phpmd', function()
       col = 0,
       end_col = 0,
       message = 'The method myMethod() has a Cyclomatic Complexity of 10. The configured cyclomatic complexity threshold is 10.',
+      code = 'CyclomaticComplexity',
       source = 'phpmd',
       severity = vim.diagnostic.severity.INFO,
     }
@@ -103,6 +105,7 @@ describe('linter.phpmd', function()
       col = 0,
       end_col = 0,
       message = 'Avoid excessively long variable names like $thisIsAVeryLongVariableName. Keep variable name length under 20.',
+      code = 'LongVariable',
       source = 'phpmd',
       severity = vim.diagnostic.severity.INFO,
     }
