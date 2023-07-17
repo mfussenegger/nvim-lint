@@ -6,7 +6,7 @@ local severities = {
 
 return {
   cmd = 'staticcheck',
-  stdin = true,
+  stdin = false,
   args = {
     '-f', 'json',
   },
