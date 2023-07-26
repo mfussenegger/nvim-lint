@@ -10,10 +10,14 @@ return {
   stream = 'stdout',
   parser = function(output, bufnr)
     local diagnostics = {}
-    local _, decoded = pcall(vim.json.decode, output)
-    for _, result in ipairs(decoded.results) do
+    local ok, decoded = pcall(vim.json.decode, output)
+    if not ok then
+      return diagnostics
+    end
+    local fname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+    for _, result in ipairs(decoded and decoded.results or {}) do
       -- Only show results of the current file in the buffer
-      if result.location.filename == vim.api.nvim_buf_get_name(bufnr) then
+      if result.location.filename == fname then
         local err = {
           source = "tfsec",
           message = string.format("%s %s", result.description, result.impact),
