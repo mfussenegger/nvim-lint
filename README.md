@@ -144,6 +144,7 @@ Other dedicated linters that are built-in are:
 | [vint][21]                         | `vint`            |
 | [vulture][vulture]                 | `vulture`         |
 | [yamllint][yamllint]               | `yamllint`        |
+| [tfsec][tfsec]                     | `tfsec`           |
 
 ## Custom Linters
 
@@ -378,3 +379,4 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
 [erb-lint]: https://github.com/shopify/erb-lint
+[tfsec]: https://github.com/aquasecurity/tfsec
