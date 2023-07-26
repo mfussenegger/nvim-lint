@@ -23,7 +23,7 @@ describe('linter.tfsec', function()
             "status": 0,
             "resource": "aws_kms_key.key",
             "location": {
-              "filename": "main.tf",
+              "filename": "/main.tf",
               "start_line": 1,
               "end_line": 4
             }

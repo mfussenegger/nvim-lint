@@ -14,10 +14,10 @@ return {
     if not ok then
       return diagnostics
     end
-    local fname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+    local fpath = vim.api.nvim_buf_get_name(bufnr)
     for _, result in ipairs(decoded and decoded.results or {}) do
       -- Only show results of the current file in the buffer
-      if result.location.filename == fname then
+      if result.location.filename == fpath then
         local err = {
           source = "tfsec",
           message = string.format("%s %s", result.description, result.impact),
