@@ -273,7 +273,6 @@ phpcs.args = {
 
 ## Alternatives
 
-- [null-ls.nvim][null-ls]
 - [Ale][1]
 - [efm-langserver][6]
 - [diagnostic-languageserver][7]
@@ -284,19 +283,14 @@ phpcs.args = {
 
 ### Run tests
 
-Running tests requires [plenary.nvim][plenary] to be checked out in the parent directory of *this* repository, as well as `python` resolvable via PATH.
-You can then run:
+Running tests requires [busted][busted].
+
+See [neorocks][neorocks] or [Using Neovim as Lua interpreter with
+Luarocks][neovim-luarocks] for installation instructions.
 
 ```bash
-nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/ {minimal_init = 'tests/minimal.vim'}"
+busted tests/
 ```
-
-Or if you want to run a single test file:
-
-```bash
-nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/vale_spec.lua {minimal_init = 'tests/minimal.vim'}"
-```
-
 
 [1]: https://github.com/dense-analysis/ale
 [3]: https://github.com/junegunn/vim-plug
@@ -333,8 +327,10 @@ nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests
 [35]: https://github.com/david-a-wheeler/flawfinder
 [36]: https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell
 [37]: https://github.com/mantoni/eslint_d.js
-[null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
+[neorocks]: https://github.com/nvim-neorocks/neorocks
+[neovim-luarocks]: https://zignar.net/2023/01/21/using-luarocks-as-lua-interpreter-with-luarocks/
 [plenary]: https://github.com/nvim-lua/plenary.nvim
+[busted]: https://lunarmodules.github.io/busted/
 [ansible-lint]: https://docs.ansible.com/lint.html
 [pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
 [pydocstyle]: https://www.pydocstyle.org/en/stable/
