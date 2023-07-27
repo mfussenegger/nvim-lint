@@ -17,7 +17,7 @@ describe('linter.cspell', function()
       lnum = 258,
       col = 7,
       end_lnum = 258,
-      end_col = 7,
+      end_col = 17,
       severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected_1, result[1])
@@ -28,7 +28,7 @@ describe('linter.cspell', function()
       lnum = 271,
       col = 18,
       end_lnum = 271,
-      end_col = 18,
+      end_col = 26,
       severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected_2, result[2])
@@ -39,7 +39,7 @@ describe('linter.cspell', function()
       lnum = 277,
       col = 18,
       end_lnum = 277,
-      end_col = 18,
+      end_col = 26,
       severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected_3, result[3])
@@ -50,7 +50,7 @@ describe('linter.cspell', function()
       lnum = 320,
       col = 1,
       end_lnum = 320,
-      end_col = 1,
+      end_col = 11,
       severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected_4, result[4])
