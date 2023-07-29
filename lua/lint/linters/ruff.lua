@@ -9,6 +9,7 @@ return {
   cmd = 'ruff',
   stdin = true,
   args = {
+    '--force-exclude',
     '--quiet',
     '--stdin-filename',
     get_file_name,
