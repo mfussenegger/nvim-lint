@@ -329,7 +329,6 @@ busted tests/
 [37]: https://github.com/mantoni/eslint_d.js
 [neorocks]: https://github.com/nvim-neorocks/neorocks
 [neovim-luarocks]: https://zignar.net/2023/01/21/using-luarocks-as-lua-interpreter-with-luarocks/
-[plenary]: https://github.com/nvim-lua/plenary.nvim
 [busted]: https://lunarmodules.github.io/busted/
 [ansible-lint]: https://docs.ansible.com/lint.html
 [pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
