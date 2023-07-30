@@ -365,7 +365,7 @@ busted tests/
 [nagelfar]: https://nagelfar.sourceforge.net/
 [oelint-adv]: https://github.com/priv-kweihmann/oelint-adv
 [cfn_nag]: https://github.com/stelligent/cfn_nag
-[ruff]: https://github.com/charliermarsh/ruff
+[ruff]: https://github.com/astral-sh/ruff
 [janet]: https://github.com/janet-lang/janet
 [bandit]: https://bandit.readthedocs.io/en/latest/
 [bean-check]: https://beancount.github.io/docs/running_beancount_and_generating_reports.html#bean-check
