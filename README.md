@@ -74,6 +74,7 @@ Other dedicated linters that are built-in are:
 | [bandit][bandit]                   | `bandit`          |
 | [bean-check][bean-check]           | `bean_check`      |
 | [buf_lint][buf_lint]               | `buf_lint`        |
+| [buildifier][buildifier]           | `buildifier`      |
 | [cfn-lint][cfn-lint]               | `cfn_lint`        |
 | [cfn_nag][cfn_nag]                 | `cfn_nag`         |
 | [checkpatch.pl][checkpatch]        | `checkpatch`      |
@@ -377,3 +378,4 @@ busted tests/
 [erb-lint]: https://github.com/shopify/erb-lint
 [tfsec]: https://github.com/aquasecurity/tfsec
 [djlint]: https://djlint.com/
+[buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
