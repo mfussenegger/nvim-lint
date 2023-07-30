@@ -1,5 +1,5 @@
-local pattern = [[([^:]+):(%d+):(%d+):(%d+): (.*)]]
-local groups = { 'file', 'lnum', 'col', 'code', 'message' }
+local pattern = [[(%d+):(%d+):(%a%d+): (.*)]]
+local groups = { 'lnum', 'col', 'code', 'message' }
 
 local defaults = {
   ['source'] = 'djlint',
@@ -8,10 +8,11 @@ local defaults = {
 
 return {
   cmd = 'djlint',
-  stdin = false,
+  stdin = true,
   args = {
     '--linter-output-format',
-    '{filename}:{line}:{code}: {message}',
+    '{line}:{code}: {message}',
+    '-',
   },
   stream = 'both',
   ignore_exitcode = true,
