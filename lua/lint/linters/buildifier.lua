@@ -1,6 +1,23 @@
 -- See the source for the formats
 -- https://github.com/bazelbuild/buildtools/blob/b31f2c13c407575100d4614bcc9a3c60be07cc1c/buildifier/utils/diagnostics.go#L39
 
+local function get_cur_file_type(bufnr)
+  bufnr = bufnr or 0
+  local fname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ':t')
+
+  if fname == "BUILD" or vim.startswith(fname, "BUILD.") then
+    return "build"
+  elseif vim.endswith(fname, ".bzl") then
+    return "bzl"
+  elseif vim.startswith(fname, "WORKSPACE") then
+    return "workspace"
+  elseif vim.startswith(fname, "MODULE") or vim.startswith(fname, "REPO") then
+    return "module"
+  else
+    return "default"
+  end
+end
+
 local function parse_stdout_json(bufnr, line)
   local diagnostics = {}
 
@@ -59,8 +76,11 @@ local function parse_stderr_line(bufnr, line)
     col = tonumber(parts[3]) - 1
     message = table.concat(parts, ":", 4)
   elseif #parts == 3 then
-    lnum = tonumber(parts[2]) - 1
     message = parts[3]
+  elseif #parts == 2 then
+    message = parts[2]
+  elseif #parts == 1 then
+    message = line
   end
 
   if message ~= "" then
@@ -81,10 +101,11 @@ end
 return {
   cmd = 'buildifier',
   args = {
-    "-lint=warn",
-    "-mode=check",
-    "-warnings=all",
-    "-format=json",
+    "-lint", "warn",
+    "-mode", "check",
+    "-warnings", "all",
+    "-format", "json",
+    "-type", get_cur_file_type
   },
   stdin = true,
   append_fname = false,
