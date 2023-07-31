@@ -2,17 +2,21 @@
 -- https://github.com/bazelbuild/buildtools/blob/b31f2c13c407575100d4614bcc9a3c60be07cc1c/buildifier/utils/diagnostics.go#L39
 
 local function get_cur_file_type(bufnr)
+  -- Logic taken from https://github.com/bazelbuild/buildtools/blob/master/build/lex.go#L125
   bufnr = bufnr or 0
   local fname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ':t')
+  fname = string.lower(fname)
 
-  if fname == "BUILD" or vim.startswith(fname, "BUILD.") then
-    return "build"
+  if fname == "module.bazel" then
+    return "module"
   elseif vim.endswith(fname, ".bzl") then
     return "bzl"
-  elseif vim.startswith(fname, "WORKSPACE") then
+  elseif vim.endswith(fname, ".sky") then
+    return "default"
+  elseif fname == "build" or vim.startswith(fname, "build.") or vim.endswith(fname, ".build") then
+    return "build"
+  elseif fname == "workspace" or vim.startswith(fname, "workspace.") or vim.endswith(fname, ".workspace") then
     return "workspace"
-  elseif vim.startswith(fname, "MODULE") or vim.startswith(fname, "REPO") then
-    return "module"
   else
     return "default"
   end
