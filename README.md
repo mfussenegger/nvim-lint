@@ -97,6 +97,7 @@ Other dedicated linters that are built-in are:
 | [fennel][fennel]                   | `fennel`          |
 | [Flake8][13]                       | `flake8`          |
 | [flawfinder][35]                   | `flawfinder`      |
+| [gdlint (gdtoolkit)][gdlint]       | `gdlint`          |
 | [Golangci-lint][16]                | `golangcilint`    |
 | [glslc][glslc]                     | `glslc`           |
 | [DirectX Shader Compiler][dxc]     | `dxc`             |
@@ -385,3 +386,4 @@ busted tests/
 [solhint]: https://protofire.github.io/solhint/
 [perlimports]: https://github.com/perl-ide/App-perlimports
 [perlcritic]: https://github.com/Perl-Critic/Perl-Critic
+[gdlint]: https://github.com/Scony/godot-gdscript-toolkit
