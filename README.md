@@ -97,6 +97,7 @@ Other dedicated linters that are built-in are:
 | [fennel][fennel]                   | `fennel`          |
 | [Flake8][13]                       | `flake8`          |
 | [flawfinder][35]                   | `flawfinder`      |
+| [gdlint (gdtoolkit)][gdlint]       | `gdlint`          |
 | [Golangci-lint][16]                | `golangcilint`    |
 | [glslc][glslc]                     | `glslc`           |
 | [DirectX Shader Compiler][dxc]     | `dxc`             |
@@ -379,3 +380,4 @@ busted tests/
 [tfsec]: https://github.com/aquasecurity/tfsec
 [djlint]: https://djlint.com/
 [buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
+[gdlint]: https://github.com/Scony/godot-gdscript-toolkit
