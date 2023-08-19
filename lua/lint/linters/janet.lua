@@ -4,7 +4,7 @@ local groups = { 'lnum', 'col', 'message' }
 
 return {
   cmd = 'janet',
-  stdin = false,
+  stdin = true,
   args = {
     '-k',
   },
