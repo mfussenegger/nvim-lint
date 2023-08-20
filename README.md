@@ -117,6 +117,7 @@ Other dedicated linters that are built-in are:
 | [Nix][nix]                         | `nix`             |
 | [npm-groovy-lint][npm-groovy-lint] | `npm-groovy-lint` |
 | [oelint-adv][oelint-adv]           | `oelint-adv`      |
+| [perlcritic][perlcritic]           | `perlcritic`      |
 | [perlimports][perlimports]         | `perlimports`     |
 | [php][php]                         | `php`             |
 | [phpcs][phpcs]                     | `phpcs`           |
@@ -383,3 +384,4 @@ busted tests/
 [buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
 [solhint]: https://protofire.github.io/solhint/
 [perlimports]: https://github.com/perl-ide/App-perlimports
+[perlcritic]: https://github.com/Perl-Critic/Perl-Critic
