@@ -23,6 +23,7 @@ return {
         end_lnum = item.endLine - 1,
         end_col = item.endColumn - 1,
         code = item.code,
+        source = "shellcheck",
         user_data = {
           lsp = {
             code = item.code,
