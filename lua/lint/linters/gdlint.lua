@@ -6,7 +6,7 @@ local groups = {
   'message',
 }
 local severity_map = {
-  ['Error'] = vim.diagnostic.severity.ERROR,
+  ['Error'] = vim.diagnostic.severity.WARN,
 }
 
 return {
