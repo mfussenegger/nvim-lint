@@ -15,6 +15,7 @@ return {
   },
   ignore_exitcode = true,
   parser = function(output, bufnr)
+    if output == "" then return {} end
     local diagnostics = {}
     local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":~:.")
 
