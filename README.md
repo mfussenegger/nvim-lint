@@ -257,6 +257,8 @@ defaults = {["source"] = "mylint-name"}
 
 - opts: Additional options
 
+  - `lnum_offset`: Added to `lnum`. Defaults to 0
+  - `end_lnum_offset`: Added to `end_lnum`. Defaults to 0
   - `end_col_offset`: offset added to `end_col`. Defaults to `-1`, assuming
     that the end-column position is exclusive.
 

@@ -46,7 +46,7 @@ end
 ---@param groups string[]
 ---@param severity_map? table<string, DiagnosticSeverity>
 ---@param defaults? table
----@param opts? {col_offset?: integer, end_col_offset?: integer}
+---@param opts? {col_offset?: integer, end_col_offset?: integer, lnum_offset?: integer, end_lnum_offset?: integer}
 function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   defaults = defaults or {}
   severity_map = severity_map or {}
@@ -73,6 +73,8 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
         return nil
       end
     end
+    local lnum_offset = opts.lnum_offset or 0
+    local end_lnum_offset = opts.end_lnum_offset or 0
     local col_offset = opts.col_offset or -1
     local end_col_offset = opts.end_col_offset or -1
     local lnum = tonumber(captures.lnum) - 1
@@ -80,8 +82,8 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     local col = tonumber(captures.col) and (tonumber(captures.col) + col_offset) or 0
     local end_col = tonumber(captures.end_col) and (tonumber(captures.end_col) + end_col_offset) or col
     local diagnostic = {
-      lnum = assert(lnum, 'diagnostic requires a line number'),
-      end_lnum = end_lnum,
+      lnum = assert(lnum, 'diagnostic requires a line number') + lnum_offset,
+      end_lnum = end_lnum + end_lnum_offset,
       col = assert(col, 'diagnostic requires a column number'),
       end_col = end_col,
       severity = severity_map[captures.severity] or defaults.severity or vd.severity.ERROR,
