@@ -39,8 +39,14 @@ function M.from_errorformat(efm, skeleton)
   end
 end
 
+
 --- Parse a linter's output using a Lua pattern
---
+---
+---@param pattern string
+---@param groups string[]
+---@param severity_map? table<string, DiagnosticSeverity>
+---@param defaults? table
+---@param opts? {col_offset?: integer, end_col_offset?: integer}
 function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   defaults = defaults or {}
   severity_map = severity_map or {}
