@@ -23,6 +23,7 @@ local M = {}
 ---@field stream? "stdout"|"stderr"|"both" result stream. Defaults to stdout
 ---@field ignore_exitcode? boolean if exit code != 1 should be ignored or result in a warning. Defaults to false
 ---@field env? table
+---@field cwd? string
 ---@field parser lint.Parser|fun(output:string, bufnr:number, linter_cwd:string):Diagnostic[]
 
 
@@ -209,7 +210,7 @@ function M.lint(linter, opts)
     args = args,
     stdio = { stdin, stdout, stderr },
     env = env,
-    cwd = opts.cwd or vim.fn.getcwd(),
+    cwd = opts.cwd or linter.cwd or vim.fn.getcwd(),
     detached = false
   }
   local cmd = eval_fn_or_id(linter.cmd)
