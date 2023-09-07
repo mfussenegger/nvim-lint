@@ -116,7 +116,7 @@ end
 
 
 --- Running processes by buffer -> by linter name
----@type table<integer, table<string, uv_process_t>> bufnr: {linter: handle}
+---@type table<integer, table<string, uv.uv_process_t>> bufnr: {linter: handle}
 local running_procs_by_buf = {}
 
 
@@ -177,7 +177,7 @@ end
 
 ---@param linter lint.Linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean}
----@return uv_process_t|nil
+---@return uv.uv_process_t|nil
 function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
   local stdin = assert(uv.new_pipe(false), "Must be able to create pipe")
