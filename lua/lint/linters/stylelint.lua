@@ -25,6 +25,7 @@ return require('lint.util').inject_cmd_exe({
   stream = "stdout",
   ignore_exitcode = true,
   parser = function (output)
+    if output == "" then return {} end
     local status, decoded = pcall(vim.json.decode, output)
     if status then
       decoded = decoded[1]
