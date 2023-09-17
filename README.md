@@ -134,6 +134,7 @@ Other dedicated linters that are built-in are:
 | [robocop][robocop]                 | `robocop`         |
 | [rstcheck][rstcheck]               | `rstcheck`        |
 | [rstlint][rstlint]                 | `rstlint`         |
+| [RPM][rpm]                         | `rpmspec`         |
 | [Ruby][ruby]                       | `ruby`            |
 | [RuboCop][rubocop]                 | `rubocop`         |
 | [Ruff][ruff]                       | `ruff`            |
@@ -389,3 +390,4 @@ busted tests/
 [perlimports]: https://github.com/perl-ide/App-perlimports
 [perlcritic]: https://github.com/Perl-Critic/Perl-Critic
 [gdlint]: https://github.com/Scony/godot-gdscript-toolkit
+[rpm]: https://rpm.org
