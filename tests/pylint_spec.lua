@@ -63,10 +63,10 @@ describe('linter.pylint', function()
       end_lnum = 3,
       end_col = 0,
       severity = vim.diagnostic.severity.WARN,
-      code = 'W0311',
+      code = 'bad-indentation',
       user_data = {
         lsp = {
-          code = 'W0311',
+          code = 'bad-indentation',
         },
       },
     }
@@ -81,10 +81,10 @@ describe('linter.pylint', function()
       end_lnum = 0,
       end_col = 0,
       severity = vim.diagnostic.severity.HINT,
-      code = 'C0114',
+      code = 'missing-module-docstring',
       user_data = {
         lsp = {
-          code = 'C0114',
+          code = 'missing-module-docstring',
         },
       },
     }
@@ -99,10 +99,10 @@ describe('linter.pylint', function()
       end_lnum = 2,
       end_col = 3,
       severity = vim.diagnostic.severity.INFO,
-      code = 'R0124',
+      code = 'comparison-with-itself',
       user_data = {
         lsp = {
-          code = 'R0124',
+          code = 'comparison-with-itself',
         },
       },
     }
@@ -117,10 +117,10 @@ describe('linter.pylint', function()
       end_lnum = 4,
       end_col = 8,
       severity = vim.diagnostic.severity.WARN,
-      code = 'W0612',
+      code = 'unused-variable',
       user_data = {
         lsp = {
-          code = 'W0612',
+          code = 'unused-variable',
         },
       },
     }
