@@ -5,7 +5,10 @@ local parsers = {
     [[(%w+): line (%d+): (.*)]],
     { 'severity', 'lnum', 'message' },
     nil,
-    { ['severity'] = vim.diagnostic.severity.ERROR, ['source'] = 'rpmspec' }
+    {
+      severity = vim.diagnostic.severity.ERROR,
+      source = 'rpmspec'
+    }
   ),
 
   -- warnings
@@ -13,7 +16,10 @@ local parsers = {
     [[(%w+): (.*) on line (%d+):]],
     { 'severity', 'message', 'lnum' },
     nil,
-    { ['severity'] = vim.diagnostic.severity.WARNING, ['source'] = 'rpmspec' }
+    {
+      severity = vim.diagnostic.severity.WARN,
+      source = 'rpmspec'
+    }
   ),
 }
 
@@ -27,13 +33,10 @@ return {
   ignore_exitcode = true,
   parser = function(output, bufnr)
     local diagnostics = {}
-
     for _, parser in ipairs(parsers) do
       local result = parser(output, bufnr)
-
       vim.list_extend(diagnostics, result)
     end
-
     return diagnostics
   end,
 }
