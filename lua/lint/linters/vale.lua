@@ -48,6 +48,7 @@ return {
         end_col = end_column,
         message = item.Message,
         source = 'vale',
+        code = item.Check,
         severity = assert(severities[item.Severity], 'missing mapping for severity ' .. item.Severity),
       })
     end
