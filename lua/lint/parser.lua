@@ -127,7 +127,7 @@ function M.accumulate_chunks(parse)
       vim.schedule(function()
         local output = table.concat(chunks)
         local diagnostics
-        if vim.api.nvim_buf_is_valid(bufnr) then
+        if vim.api.nvim_buf_is_valid(bufnr) and output ~= "" then
           diagnostics = parse(output, bufnr, linter_cwd)
         else
           diagnostics = {}
