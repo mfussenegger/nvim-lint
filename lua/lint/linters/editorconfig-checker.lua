@@ -10,6 +10,6 @@ return {
     pattern,
     groups,
     nil,
-    { severity = vim.diagnostic.severity.HINT, source = "editorconfig-checker" }
+    { severity = vim.diagnostic.severity.INFO, source = "editorconfig-checker" }
   ),
 }
