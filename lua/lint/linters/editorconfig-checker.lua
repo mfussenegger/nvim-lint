@@ -9,7 +9,7 @@ return {
   parser = require("lint.parser").from_pattern(
     pattern,
     groups,
-  	nil,
-  	{ severity = vim.diagnostic.severity.HINT, source = "editorconfig-checker" }
+    nil,
+    { severity = vim.diagnostic.severity.HINT, source = "editorconfig-checker" }
   ),
 }
