@@ -80,6 +80,7 @@ describe('linter.phpcs', function()
       col = 0,
       end_col = 0,
       message = 'Missing file doc comment',
+      code = 'PEAR.Commenting.FileComment.Missing',
       source = 'phpcs',
       severity = vim.diagnostic.severity.ERROR
     }
@@ -91,6 +92,7 @@ describe('linter.phpcs', function()
       col = 4,
       end_col = 4,
       message = 'Inline control structures are discouraged',
+      code = 'Generic.ControlStructures.InlineControlStructure.Discouraged',
       source = 'phpcs',
       severity = vim.diagnostic.severity.WARN,
     }
