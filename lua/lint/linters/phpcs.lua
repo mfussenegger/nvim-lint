@@ -33,6 +33,7 @@ return {
         col = msg.column - 1,
         end_col = msg.column - 1,
         message = msg.message,
+        code = msg.source,
         source = 'phpcs',
         severity = assert(severities[msg.type], 'missing mapping for severity ' .. msg.type),
       })
