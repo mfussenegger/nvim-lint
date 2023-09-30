@@ -16,7 +16,8 @@ describe('linter.credo', function()
       lnum = 0,
       end_lnum = 0,
       severity = 1,
-      message = 'Unless conditions should avoid having an `else` block.'
+      message = 'Unless conditions should avoid having an `else` block.',
+      source = 'credo',
     }
 
     assert.are.same(expected_error, result[1])
@@ -27,7 +28,8 @@ describe('linter.credo', function()
       lnum = 8,
       end_lnum = 8,
       severity = 2,
-      message = 'Use `reraise` inside a rescue block to preserve the original stacktrace.'
+      message = 'Use `reraise` inside a rescue block to preserve the original stacktrace.',
+      source = 'credo',
     }
 
     assert.are.same(expected_error, result[2])
