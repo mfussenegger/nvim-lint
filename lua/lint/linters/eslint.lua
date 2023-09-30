@@ -15,8 +15,12 @@ return require('lint.util').inject_cmd_exe({
     end
     return 'eslint'
   end,
-  args = {},
-  stdin = false,
+  args = {
+    '--stdin',
+    '--stdin-filename',
+    function() return vim.api.nvim_buf_get_name(0) end,
+  },
+  stdin = true,
   stream = 'stdout',
   ignore_exitcode = true,
   parser = require('lint.parser').from_pattern(pattern, groups, severity_map, { ['source'] = 'eslint' }),
