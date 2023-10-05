@@ -394,3 +394,4 @@ busted tests/
 [gdlint]: https://github.com/Scony/godot-gdscript-toolkit
 [rpm]: https://rpm.org
 [ec]: https://github.com/editorconfig-checker/editorconfig-checker
+[deno]: https://github.com/denoland/deno
