@@ -30,7 +30,7 @@ return {
         end
 
         table.insert(diagnostics, {
-          source = "deno_lint",
+          source = "deno",
           lnum = diag.range.start.line - 1,
           col = diag.range.start.col - 1,
           end_lnum = diag.range["end"].line - 1,
