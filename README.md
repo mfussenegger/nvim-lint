@@ -90,6 +90,7 @@ Other dedicated linters that are built-in are:
 | [credo][credo]                     | `credo`                |
 | [cspell][36]                       | `cspell`               |
 | [curlylint][curlylint]             | `curlylint`            |
+| [deno][deno]                       | `deno`                 |
 | [djlint][djlint]                   | `djlint`               |
 | [editorconfig-checker][ec]         | `editorconfig-checker` |
 | [erb-lint][erb-lint]               | `erb_lint`             |
@@ -393,3 +394,4 @@ busted tests/
 [gdlint]: https://github.com/Scony/godot-gdscript-toolkit
 [rpm]: https://rpm.org
 [ec]: https://github.com/editorconfig-checker/editorconfig-checker
+[deno]: https://github.com/denoland/deno
