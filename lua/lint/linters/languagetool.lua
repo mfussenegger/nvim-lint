@@ -19,7 +19,7 @@ return {
   parser = function(output, bufnr)
     local err, json = parse_err_json(output)
     if err then
-      vim.notify(err, vim.log.levels.INFO)
+      vim.notify_once(err, vim.log.levels.INFO)
     end
     local decoded = vim.json.decode(json)
     local diagnostics = {}
