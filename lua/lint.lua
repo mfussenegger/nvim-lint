@@ -8,6 +8,7 @@ else
 end
 local M = {}
 
+local log = require('lint.logger').new('lint')
 
 ---@class lint.Parser
 ---@field on_chunk fun(chunk: string)
@@ -93,7 +94,7 @@ local function start_read(stream, cwd, stdout, stderr, bufnr, parser, ns)
     stdout:read_start(read_output(cwd, bufnr, parser1, publish))
     stderr:read_start(read_output(cwd, bufnr, parser2, publish))
   else
-    error('Invalid `stream` setting: ' .. stream)
+    log.error('Invalid `stream` setting: ' .. stream)
   end
 end
 
@@ -115,16 +116,14 @@ function M._resolve_linter_by_ft(ft)
   return vim.tbl_keys(dedup_linters)
 end
 
-
 --- Running processes by buffer -> by linter name
 ---@type table<integer, table<string, uv.uv_process_t>> bufnr: {linter: handle}
 local running_procs_by_buf = {}
 
-
 ---@param names? string|string[] name of the linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean} options
 function M.try_lint(names, opts)
-  assert(
+  log.assert(
     vim.diagnostic,
     "nvim-lint requires neovim 0.6.0+. If you're using an older version, use the `nvim-05` tag of nvim-lint'"
   )
@@ -138,7 +137,7 @@ function M.try_lint(names, opts)
 
   local lookup_linter = function(name)
     local linter = M.linters[name]
-    assert(linter, 'Linter with name `' .. name .. '` not available')
+    log.assert(linter, 'Linter with name `' .. name .. '` not available')
     if type(linter) == "function" then
       linter = linter()
     end
@@ -180,10 +179,10 @@ end
 ---@param opts? {cwd?: string, ignore_errors?: boolean}
 ---@return uv.uv_process_t|nil
 function M.lint(linter, opts)
-  assert(linter, 'lint must be called with a linter')
-  local stdin = assert(uv.new_pipe(false), "Must be able to create pipe")
-  local stdout = assert(uv.new_pipe(false), "Must be able to create pipe")
-  local stderr = assert(uv.new_pipe(false), "Must be able to create pipe")
+  log.assert(linter, 'lint must be called with a linter')
+  local stdin = log.assert(uv.new_pipe(false), 'Must be able to create pipe')
+  local stdout = log.assert(uv.new_pipe(false), 'Must be able to create pipe')
+  local stderr = log.assert(uv.new_pipe(false), 'Must be able to create pipe')
   local handle
   local env
   local pid_or_err
@@ -214,7 +213,7 @@ function M.lint(linter, opts)
     detached = false
   }
   local cmd = eval_fn_or_id(linter.cmd)
-  assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
+  log.assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
     if handle and not handle:is_closing() then
       local procs = (running_procs_by_buf[bufnr] or {})
@@ -243,14 +242,8 @@ function M.lint(linter, opts)
   if type(parser) == 'function' then
     parser = require('lint.parser').accumulate_chunks(parser)
   end
-  assert(
-    parser.on_chunk and type(parser.on_chunk == 'function'),
-    'Parser requires a `on_chunk` function'
-  )
-  assert(
-    parser.on_done and type(parser.on_done == 'function'),
-    'Parser requires a `on_done` function'
-  )
+  log.assert(parser.on_chunk and type(parser.on_chunk == 'function'), 'Parser requires a `on_chunk` function')
+  log.assert(parser.on_done and type(parser.on_done == 'function'), 'Parser requires a `on_done` function')
   local ns = namespaces[linter.name]
   start_read(linter.stream, linter_opts.cwd, stdout, stderr, bufnr, parser, ns)
   if linter.stdin then

@@ -8,16 +8,21 @@ local severity_by_qftype = {
   N = vd.severity.HINT,
 }
 
+local log = require('lint.logger').new('parser')
+
 -- Return a parse function that uses an errorformat to parse the output.
 -- See `:help errorformat`
 function M.from_errorformat(efm, skeleton)
   skeleton = skeleton or {}
   skeleton.severity = skeleton.severity or vd.severity.ERROR
+  log.info('Registered from_errorformat parser, source=%s', skeleton.source)
   return function(output)
     local lines = vim.split(output, '\n')
     local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
     local result = {}
+    log.info('Parsing %d lines of output', #lines)
     for _, item in pairs(qflist.items) do
+      log.debug('[line, valid=%d]: %s', item.valid, item.text)
       if item.valid == 1 then
         local lnum = math.max(0, item.lnum - 1)
         local col = math.max(0, item.col - 1)
@@ -32,6 +37,7 @@ function M.from_errorformat(efm, skeleton)
           severity = severity,
           message = item.text:match('^%s*(.-)%s*$'),
         }
+        log.debug('[result]: diagnostic %s', log.format_diagnostic(diagnostic))
         table.insert(result, vim.tbl_extend('keep', diagnostic, skeleton or {}))
       end
     end
@@ -56,6 +62,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   local match = function(linter_cwd, buffer_path, line)
     local matches = { line:match(pattern) }
     if not next(matches) then
+      log.debug('[result]: no matches')
       return nil
     end
     local captures = {}
@@ -66,10 +73,13 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
       local path
       if vim.startswith(captures.file, '/') then
         path = captures.file
+        log.debug('[path]: absolute path=%s', path)
       else
         path = vim.fn.simplify(linter_cwd .. '/' .. captures.file)
+        log.debug('[path]: relative, prepending linter_cwd=%s, path=%s', linter_cwd, path)
       end
       if path ~= buffer_path then
+        log.debug('[result]: belongs to path other than this buffer_path=%s', buffer_path)
         return nil
       end
     end
@@ -82,14 +92,15 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     local col = tonumber(captures.col) and (tonumber(captures.col) + col_offset) or 0
     local end_col = tonumber(captures.end_col) and (tonumber(captures.end_col) + end_col_offset) or col
     local diagnostic = {
-      lnum = assert(lnum, 'diagnostic requires a line number') + lnum_offset,
+      lnum = log.assert(lnum, 'diagnostic requires a line number') + lnum_offset,
       end_lnum = end_lnum + end_lnum_offset,
-      col = assert(col, 'diagnostic requires a column number'),
+      col = log.assert(col, 'diagnostic requires a column number'),
       end_col = end_col,
       severity = severity_map[captures.severity] or defaults.severity or vd.severity.ERROR,
-      message = assert(captures.message, 'diagnostic requires a message'),
-      code = captures.code
+      message = log.assert(captures.message, 'diagnostic requires a message'),
+      code = captures.code,
     }
+    log.debug('[result]: diagnostic %s', log.format_diagnostic(diagnostic))
     if captures.code or captures.code_desc then
       diagnostic.user_data = {
         lsp = {
@@ -100,13 +111,18 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     end
     return vim.tbl_extend('keep', diagnostic, defaults or {})
   end
+  log.info('Registered from_pattern parser, source=%s', defaults.source)
   return function(output, bufnr, linter_cwd)
     if not vim.api.nvim_buf_is_valid(bufnr) then
+      log.warning('Cannot add diagnostic using invalid bufnr=%d', bufnr)
       return {}
     end
     local result = {}
     local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p")
-    for _, line in ipairs(vim.fn.split(output, '\n')) do
+    local lines = vim.fn.split(output, '\n')
+    log.info('Parsing %d lines of output', #lines)
+    for _, line in ipairs(lines) do
+      log.debug('[line]: %s', line)
       local diagnostic = match(linter_cwd, buffer_path, line)
       if diagnostic then
         table.insert(result, diagnostic)
