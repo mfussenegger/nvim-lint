@@ -143,7 +143,7 @@ function M.split(parser)
   local remaining_calls = 2
   local chunks1 = {}
   local chunks2 = {}
-  local function on_done(publish, bufnr)
+  local function on_done(publish, bufnr, cwd)
     remaining_calls = remaining_calls - 1
     if remaining_calls == 0 then
       -- Ensure stdout/stderr output is not interleaved
@@ -153,7 +153,7 @@ function M.split(parser)
       for _, chunk in pairs(chunks2) do
         parser.on_chunk(chunk)
       end
-      parser.on_done(publish, bufnr)
+      parser.on_done(publish, bufnr, cwd)
     end
   end
   local parser1 = {
