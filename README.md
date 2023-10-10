@@ -143,6 +143,7 @@ Other dedicated linters that are built-in are:
 | [Selene][31]                       | `selene`               |
 | [ShellCheck][10]                   | `shellcheck`           |
 | [sqlfluff][sqlfluff]               | `sqlfluff`             |
+| [standardjs][standardjs]           | `standardjs`           |
 | [StandardRB][27]                   | `standardrb`           |
 | [statix check][33]                 | `statix`               |
 | [stylelint][29]                    | `stylelint`            |
@@ -395,3 +396,4 @@ busted tests/
 [rpm]: https://rpm.org
 [ec]: https://github.com/editorconfig-checker/editorconfig-checker
 [deno]: https://github.com/denoland/deno
+[standardjs]: https://standardjs.com/
