@@ -148,6 +148,7 @@ Other dedicated linters that are built-in are:
 | [Ruff][ruff]                       | `ruff`                 |
 | [Selene][31]                       | `selene`               |
 | [ShellCheck][10]                   | `shellcheck`           |
+| [snyk][snyk]                       | `snyk_iac`             |
 | [sqlfluff][sqlfluff]               | `sqlfluff`             |
 | [standardjs][standardjs]           | `standardjs`           |
 | [StandardRB][27]                   | `standardrb`           |
@@ -415,3 +416,4 @@ busted tests/
 [write-good]: https://github.com/btford/write-good
 [dotenv-linter]: https://dotenv-linter.github.io/
 [puppet-lint]: https://github.com/puppetlabs/puppet-lint
+[snyk]: https://github.com/snyk/cli
