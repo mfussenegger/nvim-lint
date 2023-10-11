@@ -310,6 +310,26 @@ phpcs.args = {
 ```
 
 
+## Get the current running linters for your buffer
+
+You can see which linters are running with require("lint").get_running_proc().
+An example you can use in your lualine config:
+
+```lua
+local lint_progress = function()
+    local procs = require("lint").get_running_procs()
+    if #procs == 0 then
+        return "󰦕"
+    end
+    local string = ""
+    for _, proc in ipairs(procs) do
+        string = string .. proc .. " ,"
+    end
+    return "󱉶 " .. string.sub(string, 1, -2)
+end
+```
+
+
 ## Alternatives
 
 - [Ale][1]
