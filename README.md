@@ -398,4 +398,4 @@ busted tests/
 [ec]: https://github.com/editorconfig-checker/editorconfig-checker
 [deno]: https://github.com/denoland/deno
 [standardjs]: https://standardjs.com/
-[biomejs]: https://biomejs.dev/
+[biomejs]: https://github.com/biomejs/biome
