@@ -8,21 +8,22 @@ return {
   cmd = "trivy",
   stdin = false,
   append_fname = true,
-  args = { "--scanners", "config", "--format", "json" },
+  args = { "--scanners", "config", "--format", "json", "fs" },
   stream = "stdout",
+  ignore_exitcode = false,
   parser = function(output, bufnr)
     local diagnostics = {}
     local ok, decoded = pcall(vim.json.decode, output)
     if not ok then
       return diagnostics
     end
-    local fpath = vim.api.nvim_buf_get_name(bufnr)
+    local fpath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
     for _, result in ipairs(decoded and decoded.Results or {}) do
       if result.Target == fpath then
         for _, misconfig in ipairs(result.Misconfigurations) do
           local err = {
             source = "trivy",
-            message = string.format("%s - %s - %s", misconfig.Message, misconfig.Title, misconfig.Description),
+            message = string.format("%s - %s", misconfig.Message, misconfig.Title),
             col = misconfig.CauseMetadata.StartLine,
             end_col = misconfig.CauseMetadata.EndLine,
             lnum = misconfig.CauseMetadata.StartLine - 1,
