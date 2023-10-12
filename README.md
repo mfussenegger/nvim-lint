@@ -73,6 +73,7 @@ Other dedicated linters that are built-in are:
 | [ansible-lint][ansible-lint]       | `ansible_lint`         |
 | [bandit][bandit]                   | `bandit`               |
 | [bean-check][bean-check]           | `bean_check`           |
+| [biomejs][biomejs]                 | `biomejs`              |
 | [buf_lint][buf_lint]               | `buf_lint`             |
 | [buildifier][buildifier]           | `buildifier`           |
 | [cfn-lint][cfn-lint]               | `cfn_lint`             |
@@ -397,3 +398,4 @@ busted tests/
 [ec]: https://github.com/editorconfig-checker/editorconfig-checker
 [deno]: https://github.com/denoland/deno
 [standardjs]: https://standardjs.com/
+[biomejs]: https://github.com/biomejs/biome
