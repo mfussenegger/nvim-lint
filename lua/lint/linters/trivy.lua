@@ -23,7 +23,7 @@ return {
         for _, misconfig in ipairs(result.Misconfigurations) do
           local err = {
             source = "trivy",
-            message = string.format("%s - %s", misconfig.Message, misconfig.Title),
+            message = string.format("%s %s", misconfig.Title, misconfig.Description),
             col = misconfig.CauseMetadata.StartLine,
             end_col = misconfig.CauseMetadata.EndLine,
             lnum = misconfig.CauseMetadata.StartLine - 1,

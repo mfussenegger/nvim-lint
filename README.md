@@ -155,6 +155,7 @@ Other dedicated linters that are built-in are:
 | [vulture][vulture]                 | `vulture`              |
 | [yamllint][yamllint]               | `yamllint`             |
 | [tfsec][tfsec]                     | `tfsec`                |
+| [trivy][trivy]                     | `trivy`                |
 
 ## Custom Linters
 
@@ -387,6 +388,7 @@ busted tests/
 [buf_lint]: https://github.com/bufbuild/buf
 [erb-lint]: https://github.com/shopify/erb-lint
 [tfsec]: https://github.com/aquasecurity/tfsec
+[trivy]: https://github.com/aquasecurity/trivy
 [djlint]: https://djlint.com/
 [buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
 [solhint]: https://protofire.github.io/solhint/
