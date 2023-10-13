@@ -24,11 +24,11 @@ return require('lint.util').inject_cmd_exe({
   stream = 'stdout',
   ignore_exitcode = true,
   parser = function(output)
-    local json = vim.json.decode(output) or {}
+    local success, decodedData = pcall(vim.json.decode, output)
     local diagnostics = {}
 
-    for _, file in ipairs(json or {}) do
-      for _, diagnostic in ipairs(file.messages or {}) do
+    if success and decodedData ~= nil then
+      for _, diagnostic in ipairs(decodedData.messages or {}) do
         table.insert(diagnostics, {
           source = "eslint_d",
           lnum = diagnostic.line - 1,
