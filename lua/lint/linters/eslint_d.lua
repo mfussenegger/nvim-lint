@@ -1,9 +1,7 @@
-local pattern = [[%s*(%d+):(%d+)%s+(%w+)%s+(.+%S)%s+(%S+)]]
-local groups = { 'lnum', 'col', 'severity', 'message', 'code' }
-local severity_map = {
-  ['error'] = vim.diagnostic.severity.ERROR,
-  ['warn'] = vim.diagnostic.severity.WARN,
-  ['warning'] = vim.diagnostic.severity.WARN,
+local severities = {
+  nil,
+  vim.diagnostic.severity.ERROR,
+  vim.diagnostic.severity.WARN,
 }
 
 return require('lint.util').inject_cmd_exe({
@@ -16,6 +14,8 @@ return require('lint.util').inject_cmd_exe({
     return 'eslint_d'
   end,
   args = {
+    '--format',
+    'json',
     '--stdin',
     '--stdin-filename',
     function() return vim.api.nvim_buf_get_name(0) end,
@@ -23,5 +23,25 @@ return require('lint.util').inject_cmd_exe({
   stdin = true,
   stream = 'stdout',
   ignore_exitcode = true,
-  parser = require('lint.parser').from_pattern(pattern, groups, severity_map, { ['source'] = 'eslint_d' }),
+  parser = function(output)
+    local success, decodedData = pcall(vim.json.decode, output)
+    local diagnostics = {}
+
+    if success and decodedData ~= nil then
+      for _, diagnostic in ipairs(decodedData.messages or {}) do
+        table.insert(diagnostics, {
+          source = "eslint_d",
+          lnum = diagnostic.line - 1,
+          col = diagnostic.column - 1,
+          end_lnum = diagnostic.endLine - 1,
+          end_col = diagnostic.endColumn - 1,
+          severity = severities[diagnostic.severity],
+          message = diagnostic.message,
+          code = diagnostic.ruleId
+        })
+      end
+    end
+
+    return diagnostics
+  end
 })
