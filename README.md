@@ -86,6 +86,7 @@ Other dedicated linters that are built-in are:
 | [clj-kondo][24]                    | `clj-kondo`            |
 | [cmakelint][cmakelint]             | `cmakelint`            |
 | [codespell][18]                    | `codespell`            |
+| [commitlint][commitlint]           | `commitlint`           |
 | [cppcheck][22]                     | `cppcheck`             |
 | [cpplint][cpplint]                 | `cpplint`              |
 | [credo][credo]                     | `credo`                |
@@ -401,3 +402,4 @@ busted tests/
 [deno]: https://github.com/denoland/deno
 [standardjs]: https://standardjs.com/
 [biomejs]: https://github.com/biomejs/biome
+[commitlint]: https://commitlint.js.org
