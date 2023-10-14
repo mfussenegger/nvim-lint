@@ -17,7 +17,7 @@ return {
             lnum = 0,
             col = 0,
             severity = vim.diagnostic.severity.ERROR,
-            message = vim.fn.split(line, "  ")[2],
+            message = vim.fn.split(line, "   ")[2],
           })
         end
       end

@@ -12,7 +12,8 @@ describe("linter.commitlint", function()
     local expected = {
       source = "commitlint",
       message = "type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]",
-      lnum = 1,
+      lnum = 0,
+      col = 0,
       severity = vim.diagnostic.severity.ERROR,
     }
     assert.are.same(expected, result[1])
