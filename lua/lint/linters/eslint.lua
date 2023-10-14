@@ -26,22 +26,24 @@ return require('lint.util').inject_cmd_exe({
     local success, data = pcall(vim.json.decode, output)
     local diagnostics = {}
 
-    for _, item in ipairs(data) do
-      local current_file = vim.api.nvim_buf_get_name(buffer)
-      local linted_file = item.filePath
-
-      if current_file == linted_file then
-        for _, diagnostic in ipairs(item.messages or {}) do
-          table.insert(diagnostics, {
-            source = "eslint",
-            lnum = diagnostic.line - 1,
-            col = diagnostic.column - 1,
-            end_lnum = diagnostic.endLine - 1,
-            end_col = diagnostic.endColumn - 1,
-            severity = severities[diagnostic.severity],
-            message = diagnostic.message,
-            code = diagnostic.ruleId
-          })
+    if success and data ~= nil then
+      for _, item in ipairs(data) do
+        local current_file = vim.api.nvim_buf_get_name(buffer)
+        local linted_file = item.filePath
+  
+        if current_file == linted_file then
+          for _, diagnostic in ipairs(item.messages or {}) do
+            table.insert(diagnostics, {
+              source = "eslint",
+              lnum = diagnostic.line - 1,
+              col = diagnostic.column - 1,
+              end_lnum = diagnostic.endLine - 1,
+              end_col = diagnostic.endColumn - 1,
+              severity = severities[diagnostic.severity],
+              message = diagnostic.message,
+              code = diagnostic.ruleId
+            })
+          end
         end
       end
     end
