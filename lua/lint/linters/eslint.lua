@@ -8,9 +8,11 @@ return require('lint.util').inject_cmd_exe({
   cmd = function()
     local local_eslint = vim.fn.fnamemodify('./node_modules/.bin/eslint', ':p')
     local stat = vim.loop.fs_stat(local_eslint)
+
     if stat then
       return local_eslint
     end
+
     return 'eslint'
   end,
   args = {
@@ -25,10 +27,11 @@ return require('lint.util').inject_cmd_exe({
   ignore_exitcode = true,
   parser = function(output)
     local success, decodedData = pcall(vim.json.decode, output)
-    local diagnostics = {}
+    local messages = decodedData and decodedData[1] and decodedData[1].messages or {}
 
-    if success and decodedData ~= nil then
-      for _, diagnostic in ipairs(decodedData.messages or {}) do
+    local diagnostics = {}
+    if success and #messages > 0 then
+      for _, diagnostic in ipairs(messages or {}) do
         table.insert(diagnostics, {
           source = "eslint",
           lnum = diagnostic.line - 1,
