@@ -6,10 +6,10 @@ local severities = {
 
 return require('lint.util').inject_cmd_exe({
   cmd = function()
-    local local_eslintd = vim.fn.fnamemodify('./node_modules/.bin/eslint', ':p')
-    local stat = vim.loop.fs_stat(local_eslintd)
+    local local_eslint = vim.fn.fnamemodify('./node_modules/.bin/eslint', ':p')
+    local stat = vim.loop.fs_stat(local_eslint)
     if stat then
-      return local_eslintd
+      return local_eslint
     end
     return 'eslint'
   end,
