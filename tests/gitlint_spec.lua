@@ -1,7 +1,8 @@
 describe("linter.gitlint", function()
   it("can parse the output", function()
     local parser = require("lint.linters.gitlint").parser
-    local result = parser([[3: B5 Body message is too short (11<20): "foo bar baz"]])
+    local bufnr = vim.uri_to_bufnr("file:///COMMIT_MSG")
+    local result = parser([[3: B5 Body message is too short (11<20): "foo bar baz"]], bufnr)
     local expected = {
       source = "gitlint",
       message = "Body message is too short",
