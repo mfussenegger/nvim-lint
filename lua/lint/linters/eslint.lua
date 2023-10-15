@@ -1,7 +1,6 @@
 local severities = {
-  nil,
-  vim.diagnostic.severity.ERROR,
   vim.diagnostic.severity.WARN,
+  vim.diagnostic.severity.ERROR,
 }
 
 return require('lint.util').inject_cmd_exe({
