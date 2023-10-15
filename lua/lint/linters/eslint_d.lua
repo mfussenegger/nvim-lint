@@ -26,7 +26,10 @@ return require('lint.util').inject_cmd_exe({
   stream = 'stdout',
   ignore_exitcode = true,
   parser = function(output)
-    local success, decodedData = pcall(vim.json.decode, output)
+    local success, decodedData = pcall(
+      vim.json.decode, output,
+      { luanil = { object = true, array = true } }
+    )
     local messages = decodedData and decodedData[1] and decodedData[1].messages or {}
 
     local diagnostics = {}
