@@ -45,7 +45,6 @@ return require("lint.util").inject_cmd_exe({
             message = diagnostic.message,
             code = diagnostic.ruleId,
           })
-          return diagnostics
         else
           table.insert(diagnostics, {
             source = "eslint_d",
