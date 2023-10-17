@@ -46,18 +46,18 @@ return require("lint.util").inject_cmd_exe({
             code = diagnostic.ruleId,
           })
           return diagnostics
+        else
+          table.insert(diagnostics, {
+            source = "eslint_d",
+            lnum = diagnostic.line - 1,
+            col = diagnostic.column - 1,
+            end_lnum = (diagnostic.endLine or diagnostic.line) - 1,
+            end_col = (diagnostic.endColumn or diagnostic.column) - 1,
+            severity = severities[diagnostic.severity],
+            message = diagnostic.message,
+            code = diagnostic.ruleId,
+          })
         end
-
-        table.insert(diagnostics, {
-          source = "eslint_d",
-          lnum = diagnostic.line - 1,
-          col = diagnostic.column - 1,
-          end_lnum = (diagnostic.endLine or diagnostic.line) - 1,
-          end_col = (diagnostic.endColumn or diagnostic.column) - 1,
-          severity = severities[diagnostic.severity],
-          message = diagnostic.message,
-          code = diagnostic.ruleId,
-        })
       end
     end
 
