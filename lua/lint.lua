@@ -29,12 +29,12 @@ local M = {}
 
 ---@type table<string, lint.Linter|fun():lint.Linter>
 M.linters = setmetatable({}, {
-  __index = function(tbl, key)
+  __index = function(_, key)
     local ok, linter = pcall(require, 'lint.linters.' .. key)
     if ok then
-      rawset(tbl, key, linter)
+      return linter
     end
-    return linter
+    return nil
   end,
 })
 
