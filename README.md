@@ -70,6 +70,7 @@ Other dedicated linters that are built-in are:
 | ---------------------------------- | ---------------------  |
 | Set via `makeprg`                  | `compiler`             |
 | [actionlint][actionlint]           | `actionlint`           |
+| [alex][alex]                       | `alex`                 |
 | [ansible-lint][ansible-lint]       | `ansible_lint`         |
 | [bandit][bandit]                   | `bandit`               |
 | [bean-check][bean-check]           | `bean_check`           |
@@ -401,3 +402,4 @@ busted tests/
 [deno]: https://github.com/denoland/deno
 [standardjs]: https://standardjs.com/
 [biomejs]: https://github.com/biomejs/biome
+[alex]: https://alexjs.com/
