@@ -33,9 +33,21 @@ return require("lint.util").inject_cmd_exe({
     local diagnostics = {}
     if success and #messages > 0 then
       for _, diagnostic in ipairs(messages or {}) do
+        -- fix when error has no line value
         if diagnostic.line == nil then
+          table.insert(diagnostics, {
+            source = "eslint_d",
+            lnum = 0,
+            col = 0,
+            end_lnum = 0,
+            end_col = 0,
+            severity = severities[1],
+            message = diagnostic.message,
+            code = diagnostic.ruleId,
+          })
           return diagnostics
         end
+
         table.insert(diagnostics, {
           source = "eslint_d",
           lnum = diagnostic.line - 1,
