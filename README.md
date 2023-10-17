@@ -156,6 +156,7 @@ Other dedicated linters that are built-in are:
 | [Verilator][verilator]             | `verilator`            |
 | [vint][21]                         | `vint`                 |
 | [vulture][vulture]                 | `vulture`              |
+| [woke][woke]                       | `woke`                 |
 | [yamllint][yamllint]               | `yamllint`             |
 | [tfsec][tfsec]                     | `tfsec`                |
 | [trivy][trivy]                     | `trivy`                |
@@ -405,3 +406,4 @@ busted tests/
 [biomejs]: https://github.com/biomejs/biome
 [alex]: https://alexjs.com/
 [blocklint]: https://github.com/PrincetonUniversity/blocklint
+[woke]: https://docs.getwoke.tech/
