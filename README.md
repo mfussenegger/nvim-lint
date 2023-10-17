@@ -75,6 +75,7 @@ Other dedicated linters that are built-in are:
 | [bandit][bandit]                   | `bandit`               |
 | [bean-check][bean-check]           | `bean_check`           |
 | [biomejs][biomejs]                 | `biomejs`              |
+| [blocklint][blocklint]             | `blocklint`            |
 | [buf_lint][buf_lint]               | `buf_lint`             |
 | [buildifier][buildifier]           | `buildifier`           |
 | [cfn-lint][cfn-lint]               | `cfn_lint`             |
@@ -403,3 +404,4 @@ busted tests/
 [standardjs]: https://standardjs.com/
 [biomejs]: https://github.com/biomejs/biome
 [alex]: https://alexjs.com/
+[blocklint]: https://github.com/PrincetonUniversity/blocklint
