@@ -9,7 +9,7 @@ describe("linter.eslint_d", function()
     local parser = require("lint.linters.eslint_d").parser
 
     local result = parser([[
-{
+[{
   "messages": [
     {
       "column": 10,
@@ -30,7 +30,8 @@ describe("linter.eslint_d", function()
       "severity": 2
     }
   ]
-}]])
+}]
+]])
 
     assert.are.same(2, #result)
 

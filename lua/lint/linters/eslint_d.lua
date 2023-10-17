@@ -1,16 +1,17 @@
 local severities = {
-  nil,
-  vim.diagnostic.severity.ERROR,
   vim.diagnostic.severity.WARN,
+  vim.diagnostic.severity.ERROR,
 }
 
 return require('lint.util').inject_cmd_exe({
   cmd = function()
-    local local_eslintd = vim.fn.fnamemodify('./node_modules/.bin/eslint_d', ':p')
-    local stat = vim.loop.fs_stat(local_eslintd)
+    local local_eslint_d = vim.fn.fnamemodify('./node_modules/.bin/eslint_d', ':p')
+    local stat = vim.loop.fs_stat(local_eslint_d)
+
     if stat then
-      return local_eslintd
+      return local_eslint_d
     end
+
     return 'eslint_d'
   end,
   args = {
@@ -24,17 +25,21 @@ return require('lint.util').inject_cmd_exe({
   stream = 'stdout',
   ignore_exitcode = true,
   parser = function(output)
-    local success, decodedData = pcall(vim.json.decode, output)
-    local diagnostics = {}
+    local success, decodedData = pcall(
+      vim.json.decode, output,
+      { luanil = { object = true, array = true } }
+    )
+    local messages = decodedData and decodedData[1] and decodedData[1].messages or {}
 
-    if success and decodedData ~= nil then
-      for _, diagnostic in ipairs(decodedData.messages or {}) do
+    local diagnostics = {}
+    if success and #messages > 0 then
+      for _, diagnostic in ipairs(messages or {}) do
         table.insert(diagnostics, {
           source = "eslint_d",
           lnum = diagnostic.line - 1,
           col = diagnostic.column - 1,
-          end_lnum = diagnostic.endLine - 1,
-          end_col = diagnostic.endColumn - 1,
+          end_lnum = (diagnostic.endLine or diagnostic.line) - 1,
+          end_col = (diagnostic.endColumn or diagnostic.column) - 1,
           severity = severities[diagnostic.severity],
           message = diagnostic.message,
           code = diagnostic.ruleId
