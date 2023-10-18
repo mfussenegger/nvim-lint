@@ -37,7 +37,10 @@ return require('lint.util').inject_cmd_exe({
   stream = 'stdout',
   ignore_exitcode = true,
   parser = function(output)
-    local success, decodedData = pcall(vim.json.decode, output)
+    local success, decodedData = pcall(
+      vim.json.decode, output,
+      { luanil = { object = true, array = true } }
+    )
     local json = decodedData and decodedData[1] and decodedData[1].messages or {}
     local diagnostics = {}
 
@@ -45,9 +48,15 @@ return require('lint.util').inject_cmd_exe({
       for _, json_diagnostic in ipairs(json) do
         local diagnostic = {}
 
+        -- Make fatal diagnostics appear on the first line.
+        if json_diagnostic.fatal then
+          diagnostic.col = 0
+          diagnostic.lnum = 0
+        end
+
         -- Translate the json diagnostic to a diagnostic.
         for json_key, diagnostic_key in pairs(diagnostic_translate_map) do
-          if json_diagnostic[json_key] ~= vim.NIL then
+          if json_diagnostic[json_key] ~= nil then
             if json_key == 'severity' then
               diagnostic[diagnostic_key] = severities[json_diagnostic[json_key]]
             elseif type(json_diagnostic[json_key]) == "number" then
@@ -58,8 +67,7 @@ return require('lint.util').inject_cmd_exe({
           end
         end
 
-        -- Ensure that we have a diagnostic with `col` and `lnum` set, since
-        -- they are required.
+        -- Ensure that the diagnostic is populated with the required values.
         if diagnostic.col and diagnostic.lnum then
           table.insert(
             diagnostics,
