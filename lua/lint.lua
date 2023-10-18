@@ -122,7 +122,7 @@ local running_procs_by_buf = {}
 
 
 ---@param names? string|string[] name of the linter
----@param opts? {cwd?: string, ignore_errors?: boolean} options
+---@param opts? {cwd?: string, ignore_errors?: boolean, bufnr?: integer} options
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
@@ -176,7 +176,7 @@ end
 
 
 ---@param linter lint.Linter
----@param opts? {cwd?: string, ignore_errors?: boolean}
+---@param opts? {cwd?: string, ignore_errors?: boolean, bufnr?: integer}
 ---@return uv.uv_process_t|nil
 function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
