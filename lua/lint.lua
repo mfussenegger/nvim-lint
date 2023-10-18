@@ -128,7 +128,7 @@ function M.try_lint(names, opts)
     vim.diagnostic,
     "nvim-lint requires neovim 0.6.0+. If you're using an older version, use the `nvim-05` tag of nvim-lint'"
   )
-  opts = opts or {}
+  opts = vim.tbl_extend("keep", opts or {}, { bufnr = api.nvim_get_current_buf() })
   if type(names) == "string" then
     names = { names }
   end
@@ -146,8 +146,7 @@ function M.try_lint(names, opts)
     return linter
   end
 
-  local bufnr = api.nvim_get_current_buf()
-  local running_procs = running_procs_by_buf[bufnr] or {}
+  local running_procs = running_procs_by_buf[opts.bufnr] or {}
   for linter_name, proc in pairs(running_procs) do
     if not proc:is_closing() then
       proc:kill("sigterm")
@@ -164,7 +163,7 @@ function M.try_lint(names, opts)
       notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
     end
   end
-  running_procs_by_buf[bufnr] = running_procs
+  running_procs_by_buf[opts.bufnr] = running_procs
 end
 
 local function eval_fn_or_id(x)
@@ -188,8 +187,10 @@ function M.lint(linter, opts)
   local env
   local pid_or_err
   local args = {}
-  local bufnr = api.nvim_get_current_buf()
+  
   opts = opts or {}
+  local bufnr = opts.bufnr or api.nvim_get_current_buf()
+
   if linter.args then
     vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))
   end
