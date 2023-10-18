@@ -23,6 +23,8 @@ return {
         end_col = finding.column,
         severity = assert(severities[finding.level], 'missing mapping for severity ' .. finding.level),
         message = finding.message,
+        source = 'hadolint',
+        code = finding.code,
       })
     end
 
