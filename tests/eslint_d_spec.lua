@@ -58,6 +58,22 @@ describe("linter.eslint_d", function()
     assert.are.same(1, #result)
   end)
 
+  it('should show fatal diagnostics on the first line', function()
+    local parser = require("lint.linters.eslint_d").parser
+
+    local json = '[{ "messages": [ { "fatal": true, "message": "fatal", "severity": 2 } ]}]'
+    local result = parser(json)
+
+    assert.are.same(1, #result)
+    assert.are.same({
+      col = 0,
+      lnum = 0,
+      message = "fatal",
+      severity = vim.diagnostic.severity.ERROR,
+      source = "eslint_d"
+    }, result[1])
+  end)
+
   it('should parse valid diagnostics', function()
     local parser = require("lint.linters.eslint_d").parser
 
