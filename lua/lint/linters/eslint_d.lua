@@ -1,21 +1,12 @@
-local pattern = [[%s*(%d+):(%d+)%s+(%w+)%s+(.+%S)%s+(%S+)]]
-local groups = { 'lnum', 'col', 'severity', 'message', 'code' }
-local severity_map = {
-  ['error'] = vim.diagnostic.severity.ERROR,
-  ['warn'] = vim.diagnostic.severity.WARN,
-  ['warning'] = vim.diagnostic.severity.WARN,
-}
-
+local binary_name = "eslint_d"
 return require('lint.util').inject_cmd_exe({
   cmd = function()
-    local local_eslintd = vim.fn.fnamemodify('./node_modules/.bin/eslint_d', ':p')
-    local stat = vim.loop.fs_stat(local_eslintd)
-    if stat then
-      return local_eslintd
-    end
-    return 'eslint_d'
+    local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+    return vim.loop.fs_stat(local_binary) and local_binary or binary_name
   end,
   args = {
+    '--format',
+    'json',
     '--stdin',
     '--stdin-filename',
     function() return vim.api.nvim_buf_get_name(0) end,
@@ -23,5 +14,11 @@ return require('lint.util').inject_cmd_exe({
   stdin = true,
   stream = 'stdout',
   ignore_exitcode = true,
-  parser = require('lint.parser').from_pattern(pattern, groups, severity_map, { ['source'] = 'eslint_d' }),
+  parser = function(output, bufnr)
+    local result = require("lint.linters.eslint").parser(output, bufnr)
+    for _, d in ipairs(result) do
+      d.source = binary_name
+    end
+    return result
+  end
 })
