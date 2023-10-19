@@ -158,6 +158,7 @@ Other dedicated linters that are built-in are:
 | [vint][21]                         | `vint`                 |
 | [vulture][vulture]                 | `vulture`              |
 | [woke][woke]                       | `woke`                 |
+| [write-good][write-good]           | `write_good`           |
 | [yamllint][yamllint]               | `yamllint`             |
 | [tfsec][tfsec]                     | `tfsec`                |
 | [trivy][trivy]                     | `trivy`                |
@@ -408,4 +409,5 @@ busted tests/
 [alex]: https://alexjs.com/
 [blocklint]: https://github.com/PrincetonUniversity/blocklint
 [woke]: https://docs.getwoke.tech/
+[write-good]: https://github.com/btford/write-good
 [dotenv-linter]: https://dotenv-linter.github.io/
