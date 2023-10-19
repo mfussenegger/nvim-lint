@@ -11,13 +11,19 @@ describe("linter.eslint_d", function()
 
     local json = '{]'
     local result = parser(json)
-
-    assert.are.same(0, #result)
+    local expected = {
+      {
+        lnum = 0,
+        col = 0,
+        message = "Could not parse linter output due to: Expected object key string but found T_ARR_END at character 2\noutput: {]",
+        source = "eslint_d",
+      }
+    }
+    assert.are.same(expected, result)
   end)
 
-  it('should skip invalid diagnostics', function()
+  it('uses 0 defaults for missing line/column', function()
     local parser = require("lint.linters.eslint_d").parser
-
     local json = '[{ "messages": [' ..
         -- Valid JSON diagnostic.
         [[
@@ -55,7 +61,9 @@ describe("linter.eslint_d", function()
         ]] .. ']}]'
     local result = parser(json)
 
-    assert.are.same(1, #result)
+    assert.are.same(3, #result)
+    assert.are.same(0, result[2].lnum)
+    assert.are.same(0, result[3].col)
   end)
 
   it('should show fatal diagnostics on the first line', function()
