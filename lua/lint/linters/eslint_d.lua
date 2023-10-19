@@ -1,17 +1,8 @@
-local severities = {
-  nil,
-  vim.diagnostic.severity.ERROR,
-  vim.diagnostic.severity.WARN,
-}
-
+local binary_name = "eslint_d"
 return require('lint.util').inject_cmd_exe({
   cmd = function()
-    local local_eslintd = vim.fn.fnamemodify('./node_modules/.bin/eslint_d', ':p')
-    local stat = vim.loop.fs_stat(local_eslintd)
-    if stat then
-      return local_eslintd
-    end
-    return 'eslint_d'
+    local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+    return vim.loop.fs_stat(local_binary) and local_binary or binary_name
   end,
   args = {
     '--format',
@@ -23,25 +14,11 @@ return require('lint.util').inject_cmd_exe({
   stdin = true,
   stream = 'stdout',
   ignore_exitcode = true,
-  parser = function(output)
-    local success, decodedData = pcall(vim.json.decode, output)
-    local diagnostics = {}
-
-    if success and decodedData ~= nil then
-      for _, diagnostic in ipairs(decodedData.messages or {}) do
-        table.insert(diagnostics, {
-          source = "eslint_d",
-          lnum = diagnostic.line - 1,
-          col = diagnostic.column - 1,
-          end_lnum = diagnostic.endLine - 1,
-          end_col = diagnostic.endColumn - 1,
-          severity = severities[diagnostic.severity],
-          message = diagnostic.message,
-          code = diagnostic.ruleId
-        })
-      end
+  parser = function(output, bufnr)
+    local result = require("lint.linters.eslint").parser(output, bufnr)
+    for _, d in ipairs(result) do
+      d.source = binary_name
     end
-
-    return diagnostics
+    return result
   end
 })

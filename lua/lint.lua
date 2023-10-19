@@ -29,12 +29,12 @@ local M = {}
 
 ---@type table<string, lint.Linter|fun():lint.Linter>
 M.linters = setmetatable({}, {
-  __index = function(tbl, key)
+  __index = function(_, key)
     local ok, linter = pcall(require, 'lint.linters.' .. key)
     if ok then
-      rawset(tbl, key, linter)
+      return linter
     end
-    return linter
+    return nil
   end,
 })
 
@@ -218,9 +218,12 @@ function M.lint(linter, opts)
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
     if handle and not handle:is_closing() then
       local procs = (running_procs_by_buf[bufnr] or {})
-      procs[linter.name] = nil
-      if not next(procs) then
-        running_procs_by_buf[bufnr] = nil
+      -- Only cleanup if there has not been another procs in between
+      if handle == procs[linter.name] then
+        procs[linter.name] = nil
+        if not next(procs) then
+          running_procs_by_buf[bufnr] = nil
+        end
       end
       handle:close()
     end

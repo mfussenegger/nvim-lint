@@ -1,17 +1,13 @@
+local binary_name = "eslint"
 local severities = {
-  nil,
-  vim.diagnostic.severity.ERROR,
   vim.diagnostic.severity.WARN,
+  vim.diagnostic.severity.ERROR,
 }
 
 return require('lint.util').inject_cmd_exe({
   cmd = function()
-    local local_eslint = vim.fn.fnamemodify('./node_modules/.bin/eslint', ':p')
-    local stat = vim.loop.fs_stat(local_eslint)
-    if stat then
-      return local_eslint
-    end
-    return 'eslint'
+    local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+    return vim.loop.fs_stat(local_binary) and local_binary or binary_name
   end,
   args = {
     '--format',
@@ -23,25 +19,38 @@ return require('lint.util').inject_cmd_exe({
   stdin = true,
   stream = 'stdout',
   ignore_exitcode = true,
-  parser = function(output)
-    local success, decodedData = pcall(vim.json.decode, output)
+  parser = function(output, bufnr)
+    if vim.trim(output) == "" then
+      return {}
+    end
+    local decode_opts = { luanil = { object = true, array = true } }
+    local ok, data = pcall(vim.json.decode, output, decode_opts)
+    if not ok then
+      return {
+        {
+          bufnr = bufnr,
+          lnum = 0,
+          col = 0,
+          message = "Could not parse linter output due to: " .. data .. "\noutput: " .. output
+        }
+      }
+    end
+    -- See https://eslint.org/docs/latest/use/formatters/#json
     local diagnostics = {}
-
-    if success and decodedData ~= nil then
-      for _, diagnostic in ipairs(decodedData.messages or {}) do
+    for _, result in ipairs(data or {}) do
+      for _, msg in ipairs(result.messages or {}) do
         table.insert(diagnostics, {
-          source = "eslint",
-          lnum = diagnostic.line - 1,
-          col = diagnostic.column - 1,
-          end_lnum = diagnostic.endLine - 1,
-          end_col = diagnostic.endColumn - 1,
-          severity = severities[diagnostic.severity],
-          message = diagnostic.message,
-          code = diagnostic.ruleId
+          lnum = msg.line and (msg.line - 1) or 0,
+          end_lnum = msg.endLine and (msg.endLine - 1) or nil,
+          col = msg.column and (msg.column - 1) or 0,
+          end_col = msg.endColumn and (msg.endColumn - 1) or nil,
+          message = msg.message,
+          code = msg.ruleId,
+          severity = severities[msg.severity],
+          source = binary_name
         })
       end
     end
-
     return diagnostics
   end
 })

@@ -70,10 +70,12 @@ Other dedicated linters that are built-in are:
 | ---------------------------------- | ---------------------  |
 | Set via `makeprg`                  | `compiler`             |
 | [actionlint][actionlint]           | `actionlint`           |
+| [alex][alex]                       | `alex`                 |
 | [ansible-lint][ansible-lint]       | `ansible_lint`         |
 | [bandit][bandit]                   | `bandit`               |
 | [bean-check][bean-check]           | `bean_check`           |
 | [biomejs][biomejs]                 | `biomejs`              |
+| [blocklint][blocklint]             | `blocklint`            |
 | [buf_lint][buf_lint]               | `buf_lint`             |
 | [buildifier][buildifier]           | `buildifier`           |
 | [cfn-lint][cfn-lint]               | `cfn_lint`             |
@@ -94,6 +96,7 @@ Other dedicated linters that are built-in are:
 | [curlylint][curlylint]             | `curlylint`            |
 | [deno][deno]                       | `deno`                 |
 | [djlint][djlint]                   | `djlint`               |
+| [dotenv-linter][dotenv-linter]     | `dotenv_linter`        |
 | [editorconfig-checker][ec]         | `editorconfig-checker` |
 | [erb-lint][erb-lint]               | `erb_lint`             |
 | [ESLint][25]                       | `eslint`               |
@@ -130,6 +133,7 @@ Other dedicated linters that are built-in are:
 | [phpstan][phpstan]                 | `phpstan`              |
 | [proselint][proselint]             | `proselint`            |
 | [psalm][psalm]                     | `psalm`                |
+| [puppet-lint][puppet-lint]         | `puppet-lint`          |
 | [pycodestyle][pcs-docs]            | `pycodestyle`          |
 | [pydocstyle][pydocstyle]           | `pydocstyle`           |
 | [Pylint][15]                       | `pylint`               |
@@ -155,6 +159,8 @@ Other dedicated linters that are built-in are:
 | [Verilator][verilator]             | `verilator`            |
 | [vint][21]                         | `vint`                 |
 | [vulture][vulture]                 | `vulture`              |
+| [woke][woke]                       | `woke`                 |
+| [write-good][write-good]           | `write_good`           |
 | [yamllint][yamllint]               | `yamllint`             |
 | [tfsec][tfsec]                     | `tfsec`                |
 | [trivy][trivy]                     | `trivy`                |
@@ -403,3 +409,9 @@ busted tests/
 [standardjs]: https://standardjs.com/
 [biomejs]: https://github.com/biomejs/biome
 [commitlint]: https://commitlint.js.org
+[alex]: https://alexjs.com/
+[blocklint]: https://github.com/PrincetonUniversity/blocklint
+[woke]: https://docs.getwoke.tech/
+[write-good]: https://github.com/btford/write-good
+[dotenv-linter]: https://dotenv-linter.github.io/
+[puppet-lint]: https://github.com/puppetlabs/puppet-lint
