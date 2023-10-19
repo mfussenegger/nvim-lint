@@ -132,6 +132,7 @@ Other dedicated linters that are built-in are:
 | [phpstan][phpstan]                 | `phpstan`              |
 | [proselint][proselint]             | `proselint`            |
 | [psalm][psalm]                     | `psalm`                |
+| [puppet-lint][puppet-lint]         | `puppet-lint`          |
 | [pycodestyle][pcs-docs]            | `pycodestyle`          |
 | [pydocstyle][pydocstyle]           | `pydocstyle`           |
 | [Pylint][15]                       | `pylint`               |
@@ -411,3 +412,4 @@ busted tests/
 [woke]: https://docs.getwoke.tech/
 [write-good]: https://github.com/btford/write-good
 [dotenv-linter]: https://dotenv-linter.github.io/
+[puppet-lint]: https://github.com/puppetlabs/puppet-lint
