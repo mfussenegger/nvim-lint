@@ -1,12 +1,5 @@
 return {
-  cmd = function()
-    local local_executable = vim.fn.fnamemodify("./bin/dotenv-linter", ":p")
-    local stat = vim.loop.fs_stat(local_executable)
-    if stat then
-      return local_executable
-    end
-    return "dotenv-linter"
-  end,
+  cmd = "dotenv-linter",
   stdin = false,
   args = { "--quiet", "--no-color" },
   stream = "stdout",
