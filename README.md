@@ -95,6 +95,7 @@ Other dedicated linters that are built-in are:
 | [curlylint][curlylint]             | `curlylint`            |
 | [deno][deno]                       | `deno`                 |
 | [djlint][djlint]                   | `djlint`               |
+| [dotenv-linter][dotenv-linter]     | `dotenv_linter`        |
 | [editorconfig-checker][ec]         | `editorconfig-checker` |
 | [erb-lint][erb-lint]               | `erb_lint`             |
 | [ESLint][25]                       | `eslint`               |
@@ -409,3 +410,4 @@ busted tests/
 [blocklint]: https://github.com/PrincetonUniversity/blocklint
 [woke]: https://docs.getwoke.tech/
 [write-good]: https://github.com/btford/write-good
+[dotenv-linter]: https://dotenv-linter.github.io/
