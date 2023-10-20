@@ -3,7 +3,7 @@ local pattern = '([^:]+):(%d+): (.+) %[(.+)%]'
 local groups = { 'file', 'lnum', 'message', 'code' }
 
 return {
-  cmd = 'cmakelint',
+  cmd = 'cmake-lint',
   stdin = false,
   args = {'--quiet'},
   ignore_exitcode = true,
