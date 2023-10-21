@@ -7,10 +7,9 @@ describe("linter.gitlint", function()
       source = "gitlint",
       message = "Body message is too short",
       code = "B5",
-      lnum = 3,
+      lnum = 2,
+      end_lnum = 2,
       col = 0,
-      end_lnum = 3,
-      end_col = 0,
       severity = vim.diagnostic.severity.INFO,
     }
     assert.are.same(expected, result)
