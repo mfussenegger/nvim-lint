@@ -1,3 +1,6 @@
+local pattern = "^(%d+): (%w+) (.*)$"
+local groups = { "lnum", "code", "message" }
+
 return {
   cmd = "gitlint",
   stdin = false,
@@ -5,5 +8,5 @@ return {
   append_fname = true,
   stream = "stderr",
   ignore_exitcode = true,
-  parser = require("lint.parser").from_pattern([[^(\d+): (\w+) (.*)$]], { "lnum", "code", "message" }, nil, nil, nil),
+  parser = require("lint.parser").from_pattern(pattern, groups),
 }
