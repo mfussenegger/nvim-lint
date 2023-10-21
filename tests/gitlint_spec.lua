@@ -5,12 +5,12 @@ describe("linter.gitlint", function()
     local result = parser([[3: B5 Body message is too short (11<20): "foo bar baz"]], bufnr)
     local expected = {
       source = "gitlint",
-      message = "Body message is too short",
+      message = [[Body message is too short (11<20): "foo bar baz"]],
       code = "B5",
       lnum = 2,
       end_lnum = 2,
       col = 0,
-      severity = vim.diagnostic.severity.INFO,
+      severity = vim.diagnostic.severity.ERROR,
     }
     assert.are.same(expected, result)
   end)
