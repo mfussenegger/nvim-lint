@@ -105,6 +105,7 @@ Other dedicated linters that are built-in are:
 | [Flake8][13]                       | `flake8`               |
 | [flawfinder][35]                   | `flawfinder`           |
 | [gdlint (gdtoolkit)][gdlint]       | `gdlint`               |
+| [gitlint][gitlint]                 | `gitlint`              |
 | [Golangci-lint][16]                | `golangcilint`         |
 | [glslc][glslc]                     | `glslc`                |
 | [DirectX Shader Compiler][dxc]     | `dxc`                  |
@@ -417,3 +418,4 @@ busted tests/
 [dotenv-linter]: https://dotenv-linter.github.io/
 [puppet-lint]: https://github.com/puppetlabs/puppet-lint
 [snyk]: https://github.com/snyk/cli
+[gitlint]: https://github.com/jorisroovers/gitlint
