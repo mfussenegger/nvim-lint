@@ -10,6 +10,7 @@ return {
   parser = function(output, _)
     local per_filepath = {}
     if #output > 0 then
+      output = output:gsub("None\n", "")
       local status, decoded = pcall(vim.json.decode, output)
       if not status then
         per_filepath = {
