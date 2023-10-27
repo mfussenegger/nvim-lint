@@ -60,20 +60,29 @@ local namespaces = setmetatable({}, {
   end
 })
 
+local last_killed_pid = nil
 
-local function read_output(cwd, bufnr, parser, publish_fn)
+local function read_output(pid_or_err, cwd, bufnr, parser, publish_fn)
   return function(err, chunk)
     assert(not err, err)
     if chunk then
       parser.on_chunk(chunk, bufnr)
     else
-      parser.on_done(publish_fn, bufnr, cwd)
+      if last_killed_pid ~= pid_or_err then
+        parser.on_done(publish_fn, bufnr, cwd)
+      else
+        -- We arrived here because we killed the process when we wanted to launch
+        -- a new linter. Killing the process caused it to return immediately, most
+        -- likely without errors (or with incomplete errors). Ignore this run, we'll
+        -- rather collect the full data from the next run.
+        last_killed_pid = nil
+      end
     end
   end
 end
 
 
-local function start_read(stream, cwd, stdout, stderr, bufnr, parser, ns)
+local function start_read(pid_or_err, stream, cwd, stdout, stderr, bufnr, parser, ns)
   local publish = function(diagnostics)
     -- By the time the linter is finished the user might have deleted the buffer
     if api.nvim_buf_is_valid(bufnr) then
@@ -85,13 +94,13 @@ local function start_read(stream, cwd, stdout, stderr, bufnr, parser, ns)
     stderr:close()
   end
   if not stream or stream == 'stdout' then
-    stdout:read_start(read_output(cwd, bufnr, parser, publish))
+    stdout:read_start(read_output(pid_or_err, cwd, bufnr, parser, publish))
   elseif stream == 'stderr' then
-    stderr:read_start(read_output(cwd, bufnr, parser, publish))
+    stderr:read_start(read_output(pid_or_err, cwd, bufnr, parser, publish))
   elseif stream == 'both' then
     local parser1, parser2 = require('lint.parser').split(parser)
-    stdout:read_start(read_output(cwd, bufnr, parser1, publish))
-    stderr:read_start(read_output(cwd, bufnr, parser2, publish))
+    stdout:read_start(read_output(pid_or_err, cwd, bufnr, parser1, publish))
+    stderr:read_start(read_output(pid_or_err, cwd, bufnr, parser2, publish))
   else
     error('Invalid `stream` setting: ' .. stream)
   end
@@ -150,6 +159,7 @@ function M.try_lint(names, opts)
   local running_procs = running_procs_by_buf[bufnr] or {}
   for linter_name, proc in pairs(running_procs) do
     if not proc:is_closing() then
+      last_killed_pid = proc:get_pid()
       proc:kill("sigterm")
     end
     running_procs[linter_name] = nil
@@ -255,7 +265,7 @@ function M.lint(linter, opts)
     'Parser requires a `on_done` function'
   )
   local ns = namespaces[linter.name]
-  start_read(linter.stream, linter_opts.cwd, stdout, stderr, bufnr, parser, ns)
+  start_read(pid_or_err, linter.stream, linter_opts.cwd, stdout, stderr, bufnr, parser, ns)
   if linter.stdin then
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
     for _, line in ipairs(lines) do
