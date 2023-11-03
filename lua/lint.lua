@@ -27,6 +27,18 @@ local M = {}
 ---@field parser lint.Parser|fun(output:string, bufnr:number, linter_cwd:string):Diagnostic[]
 
 
+---@class lint.LintProc
+---@field bufnr integer
+---@field handle uv.uv_process_t
+---@field stdout uv.uv_pipe_t
+---@field stderr uv.uv_pipe_t
+---@field linter lint.Linter
+---@field cwd string
+---@field ns integer
+---@field stream? "stdout"|"stderr"|"both"
+---@field cancelled boolean
+
+
 ---@type table<string, lint.Linter|fun():lint.Linter>
 M.linters = setmetatable({}, {
   __index = function(_, key)
@@ -73,30 +85,6 @@ local function read_output(cwd, bufnr, parser, publish_fn)
 end
 
 
-local function start_read(stream, cwd, stdout, stderr, bufnr, parser, ns)
-  local publish = function(diagnostics)
-    -- By the time the linter is finished the user might have deleted the buffer
-    if api.nvim_buf_is_valid(bufnr) then
-      vim.diagnostic.set(ns, bufnr, diagnostics)
-    end
-    stdout:shutdown()
-    stdout:close()
-    stderr:shutdown()
-    stderr:close()
-  end
-  if not stream or stream == 'stdout' then
-    stdout:read_start(read_output(cwd, bufnr, parser, publish))
-  elseif stream == 'stderr' then
-    stderr:read_start(read_output(cwd, bufnr, parser, publish))
-  elseif stream == 'both' then
-    local parser1, parser2 = require('lint.parser').split(parser)
-    stdout:read_start(read_output(cwd, bufnr, parser1, publish))
-    stderr:read_start(read_output(cwd, bufnr, parser2, publish))
-  else
-    error('Invalid `stream` setting: ' .. stream)
-  end
-end
-
 function M._resolve_linter_by_ft(ft)
   local names = M.linters_by_ft[ft]
   if names then
@@ -116,8 +104,72 @@ function M._resolve_linter_by_ft(ft)
 end
 
 
+---@class lint.LintProc
+local LintProc = {}
+local linter_proc_mt = {
+  __index = LintProc
+}
+
+
+function LintProc:publish(diagnostics)
+  -- By the time the linter is finished the user might have deleted the buffer
+  if api.nvim_buf_is_valid(self.bufnr) and not self.cancelled then
+    vim.diagnostic.set(self.ns, self.bufnr, diagnostics)
+  end
+  self.stdout:shutdown(function()
+    self.stdout:close()
+  end)
+  self.stderr:shutdown(function()
+    self.stderr:close()
+  end)
+end
+
+
+function LintProc:start_read()
+  local linter_proc = self
+  local publish = function(diagnostics)
+    linter_proc:publish(diagnostics)
+  end
+  local parser = self.linter.parser
+  if type(parser) == 'function' then
+    parser = require('lint.parser').accumulate_chunks(parser)
+  end
+  assert(
+    parser.on_chunk and type(parser.on_chunk == 'function'),
+    'Parser requires a `on_chunk` function'
+  )
+  assert(
+    parser.on_done and type(parser.on_done == 'function'),
+    'Parser requires a `on_done` function'
+  )
+  local stream = self.linter.stream
+  local cwd = self.cwd
+  local bufnr = self.bufnr
+  if not stream or stream == 'stdout' then
+    self.stdout:read_start(read_output(cwd, bufnr, parser, publish))
+  elseif stream == 'stderr' then
+    self.stderr:read_start(read_output(cwd, bufnr, parser, publish))
+  elseif stream == 'both' then
+    local parser1, parser2 = require('lint.parser').split(parser)
+    self.stdout:read_start(read_output(cwd, bufnr, parser1, publish))
+    self.stderr:read_start(read_output(cwd, bufnr, parser2, publish))
+  else
+    error('Invalid `stream` setting: ' .. stream)
+  end
+end
+
+
+function LintProc:cancel()
+  self.cancelled = true
+  local handle = self.handle
+  if handle and not handle:is_closing() then
+    handle:kill("sigterm")
+  end
+end
+
+
 --- Running processes by buffer -> by linter name
----@type table<integer, table<string, uv.uv_process_t>> bufnr: {linter: handle}
+---@type table<integer, table<string, lint.LintProc>> bufnr: {linter: handle}
 local running_procs_by_buf = {}
 
 
@@ -151,15 +203,15 @@ function M.try_lint(names, opts)
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
     local proc = running_procs[linter.name]
-    if proc and not proc:is_closing() then
-      proc:kill("sigterm")
+    if proc then
+      proc:cancel()
     end
     running_procs[linter.name] = nil
-    local ok, handle_or_error = pcall(M.lint, linter, opts)
+    local ok, lintproc_or_error = pcall(M.lint, linter, opts)
     if ok then
-      running_procs[linter.name] = handle_or_error
+      running_procs[linter.name] = lintproc_or_error
     elseif not opts.ignore_errors then
-      notify(handle_or_error --[[@as string]], vim.log.levels.WARN)
+      notify(lintproc_or_error --[[@as string]], vim.log.levels.WARN)
     end
   end
   running_procs_by_buf[bufnr] = running_procs
@@ -176,7 +228,7 @@ end
 
 ---@param linter lint.Linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean}
----@return uv.uv_process_t|nil
+---@return lint.LintProc|nil
 function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
   local stdin = assert(uv.new_pipe(false), "Must be able to create pipe")
@@ -240,20 +292,18 @@ function M.lint(linter, opts)
     end
     return nil
   end
-  local parser = linter.parser
-  if type(parser) == 'function' then
-    parser = require('lint.parser').accumulate_chunks(parser)
-  end
-  assert(
-    parser.on_chunk and type(parser.on_chunk == 'function'),
-    'Parser requires a `on_chunk` function'
-  )
-  assert(
-    parser.on_done and type(parser.on_done == 'function'),
-    'Parser requires a `on_done` function'
-  )
-  local ns = namespaces[linter.name]
-  start_read(linter.stream, linter_opts.cwd, stdout, stderr, bufnr, parser, ns)
+  local state = {
+    bufnr = bufnr,
+    stdout = stdout,
+    stderr = stderr,
+    handle = handle,
+    linter = linter,
+    cwd = linter_opts.cwd,
+    ns = namespaces[linter.name],
+    cancelled = false,
+  }
+  local linter_proc = setmetatable(state, linter_proc_mt)
+  linter_proc:start_read()
   if linter.stdin then
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
     for _, line in ipairs(lines) do
@@ -267,7 +317,7 @@ function M.lint(linter, opts)
   else
     stdin:close()
   end
-  return handle
+  return linter_proc
 end
 
 
