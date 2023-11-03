@@ -2,7 +2,7 @@
 local pattern = '([^:]+):(%d+):  (.+)  (.+)'
 local groups = { 'file', 'lnum', 'message', 'code'}
 
-return {
+return require('lint.util').inject_cmd_exe({
   cmd = 'cpplint',
   stdin = false,
   args = {},
@@ -12,4 +12,4 @@ return {
     ['source'] = 'cpplint',
     ['severity'] = vim.diagnostic.severity.WARN,
   }),
-}
+})
