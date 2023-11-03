@@ -148,15 +148,13 @@ function M.try_lint(names, opts)
 
   local bufnr = api.nvim_get_current_buf()
   local running_procs = running_procs_by_buf[bufnr] or {}
-  for linter_name, proc in pairs(running_procs) do
-    if not proc:is_closing() then
-      proc:kill("sigterm")
-    end
-    running_procs[linter_name] = nil
-  end
-
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
+    local proc = running_procs[linter.name]
+    if proc and not proc:is_closing() then
+      proc:kill("sigterm")
+    end
+    running_procs[linter.name] = nil
     local ok, handle_or_error = pcall(M.lint, linter, opts)
     if ok then
       running_procs[linter.name] = handle_or_error
