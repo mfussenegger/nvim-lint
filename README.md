@@ -7,21 +7,31 @@ built-in Language Server Protocol support.
 
 With [ale][1] we already got an asynchronous linter, why write yet another one?
 
-Because [ale][1] reports diagnostics with its own home grown solution and even
-includes its own language server client.
+Because [ale][1] also includes its own language server client.
 
-`nvim-lint` instead uses the `vim.diagnostic` module to present diagnostics in
-the same way the language client built into neovim does.
-`nvim-lint` is meant to fill the gaps for languages where either no language
-server exists, or where standalone linters provide better results than the
-available language server do.
+`nvim-lint` instead has a more narrow scope: It spawns linters, parses their
+output, and reports the results via the `vim.diagnostic` module.
+
+`nvim-lint` complements the built-in language server client for languages where
+there are no language servers, or where standalone linters provide better
+results.
 
 ## Installation
 
 - Requires Neovim >= 0.6.0
-- `nvim-lint` is a plugin. Install it like any other Neovim plugin.
-  - If using [vim-plug][3]: `Plug 'mfussenegger/nvim-lint'`
-  - If using [packer.nvim][4]: `use 'mfussenegger/nvim-lint'`
+- `nvim-lint` is a regular plugin and can be installed via the `:h packages`
+  mechanism or via a plugin manager.
+
+For example:
+
+```bash
+git clone \
+    https://github.com/mfussenegger/nvim-lint.git
+    ~/.config/nvim/pack/plugins/start/nvim-lint
+```
+
+- If using [vim-plug][3]: `Plug 'mfussenegger/nvim-lint'`
+- If using [packer.nvim][4]: `use 'mfussenegger/nvim-lint'`
 
 
 ## Usage
