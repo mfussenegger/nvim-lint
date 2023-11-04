@@ -2,6 +2,13 @@ local function get_file_name()
   return vim.api.nvim_buf_get_name(0)
 end
 
+local error = vim.diagnostic.severity.ERROR
+local severities = {
+  ["F821"] = error, -- undefined name `name`
+  ["E902"] = error, -- `IOError`
+  ["E999"] = error, -- `SyntaxError`
+}
+
 return {
   cmd = "ruff",
   stdin = true,
@@ -24,16 +31,17 @@ return {
       return diagnostics
     end
     for _, result in ipairs(results or {}) do
-      local err = {
+      local diagnostic = {
         message = result.message,
         col = result.location.column - 1,
         end_col = result.end_location.column - 1,
         lnum = result.location.row - 1,
         end_lnum = result.end_location.row - 1,
         code = result.code,
-        severity = vim.diagnostic.severity.WARN,
+        severity = severities[result.code] or vim.diagnostic.severity.WARN,
+        source = "ruff",
       }
-      table.insert(diagnostics, err)
+      table.insert(diagnostics, diagnostic)
     end
     return diagnostics
   end,
