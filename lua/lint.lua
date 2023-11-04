@@ -116,12 +116,10 @@ function LintProc:publish(diagnostics)
   if api.nvim_buf_is_valid(self.bufnr) and not self.cancelled then
     vim.diagnostic.set(self.ns, self.bufnr, diagnostics)
   end
-  self.stdout:shutdown(function()
-    self.stdout:close()
-  end)
-  self.stderr:shutdown(function()
-    self.stderr:close()
-  end)
+  self.stdout:shutdown()
+  self.stdout:close()
+  self.stderr:shutdown()
+  self.stderr:close()
 end
 
 
