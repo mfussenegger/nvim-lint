@@ -16,7 +16,7 @@ return {
     '--no-fix',
     '-',
   },
-  ignore_exitcode = true,
+  ignore_exitcode = false,
   parser = require('lint.parser').from_pattern(pattern, groups, nil, {
     ['source'] = 'ruff',
     ['severity'] = vim.diagnostic.severity.WARN,
