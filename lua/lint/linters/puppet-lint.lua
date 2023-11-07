@@ -1,7 +1,7 @@
 local pattern = '(.+):(%d+):(%d+):(%l+):(.+):(.+)'
 local groups = { 'file', 'lnum', 'col', 'severity', 'code', 'message' }
 
-severities = {
+local severities = {
   ['error'] = vim.diagnostic.severity.ERROR,
   ['warning'] = vim.diagnostic.severity.WARN,
 }
