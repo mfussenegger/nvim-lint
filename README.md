@@ -147,6 +147,7 @@ Other dedicated linters that are built-in are:
 | [puppet-lint][puppet-lint]         | `puppet-lint`          |
 | [pycodestyle][pcs-docs]            | `pycodestyle`          |
 | [pydocstyle][pydocstyle]           | `pydocstyle`           |
+| [pyroject-flake8][pflake8]         | `pflake8`              |
 | [Pylint][15]                       | `pylint`               |
 | [Revive][14]                       | `revive`               |
 | [rflint][rflint]                   | `rflint`               |
@@ -429,3 +430,4 @@ busted tests/
 [puppet-lint]: https://github.com/puppetlabs/puppet-lint
 [snyk]: https://github.com/snyk/cli
 [gitlint]: https://github.com/jorisroovers/gitlint
+[pflake8]: https://github.com/csachs/pyproject-flake8
