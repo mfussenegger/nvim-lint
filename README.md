@@ -147,7 +147,7 @@ Other dedicated linters that are built-in are:
 | [puppet-lint][puppet-lint]         | `puppet-lint`          |
 | [pycodestyle][pcs-docs]            | `pycodestyle`          |
 | [pydocstyle][pydocstyle]           | `pydocstyle`           |
-| [pyroject-flake8][pflake8]         | `pflake8`              |
+| [pyproject-flake8][pflake8]        | `pflake8`              |
 | [Pylint][15]                       | `pylint`               |
 | [Revive][14]                       | `revive`               |
 | [rflint][rflint]                   | `rflint`               |
