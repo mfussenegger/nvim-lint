@@ -5,7 +5,7 @@ local severities = {
   style = vim.diagnostic.severity.HINT,
 }
 
-return {
+return require('lint.util').inject_cmd_exe({
   cmd = 'shellcheck',
   stdin = true,
   args = {
@@ -36,4 +36,4 @@ return {
     end
     return diagnostics
   end,
-}
+})
