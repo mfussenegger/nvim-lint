@@ -112,6 +112,7 @@ Other dedicated linters that are built-in are:
 | [ESLint][25]                       | `eslint`               |
 | [eslint_d][37]                     | `eslint_d`             |
 | [fennel][fennel]                   | `fennel`               |
+| [fish][fish]                       | `fish`                 |
 | [Flake8][13]                       | `flake8`               |
 | [flawfinder][35]                   | `flawfinder`           |
 | [gdlint (gdtoolkit)][gdlint]       | `gdlint`               |
@@ -431,3 +432,4 @@ busted tests/
 [snyk]: https://github.com/snyk/cli
 [gitlint]: https://github.com/jorisroovers/gitlint
 [pflake8]: https://github.com/csachs/pyproject-flake8
+[fish]: https://github.com/fish-shell/fish-shell
