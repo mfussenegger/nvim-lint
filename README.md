@@ -178,6 +178,7 @@ Other dedicated linters that are built-in are:
 | [yamllint][yamllint]               | `yamllint`             |
 | [tfsec][tfsec]                     | `tfsec`                |
 | [trivy][trivy]                     | `trivy`                |
+| [zsh][zsh]                         | `zsh`                  |
 
 ## Custom Linters
 
@@ -433,3 +434,4 @@ busted tests/
 [gitlint]: https://github.com/jorisroovers/gitlint
 [pflake8]: https://github.com/csachs/pyproject-flake8
 [fish]: https://github.com/fish-shell/fish-shell
+[zsh]: https://www.zsh.org/
