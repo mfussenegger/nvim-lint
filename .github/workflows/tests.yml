@@ -15,11 +15,7 @@ jobs:
         neovim_version: ['nightly', 'v0.6.1']
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Prepare plenary
-        run: |
-          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
-          ln -s "$(pwd)" ~/.local/share/nvim/site/pack/vendor/start
+      - uses: actions/checkout@v4
 
       - name: Setup neovim
         uses: rhysd/action-setup-vim@v1
@@ -27,6 +23,30 @@ jobs:
           neovim: true
           version: ${{ matrix.neovim_version }}
 
+      - uses: leafo/gh-actions-lua@v9
+      - uses: leafo/gh-actions-luarocks@v4
+
+      - name: Install nlua
+        run: |
+          luarocks install --local nlua
+          cat > /home/runner/.luarocks/config-nlua.lua << EOF
+          lua_interpreter = "nlua"
+          lua_version = "5.1"
+          variables = {
+             LUA_INCDIR = "/usr/include/luajit-2.1",
+             LUA_BINDIR = "/home/runner/.luarocks/bin",
+          }
+          EOF
+          cat /home/runner/.luarocks/config-nlua.lua
+
+      - name: Install busted
+        env:
+          LUAROCKS_CONFIG: /home/runner/.luarocks/config-nlua.lua
+        run: |
+          echo "$LUAROCKS_CONFIG"
+          luarocks --local config variables.LUA_BINDIR
+          luarocks --local install busted
+
       - name: Run tests
         run: |
-          nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/ {minimal_init = 'tests/minimal.vim'}"
+          busted tests
