@@ -1,7 +1,9 @@
+local bin = 'tlint'
+
 return {
   cmd = function ()
-    local local_tlint = vim.fn.fnamemodify('vendor/bin/tlint', ':p')
-    return vim.loop.fs_stat(local_tlint) and local_tlint or 'tlint'
+    local local_bin = vim.fn.fnamemodify('vendor/bin/' .. bin, ':p')
+    return vim.loop.fs_stat(local_bin) and local_bin or bin
   end,
   stdin = false,
   args = { 'lint', '--json' },
@@ -17,7 +19,7 @@ return {
         lnum = message.line - 1,
         col = 0,
         message = message.message,
-        source = 'tlint',
+        source = bin,
       })
     end
 
