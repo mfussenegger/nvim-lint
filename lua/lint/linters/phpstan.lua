@@ -1,5 +1,8 @@
 return {
-  cmd = 'phpstan',
+  cmd = function ()
+    local local_phpstan = vim.fn.fnamemodify('vendor/bin/phpstan', ':p')
+    return vim.loop.fs_stat(local_phpstan) and local_phpstan or 'phpstan'
+  end,
   args = {
     'analyze',
     '--error-format=json',
