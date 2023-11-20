@@ -1,7 +1,9 @@
+local bin = 'phpstan'
+
 return {
   cmd = function ()
-    local local_phpstan = vim.fn.fnamemodify('vendor/bin/phpstan', ':p')
-    return vim.loop.fs_stat(local_phpstan) and local_phpstan or 'phpstan'
+    local local_bin = vim.fn.fnamemodify('vendor/bin/' .. bin, ':p')
+    return vim.loop.fs_stat(local_bin) and local_bin or bin
   end,
   args = {
     'analyze',
@@ -27,7 +29,7 @@ return {
         lnum = message.line - 1,
         col = 0,
         message = message.message,
-        source = 'phpstan',
+        source = bin,
       })
     end
 
