@@ -9,7 +9,7 @@ local severities = {
   ["E999"] = error, -- `SyntaxError`
 }
 
-return {
+return require('lint.util').inject_cmd_exe({
   cmd = "ruff",
   stdin = true,
   args = {
@@ -45,4 +45,4 @@ return {
     end
     return diagnostics
   end,
-}
+})

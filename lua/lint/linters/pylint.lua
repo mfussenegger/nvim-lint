@@ -7,7 +7,7 @@ local severities = {
   convention = vim.diagnostic.severity.HINT,
 }
 
-return {
+return require('lint.util').inject_cmd_exe({
   cmd = 'pylint',
   stdin = false,
   args = {
@@ -42,4 +42,4 @@ return {
     end
     return diagnostics
   end,
-}
+})

@@ -2,7 +2,7 @@
 local pattern = '[^:]+:(%d+):(%d+):(%w+):(.+)'
 local groups = { 'lnum', 'col', 'code', 'message' }
 
-return {
+return require('lint.util').inject_cmd_exe({
   cmd = 'flake8',
   stdin = true,
   args = {
@@ -15,4 +15,4 @@ return {
     ['source'] = 'flake8',
     ['severity'] = vim.diagnostic.severity.WARN,
   }),
-}
+})
