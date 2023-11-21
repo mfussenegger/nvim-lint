@@ -141,6 +141,7 @@ Other dedicated linters that are built-in are:
 | [perlimports][perlimports]         | `perlimports`          |
 | [php][php]                         | `php`                  |
 | [phpcs][phpcs]                     | `phpcs`                |
+| [phpinsights][phpinsights]         | `phpinsights`          |
 | [phpmd][phpmd]                     | `phpmd`                |
 | [phpstan][phpstan]                 | `phpstan`              |
 | [proselint][proselint]             | `proselint`            |
@@ -384,6 +385,7 @@ busted tests/
 [ktlint]: https://github.com/pinterest/ktlint
 [php]: https://www.php.net/
 [phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
+[phpinsights]: https://github.com/nunomaduro/phpinsights
 [phpmd]: https://phpmd.org/
 [phpstan]: https://phpstan.org/
 [psalm]: https://psalm.dev/
