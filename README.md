@@ -177,6 +177,7 @@ Other dedicated linters that are built-in are:
 | [write-good][write-good]           | `write_good`           |
 | [yamllint][yamllint]               | `yamllint`             |
 | [tfsec][tfsec]                     | `tfsec`                |
+| [tlint][tlint]                     | `tlint`                |
 | [trivy][trivy]                     | `trivy`                |
 | [zsh][zsh]                         | `zsh`                  |
 
@@ -411,6 +412,7 @@ busted tests/
 [buf_lint]: https://github.com/bufbuild/buf
 [erb-lint]: https://github.com/shopify/erb-lint
 [tfsec]: https://github.com/aquasecurity/tfsec
+[tlint]: https://github.com/tighten/tlint
 [trivy]: https://github.com/aquasecurity/trivy
 [djlint]: https://djlint.com/
 [buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
