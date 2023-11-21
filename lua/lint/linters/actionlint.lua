@@ -1,7 +1,7 @@
 return {
   cmd = 'actionlint',
   stdin = true,
-  args = { '-format', '{{json .}}' },
+  args = { '-format', '{{json .}}', '-' },
   ignore_exitcode = true,
   parser = function(output, bufnr)
     if output == '' then
@@ -15,7 +15,7 @@ return {
     for _, item in ipairs(decoded) do
       local current_file = vim.api.nvim_buf_get_name(bufnr)
       local linted_file = vim.fn.getcwd() .. '/' .. item.filepath
-      if current_file == linted_file then
+      if current_file == linted_file or item.filepath == "<stdin>" then
         table.insert(diagnostics, {
           lnum = item.line - 1,
           end_lnum = item.line - 1,
