@@ -7,7 +7,7 @@ local severities = {
   note = vim.diagnostic.severity.HINT,
 }
 
-return {
+return require('lint.util').inject_cmd_exe({
   cmd = 'mypy',
   stdin = false,
   ignore_exitcode = true,
@@ -27,4 +27,4 @@ return {
     { ['source'] = 'mypy' },
     { end_col_offset = 0 }
   ),
-}
+})
