@@ -44,12 +44,12 @@ describe('linter.prisma_lint', function()
     assert.are.same(3, #result)
 
     local expected_1 = {
-      source = 'prisma_lint',
+      source = 'prisma-lint',
       lnum = 0,
       col = 0,
       end_lnum = 0,
       end_col = 12,
-      severity = vim.diagnostic.severity.HINT,
+      severity = vim.diagnostic.severity.ERROR,
       message = 'Model name must be mapped to "user".',
       code = 'model-name-mapping-snake-case',
     }
@@ -57,12 +57,12 @@ describe('linter.prisma_lint', function()
     assert.are.same(expected_1, result[1])
 
     local expected_2 = {
-      source = 'prisma_lint',
+      source = 'prisma-lint',
       lnum = 0,
       col = 0,
       end_lnum = 0,
       end_col = 12,
-      severity = vim.diagnostic.severity.HINT,
+      severity = vim.diagnostic.severity.ERROR,
       message = 'Missing required fields: "createdAt".',
       code = 'require-field',
     }
@@ -70,14 +70,16 @@ describe('linter.prisma_lint', function()
     assert.are.same(expected_2, result[2])
 
     local expected_3 = {
-      source = 'prisma_lint',
+      source = 'prisma-lint',
       lnum = 2,
       col = 2,
       end_lnum = 2,
       end_col = 8,
-      severity = vim.diagnostic.severity.HINT,
+      severity = vim.diagnostic.severity.ERROR,
       message = 'Field name must be mapped to snake case.',
       code = 'field-name-mapping-snake-case',
     }
+
+    assert.are.same(expected_3, result[3])
   end)
 end)

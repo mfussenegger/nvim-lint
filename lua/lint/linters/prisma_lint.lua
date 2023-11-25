@@ -22,12 +22,15 @@ return require('lint.util').inject_cmd_exe({
     for _, violation in pairs(decoded["violations"]) do
       local location = violation.location
       table.insert(diagnostics, {
+        source = binary_name,
         lnum = location.startLine - 1,
         end_lnum = location.endLine - 1,
         col = location.startColumn - 1,
         -- endColumn is inclusive, but end_col is exclusive.
         end_col = location.endColumn,
         message = violation.message,
+        code = violation.ruleName,
+        severity = vim.diagnostic.severity.ERROR,
       })
     end
     return diagnostics
