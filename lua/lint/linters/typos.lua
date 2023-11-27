@@ -1,9 +1,12 @@
 -- https://github.com/crate-ci/typos
 return {
   cmd = "typos",
-  stdin = true,
+  stdin = false, -- not using stdin, so file-exclusions from `typos.toml` work
   append_fname = true,
-  args = { "--format", "json", "-" },
+  args = {
+    "--format=json",
+    "--force-exclude", -- needed to file-exclusions from `typos.toml` are respected
+  },
   stream = "stdout",
   ignore_exitcode = true,
   env = nil,
