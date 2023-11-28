@@ -149,7 +149,13 @@ function M.accumulate_chunks(parse)
               }
             }
           end
-          publish(diagnostics, bufnr)
+          local local_diagnostics = {}
+          for _, diagnostic in ipairs(diagnostics) do
+            if diagnostic.bufnr == bufnr then
+              table.insert(local_diagnostics, diagnostic)
+            end
+          end
+          publish(local_diagnostics, bufnr)
         else
           publish({}, bufnr)
         end
