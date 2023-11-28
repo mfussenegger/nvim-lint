@@ -19,12 +19,14 @@ function M.from_errorformat(efm, skeleton)
     local result = {}
     for _, item in pairs(qflist.items) do
       if item.valid == 1 then
+        local bufnr = item.bufnr
         local lnum = math.max(0, item.lnum - 1)
         local col = math.max(0, item.col - 1)
         local end_lnum = item.end_lnum > 0 and (item.end_lnum - 1) or lnum
         local end_col = item.end_col > 0 and (item.end_col - 1) or col
         local severity = item.type ~= "" and severity_by_qftype[item.type:upper()] or nil
         local diagnostic = {
+          bufnr = bufnr,
           lnum = lnum,
           col = col,
           end_lnum = end_lnum,
