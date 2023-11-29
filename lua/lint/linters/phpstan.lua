@@ -1,5 +1,10 @@
+local bin = 'phpstan'
+
 return {
-  cmd = 'phpstan',
+  cmd = function ()
+    local local_bin = vim.fn.fnamemodify('vendor/bin/' .. bin, ':p')
+    return vim.loop.fs_stat(local_bin) and local_bin or bin
+  end,
   args = {
     'analyze',
     '--error-format=json',
@@ -24,7 +29,7 @@ return {
         lnum = message.line - 1,
         col = 0,
         message = message.message,
-        source = 'phpstan',
+        source = bin,
       })
     end
 
