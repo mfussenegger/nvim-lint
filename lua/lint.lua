@@ -237,6 +237,12 @@ function M.lint(linter, opts)
   local pid_or_err
   local args = {}
   local bufnr = api.nvim_get_current_buf()
+  if vim.fn.has("win32") == 1 then
+    linter = vim.tbl_extend("force", linter, {
+      cmd = "cmd.exe",
+      args = { "/C", linter.cmd, unpack(linter.args or {}) },
+    })
+  end
   opts = opts or {}
   if linter.args then
     vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))

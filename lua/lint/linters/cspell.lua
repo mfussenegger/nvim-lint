@@ -1,5 +1,5 @@
 local efm = '%f:%l:%c - %m'
-local opts = {
+return {
   cmd = 'cspell',
   ignore_exitcode = true,
   args = {
@@ -36,5 +36,3 @@ local opts = {
     return result
   end
 }
-
-return require("lint.util").inject_cmd_exe(opts)
