@@ -168,6 +168,7 @@ Other dedicated linters that are built-in are:
 | [statix check][33]                 | `statix`               |
 | [stylelint][29]                    | `stylelint`            |
 | [Solhint][solhint]                 | `solhint`              |
+| [typos][typos]                     | `typos`                |
 | [Nagelfar][nagelfar]               | `nagelfar`             |
 | [Vale][8]                          | `vale`                 |
 | [Verilator][verilator]             | `verilator`            |
@@ -435,3 +436,4 @@ busted tests/
 [pflake8]: https://github.com/csachs/pyproject-flake8
 [fish]: https://github.com/fish-shell/fish-shell
 [zsh]: https://www.zsh.org/
+[typos]: https://github.com/crate-ci/typos
