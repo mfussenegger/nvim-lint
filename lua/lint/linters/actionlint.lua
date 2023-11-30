@@ -3,7 +3,7 @@ return {
   stdin = true,
   args = { '-format', '{{json .}}', '-' },
   ignore_exitcode = true,
-  parser = function(output, bufnr)
+  parser = function(output)
     if output == '' then
       return {}
     end
