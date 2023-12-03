@@ -1,6 +1,6 @@
-describe('linter.prisma_lint', function()
+describe('linter.prisma-lint', function()
   it('can parse prisma-lint output', function()
-    local parser = require('lint.linters.prisma_lint').parser
+    local parser = require('lint.linters.prisma-lint').parser
     local result = parser([[
 {
   "violations": [
