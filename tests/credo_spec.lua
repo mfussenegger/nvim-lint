@@ -7,7 +7,7 @@ describe('linter.credo', function()
 [R] → lib/mix/tasks/my_task.ex:1:11 Unless conditions should avoid having an `else` block.
 [W] ↗ lib/my_project.ex:9:5 Use `reraise` inside a rescue block to preserve the original stacktrace.
 [W] ↗ Exception modules should be named consistently. It seems your strategy is to have `Error` ....
-]], vim.api.nvim_get_current_buf())
+]])
     assert.are.same(2, #result)
 
     local expected_error = {

@@ -10,7 +10,7 @@ describe('linter.twigcs', function()
     local parser = require('lint.linters.twigcs').parser
 
     local result = parser([[/Users/dblanken/code/testcode/test.twig:2:15: error - Should have 1 argument.
-/Users/dblanken/code/testcode/test.twig:4:2: error - Another problem.]], vim.api.nvim_get_current_buf())
+/Users/dblanken/code/testcode/test.twig:4:2: error - Another problem.]])
 
     assert.are.same(2, #result)
 
