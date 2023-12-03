@@ -13,12 +13,12 @@ local severity_by_qftype = {
 function M.from_errorformat(efm, skeleton)
   skeleton = skeleton or {}
   skeleton.severity = skeleton.severity or vd.severity.ERROR
-  return function(output)
+  return function(output, bufnr)
     local lines = vim.split(output, '\n')
     local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
     local result = {}
     for _, item in pairs(qflist.items) do
-      if item.valid == 1 then
+      if item.valid == 1 and (bufnr == nil or item.bufnr == bufnr) then
         local lnum = math.max(0, item.lnum - 1)
         local col = math.max(0, item.col - 1)
         local end_lnum = item.end_lnum > 0 and (item.end_lnum - 1) or lnum

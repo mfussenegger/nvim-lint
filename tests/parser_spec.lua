@@ -7,7 +7,7 @@ describe('from_errorformat', function()
 dir1/file1.txt:10:15:E:200:Big mistake
 dir2/file2.txt:20:25:W:300:Bigger mistake
 ]]
-    local result = parser(output, 0, "/")
+    local result = parser(output)
     local expected = {
       {
         message = 'Big mistake',

@@ -21,7 +21,7 @@ Warning: The use statement with non-compound name 'Foo' has no effect in Standar
 Warning: The use statement with non-compound name 'Bar' has no effect in Standard input code on line 4
 
 No syntax errors detected in Standard input code
-    ]], vim.api.nvim_get_current_buf())
+    ]])
     assert.are.same(2, #result)
 
     local expected = {
@@ -54,7 +54,7 @@ No syntax errors detected in Standard input code
 Parse error: syntax error, unexpected token "function", expecting "," or ";" in Standard input code on line 9
 
 Errors parsing Standard input code
-    ]], vim.api.nvim_get_current_buf())
+    ]])
     assert.are.same(1, #result)
 
     local expected = {
@@ -76,7 +76,7 @@ Errors parsing Standard input code
 Fatal error: Unparenthesized `a ? b : c ? d : e` is not supported. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in Standard input code on line 3
 
 Errors parsing Standard input code
-    ]], vim.api.nvim_get_current_buf())
+    ]])
     assert.are.same(1, #result)
 
     local expected = {
@@ -98,7 +98,7 @@ Errors parsing Standard input code
 Deprecated: Optional parameter $a declared before required parameter $b is implicitly treated as a required parameter in Standard input code on line 3
 
 No syntax errors detected in Standard input code
-    ]], vim.api.nvim_get_current_buf())
+    ]])
     assert.are.same(1, #result)
 
     local expected = {
