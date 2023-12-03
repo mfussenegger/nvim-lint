@@ -144,6 +144,7 @@ Other dedicated linters that are built-in are:
 | [phpinsights][phpinsights]         | `phpinsights`          |
 | [phpmd][phpmd]                     | `phpmd`                |
 | [phpstan][phpstan]                 | `phpstan`              |
+| [prisma-lint][prisma-lint]         | `prisma-lint`          |
 | [proselint][proselint]             | `proselint`            |
 | [psalm][psalm]                     | `psalm`                |
 | [puppet-lint][puppet-lint]         | `puppet-lint`          |
