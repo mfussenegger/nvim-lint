@@ -1,6 +1,6 @@
 local binary_name = "prisma-lint"
 
-return require('lint.util').inject_cmd_exe({
+return {
   cmd = function()
     local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
     return vim.loop.fs_stat(local_binary) and local_binary or binary_name
@@ -35,4 +35,4 @@ return require('lint.util').inject_cmd_exe({
     end
     return diagnostics
   end,
-})
+}
