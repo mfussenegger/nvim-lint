@@ -171,12 +171,15 @@ end
 local running_procs_by_buf = {}
 
 
---- Returns the names of the running linters
+--- Returns the names of the running linters for a given buffer
+---@param bufnr? integer buffer number to get the linters from, defaults to current
 ---
 ---@return string[]
-function M.get_running()
+function M.get_running(bufnr)
   local linters = {}
-  local bufnr = api.nvim_get_current_buf()
+  if not bufnr or bufnr == 0 then
+    bufnr = api.nvim_get_current_buf()
+  end
   local running_procs = (running_procs_by_buf[bufnr] or {})
   for linter_name, _ in pairs(running_procs) do
     table.insert(linters, linter_name)
