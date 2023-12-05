@@ -310,6 +310,22 @@ phpcs.args = {
 ```
 
 
+## Get the current running linters for your buffer
+
+You can see which linters are running with `require("lint").get_running()`.
+To include the running linters in the status line you could format them like this:
+
+```lua
+local lint_progress = function()
+  local linters = require("lint").get_running()
+  if #linters == 0 then
+      return "󰦕"
+  end
+  return "󱉶 " .. table.concat(linters, ", ")
+end
+```
+
+
 ## Alternatives
 
 - [Ale][1]
