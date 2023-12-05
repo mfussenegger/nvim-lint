@@ -171,15 +171,17 @@ end
 local running_procs_by_buf = {}
 
 
----@return table<string>
-function M.get_running_procs()
-  local procs = {}
+--- Returns the names of the running linters
+---
+---@return string[]
+function M.get_running()
+  local linters = {}
   local bufnr = api.nvim_get_current_buf()
   local running_procs = (running_procs_by_buf[bufnr] or {})
   for linter_name, _ in pairs(running_procs) do
-    table.insert(procs, linter_name)
+    table.insert(linters, linter_name)
   end
-  return procs
+  return linters
 end
 
 
