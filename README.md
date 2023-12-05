@@ -144,6 +144,7 @@ Other dedicated linters that are built-in are:
 | [phpinsights][phpinsights]         | `phpinsights`          |
 | [phpmd][phpmd]                     | `phpmd`                |
 | [phpstan][phpstan]                 | `phpstan`              |
+| [prisma-lint][prisma-lint]         | `prisma-lint`          |
 | [proselint][proselint]             | `proselint`            |
 | [psalm][psalm]                     | `psalm`                |
 | [puppet-lint][puppet-lint]         | `puppet-lint`          |
@@ -371,6 +372,7 @@ busted tests/
 [ansible-lint]: https://docs.ansible.com/lint.html
 [pcs-docs]: https://pycodestyle.pycqa.org/en/latest/
 [pydocstyle]: https://www.pydocstyle.org/en/stable/
+[prisma-lint]: https://github.com/loop-payments/prisma-lint
 [checkpatch]: https://docs.kernel.org/dev-tools/checkpatch.html
 [checkstyle]: https://checkstyle.sourceforge.io/
 [jshint]: https://jshint.com/
