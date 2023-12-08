@@ -125,6 +125,7 @@ Other dedicated linters that are built-in are:
 | [HTML Tidy][12]                    | `tidy`                 |
 | [Inko][17]                         | `inko`                 |
 | [janet][janet]                     | `janet`                |
+| [joker][joker]                     | `joker`                |
 | [jshint][jshint]                   | `jshint`               |
 | [jsonlint][jsonlint]               | `jsonlint`             |
 | [ktlint][ktlint]                   | `ktlint`               |
@@ -459,3 +460,4 @@ busted tests/
 [fish]: https://github.com/fish-shell/fish-shell
 [zsh]: https://www.zsh.org/
 [typos]: https://github.com/crate-ci/typos
+[joker]: https://github.com/candid82/joker
