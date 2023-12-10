@@ -14,13 +14,10 @@ return {
     local decoded = vim.json.decode(output) or {}
     local issues = decoded["issues"] or {}
     local diagnostics = {}
-    local buf_path = vim.api.nvim_buf_get_name(bufnr)
-    for _, issue in ipairs(issues) do
-      -- bug: tflint _may_ eat first «/»
-      local issue_path = "/" .. issue.range.filename
-      issue_path = string.gsub(issue_path, "^//", "/")
+    local buf_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
 
-      if issue_path == buf_path then
+    for _, issue in ipairs(issues) do
+      if issue.range.filename == buf_path then
         table.insert(diagnostics, {
           lnum = assert(tonumber(issue.range.start.line)),
           end_lnum = assert(tonumber(issue.range['end'].line)),
