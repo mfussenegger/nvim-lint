@@ -4,10 +4,21 @@ local severities = {
   vim.diagnostic.severity.ERROR,
 }
 
+local function get_local_binary()
+  local files = vim.fs.find({ 'node_modules' }, { upward = true, limit = 3 })
+  for _, dir in ipairs(files) do
+    local path = dir .. '/.bin/' .. binary_name
+    local stat = vim.uv.fs_stat(path)
+    if stat then
+      return path
+    end
+  end
+end
+
 return {
   cmd = function()
-    local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
-    return vim.loop.fs_stat(local_binary) and local_binary or binary_name
+    local local_binary = get_local_binary()
+    return local_binary or binary_name
   end,
   args = {
     '--format',
