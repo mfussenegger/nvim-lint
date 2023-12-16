@@ -173,13 +173,22 @@ local running_procs_by_buf = {}
 
 --- Returns the names of the running linters
 ---
+---@param bufnr? integer buffer for which to get the running linters. nil=all buffers
 ---@return string[]
-function M.get_running()
+function M.get_running(bufnr)
   local linters = {}
-  local bufnr = api.nvim_get_current_buf()
-  local running_procs = (running_procs_by_buf[bufnr] or {})
-  for linter_name, _ in pairs(running_procs) do
-    table.insert(linters, linter_name)
+  if bufnr then
+    bufnr = bufnr == 0 and api.nvim_get_current_buf() or bufnr
+    local running_procs = (running_procs_by_buf[bufnr] or {})
+    for linter_name, _ in pairs(running_procs) do
+      table.insert(linters, linter_name)
+    end
+  else
+    for _, running_procs in pairs(running_procs_by_buf) do
+      for linter_name, _ in pairs(running_procs) do
+        table.insert(linters, linter_name)
+      end
+    end
   end
   return linters
 end
@@ -287,7 +296,8 @@ function M.lint(linter, opts)
     if handle and not handle:is_closing() then
       local procs = (running_procs_by_buf[bufnr] or {})
       -- Only cleanup if there has not been another procs in between
-      if handle == procs[linter.name] then
+      local proc = procs[linter.name] or {}
+      if handle == proc.handle then
         procs[linter.name] = nil
         if not next(procs) then
           running_procs_by_buf[bufnr] = nil
