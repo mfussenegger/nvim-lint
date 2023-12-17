@@ -166,6 +166,22 @@ function LintProc:cancel()
 end
 
 
+--- Return the namespace for a given linter.
+---
+--- Can be used to configure diagnostics for a given linter. For example:
+---
+--- ```lua
+--- local ns = require("lint").get_namespace("my_linter_name")
+--- vim.diagnostic.config({ virtual_text = true }, ns)
+---
+--- ```
+---
+---@param name string linter
+function M.get_namespace(name)
+  return namespaces[name]
+end
+
+
 --- Running processes by buffer -> by linter name
 ---@type table<integer, table<string, lint.LintProc>> bufnr: {linter: handle}
 local running_procs_by_buf = {}
