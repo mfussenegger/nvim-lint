@@ -311,6 +311,19 @@ phpcs.args = {
 ```
 
 
+## Display configuration
+
+See `:help vim.diagnostic.config`.
+
+If you want to have different settings per linter, you can get the `namespace`
+for a linter via `require("lint").get_namespace("linter_name")`. An example:
+
+```lua
+local ns = require("lint").get_namespace("my_linter_name")
+vim.diagnostic.config({ virtual_text = true }, ns)
+```
+
+
 ## Get the current running linters for your buffer
 
 You can see which linters are running with `require("lint").get_running()`.
