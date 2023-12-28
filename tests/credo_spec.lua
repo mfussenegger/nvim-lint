@@ -4,8 +4,8 @@ describe('linter.credo', function()
     -- taken from example screenshot from credo's documentation https://hexdocs.pm/credo/overview.html
     -- 3rd record shouldn't get picked up because there is no file/line information
     local result = parser([[
-[R] → lib/mix/tasks/my_task.ex:1:11 Unless conditions should avoid having an `else` block.
-[W] ↗ lib/my_project.ex:9:5 Use `reraise` inside a rescue block to preserve the original stacktrace.
+[R] → stdin:1:11 Unless conditions should avoid having an `else` block.
+[W] ↗ stdin:9:5 Use `reraise` inside a rescue block to preserve the original stacktrace.
 [W] ↗ Exception modules should be named consistently. It seems your strategy is to have `Error` ....
 ]])
     assert.are.same(2, #result)
