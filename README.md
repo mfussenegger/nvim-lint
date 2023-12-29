@@ -145,6 +145,7 @@ Other dedicated linters that are built-in are:
 | [phpinsights][phpinsights]         | `phpinsights`          |
 | [phpmd][phpmd]                     | `phpmd`                |
 | [phpstan][phpstan]                 | `phpstan`              |
+| [ponyc][ponyc]                     | `pony`                 |
 | [prisma-lint][prisma-lint]         | `prisma-lint`          |
 | [proselint][proselint]             | `proselint`            |
 | [psalm][psalm]                     | `psalm`                |
@@ -454,6 +455,7 @@ busted tests/
 [solhint]: https://protofire.github.io/solhint/
 [perlimports]: https://github.com/perl-ide/App-perlimports
 [perlcritic]: https://github.com/Perl-Critic/Perl-Critic
+[ponyc]: https://github.com/ponylang/ponyc
 [gdlint]: https://github.com/Scony/godot-gdscript-toolkit
 [rpm]: https://rpm.org
 [ec]: https://github.com/editorconfig-checker/editorconfig-checker
