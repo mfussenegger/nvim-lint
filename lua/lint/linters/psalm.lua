@@ -14,12 +14,11 @@ return {
     '--show-info=true',
     '--no-progress',
   },
-  parser = function(output)
+  parser = function(output, bufnr)
     if output == nil then
       return {}
     end
 
-    local bufnr = vim.api.nvim_get_current_buf()
     local filename = vim.api.nvim_buf_get_name(bufnr)
 
     local messages = vim.json.decode(output)
@@ -40,5 +39,5 @@ return {
     end
 
     return diagnostics
-  end,
+  end
 }
