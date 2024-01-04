@@ -44,7 +44,7 @@ end
 ---
 ---@param pattern string
 ---@param groups string[]
----@param severity_map? table<string, DiagnosticSeverity>
+---@param severity_map? table<string, vim.diagnostic.Severity>
 ---@param defaults? table
 ---@param opts? {col_offset?: integer, end_col_offset?: integer, lnum_offset?: integer, end_lnum_offset?: integer}
 function M.from_pattern(pattern, groups, severity_map, defaults, opts)
@@ -81,6 +81,8 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     local end_lnum = captures.end_lnum and (tonumber(captures.end_lnum) - 1) or lnum
     local col = tonumber(captures.col) and (tonumber(captures.col) + col_offset) or 0
     local end_col = tonumber(captures.end_col) and (tonumber(captures.end_col) + end_col_offset) or col
+    col = math.max(col, 0)
+    lnum = math.max(lnum, 0)
     local diagnostic = {
       lnum = assert(lnum, 'diagnostic requires a line number') + lnum_offset,
       end_lnum = end_lnum + end_lnum_offset,
