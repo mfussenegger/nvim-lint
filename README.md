@@ -155,6 +155,7 @@ Other dedicated linters that are built-in are:
 | [pydocstyle][pydocstyle]           | `pydocstyle`           |
 | [pyproject-flake8][pflake8]        | `pflake8`              |
 | [Pylint][15]                       | `pylint`               |
+| [regal][regal]                     | `regal`                |
 | [Revive][14]                       | `revive`               |
 | [rflint][rflint]                   | `rflint`               |
 | [robocop][robocop]                 | `robocop`              |
@@ -478,3 +479,4 @@ busted tests/
 [joker]: https://github.com/candid82/joker
 [dash]: http://gondor.apana.org.au/~herbert/dash
 [opa_check]: https://www.openpolicyagent.org/
+[regal]: https://github.com/StyraInc/regal
