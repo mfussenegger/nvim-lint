@@ -139,6 +139,7 @@ Other dedicated linters that are built-in are:
 | [Nix][nix]                         | `nix`                  |
 | [npm-groovy-lint][npm-groovy-lint] | `npm-groovy-lint`      |
 | [oelint-adv][oelint-adv]           | `oelint-adv`           |
+| [opa_check][opa_check]             | `opa_check`            |
 | [perlcritic][perlcritic]           | `perlcritic`           |
 | [perlimports][perlimports]         | `perlimports`          |
 | [php][php]                         | `php`                  |
@@ -482,3 +483,4 @@ busted tests/
 [dash]: http://gondor.apana.org.au/~herbert/dash
 [salt-lint]: https://github.com/warpnet/salt-lint
 [quick-lint-js]: https://quick-lint-js.com
+[opa_check]: https://www.openpolicyagent.org/
