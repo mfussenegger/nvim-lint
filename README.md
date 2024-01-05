@@ -104,6 +104,7 @@ Other dedicated linters that are built-in are:
 | [credo][credo]                     | `credo`                |
 | [cspell][36]                       | `cspell`               |
 | [curlylint][curlylint]             | `curlylint`            |
+| [dash][dash]                       | `dash`                 |
 | [deno][deno]                       | `deno`                 |
 | [djlint][djlint]                   | `djlint`               |
 | [dotenv-linter][dotenv-linter]     | `dotenv_linter`        |
@@ -476,3 +477,4 @@ busted tests/
 [zsh]: https://www.zsh.org/
 [typos]: https://github.com/crate-ci/typos
 [joker]: https://github.com/candid82/joker
+[dash]: http://gondor.apana.org.au/~herbert/dash

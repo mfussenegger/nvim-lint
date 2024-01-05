@@ -18,7 +18,7 @@ function M.from_errorformat(efm, skeleton)
     local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
     local result = {}
     for _, item in pairs(qflist.items) do
-      if item.valid == 1 and (bufnr == nil or item.bufnr == bufnr) then
+      if item.valid == 1 and (bufnr == nil or item.bufnr == 0 or item.bufnr == bufnr) then
         local lnum = math.max(0, item.lnum - 1)
         local col = math.max(0, item.col - 1)
         local end_lnum = item.end_lnum > 0 and (item.end_lnum - 1) or lnum
