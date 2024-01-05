@@ -156,6 +156,7 @@ Other dedicated linters that are built-in are:
 | [pydocstyle][pydocstyle]           | `pydocstyle`           |
 | [pyproject-flake8][pflake8]        | `pflake8`              |
 | [Pylint][15]                       | `pylint`               |
+| [regal][regal]                     | `regal`                |
 | [Revive][14]                       | `revive`               |
 | [rflint][rflint]                   | `rflint`               |
 | [robocop][robocop]                 | `robocop`              |
@@ -484,3 +485,4 @@ busted tests/
 [salt-lint]: https://github.com/warpnet/salt-lint
 [quick-lint-js]: https://quick-lint-js.com
 [opa_check]: https://www.openpolicyagent.org/
+[regal]: https://github.com/StyraInc/regal
