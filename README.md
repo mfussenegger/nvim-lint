@@ -139,6 +139,7 @@ Other dedicated linters that are built-in are:
 | [Nix][nix]                         | `nix`                  |
 | [npm-groovy-lint][npm-groovy-lint] | `npm-groovy-lint`      |
 | [oelint-adv][oelint-adv]           | `oelint-adv`           |
+| [opa_check][opa_check]             | `opa_check`            |
 | [perlcritic][perlcritic]           | `perlcritic`           |
 | [perlimports][perlimports]         | `perlimports`          |
 | [php][php]                         | `php`                  |
@@ -476,3 +477,4 @@ busted tests/
 [typos]: https://github.com/crate-ci/typos
 [joker]: https://github.com/candid82/joker
 [dash]: http://gondor.apana.org.au/~herbert/dash
+[opa_check]: https://www.openpolicyagent.org/
