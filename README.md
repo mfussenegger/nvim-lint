@@ -185,6 +185,7 @@ Other dedicated linters that are built-in are:
 | [tlint][tlint]                     | `tlint`                |
 | [trivy][trivy]                     | `trivy`                |
 | [zsh][zsh]                         | `zsh`                  |
+| [quick-lint-js][quick-lint-js]     | `quick-lint-js`        |
 
 ## Custom Linters
 
@@ -476,3 +477,4 @@ busted tests/
 [typos]: https://github.com/crate-ci/typos
 [joker]: https://github.com/candid82/joker
 [dash]: http://gondor.apana.org.au/~herbert/dash
+[quick-lint-js]: https://quick-lint-js.com
