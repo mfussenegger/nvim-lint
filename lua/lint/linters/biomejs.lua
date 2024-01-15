@@ -26,9 +26,13 @@
 --
 --    6 │ ····if·(opt·===·true)·{
 --      │
+local binary_name = "biome"
 
 return {
-  cmd = "biome",
+  cmd = function()
+    local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+    return vim.loop.fs_stat(local_binary) and local_binary or binary_name
+  end,
   args = { "lint" },
   stdin = false,
   ignore_exitcode = true,
