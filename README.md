@@ -164,6 +164,7 @@ Other dedicated linters that are built-in are:
 | [Ruby][ruby]                       | `ruby`                 |
 | [RuboCop][rubocop]                 | `rubocop`              |
 | [Ruff][ruff]                       | `ruff`                 |
+| [salt-lint][salt-lint]             | `saltlint`             |
 | [Selene][31]                       | `selene`               |
 | [ShellCheck][10]                   | `shellcheck`           |
 | [snyk][snyk]                       | `snyk_iac`             |
@@ -478,3 +479,4 @@ busted tests/
 [typos]: https://github.com/crate-ci/typos
 [joker]: https://github.com/candid82/joker
 [dash]: http://gondor.apana.org.au/~herbert/dash
+[salt-lint]: https://github.com/warpnet/salt-lint
