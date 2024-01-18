@@ -109,7 +109,7 @@ Other dedicated linters that are built-in are:
 | [djlint][djlint]                   | `djlint`               |
 | [dotenv-linter][dotenv-linter]     | `dotenv_linter`        |
 | [editorconfig-checker][ec]         | `editorconfig-checker` |
-| [erb-lint][erb-lint]               | `erb_lint`             |
+| [erb_lint][erb_lint]               | `erb_lint`             |
 | [ESLint][25]                       | `eslint`               |
 | [eslint_d][37]                     | `eslint_d`             |
 | [fennel][fennel]                   | `fennel`               |
