@@ -178,6 +178,7 @@ Other dedicated linters that are built-in are:
 | [Solhint][solhint]                 | `solhint`              |
 | [typos][typos]                     | `typos`                |
 | [Nagelfar][nagelfar]               | `nagelfar`             |
+| [Vala][vala-lint]                  | `vala_lint`            |
 | [Vale][8]                          | `vale`                 |
 | [Verilator][verilator]             | `verilator`            |
 | [vint][21]                         | `vint`                 |
@@ -486,3 +487,4 @@ busted tests/
 [quick-lint-js]: https://quick-lint-js.com
 [opa_check]: https://www.openpolicyagent.org/
 [regal]: https://github.com/StyraInc/regal
+[vala-lint]: https://github.com/vala-lang/vala-lint
