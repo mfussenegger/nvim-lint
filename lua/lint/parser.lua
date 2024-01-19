@@ -69,7 +69,9 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
       else
         path = vim.fn.simplify(linter_cwd .. '/' .. captures.file)
       end
-      if path ~= buffer_path then
+      local normalized_path = vim.fs.normalize(path)
+      local normalized_buffer_path = vim.fs.normalize(buffer_path)
+      if normalized_path ~= normalized_buffer_path then
         return nil
       end
     end
