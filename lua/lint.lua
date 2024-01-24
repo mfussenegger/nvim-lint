@@ -160,8 +160,23 @@ end
 function LintProc:cancel()
   self.cancelled = true
   local handle = self.handle
-  if handle and not handle:is_closing() then
-    handle:kill("sigterm")
+  if not handle or handle:is_closing() then
+    return
+  end
+
+  -- Use sigint so the process can safely close any child processes.
+  -- This is mostly useful for when `cmd` is a script with a shebang.
+  handle:kill('sigint')
+
+  vim.wait(10000, function()
+    return (handle:is_closing())
+  end)
+
+  if not handle:is_closing() then
+    -- 'sigint' didn't work, hit it with a 'sigkill'.
+    -- This should also kill any attached child processes since
+    -- handle is a process group leader (due to it being detached).
+    handle:kill('sigkill')
   end
 end
 
@@ -304,7 +319,9 @@ function M.lint(linter, opts)
     stdio = { stdin, stdout, stderr },
     env = env,
     cwd = opts.cwd or linter.cwd or vim.fn.getcwd(),
-    detached = false
+    -- Linter may launch child processes so set this as a group leader and
+    -- manually track and kill processes as we need to.
+    detached = true
   }
   local cmd = eval_fn_or_id(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
