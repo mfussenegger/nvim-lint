@@ -23,7 +23,13 @@ return {
     end,
     "--inline-suppr",
     "--quiet",
-    "--cppcheck-build-dir=build",
+    function()
+      if vim.fn.isdirectory("build") == 1 then
+        return "--cppcheck-build-dir=build"
+      else
+        return ""
+      end
+    end,
     "--template={file}:{line}:{column}: [{id}] {severity}: {message}",
   },
   stream = "stderr",
