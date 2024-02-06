@@ -90,6 +90,7 @@ Other dedicated linters that are built-in are:
 | [buildifier][buildifier]           | `buildifier`           |
 | [cfn-lint][cfn-lint]               | `cfn_lint`             |
 | [cfn_nag][cfn_nag]                 | `cfn_nag`              |
+| [checkmake][checkmake]             | `checkmake`            |
 | [checkpatch.pl][checkpatch]        | `checkpatch`           |
 | [checkstyle][checkstyle]           | `checkstyle`           |
 | [chktex][20]                       | `chktex`               |
@@ -443,6 +444,7 @@ busted tests/
 [nagelfar]: https://nagelfar.sourceforge.net/
 [oelint-adv]: https://github.com/priv-kweihmann/oelint-adv
 [cfn_nag]: https://github.com/stelligent/cfn_nag
+[checkmake]: https://github.com/mrtazz/checkmake
 [ruff]: https://github.com/astral-sh/ruff
 [janet]: https://github.com/janet-lang/janet
 [bandit]: https://bandit.readthedocs.io/en/latest/
