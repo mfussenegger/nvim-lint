@@ -189,6 +189,7 @@ Other dedicated linters that are built-in are:
 | [ShellCheck][10]                       | `shellcheck`           |
 | [snyk][snyk]                           | `snyk_iac`             |
 | [Solhint][solhint]                     | `solhint`              |
+| [Spectral][spectral]                   | `spectral`             |
 | [sqlfluff][sqlfluff]                   | `sqlfluff`             |
 | [standardjs][standardjs]               | `standardjs`           |
 | [StandardRB][27]                       | `standardrb`           |
@@ -511,6 +512,7 @@ busted tests/
 [dotenv-linter]: https://dotenv-linter.github.io/
 [puppet-lint]: https://github.com/puppetlabs/puppet-lint
 [snyk]: https://github.com/snyk/cli
+[spectral]: https://github.com/stoplightio/spectral
 [gitlint]: https://github.com/jorisroovers/gitlint
 [pflake8]: https://github.com/csachs/pyproject-flake8
 [fish]: https://github.com/fish-shell/fish-shell
