@@ -28,7 +28,7 @@ return {
     for json in string.gmatch(output, "[%S]+") do
       local item = vim.json.decode(json)
 
-      if item ~= nil then
+      if item ~= nil and item.line_num ~= nil then
         local line_num = item.line_num - 1
         local corrections = table.concat(item.corrections, " or ")
 
