@@ -104,6 +104,7 @@ Other dedicated linters that are built-in are:
 | [cpplint][cpplint]                 | `cpplint`              |
 | [credo][credo]                     | `credo`                |
 | [cspell][36]                       | `cspell`               |
+| [cue][cue]                         | `cue`                  |
 | [curlylint][curlylint]             | `curlylint`            |
 | [dash][dash]                       | `dash`                 |
 | [deno][deno]                       | `deno`                 |
@@ -449,6 +450,7 @@ busted tests/
 [janet]: https://github.com/janet-lang/janet
 [bandit]: https://bandit.readthedocs.io/en/latest/
 [bean-check]: https://beancount.github.io/docs/running_beancount_and_generating_reports.html#bean-check
+[cue]: https://github.com/cue-lang/cue
 [curlylint]: https://www.curlylint.org/
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff
 [verilator]: https://verilator.org/guide/latest/
