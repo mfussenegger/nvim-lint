@@ -5,46 +5,52 @@ local severities = {
   vim.diagnostic.severity.ERROR,
 }
 
-return function(ruleset)
-  return {
-    cmd = 'spectral',
-    stdin = false,
-    append_fname = true,
-    args = { "lint", "-r", ruleset, "-f", "json", },
-    stream = "stdout",
-    ignore_exitcode = true,
-    parser = function(output, _)
-      local items = {}
+local no_ruleset_found_msg = [[Spectral could not find a ruleset.
+Please define a .spectral file in the current working directory or override the linter args to provide the path to a ruleset.]]
 
-      if output == '' then
-        return items
+return {
+  cmd = 'spectral',
+  stdin = false,
+  append_fname = true,
+  args = { "lint", "-f", "json", },
+  stream = "both",
+  ignore_exitcode = true,
+  parser = function(output, _)
+    -- inform user if no ruleset has been found
+    if string.find(output, "No ruleset has been found") ~= nil then
+      vim.notify(no_ruleset_found_msg, vim.log.levels.WARN)
+      return {}
+    end
+
+    -- attempt to decode linter result
+    local success, result = pcall(vim.json.decode, output)
+    if not success then
+      vim.notify("Spectral exited with an error:\n" .. output, vim.log.levels.ERROR)
+      return {}
+    end
+
+    -- prevent warning on yaml files without supported schema
+    if result[1].code == "unrecognized-format" then
+      return {}
+    end
+
+    local items = {}
+    local bufpath = vim.fn.expand('%:p')
+    for _, diag in ipairs(result) do
+      if diag.source == bufpath then
+        table.insert(items, {
+          source = "spectral",
+          severity = severities[diag.severity + 1],
+          code = diag.code,
+          message = diag.message,
+          lnum = diag.range.start.line + 1,
+          end_lnum = diag.range["end"].line + 1,
+          col = diag.range.start.character + 1,
+          end_col = diag.range["end"].character + 1,
+        })
       end
+    end
 
-      local decoded = vim.json.decode(output) or {}
-      local bufpath = vim.fn.expand('%:p')
-
-      -- prevent warning on files that are not OpenAPI specs
-      if decoded[1].code == "unrecognized-format" then
-        return items
-      end
-
-      for _, diag in ipairs(decoded) do
-        vim.print(diag.severity)
-        if diag.source == bufpath then
-          table.insert(items, {
-            source = "spectral",
-            severity = severities[diag.severity + 1],
-            code = diag.code,
-            message = diag.message,
-            lnum = diag.range.start.line + 1,
-            end_lnum = diag.range["end"].line + 1,
-            col = diag.range.start.character + 1,
-            end_col = diag.range["end"].character + 1,
-          })
-        end
-      end
-
-      return items
-    end,
-  }
-end
+    return items
+  end,
+}
