@@ -291,7 +291,8 @@ function M.lint(linter, opts)
   local pid_or_err
   local args = {}
   local bufnr = api.nvim_get_current_buf()
-  if vim.fn.has("win32") == 1 then
+  local iswin = vim.fn.has("win32") == 1
+  if iswin then
     linter = vim.tbl_extend("force", linter, {
       cmd = "cmd.exe",
       args = { "/C", linter.cmd, unpack(linter.args or {}) },
@@ -321,7 +322,9 @@ function M.lint(linter, opts)
     cwd = opts.cwd or linter.cwd or vim.fn.getcwd(),
     -- Linter may launch child processes so set this as a group leader and
     -- manually track and kill processes as we need to.
-    detached = true
+    -- Don't detach on windows since that may cause shells to
+    -- pop up shortly.
+    detached = not iswin
   }
   local cmd = eval_fn_or_id(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
@@ -366,7 +369,7 @@ function M.lint(linter, opts)
   local linter_proc = setmetatable(state, linter_proc_mt)
   linter_proc:start_read()
   if linter.stdin then
-    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
+    local lines = api.nvim_buf_get_lines(0, 0, -1, true)
     for _, line in ipairs(lines) do
       stdin:write(line .. '\n')
     end
