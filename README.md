@@ -178,6 +178,7 @@ Other dedicated linters that are built-in are:
 | [statix check][33]                 | `statix`               |
 | [stylelint][29]                    | `stylelint`            |
 | [Solhint][solhint]                 | `solhint`              |
+| [systemdlint][systemdlint]         | `systemdlint`          |
 | [typos][typos]                     | `typos`                |
 | [Nagelfar][nagelfar]               | `nagelfar`             |
 | [Vala][vala-lint]                  | `vala_lint`            |
@@ -493,3 +494,4 @@ busted tests/
 [opa_check]: https://www.openpolicyagent.org/
 [regal]: https://github.com/StyraInc/regal
 [vala-lint]: https://github.com/vala-lang/vala-lint
+[systemdlint]: https://github.com/priv-kweihmann/systemdlint
