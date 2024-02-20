@@ -9,8 +9,15 @@ local severity_map = {
 
 return {
   cmd = 'rubocop',
-  stdin = false,
-  args = {'--format', 'json', '--force-exclusion'},
+  stdin = true,
+  args = {
+    '--format',
+    'json',
+    '--force-exclusion',
+    '--server',
+    '--stdin',
+    function() return vim.api.nvim_buf_get_name(0) end,
+  },
   ignore_exitcode = true,
   parser = function(output)
     local diagnostics = {}
