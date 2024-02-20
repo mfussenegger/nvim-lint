@@ -39,6 +39,10 @@ function M.from_errorformat(efm, skeleton)
   end
 end
 
+local normalize = (vim.fs ~= nil and vim.fs.normalize ~= nil)
+  and vim.fs.normalize
+  or function(path) return path end
+
 
 --- Parse a linter's output using a Lua pattern
 ---
@@ -69,9 +73,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
       else
         path = vim.fn.simplify(linter_cwd .. '/' .. captures.file)
       end
-      local normalized_path = vim.fs.normalize(path)
-      local normalized_buffer_path = vim.fs.normalize(buffer_path)
-      if normalized_path ~= normalized_buffer_path then
+      if normalize(path) ~= normalize(buffer_path) then
         return nil
       end
     end
