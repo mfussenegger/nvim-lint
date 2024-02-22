@@ -125,6 +125,7 @@ Other dedicated linters that are built-in are:
 | [DirectX Shader Compiler][dxc]     | `dxc`                  |
 | [hadolint][28]                     | `hadolint`             |
 | [hlint][32]                        | `hlint`                |
+| [htmlhint][htmlhint]               | `htmlhint`             |
 | [HTML Tidy][12]                    | `tidy`                 |
 | [Inko][17]                         | `inko`                 |
 | [janet][janet]                     | `janet`                |
@@ -495,3 +496,4 @@ busted tests/
 [regal]: https://github.com/StyraInc/regal
 [vala-lint]: https://github.com/vala-lang/vala-lint
 [systemdlint]: https://github.com/priv-kweihmann/systemdlint
+[htmlhint]: https://htmlhint.com/
