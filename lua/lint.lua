@@ -1,17 +1,12 @@
 local uv = vim.loop
 local api = vim.api
-local notify
-if vim.notify_once then
-  notify = vim.notify_once
-else
-  notify = vim.notify
-end
+local notify = vim.notify_once or vim.notify
 local M = {}
 
 
 ---@class lint.Parser
 ---@field on_chunk fun(chunk: string)
----@field on_done fun(publish: fun(diagnostics: Diagnostic[]), bufnr: number, linter_cwd: string)
+---@field on_done fun(publish: fun(diagnostics: vim.Diagnostic[]), bufnr: number, linter_cwd: string)
 
 
 ---@class lint.Linter
@@ -24,7 +19,7 @@ local M = {}
 ---@field ignore_exitcode? boolean if exit code != 1 should be ignored or result in a warning. Defaults to false
 ---@field env? table
 ---@field cwd? string
----@field parser lint.Parser|fun(output:string, bufnr:number, linter_cwd:string):Diagnostic[]
+---@field parser lint.Parser|fun(output:string, bufnr:number, linter_cwd:string):vim.Diagnostic[]
 
 
 ---@class lint.LintProc
@@ -160,8 +155,23 @@ end
 function LintProc:cancel()
   self.cancelled = true
   local handle = self.handle
-  if handle and not handle:is_closing() then
-    handle:kill("sigterm")
+  if not handle or handle:is_closing() then
+    return
+  end
+
+  -- Use sigint so the process can safely close any child processes.
+  -- This is mostly useful for when `cmd` is a script with a shebang.
+  handle:kill('sigint')
+
+  vim.wait(10000, function()
+    return (handle:is_closing())
+  end)
+
+  if not handle:is_closing() then
+    -- 'sigint' didn't work, hit it with a 'sigkill'.
+    -- This should also kill any attached child processes since
+    -- handle is a process group leader (due to it being detached).
+    handle:kill('sigkill')
   end
 end
 
@@ -276,7 +286,8 @@ function M.lint(linter, opts)
   local pid_or_err
   local args = {}
   local bufnr = api.nvim_get_current_buf()
-  if vim.fn.has("win32") == 1 then
+  local iswin = vim.fn.has("win32") == 1
+  if iswin then
     linter = vim.tbl_extend("force", linter, {
       cmd = "cmd.exe",
       args = { "/C", linter.cmd, unpack(linter.args or {}) },
@@ -304,7 +315,11 @@ function M.lint(linter, opts)
     stdio = { stdin, stdout, stderr },
     env = env,
     cwd = opts.cwd or linter.cwd or vim.fn.getcwd(),
-    detached = false
+    -- Linter may launch child processes so set this as a group leader and
+    -- manually track and kill processes as we need to.
+    -- Don't detach on windows since that may cause shells to
+    -- pop up shortly.
+    detached = not iswin
   }
   local cmd = eval_fn_or_id(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
@@ -349,7 +364,7 @@ function M.lint(linter, opts)
   local linter_proc = setmetatable(state, linter_proc_mt)
   linter_proc:start_read()
   if linter.stdin then
-    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
+    local lines = api.nvim_buf_get_lines(0, 0, -1, true)
     for _, line in ipairs(lines) do
       stdin:write(line .. '\n')
     end

@@ -18,7 +18,7 @@ return {
   },
   stream = 'stdout',
   ignore_exitcode = true,
-  parser = function(output, bufnr)
+  parser = function(output, bufnr, cwd)
     if output == '' then
       return {}
     end
@@ -30,7 +30,7 @@ return {
     local diagnostics = {}
     for _, item in ipairs(decoded["Issues"]) do
       local curfile = vim.api.nvim_buf_get_name(bufnr)
-      local lintedfile = vim.fn.getcwd() .. "/" .. item.Pos.Filename
+      local lintedfile = cwd .. "/" .. item.Pos.Filename
       if curfile == lintedfile then
         -- only publish if those are the current file diagnostics
         local sv = severities[item.Severity] or severities.warning

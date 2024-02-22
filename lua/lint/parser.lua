@@ -18,7 +18,7 @@ function M.from_errorformat(efm, skeleton)
     local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
     local result = {}
     for _, item in pairs(qflist.items) do
-      if item.valid == 1 and (bufnr == nil or item.bufnr == bufnr) then
+      if item.valid == 1 and (bufnr == nil or item.bufnr == 0 or item.bufnr == bufnr) then
         local lnum = math.max(0, item.lnum - 1)
         local col = math.max(0, item.col - 1)
         local end_lnum = item.end_lnum > 0 and (item.end_lnum - 1) or lnum
@@ -39,12 +39,16 @@ function M.from_errorformat(efm, skeleton)
   end
 end
 
+local normalize = (vim.fs ~= nil and vim.fs.normalize ~= nil)
+  and vim.fs.normalize
+  or function(path) return path end
+
 
 --- Parse a linter's output using a Lua pattern
 ---
 ---@param pattern string
 ---@param groups string[]
----@param severity_map? table<string, DiagnosticSeverity>
+---@param severity_map? table<string, vim.diagnostic.Severity>
 ---@param defaults? table
 ---@param opts? {col_offset?: integer, end_col_offset?: integer, lnum_offset?: integer, end_lnum_offset?: integer}
 function M.from_pattern(pattern, groups, severity_map, defaults, opts)
@@ -69,7 +73,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
       else
         path = vim.fn.simplify(linter_cwd .. '/' .. captures.file)
       end
-      if path ~= buffer_path then
+      if normalize(path) ~= normalize(buffer_path) then
         return nil
       end
     end
@@ -81,6 +85,8 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     local end_lnum = captures.end_lnum and (tonumber(captures.end_lnum) - 1) or lnum
     local col = tonumber(captures.col) and (tonumber(captures.col) + col_offset) or 0
     local end_col = tonumber(captures.end_col) and (tonumber(captures.end_col) + end_col_offset) or col
+    col = math.max(col, 0)
+    lnum = math.max(lnum, 0)
     local diagnostic = {
       lnum = assert(lnum, 'diagnostic requires a line number') + lnum_offset,
       end_lnum = end_lnum + end_lnum_offset,
