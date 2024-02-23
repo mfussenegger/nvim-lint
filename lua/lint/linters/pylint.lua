@@ -30,7 +30,7 @@ return {
           end_lnum = item.line - 1,
           end_col = end_column,
           severity = assert(severities[item.type], 'missing mapping for severity ' .. item.type),
-          message = item.message,
+          message = item.message .. " (" .. item.symbol .. ")",
           code = item['message-id'],
           user_data = {
             lsp = {
