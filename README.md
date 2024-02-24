@@ -137,6 +137,7 @@ Other dedicated linters that are built-in are:
 | [Languagetool][5]                  | `languagetool`         |
 | [luacheck][19]                     | `luacheck`             |
 | [markdownlint][26]                 | `markdownlint`         |
+| [markuplint][markuplint]           | `markuplint`           |
 | [mlint][34]                        | `mlint`                |
 | [Mypy][11]                         | `mypy`                 |
 | [Nix][nix]                         | `nix`                  |
@@ -497,3 +498,4 @@ busted tests/
 [vala-lint]: https://github.com/vala-lang/vala-lint
 [systemdlint]: https://github.com/priv-kweihmann/systemdlint
 [htmlhint]: https://htmlhint.com/
+[markuplint]: https://markuplint.dev/
