@@ -14,7 +14,7 @@ return {
   stdin = false,
   stream = "stdout",
   ignore_exitcode = true,
-  parser = function(output, bufnr)
+  parser = function(output)
     if vim.trim(output) == "" then
       return {}
     end
