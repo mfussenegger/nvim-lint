@@ -24,7 +24,7 @@ describe("linter.markuplint", function()
 ]
 ]]
 
-    local result = parser(output, vim.api.nvim_get_current_buf())
+    local result = parser(output)
     assert.are.same(2, #result)
 
     local expected = {
