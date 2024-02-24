@@ -137,7 +137,7 @@ Other dedicated linters that are built-in are:
 | [Languagetool][5]                  | `languagetool`         |
 | [luacheck][19]                     | `luacheck`             |
 | [markdownlint][26]                 | `markdownlint`         |
-| [markuplint][markuplint]                   | `markuplint`           |
+| [markuplint][markuplint]           | `markuplint`           |
 | [mlint][34]                        | `mlint`                |
 | [Mypy][11]                         | `mypy`                 |
 | [Nix][nix]                         | `nix`                  |
