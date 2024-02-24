@@ -20,17 +20,7 @@ return {
     end
 
     local decode_opts = { luanil = { object = true, array = true } }
-    local ok, data = pcall(vim.json.decode, output, decode_opts)
-    if not ok then
-      return {
-        {
-          bufnr = bufnr,
-          lnum = 0,
-          col = 0,
-          message = "Could not parse markuplint output due to: " .. data .. "\noutput: " .. output,
-        },
-      }
-    end
+    local data = vim.json.decode(output, decode_opts)
 
     local diagnostics = {}
     for _, result in ipairs(data or {}) do
