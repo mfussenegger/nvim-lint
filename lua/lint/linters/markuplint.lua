@@ -1,5 +1,10 @@
 local binary_name = "markuplint"
 
+local severity_map = {
+  error = vim.diagnostic.severity.ERROR,
+  warning = vim.diagnostic.severity.WARN,
+}
+
 return {
   cmd = function()
     local local_binary = vim.fn.fnamemodify("./node_modules/.bin/" .. binary_name, ":p")
@@ -34,7 +39,7 @@ return {
         col = result.col and result.col - 1 or 0,
         message = result.message,
         code = result.ruleId,
-        severity = result.severity,
+        severity = severity_map[result.severity] or vim.diagnostic.severity.ERROR,
         source = "markuplint",
       })
     end
