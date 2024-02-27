@@ -23,9 +23,9 @@ return {
     for _, finding in pairs(findings or {}) do
       table.insert(diagnostics, {
         lnum = finding.row - 1,
-        col = finding.col,
+        col = finding.col - 1,
         end_lnum = finding.row - 1,
-        end_col = finding.col,
+        end_col = finding.col - 1,
         severity = assert(severities[finding.level], 'missing mapping for severity ' .. finding.level),
         message = finding.message,
       })
