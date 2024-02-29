@@ -11,7 +11,7 @@ local severity_map = {
 local find_conf = function()
   local conf = vim.fs.find('.perlcriticrc', {
     upward = true,
-    stop = vim.fs.dirname(vim.uv.os_homedir()),
+    stop = vim.fs.dirname(vim.loop.os_homedir()),
     path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
   })
   return conf[1] or ''
