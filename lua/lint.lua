@@ -196,6 +196,27 @@ end
 ---@type table<integer, table<string, lint.LintProc>> bufnr: {linter: handle}
 local running_procs_by_buf = {}
 
+--- Returns the number of the running linters
+---
+---@param bufnr? integer buffer for which to get the running linters. nil=all buffers
+---@return string[]
+function M.get_running_count(bufnr)
+  local count = 0
+  if bufnr then
+    bufnr = bufnr == 0 and api.nvim_get_current_buf() or bufnr
+    local running_procs = (running_procs_by_buf[bufnr] or {})
+    for _, _ in pairs(running_procs) do
+      count = count + 1
+    end
+  else
+    for _, running_procs in pairs(running_procs_by_buf) do
+      for _ in pairs(running_procs) do
+        count = count + 1
+      end
+    end
+  end
+  return count
+end
 
 --- Returns the names of the running linters
 ---
