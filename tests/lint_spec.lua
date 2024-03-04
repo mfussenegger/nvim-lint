@@ -24,6 +24,30 @@ describe('lint', function()
     table.sort(names, function(x, y) return x < y end)
     assert.are.same(expected, names)
   end)
+  it('insert global linters', function()
+    lint.linters_by_ft = {
+      ansible = {'ansible-lint','yamllint'},
+      yaml = {'yamllint'},
+      ["*"] = {'codespell'},
+      ["_"] = {'write-good'}
+    }
+    local names = lint._resolve_linter_by_ft('ansible.yaml')
+    local expected = {'ansible-lint', 'codespell', 'yamllint'}
+    table.sort(names, function(x, y) return x < y end)
+    assert.are.same(expected, names)
+  end)
+  it('correctly fallback on linters', function()
+    lint.linters_by_ft = {
+      ansible = {'ansible-lint','yamllint'},
+      yaml = {'yamllint'},
+      ["*"] = {'codespell'},
+      ["_"] = {'write-good'}
+    }
+    local names = lint._resolve_linter_by_ft('lua')
+    local expected = {'codespell', 'write-good'}
+    table.sort(names, function(x, y) return x < y end)
+    assert.are.same(expected, names)
+  end)
 
 
   it("get_running returns running linter", function()

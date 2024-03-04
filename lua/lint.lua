@@ -79,22 +79,25 @@ local function read_output(cwd, bufnr, parser, publish_fn)
   end
 end
 
-
-function M._resolve_linter_by_ft(ft)
-  local names = M.linters_by_ft[ft]
-  if names then
-    return names
-  end
-  local dedup_linters = {}
-  local filetypes = vim.split(ft, '.', { plain = true })
-  for _, ft_ in pairs(filetypes) do
-    local linters = M.linters_by_ft[ft_]
-    if linters then
-      for _, linter in ipairs(linters) do
-        dedup_linters[linter] = true
-      end
+local function insert_ft_linters(dict, ft)
+  local linters = M.linters_by_ft[ft]
+  if linters then
+    for _, string in ipairs(linters) do
+      dict[string] = true
     end
   end
+end
+
+function M._resolve_linter_by_ft(ft)
+  local dedup_linters = {}
+  local filetypes = M.linters_by_ft[ft] and { ft } or vim.split(ft, '.', { plain = true })
+  for _, ft_ in pairs(filetypes) do
+    insert_ft_linters(dedup_linters, ft_)
+  end
+  if not next(dedup_linters) then -- insert fallback linters
+    insert_ft_linters(dedup_linters, '_')
+  end
+  insert_ft_linters(dedup_linters, '*') -- insert global linters
   return vim.tbl_keys(dedup_linters)
 end
 

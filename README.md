@@ -39,8 +39,10 @@ git clone \
 Configure the linters you want to run per file type. For example:
 
 ```lua
-require('lint').linters_by_ft = {
-  markdown = {'vale',}
+require("lint").linters_by_ft = {
+  markdown = { "vale" },
+  ["*"] = { "codespell" }, -- global filetype to run linter on all filetypes
+  ["_"] = { "write-good" }, -- fallback filetype to run linter when no filetype specific linter is available
 }
 ```
 
