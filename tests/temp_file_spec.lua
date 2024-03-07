@@ -19,7 +19,7 @@ describe('temp_file', function()
     local temp_file = require 'lint.temp_file'
     local temp_filepath = temp_file.temp_filepath({ ext = 'some_ext' })
 
-    assert.is_truthy(vim.endswith(temp_filepath, '.some_ext$'))
+    assert.is_truthy(vim.endswith(temp_filepath, '.some_ext'))
   end)
 
   it('Creates temp file with str', function()
