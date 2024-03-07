@@ -1,4 +1,28 @@
 local M = {}
+--- temp_filepaths associated to their timer (that deletes them)
+---@type table<integer, uv.uv_timer_t>
+local temp_filepath_and_timer = {}
+
+--- close a timer launched by temp_filepath() and clears aucmd associated to temp_filepath
+--- replaces using closures in nvim_create_autocmd because the latter is not available in 0.6
+--- this function is not meant to be called by users
+---@param i integer index internally handled
+function M.remove_temp_filepath(path, i)
+  os.remove(path)
+  -- clear timer
+  local timer_r = temp_filepath_and_timer[path]
+  temp_filepath_and_timer[path] = nil
+  if timer_r:get_due_in() ~= 0 then
+    timer_r:stop()
+    timer_r:close()
+  end
+  -- clear all augroup (single aucmd)
+  vim.cmd(string.format([[
+augroup linttmp%d
+  autocmd!
+augroup END
+  ]], i))
+end
 
 ---@class lint.temp_file.Opts
 ---@inlinedoc
@@ -23,27 +47,22 @@ function M.temp_filepath(opts)
     temp_filepath = temp_filepath .. '.' .. opts.ext
   end
 
-  local timer_r, vimexit_r
+  local temp_filepath_index = #temp_filepath_and_timer + 1
 
-  timer_r = vim.defer_fn(function()
-      os.remove(temp_filepath)
-
-      vim.api.nvim_del_autocmd(vimexit_r)
+  temp_filepath_and_timer[temp_filepath] = vim.defer_fn(function()
+      M.remove_temp_filepath(temp_filepath, temp_filepath_index)
     end,
     opts.timeout or (30 * 1000))
 
-  vimexit_r = vim.api.nvim_create_autocmd("VimLeavePre", {
-    pattern = "*",
-    once = true,
-    callback = function()
-      os.remove(temp_filepath)
+  vim.cmd(string.format([[
+augroup linttmp%d
+  au VimLeavePre lua require'lint.temp_file'.remove_temp_filepath(%s, %d)
+augroup END
+  ]],
+    temp_filepath_index,
+    temp_filepath,
+    temp_filepath_index))
 
-      if timer_r:get_due_in() ~= 0 then
-        timer_r:stop()
-        timer_r:close()
-      end
-    end,
-  })
   if opts.str then
     local temp_fd = assert(vim.loop.fs_open(temp_filepath, "w", 438))
     assert(vim.loop.fs_write(temp_fd, opts.str))
