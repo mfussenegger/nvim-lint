@@ -39,7 +39,7 @@ describe('temp_file', function()
     local temp_filepath = temp_file.temp_filepath({ timeout = 50 })
     assert.is_true(file_exists(temp_filepath))
 
-    vim.loop.sleep(100) -- file should be deleted after this
+    vim.wait(100, function() end) -- file should be deleted after this
 
     assert.is_false(file_exists(temp_filepath))
   end
