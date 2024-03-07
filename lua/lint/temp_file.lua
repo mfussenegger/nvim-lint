@@ -12,7 +12,8 @@ local M = {}
 --- Text to be inserted into file
 ---@field str? string
 
---- Get a temporary filepath. This filepath is deleted on nvim exit or after timeout
+--- Get a filepath for temporary use.
+--- This filepath is deleted on nvim exit or after timeout. If the filepath is not used, the deletion errors silently
 ---@param opts? table
 ---@return string filepath to temp file
 function M.temp_filepath(opts)
