@@ -50,7 +50,7 @@ local normalize = (vim.fs ~= nil and vim.fs.normalize ~= nil)
 ---@param groups string[]
 ---@param severity_map? table<string, vim.diagnostic.Severity>
 ---@param defaults? table
----@param opts? {col_offset?: integer, end_col_offset?: integer, lnum_offset?: integer, end_lnum_offset?: integer}
+---@param opts? {col_offset?: integer, end_col_offset?: integer, lnum_offset?: integer, end_lnum_offset?: integer, no_split?: boolean}
 function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   defaults = defaults or {}
   severity_map = severity_map or {}
@@ -112,8 +112,14 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     end
     local result = {}
     local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p")
-    for _, line in ipairs(vim.fn.split(output, '\n')) do
-      local diagnostic = match(linter_cwd, buffer_path, line)
+    local parts
+    if opts.no_split then
+      parts = {output}
+    else
+      parts = vim.fn.split(output, '\n')
+    end
+    for _, part in ipairs(parts) do
+      local diagnostic = match(linter_cwd, buffer_path, part)
       if diagnostic then
         table.insert(result, diagnostic)
       end
