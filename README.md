@@ -77,7 +77,7 @@ There is a generic linter called `compiler` that uses the `makeprg` and
 Other dedicated linters that are built-in are:
 
 | Tool                               | Linter name            |
-| ---------------------------------- | ---------------------  |
+| ---------------------------------- | ---------------------- |
 | Set via `makeprg`                  | `compiler`             |
 | [actionlint][actionlint]           | `actionlint`           |
 | [alex][alex]                       | `alex`                 |
@@ -180,6 +180,7 @@ Other dedicated linters that are built-in are:
 | [statix check][33]                 | `statix`               |
 | [stylelint][29]                    | `stylelint`            |
 | [Solhint][solhint]                 | `solhint`              |
+| [SwiftLint][swiftlint]             | `swiftlint`            |
 | [systemdlint][systemdlint]         | `systemdlint`          |
 | [typos][typos]                     | `typos`                |
 | [Nagelfar][nagelfar]               | `nagelfar`             |
@@ -499,3 +500,4 @@ busted tests/
 [systemdlint]: https://github.com/priv-kweihmann/systemdlint
 [htmlhint]: https://htmlhint.com/
 [markuplint]: https://markuplint.dev/
+[swiftlint]: https://github.com/realm/SwiftLint
