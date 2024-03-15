@@ -35,8 +35,8 @@ return {
         for _, violation in ipairs(i_filepath.violations) do
           table.insert(diagnostics, {
             source = 'sqlfluff',
-            lnum = violation.line_no - 1,
-            col = violation.line_pos - 1,
+            lnum = violation.start_line_no - 1,
+            col = violation.start_line_pos - 1,
             severity = vim.diagnostic.severity.ERROR,
             message = violation.description,
             user_data = {lsp = {code = violation.code}},

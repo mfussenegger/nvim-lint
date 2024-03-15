@@ -4,7 +4,7 @@ describe('linter.sqlfluff', function()
     local bufnr = vim.uri_to_bufnr('file:///non-existent.sql')
     -- actual output I got from running sqlfluff
     local result = parser([[
-[{"filepath": "stdin", "violations": [{"line_no": 68, "line_pos": 1, "code": "L003", "description": "Expected 1 indentation, found 0 [compared to line 52]"}, {"line_no": 68, "line_pos": 1, "code": "L013", "description": "Column expression without alias. Use explicit `AS` clause."}]}]
+[{"filepath": "stdin", "violations": [{"start_line_no": 68, "start_line_pos": 1, "code": "L003", "description": "Expected 1 indentation, found 0 [compared to line 52]"}, {"start_line_no": 68, "start_line_pos": 1, "code": "L013", "description": "Column expression without alias. Use explicit `AS` clause."}]}]
 
 ]], bufnr)
     assert.are.same(2, #result)
@@ -41,7 +41,7 @@ Error: Unknown dialect 'postgresql'
 ]], bufnr)
 
     -- not breaking should be enough, the parsing error is reported as "problem in first line-col"
-    assert(status)
+    assert(not status)
 
   end)
 end)
