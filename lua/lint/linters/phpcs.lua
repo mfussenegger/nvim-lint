@@ -3,8 +3,13 @@ local severities = {
   WARNING = vim.diagnostic.severity.WARN,
 }
 
+local bin ='phpcs'
+
 return {
-  cmd = 'phpcs',
+  cmd = function()
+    local local_bin = vim.fn.fnamemodify('vendor/bin/' .. bin, ':p')
+    return vim.loop.fs_stat(local_bin) and local_bin or bin
+  end,
   stdin = true,
   args = {
     '-q',
@@ -34,7 +39,7 @@ return {
         end_col = msg.column - 1,
         message = msg.message,
         code = msg.source,
-        source = 'phpcs',
+        source = bin,
         severity = assert(severities[msg.type], 'missing mapping for severity ' .. msg.type),
       })
     end
