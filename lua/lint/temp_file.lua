@@ -1,7 +1,9 @@
 local M = {}
 --- temp_filepaths associated to their timer (that deletes them)
----@type table<integer, uv.uv_timer_t>
+---@type table<string, uv.uv_timer_t>
 local temp_filepath_and_timer = {}
+--- count used as index for adding new (path, timer) to temp_filepath_and_timer
+local temp_filepath_count = 0
 
 --- close a timer launched by temp_filepath() and clears aucmd associated to temp_filepath
 --- replaces using closures in nvim_create_autocmd because the latter is not available in 0.6
@@ -47,7 +49,8 @@ function M.temp_filepath(opts)
     temp_filepath = temp_filepath .. '.' .. opts.ext
   end
 
-  local temp_filepath_index = #temp_filepath_and_timer + 1
+  temp_filepath_count                    = temp_filepath_count + 1
+  local temp_filepath_index              = temp_filepath_count
 
   temp_filepath_and_timer[temp_filepath] = vim.defer_fn(function()
       M.remove_temp_filepath(temp_filepath, temp_filepath_index)
