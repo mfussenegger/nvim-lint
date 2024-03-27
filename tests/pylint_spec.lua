@@ -57,7 +57,7 @@ describe('linter.pylint', function()
 
     local expected_1 = {
       source = 'pylint',
-      message = 'Bad indentation. Found 2 spaces, expected 4',
+      message = 'Bad indentation. Found 2 spaces, expected 4 (bad-indentation)',
       lnum = 3,
       col = 0,
       end_lnum = 3,
@@ -75,7 +75,7 @@ describe('linter.pylint', function()
 
     local expected_2 = {
       source = 'pylint',
-      message = 'Missing module docstring',
+      message = 'Missing module docstring (missing-module-docstring)',
       lnum = 0,
       col = 0,
       end_lnum = 0,
@@ -93,7 +93,7 @@ describe('linter.pylint', function()
 
     local expected_3 = {
       source = 'pylint',
-      message = 'Redundant comparison - 1 == 1',
+      message = 'Redundant comparison - 1 == 1 (comparison-with-itself)',
       lnum = 2,
       col = 3,
       end_lnum = 2,
@@ -111,7 +111,7 @@ describe('linter.pylint', function()
 
     local expected_4 = {
       source = 'pylint',
-      message = "Unused variable 'test'",
+      message = "Unused variable 'test' (unused-variable)",
       lnum = 4,
       col = 4,
       end_lnum = 4,
