@@ -10,6 +10,6 @@ return {
     pattern,
     groups,
     nil,
-    { severity = vim.diagnostic.severity.INFO, source = "editorconfig-checker" }
+    { severity = require('lint').default_severity, source = "editorconfig-checker" }
   ),
 }

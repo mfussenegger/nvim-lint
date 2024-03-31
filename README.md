@@ -68,6 +68,12 @@ example on the `InsertLeave` or `TextChanged` events.
 If you want to customize how the diagnostics are displayed, read `:help
 vim.diagnostic.config`.
 
+You can set the default diagnostic severity used for some linters
+(default is `INFO`)
+
+```lua
+require('lint').default_severity = vim.diagnostic.severity.HINT
+```
 
 ## Available Linters
 

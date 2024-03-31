@@ -28,7 +28,7 @@ return {
           end_col = end_col,
           message = message,
           source = 'cspell',
-          severity = vim.diagnostic.severity.INFO
+          severity = require('lint').default_severity,
         }
         table.insert(result, diagnostic)
       end

@@ -4,6 +4,6 @@ return {
   stdin = true,
   parser = require("lint.parser").from_errorformat("stdin:%l:%c:%k: %m", {
     source = "blocklint",
-    severity = vim.diagnostic.severity.INFO,
+    severity = require('lint').default_severity,
   }),
 }

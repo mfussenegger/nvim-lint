@@ -4,6 +4,6 @@ return {
   ignore_exitcode = true,
   parser = require('lint.parser').from_errorformat('%f:%l: %m', {
     source = 'ansible-lint',
-    severity = vim.diagnostic.severity.INFO
+    severity = require('lint').default_severity,
   })
 }

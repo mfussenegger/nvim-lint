@@ -59,6 +59,8 @@ M.linters_by_ft = {
   terraform = {'tflint'},
 }
 
+M.default_severity = vim.diagnostic.severity.INFO
+
 local namespaces = setmetatable({}, {
   __index = function(tbl, key)
     local ns = api.nvim_create_namespace(key)

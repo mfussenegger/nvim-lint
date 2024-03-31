@@ -17,7 +17,7 @@ return function()
           col = decoded.location.start.column - 1,
           end_lnum = decoded.location['end'].line - 1,
           end_col = decoded.location['end'].column - 1,
-          severity = vim.diagnostic.severity.INFO,
+          severity = require('lint').default_severity,
           message = decoded.reason,
         })
       end
