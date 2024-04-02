@@ -107,6 +107,7 @@ Other dedicated linters that are built-in are:
 | [cue][cue]                         | `cue`                  |
 | [curlylint][curlylint]             | `curlylint`            |
 | [dash][dash]                       | `dash`                 |
+| [deadnix][deadnix]                 | `deadnix`              |
 | [deno][deno]                       | `deno`                 |
 | [djlint][djlint]                   | `djlint`               |
 | [dotenv-linter][dotenv-linter]     | `dotenv_linter`        |
@@ -492,6 +493,7 @@ busted tests/
 [typos]: https://github.com/crate-ci/typos
 [joker]: https://github.com/candid82/joker
 [dash]: http://gondor.apana.org.au/~herbert/dash
+[deadnix]: https://github.com/astro/deadnix
 [salt-lint]: https://github.com/warpnet/salt-lint
 [quick-lint-js]: https://quick-lint-js.com
 [opa_check]: https://www.openpolicyagent.org/
