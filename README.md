@@ -55,7 +55,14 @@ or with Lua autocmds (requires 0.7):
 ```lua
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
+
+    -- try_lint without arguments runs the linters defined in `linters_by_ft`
+    -- for the current filetype
     require("lint").try_lint()
+
+    -- You can call `try_lint` with a linter name or a list of names to always
+    -- run specific linters, independent of the `linters_by_ft` configuration
+    require("lint").try_lint("cspell")
   end,
 })
 ```
@@ -310,7 +317,7 @@ defaults = {["source"] = "mylint-name"}
     that the end-column position is exclusive.
 
 
-## Customize built-in linter parameters
+## Customize built-in linters
 
 You can import a linter and modify its properties. An example:
 
@@ -322,6 +329,17 @@ phpcs.args = {
   '--report=json',
   '-'
 }
+```
+
+You can also post-process the diagnostics produced by a linter by wrapping it.
+For example, to change the severity of all diagnostics created by `cspell`:
+
+```lua
+local lint = require("lint")
+lint.linters.cspell = require("lint.util").wrap(lint.linters.cspell, function(diagnostic)
+  diagnostic.severity = vim.diagnostic.severity.HINT
+  return diagnostic
+end)
 ```
 
 
