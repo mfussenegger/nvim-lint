@@ -60,6 +60,9 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     -- for the current filetype
     require("lint").try_lint()
 
+    -- try_lint has an ignore_errors option to ignore command-not-found errors
+    -- require("lint").try_lint(nil, { ignore_errors = true })
+
     -- You can call `try_lint` with a linter name or a list of names to always
     -- run specific linters, independent of the `linters_by_ft` configuration
     require("lint").try_lint("cspell")
