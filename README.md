@@ -200,6 +200,7 @@ Other dedicated linters that are built-in are:
 | [woke][woke]                       | `woke`                 |
 | [write-good][write-good]           | `write_good`           |
 | [yamllint][yamllint]               | `yamllint`             |
+| [tflint][tflint]                   | `tflint`               |
 | [tfsec][tfsec]                     | `tfsec`                |
 | [tlint][tlint]                     | `tlint`                |
 | [trivy][trivy]                     | `trivy`                |
@@ -521,3 +522,4 @@ busted tests/
 [htmlhint]: https://htmlhint.com/
 [markuplint]: https://markuplint.dev/
 [swiftlint]: https://github.com/realm/SwiftLint
+[tflint]: https://github.com/terraform-linters/tflint
