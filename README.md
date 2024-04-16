@@ -263,6 +263,7 @@ parser = require('lint.parser').from_errorformat(errorformat)
 
 The function takes two arguments: `errorformat` and `skeleton` (optional).
 
+
 ### from_pattern
 
 ```lua
@@ -378,6 +379,7 @@ end
 - [Ale][1]
 - [efm-langserver][6]
 - [diagnostic-languageserver][7]
+
 
 ## Development ☢️
 
