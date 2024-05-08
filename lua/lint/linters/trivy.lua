@@ -20,7 +20,7 @@ return {
     local fpath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
     for _, result in ipairs(decoded and decoded.Results or {}) do
       if result.Target == fpath then
-        for _, misconfig in ipairs(result.Misconfigurations) do
+        for _, misconfig in ipairs(result.Misconfigurations or {}) do
           local err = {
             source = "trivy",
             message = string.format("%s %s", misconfig.Title, misconfig.Description),
