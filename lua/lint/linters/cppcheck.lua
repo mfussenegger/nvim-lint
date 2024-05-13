@@ -27,7 +27,7 @@ return {
       if vim.fn.isdirectory("build") == 1 then
         return "--cppcheck-build-dir=build"
       else
-        return ""
+        return nil
       end
     end,
     "--template={file}:{line}:{column}: [{id}] {severity}: {message}",
