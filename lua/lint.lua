@@ -164,7 +164,7 @@ function LintProc:cancel()
   handle:kill('sigint')
 
   vim.wait(10000, function()
-    return (handle:is_closing())
+    return handle:is_closing() or false
   end)
 
   if not handle:is_closing() then
