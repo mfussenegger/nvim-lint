@@ -12,7 +12,7 @@ return {
   },
   ignore_exitcode = true,
   parser = function(output, bufnr)
-    if output == nil then
+    if vim.trim(output) == '' or output == nil then
       return {}
     end
 
@@ -26,7 +26,7 @@ return {
 
     for _, message in ipairs(file.messages or {}) do
       table.insert(diagnostics, {
-        lnum = message.line - 1,
+        lnum = type(message.line) == 'number' and (message.line - 1) or 0,
         col = 0,
         message = message.message,
         source = bin,
