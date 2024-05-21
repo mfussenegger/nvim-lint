@@ -206,6 +206,7 @@ Other dedicated linters that are built-in are:
 | [trivy][trivy]                     | `trivy`                |
 | [zsh][zsh]                         | `zsh`                  |
 | [quick-lint-js][quick-lint-js]     | `quick-lint-js`        |
+| [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 
 ## Custom Linters
 
@@ -521,5 +522,6 @@ busted tests/
 [systemdlint]: https://github.com/priv-kweihmann/systemdlint
 [htmlhint]: https://htmlhint.com/
 [markuplint]: https://markuplint.dev/
+[markdownlint-cli2]: https://github.com/DavidAnson/markdownlint-cli2
 [swiftlint]: https://github.com/realm/SwiftLint
 [tflint]: https://github.com/terraform-linters/tflint
