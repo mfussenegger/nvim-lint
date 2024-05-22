@@ -33,6 +33,7 @@ git clone \
 - If using [vim-plug][3]: `Plug 'mfussenegger/nvim-lint'`
 - If using [packer.nvim][4]: `use 'mfussenegger/nvim-lint'`
 
+
 ## Usage
 
 Configure the linters you want to run per file type. For example:
@@ -70,8 +71,10 @@ Some linters require a file to be saved to disk, others support linting `stdin`
 input. For such linters you could also define a more aggressive autocmd, for
 example on the `InsertLeave` or `TextChanged` events.
 
+
 If you want to customize how the diagnostics are displayed, read `:help
 vim.diagnostic.config`.
+
 
 ## Available Linters
 
@@ -113,6 +116,7 @@ Other dedicated linters that are built-in are:
 | [dash][dash]                           | `dash`                 |
 | [deadnix][deadnix]                     | `deadnix`              |
 | [deno][deno]                           | `deno`                 |
+| [DirectX Shader Compiler][dxc]         | `dxc`                  |
 | [djlint][djlint]                       | `djlint`               |
 | [dotenv-linter][dotenv-linter]         | `dotenv_linter`        |
 | [editorconfig-checker][ec]             | `editorconfig-checker` |
@@ -125,9 +129,8 @@ Other dedicated linters that are built-in are:
 | [flawfinder][35]                       | `flawfinder`           |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
 | [gitlint][gitlint]                     | `gitlint`              |
-| [Golangci-lint][16]                    | `golangcilint`         |
 | [glslc][glslc]                         | `glslc`                |
-| [DirectX Shader Compiler][dxc]         | `dxc`                  |
+| [Golangci-lint][16]                    | `golangcilint`         |
 | [hadolint][28]                         | `hadolint`             |
 | [hlint][32]                            | `hlint`                |
 | [htmlhint][htmlhint]                   | `htmlhint`             |
@@ -142,9 +145,11 @@ Other dedicated linters that are built-in are:
 | [Languagetool][5]                      | `languagetool`         |
 | [luacheck][19]                         | `luacheck`             |
 | [markdownlint][26]                     | `markdownlint`         |
+| [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 | [markuplint][markuplint]               | `markuplint`           |
 | [mlint][34]                            | `mlint`                |
 | [Mypy][11]                             | `mypy`                 |
+| [Nagelfar][nagelfar]                   | `nagelfar`             |
 | [Nix][nix]                             | `nix`                  |
 | [npm-groovy-lint][npm-groovy-lint]     | `npm-groovy-lint`      |
 | [oelint-adv][oelint-adv]               | `oelint-adv`           |
@@ -152,10 +157,10 @@ Other dedicated linters that are built-in are:
 | [oxlint][oxlint]                       | `oxlint`               |
 | [perlcritic][perlcritic]               | `perlcritic`           |
 | [perlimports][perlimports]             | `perlimports`          |
-| [php][php]                             | `php`                  |
 | [phpcs][phpcs]                         | `phpcs`                |
 | [phpinsights][phpinsights]             | `phpinsights`          |
 | [phpmd][phpmd]                         | `phpmd`                |
+| [php][php]                             | `php`                  |
 | [phpstan][phpstan]                     | `phpstan`              |
 | [ponyc][ponyc]                         | `pony`                 |
 | [prisma-lint][prisma-lint]             | `prisma-lint`          |
@@ -164,32 +169,36 @@ Other dedicated linters that are built-in are:
 | [puppet-lint][puppet-lint]             | `puppet-lint`          |
 | [pycodestyle][pcs-docs]                | `pycodestyle`          |
 | [pydocstyle][pydocstyle]               | `pydocstyle`           |
-| [pyproject-flake8][pflake8]            | `pflake8`              |
 | [Pylint][15]                           | `pylint`               |
+| [pyproject-flake8][pflake8]            | `pflake8`              |
+| [quick-lint-js][quick-lint-js]         | `quick-lint-js`        |
 | [regal][regal]                         | `regal`                |
 | [Revive][14]                           | `revive`               |
 | [rflint][rflint]                       | `rflint`               |
 | [robocop][robocop]                     | `robocop`              |
+| [RPM][rpm]                             | `rpmspec`              |
 | [rstcheck][rstcheck]                   | `rstcheck`             |
 | [rstlint][rstlint]                     | `rstlint`              |
-| [RPM][rpm]                             | `rpmspec`              |
-| [Ruby][ruby]                           | `ruby`                 |
 | [RuboCop][rubocop]                     | `rubocop`              |
+| [Ruby][ruby]                           | `ruby`                 |
 | [Ruff][ruff]                           | `ruff`                 |
 | [salt-lint][salt-lint]                 | `saltlint`             |
 | [Selene][31]                           | `selene`               |
 | [ShellCheck][10]                       | `shellcheck`           |
 | [snyk][snyk]                           | `snyk_iac`             |
+| [Solhint][solhint]                     | `solhint`              |
 | [sqlfluff][sqlfluff]                   | `sqlfluff`             |
 | [standardjs][standardjs]               | `standardjs`           |
 | [StandardRB][27]                       | `standardrb`           |
 | [statix check][33]                     | `statix`               |
 | [stylelint][29]                        | `stylelint`            |
-| [Solhint][solhint]                     | `solhint`              |
 | [SwiftLint][swiftlint]                 | `swiftlint`            |
 | [systemdlint][systemdlint]             | `systemdlint`          |
+| [tflint][tflint]                       | `tflint`               |
+| [tfsec][tfsec]                         | `tfsec`                |
+| [tlint][tlint]                         | `tlint`                |
+| [trivy][trivy]                         | `trivy`                |
 | [typos][typos]                         | `typos`                |
-| [Nagelfar][nagelfar]                   | `nagelfar`             |
 | [Vala][vala-lint]                      | `vala_lint`            |
 | [Vale][8]                              | `vale`                 |
 | [Verilator][verilator]                 | `verilator`            |
@@ -198,18 +207,13 @@ Other dedicated linters that are built-in are:
 | [woke][woke]                           | `woke`                 |
 | [write-good][write-good]               | `write_good`           |
 | [yamllint][yamllint]                   | `yamllint`             |
-| [tflint][tflint]                       | `tflint`               |
-| [tfsec][tfsec]                         | `tfsec`                |
-| [tlint][tlint]                         | `tlint`                |
-| [trivy][trivy]                         | `trivy`                |
 | [zsh][zsh]                             | `zsh`                  |
-| [quick-lint-js][quick-lint-js]         | `quick-lint-js`        |
-| [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 
 ## Custom Linters
 
 You can register custom linters by adding them to the `linters` table, but
 please consider contributing a linter if it is missing.
+
 
 ```lua
 require('lint').linters.your_linter_name = {
@@ -233,6 +237,7 @@ generate some of the properties.
 - `output`
 - `bufnr`
 - `linter_cwd`
+
 
 The `output` is the output generated by the linter command.
 The function must return a list of diagnostics as specified in `:help
@@ -259,6 +264,7 @@ parser = require('lint.parser').from_errorformat(errorformat)
 ```
 
 The function takes two arguments: `errorformat` and `skeleton` (optional).
+
 
 ### from_pattern
 
@@ -292,7 +298,7 @@ local groups = { 'lnum', 'col', 'code', 'message' }
 
 - severity: A mapping from severity codes to diagnostic codes
 
-```lua
+``` lua
 default_severity = {
 ['error'] = vim.diagnostic.severity.ERROR,
 ['warning'] = vim.diagnostic.severity.WARN,
@@ -313,6 +319,7 @@ defaults = {["source"] = "mylint-name"}
   - `end_lnum_offset`: Added to `end_lnum`. Defaults to 0
   - `end_col_offset`: offset added to `end_col`. Defaults to `-1`, assuming
     that the end-column position is exclusive.
+
 
 ## Customize built-in linters
 
@@ -339,6 +346,7 @@ lint.linters.cspell = require("lint.util").wrap(lint.linters.cspell, function(di
 end)
 ```
 
+
 ## Display configuration
 
 See `:help vim.diagnostic.config`.
@@ -350,6 +358,7 @@ for a linter via `require("lint").get_namespace("linter_name")`. An example:
 local ns = require("lint").get_namespace("my_linter_name")
 vim.diagnostic.config({ virtual_text = true }, ns)
 ```
+
 
 ## Get the current running linters for your buffer
 
@@ -366,13 +375,16 @@ local lint_progress = function()
 end
 ```
 
+
 ## Alternatives
 
 - [Ale][1]
 - [efm-langserver][6]
 - [diagnostic-languageserver][7]
 
+
 ## Development ☢️
+
 
 ### Run tests
 
