@@ -20,11 +20,16 @@ return {
   stream = 'stdout',
   ignore_exitcode = true,
   parser = function(output, bufnr)
-    if vim.trim(output) == "" then
+    local trimmed_output = vim.trim(output)
+    if trimmed_output == "" then
       return {}
     end
     local decode_opts = { luanil = { object = true, array = true } }
     local ok, data = pcall(vim.json.decode, output, decode_opts)
+    if string.find(trimmed_output, "No ESLint configuration found") then
+      vim.notify_once(trimmed_output, vim.log.levels.WARN)
+      return {}
+    end
     if not ok then
       return {
         {
