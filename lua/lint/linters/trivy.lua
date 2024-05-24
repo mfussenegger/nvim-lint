@@ -52,23 +52,61 @@ return {
 
     local fpath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
 
+    -- If these are not present, drop/skip the Misconfiguration
+    -- NOTE: Could also default and override the vim.diagnostic.severity
+    local required_misconfig_fields = { "Severity" }
+
     for _, result in ipairs(decoded and decoded.Results or {}) do
       -- If trivy returns Results for multiple files, only consider those for bufnr
       if result.Target == fpath then
         for _, misconfig in ipairs(result.Misconfigurations or {}) do
-          -- FIXME: check all misconfig fields for nil before accesing
-          local err = {
+          -- skip this misconfiguration if any required fields are missing
+          for _, field in ipairs(required_misconfig_fields or {}) do
+            if not misconfig[field] then
+              goto next_misconfig
+            end
+          end
+
+          local title = "<No Title>"
+          if misconfig.Title then
+            title = misconfig.Title
+          end
+
+          local description = "<No Description>"
+          if misconfig.Description then
+            description = misconfig.Description
+          end
+
+          local id = "<No ID>"
+          if misconfig.ID then
+            id = misconfig.ID
+          end
+
+          -- default start posi to first line, then override if StartLine exist
+          local lnum = 0
+          if misconfig.CauseMetadata and misconfig.CauseMetadata.StartLine then
+            lnum = misconfig.CauseMetadata.StartLine - 1
+          end
+
+          -- default end posi to start posi, then override if EndLine exist
+          local end_lnum = lnum
+          if misconfig.CauseMetadata and misconfig.CauseMetadata.EndLine then
+            end_lnum = misconfig.CauseMetadata.EndLine - 1
+          end
+
+          table.insert(diagnostics, {
             source = "trivy",
-            message = string.format("%s %s", misconfig.Title, misconfig.Description),
+            message = string.format("%s: %s", title, description),
             col = 0, -- trivy doesn't provide col info; nvim-lint defaults to 0
             end_col = 0, -- trivy doesn't provide col info; nvim-lint defaults to 0
-            lnum = misconfig.CauseMetadata.StartLine - 1,
-            end_lnum = misconfig.CauseMetadata.EndLine - 1,
-            code = misconfig.ID,
+            lnum = lnum,
+            end_lnum = end_lnum,
+            code = id,
             severity = severity_map[misconfig.Severity],
-          }
-          table.insert(diagnostics, err)
-        end
+          })
+
+          ::next_misconfig::
+         end
       end
     end
 
