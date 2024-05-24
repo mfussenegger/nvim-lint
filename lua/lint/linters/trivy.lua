@@ -60,8 +60,8 @@ return {
           local err = {
             source = "trivy",
             message = string.format("%s %s", misconfig.Title, misconfig.Description),
-            col = misconfig.CauseMetadata.StartLine, -- FIXME: trivy doesn't provide col info
-            end_col = misconfig.CauseMetadata.EndLine, -- FIXME: trivy doesn't provide col info
+            col = 0, -- trivy doesn't provide col info; nvim-lint defaults to 0
+            end_col = 0, -- trivy doesn't provide col info; nvim-lint defaults to 0
             lnum = misconfig.CauseMetadata.StartLine - 1,
             end_lnum = misconfig.CauseMetadata.EndLine - 1,
             code = misconfig.ID,
