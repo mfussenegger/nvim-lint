@@ -9,11 +9,10 @@ return {
   cmd = "trivy",
   stdin = false,
   append_fname = true,
-  -- FIXME: '--scanners config' is deprecated in favor of '--scanners misconfig'
   -- NOTE: excluding '-q/--quiet' flag to receive log on stderr before the JSON on stdout.
   --       The log may contain errors and warnings that can be used to notify the user this script
   --       needs maintenance.
-  args = { "--scanners", "config", "--format", "json", "fs" },
+  args = { "--scanners", "misconfig", "--format", "json", "fs" },
   stream = "stdout",
   ignore_exitcode = false,
   parser = function(
