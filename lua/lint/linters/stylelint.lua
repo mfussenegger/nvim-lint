@@ -22,7 +22,7 @@ return {
       return vim.fn.expand("%:p")
     end,
   },
-  stream = "stdout",
+  stream = "both",
   ignore_exitcode = true,
   parser = function (output)
     local status, decoded = pcall(vim.json.decode, output)
