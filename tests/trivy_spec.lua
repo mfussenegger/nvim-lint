@@ -87,11 +87,11 @@ describe("linter.trivy", function()
     local expected = {
       {
         source = "trivy",
-        message = "A KMS key is not configured to auto-rotate. You should configure your KMS keys to auto rotate to maintain security and defend against compromise.",
+        message = "A KMS key is not configured to auto-rotate.: You should configure your KMS keys to auto rotate to maintain security and defend against compromise.",
         lnum = 14,
         end_lnum = 14,
-        col = 15,
-        end_col = 15,
+        col = 0,
+        end_col = 0,
         severity = vim.diagnostic.severity.WARN,
         code = "AVD-AWS-0065",
       },
