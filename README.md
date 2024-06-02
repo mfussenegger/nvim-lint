@@ -165,6 +165,7 @@ Other dedicated linters that are built-in are:
 | [ponyc][ponyc]                         | `pony`                 |
 | [prisma-lint][prisma-lint]             | `prisma-lint`          |
 | [proselint][proselint]                 | `proselint`            |
+| [protolint][protolint]                 | `protolint`            |
 | [psalm][psalm]                         | `psalm`                |
 | [puppet-lint][puppet-lint]             | `puppet-lint`          |
 | [pycodestyle][pcs-docs]                | `pycodestyle`          |
@@ -449,6 +450,7 @@ busted tests/
 [yamllint]: https://github.com/adrienverge/yamllint
 [cpplint]: https://github.com/cpplint/cpplint
 [proselint]: https://github.com/amperser/proselint
+[protolint]: https://github.com/yoheimuta/protolint
 [cmakelint]: https://github.com/cmake-lint/cmake-lint
 [rstcheck]: https://github.com/myint/rstcheck
 [rstlint]: https://github.com/twolfson/restructuredtext-lint
