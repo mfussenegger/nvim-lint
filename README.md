@@ -151,6 +151,7 @@ Other dedicated linters that are built-in are:
 | [Mypy][11]                             | `mypy`                 |
 | [Nagelfar][nagelfar]                   | `nagelfar`             |
 | [Nix][nix]                             | `nix`                  |
+| [nilaway][nilaway]                     | `nilaway`              |
 | [npm-groovy-lint][npm-groovy-lint]     | `npm-groovy-lint`      |
 | [oelint-adv][oelint-adv]               | `oelint-adv`           |
 | [opa_check][opa_check]                 | `opa_check`            |
@@ -529,3 +530,4 @@ busted tests/
 [markdownlint-cli2]: https://github.com/DavidAnson/markdownlint-cli2
 [swiftlint]: https://github.com/realm/SwiftLint
 [tflint]: https://github.com/terraform-linters/tflint
+[nilaway]: https://github.com/uber-go/nilaway
