@@ -128,6 +128,7 @@ Other dedicated linters that are built-in are:
 | [Flake8][13]                           | `flake8`               |
 | [flawfinder][35]                       | `flawfinder`           |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
+| [GHDL][ghdl]                           | `ghdl`                 |
 | [gitlint][gitlint]                     | `gitlint`              |
 | [glslc][glslc]                         | `glslc`                |
 | [Golangci-lint][16]                    | `golangcilint`         |
