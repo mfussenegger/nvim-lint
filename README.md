@@ -204,6 +204,7 @@ Other dedicated linters that are built-in are:
 | [Vale][8]                              | `vale`                 |
 | [Verilator][verilator]                 | `verilator`            |
 | [vint][21]                             | `vint`                 |
+| [VSG][vsg]                             | `vsg`                  |
 | [vulture][vulture]                     | `vulture`              |
 | [woke][woke]                           | `woke`                 |
 | [write-good][write-good]               | `write_good`           |
@@ -446,6 +447,7 @@ busted tests/
 [jsonlint]: https://github.com/zaach/jsonlint
 [rflint]: https://github.com/boakley/robotframework-lint
 [robocop]: https://github.com/MarketSquare/robotframework-robocop
+[vsg]: https://github.com/jeremiah-c-leary/vhdl-style-guide
 [vulture]: https://github.com/jendrikseipp/vulture
 [yamllint]: https://github.com/adrienverge/yamllint
 [cpplint]: https://github.com/cpplint/cpplint
