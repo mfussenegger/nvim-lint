@@ -7,36 +7,54 @@ local severity_map = {
   ["HINT"] = vim.diagnostic.severity.HINT,
 }
 
-local function find_local_config()
-  local current_file = vim.api.nvim_buf_get_name(0)
-  local filenames = { ".vsg.yaml", ".vsg.yml", ".vsg.json" }
-  return vim.fs.find(filenames, {
-    path = vim.fs.dirname(current_file),
-    upward = true,
-  })[1]
+local config_files = {
+  "vsg_config.yaml",
+  "vsg_config.yml",
+  "vsg_config.json",
+  "vsg.yaml",
+  "vsg.yml",
+  "vsg.json",
+  ".vsg_config.yaml",
+  ".vsg_config.yml",
+  ".vsg_config.json",
+  ".vsg.yaml",
+  ".vsg.yml",
+  ".vsg.json",
+}
+
+local function find_config(dirname)
+  local paths = {
+    dirname,
+    (os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config") .. "/vsg",
+  }
+
+  for _, path in ipairs(paths) do
+    local config = vim.fs.find(config_files, {
+      path = path,
+      upward = path == dirname,
+    })[1]
+    if config then
+      return config
+    end
+  end
 end
 
-local function find_global_config()
-  local xdg_config_home = os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config"
-  local filenames = { "vsg.yaml", "vsg.yml", "vsg.json" }
-  return vim.fs.find(filenames, {
-    path = xdg_config_home .. "/vsg",
-    upward = false,
-  })[1]
-end
+local function get_args(dirname)
+  local args = { "-of", "syntastic", "--stdin" }
+  local config_file = find_config(dirname)
 
-local config_file = find_local_config() or find_global_config()
-local args = { "-of", "syntastic", "--stdin" }
+  if config_file then
+    table.insert(args, "-c")
+    table.insert(args, config_file)
+  end
 
-if config_file then
-  table.insert(args, "-c")
-  table.insert(args, config_file)
+  return args
 end
 
 return {
   cmd = "vsg",
   stdin = true,
-  args = args,
+  args = get_args(vim.fn.expand("%:p:h")),
   stream = "stdout",
   ignore_exitcode = true,
   parser = require("lint.parser").from_pattern(pattern, groups, severity_map, {
