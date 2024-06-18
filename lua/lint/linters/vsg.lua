@@ -39,25 +39,27 @@ local function find_config(dirname)
   end
 end
 
-local function get_args(dirname)
-  local args = { "-of", "syntastic", "--stdin" }
-  local config_file = find_config(dirname)
+return function()
+  local args = function()
+    local args = { "-of", "syntastic", "--stdin" }
+    local config_file = find_config(vim.fn.expand("%:p:h"))
 
-  if config_file then
-    table.insert(args, "-c")
-    table.insert(args, config_file)
+    if config_file then
+      table.insert(args, "-c")
+      table.insert(args, config_file)
+    end
+
+    return args
   end
 
-  return args
+  return {
+    cmd = "vsg",
+    stdin = true,
+    args = args(),
+    stream = "stdout",
+    ignore_exitcode = true,
+    parser = require("lint.parser").from_pattern(pattern, groups, severity_map, {
+      source = "vsg",
+    }),
+  }
 end
-
-return {
-  cmd = "vsg",
-  stdin = true,
-  args = get_args(vim.fn.expand("%:p:h")),
-  stream = "stdout",
-  ignore_exitcode = true,
-  parser = require("lint.parser").from_pattern(pattern, groups, severity_map, {
-    source = "vsg",
-  }),
-}
