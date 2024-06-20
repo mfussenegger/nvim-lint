@@ -88,7 +88,7 @@ Other dedicated linters that are built-in are:
 | Set via `makeprg`                      | `compiler`             |
 | [actionlint][actionlint]               | `actionlint`           |
 | [alex][alex]                           | `alex`                 |
-| [ameba][ameba]                           | `ameba`                 |
+| [ameba][ameba]                         | `ameba`                |
 | [ansible-lint][ansible-lint]           | `ansible_lint`         |
 | [bandit][bandit]                       | `bandit`               |
 | [bean-check][bean-check]               | `bean_check`           |
