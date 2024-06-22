@@ -22,12 +22,7 @@ return {
       return {}
     end
 
-    -- attempt to decode linter result
-    local success, result = pcall(vim.json.decode, output)
-    if not success then
-      vim.notify("Spectral exited with an error:\n" .. output, vim.log.levels.ERROR)
-      return {}
-    end
+    local result = vim.json.decode(output)
 
     -- prevent warning on yaml files without supported schema
     if result[1].code == "unrecognized-format" then
