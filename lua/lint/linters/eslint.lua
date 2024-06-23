@@ -5,8 +5,14 @@ local severities = {
 }
 
 return {
-  cmd = function()
-    local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+  cmd = function(opts)
+    local local_binary;
+    if opts.cwd then
+      local_binary = vim.fn.fnamemodify(opts.cwd .. '/node_modules/.bin/' .. binary_name, ':p')
+    else
+      local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+    end
+
     return vim.loop.fs_stat(local_binary) and local_binary or binary_name
   end,
   args = {

@@ -264,9 +264,9 @@ function M.try_lint(names, opts)
   running_procs_by_buf[bufnr] = running_procs
 end
 
-local function eval_fn_or_id(x)
+local function eval_fn_or_id(x, opts)
   if type(x) == 'function' then
-    return x()
+    return x(opts)
   else
     return x
   end
@@ -321,7 +321,7 @@ function M.lint(linter, opts)
     -- pop up shortly.
     detached = not iswin
   }
-  local cmd = eval_fn_or_id(linter.cmd)
+  local cmd = eval_fn_or_id(linter.cmd, opts)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
     if handle and not handle:is_closing() then
