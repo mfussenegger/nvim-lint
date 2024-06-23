@@ -532,3 +532,4 @@ busted tests/
 [markdownlint-cli2]: https://github.com/DavidAnson/markdownlint-cli2
 [swiftlint]: https://github.com/realm/SwiftLint
 [tflint]: https://github.com/terraform-linters/tflint
+[ameba]: https://github.com/crystal-ameba/ameba
