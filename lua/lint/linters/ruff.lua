@@ -13,6 +13,7 @@ return {
   cmd = "ruff",
   stdin = true,
   args = {
+    "check",
     "--force-exclude",
     "--quiet",
     "--stdin-filename",
