@@ -88,6 +88,7 @@ Other dedicated linters that are built-in are:
 | Set via `makeprg`                      | `compiler`             |
 | [actionlint][actionlint]               | `actionlint`           |
 | [alex][alex]                           | `alex`                 |
+| [ameba][ameba]                         | `ameba`                |
 | [ansible-lint][ansible-lint]           | `ansible_lint`         |
 | [bandit][bandit]                       | `bandit`               |
 | [bean-check][bean-check]               | `bean_check`           |
@@ -535,3 +536,4 @@ busted tests/
 [markdownlint-cli2]: https://github.com/DavidAnson/markdownlint-cli2
 [swiftlint]: https://github.com/realm/SwiftLint
 [tflint]: https://github.com/terraform-linters/tflint
+[ameba]: https://github.com/crystal-ameba/ameba
