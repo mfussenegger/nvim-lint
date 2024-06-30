@@ -19,7 +19,7 @@ return {
     "--stdin",
     "--stdin-filename",
     function()
-      return vim.fn.expand("%:p")
+      return vim.fn.shellescape(vim.fn.expand("%:p"))
     end,
   },
   stream = "both",
@@ -34,7 +34,9 @@ return {
           {
             line = 1,
             column = 1,
-            text = "Stylelint error, run `stylelint " .. vim.fn.expand("%") .. "` for more info.",
+            text = "Stylelint error, run `stylelint "
+              .. vim.fn.shellescape(vim.fn.expand("%"))
+              .. "` for more info.",
             severity = "error",
             rule = "none",
           },
