@@ -1,11 +1,19 @@
+local binary_name = "stylelint"
+
 local severities = {
   warning = vim.diagnostic.severity.WARN,
   error = vim.diagnostic.severity.ERROR,
 }
 
 return {
-  cmd = function()
-    local local_stylelint = vim.fn.fnamemodify("./node_modules/.bin/stylelint", ":p")
+  cmd = function(opts)
+    local local_stylelint;
+    if opts.cwd then
+      local_stylelint = vim.fn.fnamemodify(opts.cwd .. '/node_modules/.bin/' .. binary_name, ':p')
+    else
+      local_stylelint = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+    end
+
     local stat = vim.loop.fs_stat(local_stylelint)
     if stat then
       return local_stylelint
