@@ -8,11 +8,12 @@ local M = {}
 ---@field on_chunk fun(chunk: string)
 ---@field on_done fun(publish: fun(diagnostics: vim.Diagnostic[]), bufnr: number, linter_cwd: string)
 
+---@alias lint.Args (string|fun():string)[]
 
 ---@class lint.Linter
 ---@field name string
 ---@field cmd string
----@field args? (string|fun():string)[] command arguments
+---@field args? lint.Args | fun(bufnr: integer): lint.Args command arguments
 ---@field stdin? boolean send content via stdin. Defaults to false
 ---@field append_fname? boolean add current file name to the commands arguments
 ---@field stream? "stdout"|"stderr"|"both" result stream. Defaults to stdout
@@ -287,16 +288,29 @@ function M.lint(linter, opts)
   local args = {}
   local bufnr = api.nvim_get_current_buf()
   local iswin = vim.fn.has("win32") == 1
+  local args_type = type(linter.args)
+  if args_type == "function" then
+    local returned_args = linter.args(bufnr)
+    local returned_args_type = type(returned_args)
+    if returned_args_type == "table" then
+      args = returned_args
+    elseif returned_args_type ~= "nil" then
+      vim.notify('Linter ' .. linter.name .. ' has invalid args of type: function(bufnr: integer): ' .. returned_args_type, vim.log.levels.ERROR)
+    end
+  elseif args_type == "table" then
+    args = linter.args
+  elseif args_type ~= "nil" then
+    vim.notify('Linter ' .. linter.name .. ' has invalid args of type: ' .. args_type, vim.log.levels.ERROR)
+  end
   if iswin then
     linter = vim.tbl_extend("force", linter, {
       cmd = "cmd.exe",
-      args = { "/C", linter.cmd, unpack(linter.args or {}) },
+      args = { "/C", linter.cmd, unpack(args) },
     })
+    args = linter.args
   end
   opts = opts or {}
-  if linter.args then
-    vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))
-  end
+  args = vim.tbl_map(eval_fn_or_id, args)
   if not linter.stdin and linter.append_fname ~= false then
     table.insert(args, api.nvim_buf_get_name(bufnr))
   end
