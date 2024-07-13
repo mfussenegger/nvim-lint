@@ -7,7 +7,9 @@ local terraform_severity_to_diagnostic_severity = {
 return function()
   return {
     cmd = 'terraform',
-    args = { 'validate', '-json' },
+    args = function()
+      return { "-chdir", vim.fs.dirname(vim.api.nvim_buf_get_name(0)), "validate", "-json" }
+    end,
     append_fname = false,
     stdin = false,
     stream = 'both',
