@@ -124,6 +124,7 @@ Other dedicated linters that are built-in are:
 | [erb-lint][erb-lint]                   | `erb_lint`             |
 | [ESLint][25]                           | `eslint`               |
 | [eslint_d][37]                         | `eslint_d`             |
+| [eugene][eugene]                       | `eugene`               |
 | [fennel][fennel]                       | `fennel`               |
 | [fish][fish]                           | `fish`                 |
 | [Flake8][13]                           | `flake8`               |
@@ -537,3 +538,4 @@ busted tests/
 [swiftlint]: https://github.com/realm/SwiftLint
 [tflint]: https://github.com/terraform-linters/tflint
 [ameba]: https://github.com/crystal-ameba/ameba
+[eugene]: https://github.com/kaaveland/eugene
