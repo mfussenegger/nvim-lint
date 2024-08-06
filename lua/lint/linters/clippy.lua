@@ -4,23 +4,27 @@ local severities = {
   help = vim.diagnostic.severity.HINT,
 }
 
-local function parse(diagnostics, file_name, message)
-  if #message.spans > 0 then
-    local span = message.spans[1]
+local function parse(diagnostics, file_name, item)
+  for _, span in ipairs(item.spans) do
     if span.file_name == file_name then
+      local message = item.message
+      if span.suggested_replacement ~= vim.NIL then
+        message = message .. " (" .. tostring(span.suggested_replacement) .. ")"
+      end
+
       table.insert(diagnostics, {
         lnum = span.line_start - 1,
         end_lnum = span.line_end - 1,
         col = span.column_start - 1,
         end_col = span.column_end - 1,
-        severity = severities[message.level],
+        severity = severities[item.level],
         source = "clippy",
-        message = message.message,
+        message = message
       })
     end
   end
 
-  for _, child in ipairs(message.children) do
+  for _, child in ipairs(item.children) do
     parse(diagnostics, file_name, child)
   end
 end
