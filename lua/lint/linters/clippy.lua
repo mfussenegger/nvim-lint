@@ -38,6 +38,7 @@ return {
     local diagnostics = {}
     local items = #output > 0 and vim.split(output, "\n") or {}
     local file_name = vim.api.nvim_buf_get_name(bufnr)
+    file_name = vim.fn.fnamemodify(file_name, ":.")
 
     for _, i in ipairs(items) do
       local item = i ~= "" and vim.json.decode(i) or {}
