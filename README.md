@@ -104,6 +104,7 @@ Other dedicated linters that are built-in are:
 | [chktex][20]                           | `chktex`               |
 | [clang-tidy][23]                       | `clangtidy`            |
 | [clazy][30]                            | `clazy`                |
+| [clippy][clippy]                       | `clippy`               |
 | [clj-kondo][24]                        | `clj-kondo`            |
 | [cmakelint][cmakelint]                 | `cmakelint`            |
 | [codespell][18]                        | `codespell`            |
@@ -539,3 +540,4 @@ busted tests/
 [tflint]: https://github.com/terraform-linters/tflint
 [ameba]: https://github.com/crystal-ameba/ameba
 [eugene]: https://github.com/kaaveland/eugene
+[clippy]: https://github.com/rust-lang/rust-clippy
