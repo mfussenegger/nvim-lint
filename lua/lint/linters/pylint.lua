@@ -9,11 +9,17 @@ local severities = {
 
 return {
   cmd = 'pylint',
-  stdin = false,
+  stdin = true,
   args = {
-    '-f', 'json'
+    '-f',
+    'json',
+    '--from-stdin',
+    function()
+      return vim.api.nvim_buf_get_name(0)
+    end,
   },
   ignore_exitcode = true,
+  stream = 'stdout',
   parser = function(output, bufnr)
     if output == "" then return {} end
     local diagnostics = {}
