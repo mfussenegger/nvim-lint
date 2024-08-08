@@ -9,7 +9,7 @@ local function parse(diagnostics, file_name, item)
     if span.file_name == file_name then
       local message = item.message
       if span.suggested_replacement ~= vim.NIL then
-        message = message .. " (" .. tostring(span.suggested_replacement) .. ")"
+        message = message .. "\nSuggested replacement:\n\n" .. tostring(span.suggested_replacement)
       end
 
       table.insert(diagnostics, {
@@ -37,7 +37,7 @@ return {
   parser = function(output, bufnr)
     local diagnostics = {}
     local items = #output > 0 and vim.split(output, "\n") or {}
-    local file_name = vim.fn.expand("%")
+    local file_name = vim.api.nvim_buf_get_name(bufnr)
 
     for _, i in ipairs(items) do
       local item = i ~= "" and vim.json.decode(i) or {}
