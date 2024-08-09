@@ -39,10 +39,7 @@ local function find_config(dirname)
   end
 end
 
-return {
-  cmd = "vsg",
-  stdin = true,
-  args = function()
+local function get_args()
     local args = { "-of", "syntastic", "--stdin" }
     local config_file = find_config(vim.fn.expand("%:p:h"))
 
@@ -52,7 +49,12 @@ return {
     end
 
     return args
-  end,
+end
+
+return {
+  cmd = "vsg",
+  stdin = true,
+  args = get_args(),
   stream = "stdout",
   ignore_exitcode = true,
   parser = require("lint.parser").from_pattern(pattern, groups, severity_map, {
