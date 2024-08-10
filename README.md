@@ -136,6 +136,7 @@ Other dedicated linters that are built-in are:
 | [glslc][glslc]                         | `glslc`                |
 | [Golangci-lint][16]                    | `golangcilint`         |
 | [hadolint][28]                         | `hadolint`             |
+| [hledger][hledger]                     | `hledger`              |
 | [hlint][32]                            | `hlint`                |
 | [htmlhint][htmlhint]                   | `htmlhint`             |
 | [HTML Tidy][12]                        | `tidy`                 |
@@ -541,3 +542,4 @@ busted tests/
 [ameba]: https://github.com/crystal-ameba/ameba
 [eugene]: https://github.com/kaaveland/eugene
 [clippy]: https://github.com/rust-lang/rust-clippy
+[hledger]: https://hledger.org/
