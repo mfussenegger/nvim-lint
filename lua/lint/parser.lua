@@ -20,7 +20,7 @@ function M.from_errorformat(efm, skeleton)
     local lines = vim.split(output, '\n')
     local qflist = vim.fn.getqflist({ efm = efm, lines = lines })
     local result = {}
-    for _, item in pairs(qflist.items) do
+    for _, item in ipairs(qflist.items) do
       if item.valid == 1 and (bufnr == nil or item.bufnr == 0 or item.bufnr == bufnr) then
         local lnum = math.max(0, item.lnum - 1)
         local col = math.max(0, item.col - 1)
@@ -135,7 +135,9 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     end
     local result = {}
     local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p")
-    for _, line in ipairs(vim.fn.split(output, '\n')) do
+    --- bwc for 0.6 requires boolean arg instead of table
+    ---@diagnostic disable-next-line: param-type-mismatch
+    for line in vim.gsplit(output, "\n", true) do
       local diagnostic = match(linter_cwd, buffer_path, line)
       if diagnostic then
         table.insert(result, diagnostic)
