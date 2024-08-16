@@ -51,6 +51,7 @@ local normalize = (vim.fs ~= nil and vim.fs.normalize ~= nil)
 ---@param severity_map? table<string, vim.diagnostic.Severity>
 ---@param defaults? table
 ---@param opts? {col_offset?: integer, end_col_offset?: integer, lnum_offset?: integer, end_lnum_offset?: integer}
+---@return fun(output: string, bufnr: integer, cwd: string):lsp.Diagnostic[]
 function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   defaults = defaults or {}
   severity_map = severity_map or {}
