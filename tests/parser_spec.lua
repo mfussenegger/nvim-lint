@@ -73,4 +73,58 @@ bar:209:14 Bigger mistake
     }
     assert.are.same(expected, result)
   end)
+
+  it("supports lpeg pattern", function()
+    if not vim.re then
+      return
+    end
+    local pattern = vim.re.compile("{[0-9]+} ':' { (.*) }")
+    local groups = { 'lnum', 'message' }
+    local parser = require('lint.parser').from_pattern(pattern, groups)
+    local output = [[
+10:Big mistake
+14:Bigger mistake
+]]
+    local result = parser(output, 0)
+    local expected = {
+      {
+        message = 'Big mistake',
+        lnum = 9,
+        end_lnum = 9,
+        col = 0,
+        end_col = 0,
+        severity = vim.diagnostic.severity.ERROR,
+      },
+      {
+        message = 'Bigger mistake',
+        lnum = 13,
+        col = 0,
+        end_lnum = 13,
+        end_col = 0,
+        severity = vim.diagnostic.severity.ERROR,
+      },
+    }
+    assert.are.same(expected, result)
+    assert.are.same({}, parser("no-match", 0))
+  end)
+
+  it("supports match function", function()
+    local pattern = function(_)
+      return { 10, "hello" }
+    end
+    local groups = { 'lnum', 'message' }
+    local parser = require('lint.parser').from_pattern(pattern, groups)
+    local result = parser("foo", 0)
+    local expected = {
+      {
+        message = "hello",
+        lnum = 9,
+        col = 0,
+        end_lnum = 9,
+        end_col = 0,
+        severity = vim.diagnostic.severity.ERROR
+      },
+    }
+    assert.are.same(expected, result)
+  end)
 end)

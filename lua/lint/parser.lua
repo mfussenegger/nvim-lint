@@ -46,7 +46,7 @@ local normalize = (vim.fs ~= nil and vim.fs.normalize ~= nil)
 
 --- Parse a linter's output using a Lua pattern
 ---
----@param pattern string
+---@param pattern string|vim.lpeg.Pattern|fun(line: string):string[]
 ---@param groups string[]
 ---@param severity_map? table<string, vim.diagnostic.Severity>
 ---@param defaults? table
@@ -55,10 +55,29 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   defaults = defaults or {}
   severity_map = severity_map or {}
   opts = opts or {}
+
+  local type_ = type(pattern)
+  local matchline
+  if type_ == "string" then
+    matchline = function(line)
+      return { line:match(pattern) }
+    end
+  elseif type_ == "function" then
+    matchline = pattern
+  else
+    matchline = function(line)
+      return { pattern:match(line) }
+    end
+  end
+
+
   -- Like vim.diagnostic.match but also checks if a `file` group matches the buffer path
   -- Some linters produce diagnostics for the full project and this should only produce buffer diagnostics
   local match = function(linter_cwd, buffer_path, line)
-    local matches = { line:match(pattern) }
+    local ok, matches = pcall(matchline, line)
+    if not ok then
+      error(string.format("pattern match failed on line: %s with error: %q", line, matches))
+    end
     if not next(matches) then
       return nil
     end
