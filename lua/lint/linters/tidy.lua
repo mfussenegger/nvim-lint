@@ -17,6 +17,7 @@ return {
   cmd = 'tidy',
   stdin = true,
   stream = 'stderr',
+  ignore_exitcode = true,
   args = {
     '-quiet',
     '-errors',
