@@ -277,15 +277,26 @@ The function takes two arguments: `errorformat` and `skeleton` (optional).
 
 ### from_pattern
 
+Creates a parser function from a pattern.
+
 ```lua
 parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defaults, opts)
 ```
 
-The function allows to parse the linter's output using a Lua regular expression pattern.
+### pattern
 
-- pattern: The regular expression pattern applied on each line of the output
-- groups: The groups specified by the pattern
+The function allows to parse the linter's output using a pattern which can be either:
 
+- A Lua pattern. See `:help lua-patterns`.
+- A LPEG pattern object. See `:help vim.lpeg`.
+- A function (`fun(line: string):string[]`). It takes one parameter - a line
+  from the linter output and must return a string array with the matches. The
+  array should be empty if there was no match.
+
+
+### groups
+
+The groups specify the result format of the pattern.
 Available groups:
 
 - `lnum`
@@ -305,7 +316,11 @@ local pattern = '[^:]+:(%d+):(%d+):(%w+):(.+)'
 local groups = { 'lnum', 'col', 'code', 'message' }
 ```
 
-- severity: A mapping from severity codes to diagnostic codes
+The captures in the pattern correspond to the group at the same position.
+
+### severity
+
+A mapping from severity codes to diagnostic codes
 
 ``` lua
 default_severity = {
@@ -316,18 +331,22 @@ default_severity = {
 }
 ```
 
-- defaults: The defaults diagnostic values
+### defaults
+
+The defaults diagnostic values
 
 ```lua
 defaults = {["source"] = "mylint-name"}
 ```
 
-- opts: Additional options
+### opts
 
-  - `lnum_offset`: Added to `lnum`. Defaults to 0
-  - `end_lnum_offset`: Added to `end_lnum`. Defaults to 0
-  - `end_col_offset`: offset added to `end_col`. Defaults to `-1`, assuming
-    that the end-column position is exclusive.
+Additional options
+
+- `lnum_offset`: Added to `lnum`. Defaults to 0
+- `end_lnum_offset`: Added to `end_lnum`. Defaults to 0
+- `end_col_offset`: offset added to `end_col`. Defaults to `-1`, assuming
+  that the end-column position is exclusive.
 
 
 ## Customize built-in linters
