@@ -200,6 +200,7 @@ Other dedicated linters that are built-in are:
 | [statix check][33]                     | `statix`               |
 | [stylelint][29]                        | `stylelint`            |
 | [SwiftLint][swiftlint]                 | `swiftlint`            |
+| [systemd-analyze][systemd-analyze]     | `systemd-analyze`      |
 | [systemdlint][systemdlint]             | `systemdlint`          |
 | [tflint][tflint]                       | `tflint`               |
 | [tfsec][tfsec]                         | `tfsec`                |
@@ -543,3 +544,4 @@ busted tests/
 [eugene]: https://github.com/kaaveland/eugene
 [clippy]: https://github.com/rust-lang/rust-clippy
 [hledger]: https://hledger.org/
+[systemd-analyze]: https://man.archlinux.org/man/systemd-analyze.1
