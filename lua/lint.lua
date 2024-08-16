@@ -4,6 +4,8 @@ local notify = vim.notify_once or vim.notify
 local M = {}
 
 
+---@alias lint.parse fun(output:string, bufnr:number, linter_cwd:string):vim.Diagnostic[]
+
 ---@class lint.Parser
 ---@field on_chunk fun(chunk: string)
 ---@field on_done fun(publish: fun(diagnostics: vim.Diagnostic[]), bufnr: number, linter_cwd: string)
@@ -19,7 +21,7 @@ local M = {}
 ---@field ignore_exitcode? boolean if exit code != 1 should be ignored or result in a warning. Defaults to false
 ---@field env? table
 ---@field cwd? string
----@field parser lint.Parser|fun(output:string, bufnr:number, linter_cwd:string):vim.Diagnostic[]
+---@field parser lint.Parser|lint.parse
 
 
 ---@class lint.LintProc

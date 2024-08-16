@@ -12,7 +12,7 @@ local severity_by_qftype = {
 -- See `:help errorformat`
 ---@param efm string
 ---@param skeleton table<string, any> | vim.Diagnostic
----@return fun(output: string, bufnr: integer):lsp.Diagnostic[]
+---@return lint.parse
 function M.from_errorformat(efm, skeleton)
   skeleton = skeleton or {}
   skeleton.severity = skeleton.severity or vd.severity.ERROR
@@ -54,7 +54,7 @@ local normalize = (vim.fs ~= nil and vim.fs.normalize ~= nil)
 ---@param severity_map? table<string, vim.diagnostic.Severity>
 ---@param defaults? table
 ---@param opts? {col_offset?: integer, end_col_offset?: integer, lnum_offset?: integer, end_lnum_offset?: integer}
----@return fun(output: string, bufnr: integer, cwd: string):lsp.Diagnostic[]
+---@return lint.parse
 function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   defaults = defaults or {}
   severity_map = severity_map or {}
@@ -159,7 +159,7 @@ Output from linter:
 --- Turn a parse function into a parser table
 ---
 ---@param parse fun(output: string, bufnr: integer, cwd: string):vim.Diagnostic[]
----@return {on_chunk: fun(chunk: string), on_done: fun(publish: fun(diagnostics: vim.Diagnostic[], bufnr: integer), bufnr: integer, cwd: string)}
+---@return lint.Parser
 function M.accumulate_chunks(parse)
   local chunks = {}
   return {
