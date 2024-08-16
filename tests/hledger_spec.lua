@@ -32,4 +32,28 @@ account assets:receivable:customer    ; type:A  ; (L,E,R,X,C,V)
     }
     assert.are.same(expected, parser(output))
   end)
+  it("supports column-ranges", function()
+    -- editorconfig-checker-disable
+    local msg = [[
+109 | 2024-08-16 assert balance
+    |     assets:checking           4 EUR = 68,59 EUR
+
+This transaction is unbalanced.
+The real postings' sum should be 0 but is: 4 EUR
+Consider adjusting this entry's amounts, or adding missing postings.
+]]
+    -- editorconfig-checker-enable
+    local output = "hledger: Error: -:109-110:" .. msg
+    local expected = {
+      {
+        message = msg,
+        col = 0,
+        lnum = 108,
+        end_lnum = 109,
+        severity = vim.diagnostic.severity.ERROR,
+        source = "hledger"
+      },
+    }
+    assert.are.same(expected, parser(output))
+  end)
 end)
