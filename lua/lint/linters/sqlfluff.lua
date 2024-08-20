@@ -33,11 +33,15 @@ return {
     local diagnostics = {}
     for _, i_filepath in ipairs(per_filepath) do
         for _, violation in ipairs(i_filepath.violations) do
+          local severity = vim.diagnostic.severity.WARN
+          if violation.code == "PRS" then
+            severity = vim.diagnostic.severity.ERROR
+          end
           table.insert(diagnostics, {
             source = 'sqlfluff',
             lnum = (violation.line_no or violation.start_line_no) - 1,
             col = (violation.line_pos or violation.start_line_pos) - 1,
-            severity = vim.diagnostic.severity.ERROR,
+            severity = severity,
             message = violation.description,
             user_data = {lsp = {code = violation.code}},
           })
