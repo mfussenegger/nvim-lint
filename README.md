@@ -404,6 +404,33 @@ end
 ```
 
 
+## Ignore errors when invoking linters
+
+You can ignore errors raised when executing a linter using the option `ignore_errors`
+
+This option is useful when you want a linter to execute only when it's installed locally in a project by a package
+manager like `npm`. To avoid error messages when a linter is not installed call the lint function like this:
+
+```lua
+require("lint").try_lint(nil, { ignore_errors = true })
+```
+
+This function will disable errors for all linters, however you can filter that behavior by calling this function in an
+autocmd declared in a language specific file. An example:
+
+Declaring the following autocmd in: `after/ftplugin/javascript.lua` will lint using `eslint` with error suppression
+in `javascript` files.
+
+```lua
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+    group = lint_augroup,
+    callback = function()
+        require("lint").try_lint("eslint", { ignore_errors = true })
+    end,
+})
+```
+
+
 ## Alternatives
 
 - [Ale][1]
