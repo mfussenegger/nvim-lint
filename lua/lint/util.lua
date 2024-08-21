@@ -57,4 +57,50 @@ function M.wrap(linter, map)
 end
 
 
+---Find a command in node_modules
+---@param cmd string
+---@return string
+---@example
+--- local cmd = require("lint.util").from_node_modules("standard")
+function M.from_node_modules(cmd)
+  return M.find_executable({ "./node_modules/.bin/" .. cmd }, cmd)
+end
+
+---Search parent directories for a relative path to a command
+---@param paths string[]
+---@param default string
+---@return string
+---@example
+--- local cmd = require("lint.util").find_executable({ "node_modules/.bin/eslint" }, "eslint")
+function M.find_executable(paths, default)
+  for _, path in ipairs(paths) do
+    local normpath = vim.fs.normalize(path)
+    local is_absolute = vim.startswith(normpath, "/")
+    if is_absolute and vim.fn.executable(normpath) then
+      return normpath
+    end
+
+    local idx = normpath:find("/", 1, true)
+    local dir, subpath
+    if idx then
+      dir = normpath:sub(1, idx - 1)
+      subpath = normpath:sub(idx)
+    else
+      -- This is a bare relative-path executable
+      dir = normpath
+      subpath = ""
+    end
+    local results = vim.fs.find(dir, { upward = true, path = vim.fn.getcwd(), limit = math.huge })
+    for _, result in ipairs(results) do
+      local fullpath = result .. subpath
+      if vim.fn.executable(fullpath) == 1 then
+        return fullpath
+      end
+    end
+  end
+
+  return default
+end
+
+
 return M

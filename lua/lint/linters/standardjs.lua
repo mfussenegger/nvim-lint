@@ -17,8 +17,10 @@ local severities = {
   ['warning'] = vim.diagnostic.severity.WARN
 }
 
+local binary_name = "standard"
+
 return {
-  cmd = 'standard',
+  cmd = require("lint.util").from_node_modules(binary_name),
   stdin = true,
   args = { "--stdin" },
   ignore_exitcode = true,
