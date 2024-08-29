@@ -134,7 +134,7 @@ Other dedicated linters that are built-in are:
 | [GHDL][ghdl]                           | `ghdl`                 |
 | [gitlint][gitlint]                     | `gitlint`              |
 | [glslc][glslc]                         | `glslc`                |
-| [Golangci-lint][16]                    | `golangcilint`         |
+| [Golangci-lint][16]                    | `golangci-lint`        |
 | [hadolint][28]                         | `hadolint`             |
 | [hledger][hledger]                     | `hledger`              |
 | [hlint][32]                            | `hlint`                |
