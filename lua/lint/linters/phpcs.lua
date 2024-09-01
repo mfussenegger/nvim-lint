@@ -22,26 +22,41 @@ return {
       return {}
     end
 
-    if not vim.startswith(output,'{') then
-      vim.notify(output)
+    local json_start = output:find("{")
+    local json_end = output:find("}%s")
+
+    if not json_start or not json_end then
+      vim.notify("No complete JSON found in output")
       return {}
     end
 
-    local decoded = vim.json.decode(output)
-    local diagnostics = {}
-    local messages = decoded['files']['STDIN']['messages']
+    local json_part = output:sub(json_start, json_end)
 
-    for _, msg in ipairs(messages or {}) do
-      table.insert(diagnostics, {
-        lnum = msg.line - 1,
-        end_lnum = msg.line - 1,
-        col = msg.column - 1,
-        end_col = msg.column - 1,
-        message = msg.message,
-        code = msg.source,
-        source = bin,
-        severity = assert(severities[msg.type], 'missing mapping for severity ' .. msg.type),
-      })
+    local success, decoded = pcall(vim.json.decode, json_part)
+    if not success then
+      vim.notify("Failed to decode JSON")
+      return {}
+    end
+
+    local diagnostics = {}
+
+    for file_path, file_data in pairs(decoded['files']) do
+      local messages = file_data['messages']
+
+      for _, msg in ipairs(messages or {}) do
+        print(msg.type)
+        table.insert(diagnostics, {
+          lnum = msg.line - 1,
+          end_lnum = msg.line - 1,
+          col = msg.column - 1,
+          end_col = msg.column - 1,
+          message = msg.message,
+          code = msg.source,
+          source = bin,
+          severity = assert(severities[msg.type],
+            'missing mapping for severity ' .. msg.type),
+        })
+      end
     end
 
     return diagnostics
