@@ -323,6 +323,10 @@ function M.lint(linter, opts)
     -- pop up shortly.
     detached = not iswin
   }
+  -- prevents cmd.exe taking over the tab title
+  if iswin then
+    linter_opts.hide = true
+  end
   local cmd = eval_fn_or_id(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
