@@ -1,4 +1,4 @@
-local pattern = ".-:(%d+):.-[%s%S]*%^%s*(%S.*)"
+local pattern = ":(%d+):.-\n*%^%s*(%S.*)"
 local groups = { "lnum", "message" }
 
 return {
@@ -8,7 +8,7 @@ return {
   stream = "stderr",
   ignore_exitcode = true,
   parser = require("lint.parser").from_pattern(pattern, groups, nil, {
-    ["source"] = "awk",
-    ["severity"] = vim.diagnostic.severity.ERROR,
+    source = "awk",
+    severity = vim.diagnostic.severity.ERROR,
   }),
 }
