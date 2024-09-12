@@ -1,3 +1,5 @@
+---@mod lint.parser Parsers and parse functions
+---
 local M = {}
 local vd = vim.diagnostic
 local api = vim.api
@@ -9,10 +11,9 @@ local severity_by_qftype = {
   N = vd.severity.HINT,
 }
 
--- Return a parse function that uses an errorformat to parse the output.
--- See `:help errorformat`
----@param efm string
----@param skeleton table<string, any> | vim.Diagnostic
+---Return a parse function that uses an errorformat to parse the output.
+---@param efm string Format following |errorformat|
+---@param skeleton table<string, any> | vim.Diagnostic default values
 ---@return lint.parse
 function M.from_errorformat(efm, skeleton)
   skeleton = skeleton or {}
@@ -48,7 +49,7 @@ local normalize = (vim.fs ~= nil and vim.fs.normalize ~= nil)
   or function(path) return path end
 
 
---- Parse a linter's output using a Lua pattern
+---Return a parse function that parses a linter's output using a Lua or LPEG pattern.
 ---
 ---@param pattern string|vim.lpeg.Pattern|fun(line: string):string[]
 ---@param groups string[]
@@ -201,6 +202,10 @@ function M.accumulate_chunks(parse)
 end
 
 
+---Split a parser into two
+---
+---@param parser lint.Parser
+---@return lint.Parser, lint.Parser
 function M.split(parser)
   local remaining_calls = 2
   local chunks1 = {}

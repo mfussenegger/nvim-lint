@@ -1,53 +1,37 @@
+---@toc lint
+---
+---@mod lint Main nvim-lint API
+
 local uv = vim.loop
 local api = vim.api
 local notify = vim.notify_once or vim.notify
 local M = {}
 
+--- Running processes by buffer -> by linter name
+---@type table<integer, table<string, lint.LintProc>> bufnr: {linter: handle}
+local running_procs_by_buf = {}
 
----@alias lint.parse fun(output:string, bufnr:number, linter_cwd:string):vim.Diagnostic[]
-
----@class lint.Parser
----@field on_chunk fun(chunk: string)
----@field on_done fun(publish: fun(diagnostics: vim.Diagnostic[]), bufnr: number, linter_cwd: string)
-
-
----@class lint.Linter
----@field name string
----@field cmd string
----@field args? (string|fun():string)[] command arguments
----@field stdin? boolean send content via stdin. Defaults to false
----@field append_fname? boolean add current file name to the commands arguments
----@field stream? "stdout"|"stderr"|"both" result stream. Defaults to stdout
----@field ignore_exitcode? boolean if exit code != 1 should be ignored or result in a warning. Defaults to false
----@field env? table
----@field cwd? string
----@field parser lint.Parser|lint.parse
-
-
----@class lint.LintProc
----@field bufnr integer
----@field handle uv.uv_process_t
----@field stdout uv.uv_pipe_t
----@field stderr uv.uv_pipe_t
----@field linter lint.Linter
----@field cwd string
----@field ns integer
----@field stream? "stdout"|"stderr"|"both"
----@field cancelled boolean
-
-
----@type table<string, lint.Linter|fun():lint.Linter>
-M.linters = setmetatable({}, {
-  __index = function(_, key)
-    local ok, linter = pcall(require, 'lint.linters.' .. key)
-    if ok then
-      return linter
-    end
-    return nil
-  end,
+local namespaces = setmetatable({}, {
+  __index = function(tbl, key)
+    local ns = api.nvim_create_namespace(key)
+    rawset(tbl, key, ns)
+    return ns
+  end
 })
 
 
+---A table listing which linters to run via `try_lint`.
+---The key is the filetype. The values are a list of linter names
+---
+---Example:
+---
+---```lua
+---require("lint").linters_by_ft = {
+---  python = {"ruff", "mypy"}
+---}
+---```
+---
+---@type table<string, string[]>
 M.linters_by_ft = {
   text = {'vale',},
   json = {'jsonlint',},
@@ -61,13 +45,146 @@ M.linters_by_ft = {
   terraform = {'tflint'},
 }
 
-local namespaces = setmetatable({}, {
-  __index = function(tbl, key)
-    local ns = api.nvim_create_namespace(key)
-    rawset(tbl, key, ns)
-    return ns
+
+--- Run the linters with the given names.
+--- If no names are given, it runs the linters configured in `linters_by_ft`
+---
+---@param names? string|string[] name of the linter
+---@param opts? {cwd?: string, ignore_errors?: boolean} options
+function M.try_lint(names, opts)
+  assert(
+    vim.diagnostic,
+    "nvim-lint requires neovim 0.6.0+. If you're using an older version, use the `nvim-05` tag of nvim-lint'"
+  )
+  opts = opts or {}
+  if type(names) == "string" then
+    names = { names }
   end
+  if not names then
+    names = M._resolve_linter_by_ft(vim.bo.filetype)
+  end
+
+  local lookup_linter = function(name)
+    local linter = M.linters[name]
+    assert(linter, 'Linter with name `' .. name .. '` not available')
+    if type(linter) == "function" then
+      linter = linter()
+    end
+    linter.name = linter.name or name
+    return linter
+  end
+
+  local bufnr = api.nvim_get_current_buf()
+  local running_procs = running_procs_by_buf[bufnr] or {}
+  for _, linter_name in pairs(names) do
+    local linter = lookup_linter(linter_name)
+    local proc = running_procs[linter.name]
+    if proc then
+      proc:cancel()
+    end
+    running_procs[linter.name] = nil
+    local ok, lintproc_or_error = pcall(M.lint, linter, opts)
+    if ok then
+      running_procs[linter.name] = lintproc_or_error
+    elseif not opts.ignore_errors then
+      notify(lintproc_or_error --[[@as string]], vim.log.levels.WARN)
+    end
+  end
+  running_procs_by_buf[bufnr] = running_procs
+end
+
+
+--- Return the namespace for a given linter.
+---
+--- Can be used to configure diagnostics for a given linter. For example:
+---
+--- ```lua
+--- local ns = require("lint").get_namespace("my_linter_name")
+--- vim.diagnostic.config({ virtual_text = true }, ns)
+---
+--- ```
+---
+---@param name string linter
+function M.get_namespace(name)
+  return namespaces[name]
+end
+
+
+--- Returns the names of the running linters
+---
+---@param bufnr? integer buffer for which to get the running linters. nil=all buffers
+---@return string[]
+function M.get_running(bufnr)
+  local linters = {}
+  if bufnr then
+    bufnr = bufnr == 0 and api.nvim_get_current_buf() or bufnr
+    local running_procs = (running_procs_by_buf[bufnr] or {})
+    for linter_name, _ in pairs(running_procs) do
+      table.insert(linters, linter_name)
+    end
+  else
+    for _, running_procs in pairs(running_procs_by_buf) do
+      for linter_name, _ in pairs(running_procs) do
+        table.insert(linters, linter_name)
+      end
+    end
+  end
+  return linters
+end
+
+
+
+
+
+---Table with the available linters
+---@type table<string, lint.Linter|fun():lint.Linter>
+M.linters = setmetatable({}, {
+  __index = function(_, key)
+    local ok, linter = pcall(require, 'lint.linters.' .. key)
+    if ok then
+      return linter
+    end
+    return nil
+  end,
 })
+
+
+---A Linter
+---@class lint.Linter
+---@field name string
+---@field cmd string command/executable
+---@field args? (string|fun():string)[] command arguments
+---@field stdin? boolean send content via stdin. Defaults to false
+---Automatically add the current file name to the commands arguments.
+---Only has an effect if stdin is false
+---@field append_fname? boolean
+---@field stream '"stdout"|"stderr"|"both"' result stream. Defaults to stdout
+---Declares if exit code != 1 should be ignored or result in a warning. Defaults to false
+---@field ignore_exitcode? boolean
+---@field env? table
+---@field cwd? string
+---@field parser lint.Parser|lint.parse
+
+
+---A currently running lint process
+---@class lint.LintProc
+---@field bufnr integer
+---@field handle uv.uv_process_t
+---@field stdout uv.uv_pipe_t
+---@field stderr uv.uv_pipe_t
+---@field linter lint.Linter
+---@field cwd string
+---@field ns integer
+---@field stream? "stdout"|"stderr"|"both"
+---@field cancelled boolean
+
+---Parse function for a linter
+---@alias lint.parse fun(output:string, bufnr:number, linter_cwd:string):vim.Diagnostic[]
+
+---Internal Parser
+---@class lint.Parser
+---@field on_chunk fun(chunk: string)
+---@field on_done fun(publish: fun(diagnostics: vim.Diagnostic[]), bufnr: number, linter_cwd: string)
 
 
 local function read_output(cwd, bufnr, parser, publish_fn)
@@ -82,6 +199,7 @@ local function read_output(cwd, bufnr, parser, publish_fn)
 end
 
 
+---@private
 function M._resolve_linter_by_ft(ft)
   local names = M.linters_by_ft[ft]
   if names then
@@ -178,94 +296,6 @@ function LintProc:cancel()
 end
 
 
---- Return the namespace for a given linter.
----
---- Can be used to configure diagnostics for a given linter. For example:
----
---- ```lua
---- local ns = require("lint").get_namespace("my_linter_name")
---- vim.diagnostic.config({ virtual_text = true }, ns)
----
---- ```
----
----@param name string linter
-function M.get_namespace(name)
-  return namespaces[name]
-end
-
-
---- Running processes by buffer -> by linter name
----@type table<integer, table<string, lint.LintProc>> bufnr: {linter: handle}
-local running_procs_by_buf = {}
-
-
---- Returns the names of the running linters
----
----@param bufnr? integer buffer for which to get the running linters. nil=all buffers
----@return string[]
-function M.get_running(bufnr)
-  local linters = {}
-  if bufnr then
-    bufnr = bufnr == 0 and api.nvim_get_current_buf() or bufnr
-    local running_procs = (running_procs_by_buf[bufnr] or {})
-    for linter_name, _ in pairs(running_procs) do
-      table.insert(linters, linter_name)
-    end
-  else
-    for _, running_procs in pairs(running_procs_by_buf) do
-      for linter_name, _ in pairs(running_procs) do
-        table.insert(linters, linter_name)
-      end
-    end
-  end
-  return linters
-end
-
-
----@param names? string|string[] name of the linter
----@param opts? {cwd?: string, ignore_errors?: boolean} options
-function M.try_lint(names, opts)
-  assert(
-    vim.diagnostic,
-    "nvim-lint requires neovim 0.6.0+. If you're using an older version, use the `nvim-05` tag of nvim-lint'"
-  )
-  opts = opts or {}
-  if type(names) == "string" then
-    names = { names }
-  end
-  if not names then
-    names = M._resolve_linter_by_ft(vim.bo.filetype)
-  end
-
-  local lookup_linter = function(name)
-    local linter = M.linters[name]
-    assert(linter, 'Linter with name `' .. name .. '` not available')
-    if type(linter) == "function" then
-      linter = linter()
-    end
-    linter.name = linter.name or name
-    return linter
-  end
-
-  local bufnr = api.nvim_get_current_buf()
-  local running_procs = running_procs_by_buf[bufnr] or {}
-  for _, linter_name in pairs(names) do
-    local linter = lookup_linter(linter_name)
-    local proc = running_procs[linter.name]
-    if proc then
-      proc:cancel()
-    end
-    running_procs[linter.name] = nil
-    local ok, lintproc_or_error = pcall(M.lint, linter, opts)
-    if ok then
-      running_procs[linter.name] = lintproc_or_error
-    elseif not opts.ignore_errors then
-      notify(lintproc_or_error --[[@as string]], vim.log.levels.WARN)
-    end
-  end
-  running_procs_by_buf[bufnr] = running_procs
-end
-
 local function eval_fn_or_id(x)
   if type(x) == 'function' then
     return x()
@@ -275,6 +305,9 @@ local function eval_fn_or_id(x)
 end
 
 
+--- Runs the given linter.
+--- This is usually not used directly but called via `try_lint`
+---
 ---@param linter lint.Linter
 ---@param opts? {cwd?: string, ignore_errors?: boolean}
 ---@return lint.LintProc|nil
