@@ -1,5 +1,6 @@
 local M = {}
 local vd = vim.diagnostic
+local api = vim.api
 
 local severity_by_qftype = {
   E = vd.severity.ERROR,
@@ -130,11 +131,11 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     return vim.tbl_extend('keep', diagnostic, defaults or {})
   end
   return function(output, bufnr, linter_cwd)
-    if not vim.api.nvim_buf_is_valid(bufnr) then
+    if not api.nvim_buf_is_valid(bufnr) then
       return {}
     end
     local result = {}
-    local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p")
+    local buffer_path = vim.fn.fnamemodify(api.nvim_buf_get_name(bufnr), ":p")
     --- bwc for 0.6 requires boolean arg instead of table
     ---@diagnostic disable-next-line: param-type-mismatch
     for line in vim.gsplit(output, "\n", true) do
@@ -169,8 +170,15 @@ function M.accumulate_chunks(parse)
     on_done = function(publish, bufnr, linter_cwd)
       vim.schedule(function()
         local output = table.concat(chunks)
-        if vim.api.nvim_buf_is_valid(bufnr) and output ~= "" then
-          local ok, diagnostics = pcall(parse, output, bufnr, linter_cwd)
+        if api.nvim_buf_is_valid(bufnr) and output ~= "" then
+          local ok, diagnostics
+          if api.nvim_buf_call then
+            api.nvim_buf_call(bufnr, function()
+              ok, diagnostics = pcall(parse, output, bufnr, linter_cwd)
+            end)
+          else
+            ok, diagnostics = pcall(parse, output, bufnr, linter_cwd)
+          end
           if not ok then
             local err = diagnostics
             diagnostics = {
