@@ -1,0 +1,182 @@
+==============================================================================
+Table of Contents                                                         *lint*
+
+Main nvim-lint API ······················································ |lint|
+Parsers and parse functions ······································ |lint.parser|
+
+==============================================================================
+Main nvim-lint API                                                        *lint*
+
+M.linters_by_ft                                                *M.linters_by_ft*
+    A table listing which linters to run via `try_lint`.
+    The key is the filetype. The values are a list of linter names
+
+    Example:
+
+    ```lua
+    require("lint").linters_by_ft = {
+      python = {"ruff", "mypy"}
+    }
+    ```
+
+
+    Type: ~
+        (table<string,string[]>)
+
+
+M.try_lint({names?}, {opts?})                                    *lint.try_lint*
+     Run the linters with the given names.
+     If no names are given, it runs the linters configured in `linters_by_ft`
+
+
+    Parameters: ~
+        {names?}  (string|string[])                       name of the linter
+        {opts?}   ({cwd?:string,ignore_errors?:boolean})  options
+
+
+M.get_namespace({name})                                     *lint.get_namespace*
+     Return the namespace for a given linter.
+
+     Can be used to configure diagnostics for a given linter. For example:
+
+     ```lua
+     local ns = require("lint").get_namespace("my_linter_name")
+     vim.diagnostic.config({ virtual_text = true }, ns)
+
+     ```
+
+
+    Parameters: ~
+        {name}  (string)  linter
+
+
+M.get_running({bufnr?})                                       *lint.get_running*
+     Returns the names of the running linters
+
+
+    Parameters: ~
+        {bufnr?}  (integer)  buffer for which to get the running linters. nil=all buffers
+
+    Returns: ~
+        (string[])
+
+
+M.linters                                                            *M.linters*
+    Table with the available linters
+
+    Type: ~
+        (table<string,lint.Linter|fun():lint.Linter>)
+
+
+lint.Linter                                                        *lint.Linter*
+    A Linter
+
+    Fields: ~
+        {name}              (string)
+        {cmd}               (string)                    command/executable
+        {args?}             (string|fun():string[])     command arguments
+        {stdin?}            (boolean)                   send content via stdin. Defaults to false
+        {append_fname?}     (boolean)                   Automatically add the current file name to the commands arguments.
+                                                        Only has an effect if stdin is false
+        {stream}            ("stdout"|"stderr"|"both")  result stream. Defaults to stdout
+        {ignore_exitcode?}  (boolean)                   Declares if exit code != 1 should be ignored or result in a warning. Defaults to false
+        {env?}              (table)
+        {cwd?}              (string)
+        {parser}            (lint.Parser|lint.parse)
+
+
+lint.LintProc                                                    *lint.LintProc*
+    A currently running lint process
+
+    Fields: ~
+        {bufnr}    (integer)
+        {handle}   (uv.uv_process_t)
+        {stdout}   (uv.uv_pipe_t)
+        {stderr}   (uv.uv_pipe_t)
+        {linter}   (lint.Linter)
+        {cwd}      (string)
+        {ns}       (integer)
+        {stream?}  ()
+
+
+lint.parse                                                          *lint.parse*
+    Parse function for a linter
+
+    Type: ~
+        fun(output:string,bufnr:number,linter_cwd:string):vim.Diagnostic[]
+
+
+lint.Parser                                                        *lint.Parser*
+    Internal Parser
+
+    Fields: ~
+        {on_chunk}  (fun(chunk:string))
+        {on_done}   (fun(publish:fun(diagnostics:vim.Diagnostic[]),bufnr:number,linter_cwd:string))
+
+
+lint.LintProc                                                    *lint.LintProc*
+
+
+M.lint({linter}, {opts?})                                            *lint.lint*
+     Runs the given linter.
+     This is usually not used directly but called via `try_lint`
+
+
+    Parameters: ~
+        {linter}  (lint.Linter)
+        {opts?}   ({cwd?:string,ignore_errors?:boolean})
+
+    Returns: ~
+        (lint.LintProc|nil)
+
+
+==============================================================================
+Parsers and parse functions                                        *lint.parser*
+
+M.from_errorformat({efm}, {skeleton})             *lint.parser.from_errorformat*
+    Return a parse function that uses an errorformat to parse the output.
+
+    Parameters: ~
+        {efm}       (string)                            Format following |errorformat|
+        {skeleton}  (table<string,any>|vim.Diagnostic)  default values
+
+    Returns: ~
+        (lint.parse)
+
+
+                                                      *lint.parser.from_pattern*
+M.from_pattern({pattern}, {groups}, {severity_map?}, {defaults?}, {opts?})
+    Return a parse function that parses a linter's output using a Lua or LPEG pattern.
+
+
+    Parameters: ~
+        {pattern}        (string|vim.lpeg.Pattern|fun(line:string):string[])
+        {groups}         (string[])
+        {severity_map?}  (table<string,vim.diagnostic.Severity>)
+        {defaults?}      (table)
+        {opts?}          ({col_offset?:integer,end_col_offset?:integer,lnum_offset?:integer,end_lnum_offset?:integer})
+
+    Returns: ~
+        (lint.parse)
+
+
+M.accumulate_chunks({parse})                     *lint.parser.accumulate_chunks*
+     Turn a parse function into a parser table
+
+
+    Parameters: ~
+        {parse}  (fun(output:string,bufnr:integer,cwd:string):vim.Diagnostic[])
+
+    Returns: ~
+        (lint.Parser)
+
+
+M.split({parser})                                            *lint.parser.split*
+    Split a parser into two
+
+
+    Parameters: ~
+        {parser}  (lint.Parser)  @return lint.Parser, lint.Parser
+
+
+vim:tw=78:ts=8:noet:ft=help:norl:
