@@ -90,6 +90,7 @@ Other dedicated linters that are built-in are:
 | [alex][alex]                           | `alex`                 |
 | [ameba][ameba]                         | `ameba`                |
 | [ansible-lint][ansible-lint]           | `ansible_lint`         |
+| [awk][awk]                             | `awk`                  |
 | [bandit][bandit]                       | `bandit`               |
 | [bean-check][bean-check]               | `bean_check`           |
 | [biomejs][biomejs]                     | `biomejs`              |
@@ -564,3 +565,4 @@ busted tests/
 [clippy]: https://github.com/rust-lang/rust-clippy
 [hledger]: https://hledger.org/
 [systemd-analyze]: https://man.archlinux.org/man/systemd-analyze.1
+[awk]: https://www.gnu.org/software/gawk/
