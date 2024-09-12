@@ -1,4 +1,4 @@
----@toc lint
+---@toc lint.toc
 ---
 ---@mod lint Main nvim-lint API
 
@@ -219,6 +219,7 @@ function M._resolve_linter_by_ft(ft)
 end
 
 
+---@private
 ---@class lint.LintProc
 local LintProc = {}
 local linter_proc_mt = {

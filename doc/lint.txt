@@ -1,5 +1,5 @@
 ==============================================================================
-Table of Contents                                                         *lint*
+Table of Contents                                                     *lint.toc*
 
 Main nvim-lint API ······················································ |lint|
 Parsers and parse functions ······································ |lint.parser|
@@ -112,9 +112,6 @@ lint.Parser                                                        *lint.Parser*
     Fields: ~
         {on_chunk}  (fun(chunk:string))
         {on_done}   (fun(publish:fun(diagnostics:vim.Diagnostic[]),bufnr:number,linter_cwd:string))
-
-
-lint.LintProc                                                    *lint.LintProc*
 
 
 M.lint({linter}, {opts?})                                            *lint.lint*
