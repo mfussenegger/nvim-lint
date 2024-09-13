@@ -25,9 +25,9 @@ return {
     for insight, severity in pairs(insight_to_severity) do
       for _, message in ipairs(json[insight] or {}) do
           table.insert(diagnostics, {
-            lnum = message.line - 1,
+            lnum = (message.line or 1) - 1,
             col = 0,
-            message = message.message,
+            message = message.message or message.title,
             severity = severity,
             source = bin,
           })
