@@ -40,7 +40,7 @@ Configure the linters you want to run per file type. For example:
 
 ```lua
 require('lint').linters_by_ft = {
-  markdown = {'vale',}
+  markdown = {'vale'},
 }
 ```
 
