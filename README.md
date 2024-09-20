@@ -406,6 +406,28 @@ end
 ```
 
 
+## Only run linters on certain glob patterns
+
+You might want to only run linters like [`actionlint`][actionlint] on a
+subset of files in a given filetype. In this case, you can use
+`vim.filetype.add()` to create a new combined filetype, and then you can use
+`lint.linters_by_ft` to associate that filetype with a given linter:
+
+```lua
+vim.filetype.add({
+  pattern = {
+    [".*/.github/workflows/.*%.yml"] = "yaml.ghaction",
+    [".*/.github/workflows/.*%.yaml"] = "yaml.ghaction",
+  },
+})
+
+local lint = require("lint")
+lint.linters_by_ft = {
+  ghaction = {"actionlint"},
+}
+```
+
+
 ## Alternatives
 
 - [Ale][1]
