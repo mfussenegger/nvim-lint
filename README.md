@@ -151,6 +151,7 @@ Other dedicated linters that are built-in are:
 | [ktlint][ktlint]                       | `ktlint`               |
 | [lacheck][lacheck]                     | `lacheck`              |
 | [Languagetool][5]                      | `languagetool`         |
+| [luac][luac]                           | `luac`                 |
 | [luacheck][19]                         | `luacheck`             |
 | [markdownlint][26]                     | `markdownlint`         |
 | [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
@@ -495,6 +496,7 @@ busted tests/
 [phpstan]: https://phpstan.org/
 [psalm]: https://psalm.dev/
 [lacheck]: https://www.ctan.org/tex-archive/support/lacheck
+[luac]: https://www.lua.org/manual/5.1/luac.html
 [credo]: https://github.com/rrrene/credo
 [ghdl]: https://github.com/ghdl/ghdl
 [glslc]: https://github.com/google/shaderc
