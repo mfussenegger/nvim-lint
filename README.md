@@ -92,6 +92,7 @@ Other dedicated linters that are built-in are:
 | [ansible-lint][ansible-lint]           | `ansible_lint`         |
 | [awk][awk]                             | `awk`                  |
 | [bandit][bandit]                       | `bandit`               |
+| [bash][bash]                           | `bash`                 |
 | [bean-check][bean-check]               | `bean_check`           |
 | [biomejs][biomejs]                     | `biomejs`              |
 | [blocklint][blocklint]                 | `blocklint`            |
@@ -509,6 +510,7 @@ busted tests/
 [ruff]: https://github.com/astral-sh/ruff
 [janet]: https://github.com/janet-lang/janet
 [bandit]: https://bandit.readthedocs.io/en/latest/
+[bash]: https://www.gnu.org/software/bash/
 [bean-check]: https://beancount.github.io/docs/running_beancount_and_generating_reports.html#bean-check
 [cue]: https://github.com/cue-lang/cue
 [curlylint]: https://www.curlylint.org/
