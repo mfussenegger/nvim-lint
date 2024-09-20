@@ -147,6 +147,7 @@ Other dedicated linters that are built-in are:
 | [joker][joker]                         | `joker`                |
 | [jshint][jshint]                       | `jshint`               |
 | [jsonlint][jsonlint]                   | `jsonlint`             |
+| [ksh][ksh]                             | `ksh`                  |
 | [ktlint][ktlint]                       | `ktlint`               |
 | [lacheck][lacheck]                     | `lacheck`              |
 | [Languagetool][5]                      | `languagetool`         |
@@ -485,6 +486,7 @@ busted tests/
 [cmakelint]: https://github.com/cmake-lint/cmake-lint
 [rstcheck]: https://github.com/myint/rstcheck
 [rstlint]: https://github.com/twolfson/restructuredtext-lint
+[ksh]: https://github.com/ksh93/ksh
 [ktlint]: https://github.com/pinterest/ktlint
 [php]: https://www.php.net/
 [phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
