@@ -7,9 +7,9 @@ return {
   stream = "stderr",
   ignore_exitcode = true,
   env = nil,
-  parser = function(lint_output, buffnr)
+  parser = function(lint_output, _)
     local diagnostics = {}
-    local current_diagnostic = nil
+    local current_diagnostic
 
     if string.find(lint_output, "Lints for") then
       for lint_type, lines in lint_output:gmatch("Lints for (%a+) (.-)\n\n\n?") do
@@ -28,7 +28,6 @@ return {
                 severity = vim.diagnostic.severity.HINT,
               }
               table.insert(diagnostics, current_diagnostic)
-              current_diagnostic = nil
             end
           end
         elseif lint_type == "snakefile" then
@@ -43,7 +42,6 @@ return {
               severity = vim.diagnostic.severity.HINT,
             }
             table.insert(diagnostics, current_diagnostic)
-            current_diagnostic = nil
           end
           -- general Snakefile lints related to specific lines
           -- display each at its line
@@ -56,17 +54,13 @@ return {
               severity = vim.diagnostic.severity.HINT,
             }
             table.insert(diagnostics, current_diagnostic)
-            current_diagnostic = nil
           end
         end
       end
     elseif not string.find(lint_output, "Congratulations") then
       -- error encountered while linting
       -- display error type and message at reported line
-      local error = nil
-      local linenum = 0
-      local errmessage = nil
-      error, linenum, errmessage = string.match(lint_output, "(.*) in file .*, line (%d+):\n(.*)\n .*")
+      local error, linenum, errmessage = string.match(lint_output, "(.*) in file .*, line (%d+):\n(.*)\n .*")
       if error and errmessage then
         errmessage = error .. ": " .. errmessage
         current_diagnostic = {
