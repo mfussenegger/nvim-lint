@@ -195,6 +195,7 @@ Other dedicated linters that are built-in are:
 | [salt-lint][salt-lint]                 | `saltlint`             |
 | [Selene][31]                           | `selene`               |
 | [ShellCheck][10]                       | `shellcheck`           |
+| [Snakemake][snakemake]                 | `snakemake`            |
 | [snyk][snyk]                           | `snyk_iac`             |
 | [Solhint][solhint]                     | `solhint`              |
 | [Spectral][spectral]                   | `spectral`             |
@@ -545,6 +546,7 @@ busted tests/
 [write-good]: https://github.com/btford/write-good
 [dotenv-linter]: https://dotenv-linter.github.io/
 [puppet-lint]: https://github.com/puppetlabs/puppet-lint
+[snakemake]: https://snakemake.github.io
 [snyk]: https://github.com/snyk/cli
 [spectral]: https://github.com/stoplightio/spectral
 [gitlint]: https://github.com/jorisroovers/gitlint
