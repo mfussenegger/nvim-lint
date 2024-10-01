@@ -195,6 +195,7 @@ Other dedicated linters that are built-in are:
 | [salt-lint][salt-lint]                 | `saltlint`             |
 | [Selene][31]                           | `selene`               |
 | [ShellCheck][10]                       | `shellcheck`           |
+| [slang][slang]                         | `slang`                |
 | [Snakemake][snakemake]                 | `snakemake`            |
 | [snyk][snyk]                           | `snyk_iac`             |
 | [Solhint][solhint]                     | `solhint`              |
@@ -576,3 +577,4 @@ busted tests/
 [systemd-analyze]: https://man.archlinux.org/man/systemd-analyze.1
 [awk]: https://www.gnu.org/software/gawk/
 [yq]: https://mikefarah.gitbook.io/yq
+[slang]: https://github.com/MikePopoloski/slang
