@@ -14,6 +14,6 @@ return {
   args = {
     "-Weverything",
   },
-  ignore_exitcode = false,
+  ignore_exitcode = true,
   parser = require("lint.parser").from_pattern(pattern, groups, severities, { ["source"] = "slang" }),
 }
