@@ -10,16 +10,26 @@ local function descriptor_set_in()
     error("buf CLI not found")
   end
 
-  -- search for the buf config, searching upwards from the current buffer's directory until $HOME.
-  local buffer_parent_dir = vim.fn.expand("%:p:h") -- the path to the folder of the opened .proto file.
-  local buf_config_filepaths = vim.fs.find(
-    { "buf.yaml", "buf.yml" },
-    { path = buffer_parent_dir, upward = true, stop = vim.fs.normalize("~"), type = "file", limit = 1 }
-  )
-  if #buf_config_filepaths == 0 then
+  -- Custom function to find file upwards
+  local function find_file_upwards(filename, start_dir)
+    local current_dir = start_dir
+    while current_dir ~= "/" do
+      local file_path = current_dir .. "/" .. filename
+      if vim.fn.filereadable(file_path) == 1 then
+        return file_path
+      end
+      current_dir = vim.fn.fnamemodify(current_dir, ":h")
+    end
+    return nil
+  end
+
+  local buffer_parent_dir = vim.fn.expand("%:p:h")
+  local buf_config_filepath = find_file_upwards("buf.yaml", buffer_parent_dir)
+    or find_file_upwards("buf.yml", buffer_parent_dir)
+
+  if not buf_config_filepath then
     error("Buf config file not found")
   end
-  local buf_config_filepath = buf_config_filepaths[1]
 
   -- build the descriptor file.
   local buf_config_folderpath = vim.fn.fnamemodify(buf_config_filepath, ":h")
