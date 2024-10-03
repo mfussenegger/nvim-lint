@@ -1,6 +1,7 @@
 describe('linter.verilator', function()
   it('can parse the output', function()
     local parser = require('lint.linters.verilator').parser
+    local bufnr = vim.uri_to_bufnr('file:///t.v')
     local result = parser([[
 %Warning-DECLFILENAME: t.v:24:8: Filename 't' does not match MODULE name: 'uart'
     24 | module uart
@@ -30,7 +31,7 @@ describe('linter.verilator', function()
     64 |  uart_tx
       |  ^~~~~~~
 %Error: Exiting due to 3 error(s), 3 warning(s)
-    ]], vim.api.nvim_get_current_buf())
+    ]], bufnr, '')
     assert.are.same(6, #result)
 
     local expected = {
@@ -66,5 +67,5 @@ describe('linter.verilator', function()
       },
     }
     assert.are.same(expected, result[5])
-        end)
-      end)
+  end)
+end)
