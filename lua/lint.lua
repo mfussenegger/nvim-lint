@@ -357,6 +357,9 @@ function M.lint(linter, opts)
     -- pop up shortly.
     detached = not iswin
   }
+  if type(linter_opts.cwd) == 'function' then
+    linter_opts.cwd = linter_opts.cwd()
+  end
   -- prevents cmd.exe taking over the tab title
   if iswin then
     linter_opts.hide = true
