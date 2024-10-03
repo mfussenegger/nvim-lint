@@ -1,6 +1,6 @@
-local pattern = "^%%(.-)-?(%u*): .-:(%d+):(%d+): (.*)"
+local pattern = "^%%(.-)-?(%u*): (.-):(%d+):(%d+): (.*)"
 
-local groups = { "severity", "code", "lnum", "col", "message" }
+local groups = { "severity", "code", "file", "lnum", "col", "message" }
 
 local severities = {
   ["Error"] = vim.diagnostic.severity.ERROR,
