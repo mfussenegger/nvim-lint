@@ -205,6 +205,7 @@ Other dedicated linters that are built-in are:
 | [StandardRB][27]                       | `standardrb`           |
 | [statix check][33]                     | `statix`               |
 | [stylelint][29]                        | `stylelint`            |
+| [svlint][svlint]                       | `svlint`               |
 | [SwiftLint][swiftlint]                 | `swiftlint`            |
 | [systemd-analyze][systemd-analyze]     | `systemd-analyze`      |
 | [systemdlint][systemdlint]             | `systemdlint`          |
@@ -577,4 +578,5 @@ busted tests/
 [systemd-analyze]: https://man.archlinux.org/man/systemd-analyze.1
 [awk]: https://www.gnu.org/software/gawk/
 [yq]: https://mikefarah.gitbook.io/yq
+[svlint]: https://github.com/dalance/svlint
 [slang]: https://github.com/MikePopoloski/slang
