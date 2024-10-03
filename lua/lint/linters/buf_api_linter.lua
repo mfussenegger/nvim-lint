@@ -33,11 +33,16 @@ local function descriptor_set_in()
 
   -- build the descriptor file.
   local buf_config_folderpath = vim.fn.fnamemodify(buf_config_filepath, ":h")
-  local buf_cmd = { "buf", "build", "-o", descriptor_filepath }
-  local buf_cmd_opts = { cwd = buf_config_folderpath }
-  local obj = vim.system(buf_cmd, buf_cmd_opts):wait()
-  if obj.code ~= 0 then
-    error("Command failed: " .. vim.inspect(buf_cmd) .. "\n" .. obj.stderr)
+  local buf_cmd = string.format(
+    "cd %s && buf build -o %s",
+    vim.fn.shellescape(buf_config_folderpath),
+    vim.fn.shellescape(descriptor_filepath)
+  )
+  local output = vim.fn.system(buf_cmd)
+  local exit_code = vim.v.shell_error
+
+  if exit_code ~= 0 then
+    error("Command failed: " .. buf_cmd .. "\n" .. output)
   end
 
   -- return the argument to be passed to the linter.
