@@ -45,8 +45,8 @@ function M.from_errorformat(efm, skeleton)
 end
 
 local normalize = (vim.fs ~= nil and vim.fs.normalize ~= nil)
-  and vim.fs.normalize
-  or function(path) return path end
+    and vim.fs.normalize
+    or function(path) return path end
 
 
 ---Return a parse function that parses a linter's output using a Lua or LPEG pattern.
@@ -93,7 +93,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     end
     if captures.file then
       local path
-      if vim.startswith(captures.file, '/') then
+      if (string.match(captures.file, '^%w:') or vim.startswith(captures.file, '/')) then
         path = captures.file
       else
         path = vim.fn.simplify(linter_cwd .. '/' .. captures.file)
@@ -149,7 +149,6 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
   end
 end
 
-
 local parse_failure_msg = [[Parser failed. Error message:
 %s
 
@@ -201,7 +200,6 @@ function M.accumulate_chunks(parse)
   }
 end
 
-
 ---Split a parser into two
 ---
 ---@param parser lint.Parser
@@ -237,6 +235,5 @@ function M.split(parser)
   }
   return parser1, parser2
 end
-
 
 return M
