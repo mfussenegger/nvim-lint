@@ -9,10 +9,10 @@ describe('compiler', function()
   it('reads errors from both stdout and stderr', function()
     local a = vim.api
     local bufnr = a.nvim_create_buf(true, true)
-    a.nvim_buf_set_name(bufnr, "tests/both.py")
+    a.nvim_buf_set_name(bufnr, "spec/both.py")
     a.nvim_set_current_buf(bufnr)
     a.nvim_buf_set_option(bufnr, 'errorformat', '%f:%l: %m')
-    a.nvim_buf_set_option(bufnr, 'makeprg', 'python tests/both.py')
+    a.nvim_buf_set_option(bufnr, 'makeprg', 'python spec/both.py')
 
     local handles = get_num_handles()
     require('lint').try_lint('compiler')
