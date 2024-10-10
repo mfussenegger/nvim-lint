@@ -1,6 +1,6 @@
 # nvim-lint
 
-An asynchronous linter plugin for Neovim (>= 0.6.0) complementary to the
+An asynchronous linter plugin for Neovim (>= 0.9.5) complementary to the
 built-in Language Server Protocol support.
 
 ## Motivation & Goals
@@ -18,7 +18,7 @@ results.
 
 ## Installation
 
-- Requires Neovim >= 0.6.0
+- Requires Neovim >= 0.9.5
 - `nvim-lint` is a regular plugin and can be installed via the `:h packages`
   mechanism or via a plugin manager.
 
@@ -50,7 +50,7 @@ Then setup a autocmd to trigger linting. For example:
 au BufWritePost * lua require('lint').try_lint()
 ```
 
-or with Lua autocmds (requires 0.7):
+or with Lua autocmds:
 
 ```lua
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
