@@ -9,9 +9,10 @@ on:
 jobs:
   build:
     name: Run tests
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         neovim_version: ['nightly', 'v0.9.5']
 
     steps:
@@ -22,6 +23,10 @@ jobs:
         with:
           neovim: true
           version: ${{ matrix.neovim_version }}
+
+      - name: Setup ’msvc’
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Install Lua
         uses: leso-kn/gh-actions-lua@master
