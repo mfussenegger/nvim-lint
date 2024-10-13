@@ -90,7 +90,6 @@ Other dedicated linters that are built-in are:
 | [alex][alex]                           | `alex`                 |
 | [ameba][ameba]                         | `ameba`                |
 | [ansible-lint][ansible-lint]           | `ansible_lint`         |
-| [awk][awk]                             | `awk`                  |
 | [bandit][bandit]                       | `bandit`               |
 | [bash][bash]                           | `bash`                 |
 | [bean-check][bean-check]               | `bean_check`           |
@@ -132,6 +131,7 @@ Other dedicated linters that are built-in are:
 | [fish][fish]                           | `fish`                 |
 | [Flake8][13]                           | `flake8`               |
 | [flawfinder][35]                       | `flawfinder`           |
+| [gawk][gawk]                           | `gawk`                 |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
 | [GHDL][ghdl]                           | `ghdl`                 |
 | [gitlint][gitlint]                     | `gitlint`              |
@@ -576,7 +576,7 @@ busted tests/
 [clippy]: https://github.com/rust-lang/rust-clippy
 [hledger]: https://hledger.org/
 [systemd-analyze]: https://man.archlinux.org/man/systemd-analyze.1
-[awk]: https://www.gnu.org/software/gawk/
+[gawk]: https://www.gnu.org/software/gawk/
 [yq]: https://mikefarah.gitbook.io/yq
 [svlint]: https://github.com/dalance/svlint
 [slang]: https://github.com/MikePopoloski/slang
