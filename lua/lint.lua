@@ -158,7 +158,7 @@ M.linters = setmetatable({}, {
 ---Automatically add the current file name to the commands arguments.
 ---Only has an effect if stdin is false
 ---@field append_fname? boolean
----@field stream '"stdout"|"stderr"|"both"' result stream. Defaults to stdout
+---@field stream? 'stdout'|'stderr'|'both' result stream. Defaults to stdout
 ---Declares if exit code != 1 should be ignored or result in a warning. Defaults to false
 ---@field ignore_exitcode? boolean
 ---@field env? table

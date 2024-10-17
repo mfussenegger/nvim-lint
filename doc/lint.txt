@@ -78,7 +78,7 @@ lint.Linter                                                        *lint.Linter*
         {stdin?}            (boolean)                   send content via stdin. Defaults to false
         {append_fname?}     (boolean)                   Automatically add the current file name to the commands arguments.
                                                         Only has an effect if stdin is false
-        {stream}            ("stdout"|"stderr"|"both")  result stream. Defaults to stdout
+        {stream?}           ("stdout"|"stderr"|"both")  result stream. Defaults to stdout
         {ignore_exitcode?}  (boolean)                   Declares if exit code != 1 should be ignored or result in a warning. Defaults to false
         {env?}              (table)
         {cwd?}              (string)
