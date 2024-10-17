@@ -96,6 +96,7 @@ Other dedicated linters that are built-in are:
 | [biomejs][biomejs]                     | `biomejs`              |
 | [blocklint][blocklint]                 | `blocklint`            |
 | [buf_lint][buf_lint]                   | `buf_lint`             |
+| [buf_api_linter][buf_api_linter]                   | `buf_api_linter`             |
 | [buildifier][buildifier]               | `buildifier`           |
 | [cfn-lint][cfn-lint]                   | `cfn_lint`             |
 | [cfn_nag][cfn_nag]                     | `cfn_nag`              |
@@ -525,6 +526,7 @@ busted tests/
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
+[buf_api_linter]: https://github.com/googleapis/api-linter
 [erb-lint]: https://github.com/shopify/erb-lint
 [tfsec]: https://github.com/aquasecurity/tfsec
 [tlint]: https://github.com/tighten/tlint
