@@ -93,7 +93,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     end
     if captures.file then
       local path
-      if vim.startswith(captures.file, '/') then
+      if (string.match(captures.file, '^%w:') or vim.startswith(captures.file, '/')) then
         path = captures.file
       else
         path = vim.fn.simplify(linter_cwd .. '/' .. captures.file)
