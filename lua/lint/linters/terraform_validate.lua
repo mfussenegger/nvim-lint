@@ -7,12 +7,11 @@ local terraform_severity_to_diagnostic_severity = {
 return function()
   return {
     cmd = 'terraform',
-    args = { 'validate', '-json' },
+    args = { "validate", "-json", vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.:h") },
     append_fname = false,
     stdin = false,
     stream = 'both',
     ignore_exitcode = true,
-    cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
     parser = function(output, bufnr)
       local decoded = vim.json.decode(output) or {}
       local diagnostics = decoded['diagnostics'] or {}
