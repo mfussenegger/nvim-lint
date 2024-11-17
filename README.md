@@ -200,6 +200,7 @@ Other dedicated linters that are built-in are:
 | [snyk][snyk]                           | `snyk_iac`             |
 | [Solhint][solhint]                     | `solhint`              |
 | [Spectral][spectral]                   | `spectral`             |
+| [sphinx-lint][sphinx-lint]             | `sphinx-lint`          |
 | [sqlfluff][sqlfluff]                   | `sqlfluff`             |
 | [standardjs][standardjs]               | `standardjs`           |
 | [StandardRB][27]                       | `standardrb`           |
@@ -551,6 +552,7 @@ busted tests/
 [snakemake]: https://snakemake.github.io
 [snyk]: https://github.com/snyk/cli
 [spectral]: https://github.com/stoplightio/spectral
+[sphinx-lint]: https://github.com/sphinx-contrib/sphinx-lint
 [gitlint]: https://github.com/jorisroovers/gitlint
 [pflake8]: https://github.com/csachs/pyproject-flake8
 [fish]: https://github.com/fish-shell/fish-shell
