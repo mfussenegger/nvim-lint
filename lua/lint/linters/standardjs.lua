@@ -10,6 +10,7 @@
 -- Parsing Error
 --  /home/jorge/code/index.js:2:13: Parsing error: Unexpected token 1 (null)
 
+local binary_name = "standard"
 local pattern = "[^:]+:(%d+):(%d+):([^%.]+%.?)%s%(([%a-]+)%)%s?%(?(%a*)%)?"
 local groups = { 'lnum', 'col', 'message', 'code', 'severity' }
 local severities = {
@@ -18,7 +19,10 @@ local severities = {
 }
 
 return {
-  cmd = 'standard',
+  cmd = function()
+    local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+    return vim.loop.fs_stat(local_binary) and local_binary or binary_name
+  end,
   stdin = true,
   args = { "--stdin" },
   ignore_exitcode = true,
