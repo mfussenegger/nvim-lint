@@ -139,13 +139,29 @@ end
 ---Table with the available linters
 ---@type table<string, lint.Linter|fun():lint.Linter>
 M.linters = setmetatable({}, {
-  __index = function(_, key)
+  __index = function(tbl, key)
     local ok, linter = pcall(require, 'lint.linters.' .. key)
     if ok then
+      -- Cache the linter once loaded
+      rawset(tbl, key, linter)
       return linter
     end
     return nil
   end,
+  __newindex = function(tbl, key, value)
+    -- Try to load existing linter first
+    local ok, existing = pcall(require, 'lint.linters.' .. key)
+    if ok and type(value) == "table" then
+      -- If linter exists and we're setting a table, merge with existing
+      for k, v in pairs(value) do
+        existing[k] = v
+      end
+      rawset(tbl, key, existing)
+    else
+      -- If linter doesn't exist or value isn't a table, set directly
+      rawset(tbl, key, value)
+    end
+  end
 })
 
 
