@@ -187,6 +187,7 @@ Other dedicated linters that are built-in are:
 | [Revive][14]                           | `revive`               |
 | [rflint][rflint]                       | `rflint`               |
 | [robocop][robocop]                     | `robocop`              |
+| [rpmlint][rpmlint]                     | `rpmlint`              |
 | [RPM][rpm]                             | `rpmspec`              |
 | [rstcheck][rstcheck]                   | `rstcheck`             |
 | [rstlint][rstlint]                     | `rstlint`              |
@@ -538,6 +539,7 @@ busted tests/
 [perlcritic]: https://github.com/Perl-Critic/Perl-Critic
 [ponyc]: https://github.com/ponylang/ponyc
 [gdlint]: https://github.com/Scony/godot-gdscript-toolkit
+[rpmlint]: https://github.com/rpm-software-management/rpmlint
 [rpm]: https://rpm.org
 [ec]: https://github.com/editorconfig-checker/editorconfig-checker
 [dmypy]: https://mypy.readthedocs.io/en/stable/mypy_daemon.html
