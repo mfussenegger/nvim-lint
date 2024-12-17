@@ -119,6 +119,7 @@ Other dedicated linters that are built-in are:
 | [dash][dash]                           | `dash`                 |
 | [deadnix][deadnix]                     | `deadnix`              |
 | [deno][deno]                           | `deno`                 |
+| [dmypy][dmypy]                         | `dmypy`                |
 | [DirectX Shader Compiler][dxc]         | `dxc`                  |
 | [djlint][djlint]                       | `djlint`               |
 | [dotenv-linter][dotenv-linter]         | `dotenv_linter`        |
@@ -539,6 +540,7 @@ busted tests/
 [gdlint]: https://github.com/Scony/godot-gdscript-toolkit
 [rpm]: https://rpm.org
 [ec]: https://github.com/editorconfig-checker/editorconfig-checker
+[dmypy]: https://mypy.readthedocs.io/en/stable/mypy_daemon.html
 [deno]: https://github.com/denoland/deno
 [standardjs]: https://standardjs.com/
 [biomejs]: https://github.com/biomejs/biome
