@@ -227,6 +227,7 @@ Other dedicated linters that are built-in are:
 | [write-good][write-good]               | `write_good`           |
 | [yamllint][yamllint]                   | `yamllint`             |
 | [yq][yq]                               | `yq`                   |
+| [zizmor][zizmor]                       | `zizmor`               |
 | [zsh][zsh]                             | `zsh`                  |
 
 ## Custom Linters
@@ -586,3 +587,4 @@ busted tests/
 [yq]: https://mikefarah.gitbook.io/yq
 [svlint]: https://github.com/dalance/svlint
 [slang]: https://github.com/MikePopoloski/slang
+[zizmor]: https://github.com/woodruffw/zizmor
