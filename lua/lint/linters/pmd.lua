@@ -2,7 +2,9 @@ local M
 
 local function rulesets()
   if M.rulesets == nil then
-    error("Missing pmd ruleset. e.g.: `require('lint.linters.pmd').rulesets = '/rulesets/java/quickstart.xml,/path/to/custom/ruleset.xml'`")
+    error(
+      "Missing pmd ruleset. e.g.: `require('lint.linters.pmd').rulesets = '/rulesets/java/quickstart.xml,/path/to/custom/ruleset.xml'`"
+    )
   end
 end
 
@@ -39,15 +41,15 @@ M = {
         for _, violation in ipairs(file.violations) do
           local code = violation.ruleset .. "/" .. violation.rule
           table.insert(diagnostics, {
-            source = "pmd",
-            lnum = violation.beginline - 1,
-            col = violation.begincolumn - 1,
-            end_lnum = violation.end_lnum and violation.end_lnum - 1,
-            end_col = violation.endcolumn and violation.endcolumn - 1,
-            code = code,
-            message = violation.description,
-            severity = violation.priority and math.max(1, violation.priority - 1),
             bufnr = file_bufnr,
+            lnum = violation.beginline - 1,
+            end_lnum = violation.end_lnum and violation.end_lnum - 1,
+            col = violation.begincolumn - 1,
+            end_col = violation.endcolumn and violation.endcolumn - 1,
+            severity = violation.priority and math.max(1, violation.priority - 1),
+            message = violation.description,
+            source = "pmd",
+            code = code,
             user_data = {
               lsp = {
                 code = code,
