@@ -1,5 +1,3 @@
-local format = '[%tRROR] %f:%l:%c: %m, [%tRROR] %f:%l: %m, [%tARN] %f:%l:%c: %m, [%tARN] %f:%l: %m, [%tNFO] %f:%l:%c: %m, [%tNFO] %f:%l: %m'
-
 local M
 
 local function config()
@@ -10,14 +8,12 @@ local function config()
 end
 
 M = {
-  cmd = 'checkstyle',
-  args = {'-c', config},
+  cmd = "checkstyle",
+  args = { "-f", "sarif", "-c", config },
   ignore_exitcode = true,
-  parser = require('lint.parser').from_errorformat(format, {
-    source = 'checkstyle',
-  }),
+  parser = require("lint.parser").for_sarif({}, { default_end_col = "+1" }),
   -- use the bundled Google style by default
-  config_file = '/google_checks.xml'
+  config_file = "/google_checks.xml",
 }
 
 return M

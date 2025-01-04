@@ -11,6 +11,75 @@ local severity_by_qftype = {
   N = vd.severity.HINT,
 }
 
+---@class lint.SarifOptions
+---@field default_end_col "+1" | "eol" the default end column, "+1" (defaults to the end of the line)
+
+---Return a parse function for the Static Analysis Results Interchange Format (SARIF).
+---https://sarifweb.azurewebsites.net/
+---@param skeleton? table<string, any> | vim.Diagnostic default values
+---@param opts? lint.SarifOptions SARIF-related options
+---@return fun(output: string, bufnr: number): vim.Diagnostic[] parser a SARIF parser
+function M.for_sarif(skeleton, opts)
+  skeleton = skeleton or {}
+  skeleton.severity = skeleton.severity or vd.severity.ERROR
+
+  opts = opts or {}
+  opts.default_end_col = opts.default_end_col or "eol"
+  local default_end_col = opts.default_end_col == "eol" and 999999 or nil
+
+  local severities = {
+    error = vd.severity.ERROR,
+    warning = vd.severity.WARN,
+    note = vd.severity.INFO,
+  }
+
+  ---@param output string the output of the tool
+  ---@param linter_bufnr number the number of the buffer the linter ran on
+  ---@return vim.Diagnostic[] the diagnostics
+  return function(output, linter_bufnr)
+    local diagnostics = {}
+
+    local decoded = vim.json.decode(output) or {}
+
+    local run = decoded.runs and decoded.runs[1] or {}
+
+    local source = run.tool and run.tool.driver and run.tool.driver.name
+
+    local results = run.results or {}
+
+    for _, result in ipairs(results) do
+      for _, location in ipairs(result.locations) do
+        local file_bufnr =
+          vim.uri_to_bufnr(vim.uri_from_fname(vim.fs.abspath(location.physicalLocation.artifactLocation.uri)))
+
+        -- TODO: This check can be removed, once nvim-lint supports multiple
+        -- buffers.
+        -- https://github.com/mfussenegger/nvim-lint/issues/716
+        if linter_bufnr == file_bufnr then
+          local region = location.physicalLocation.region
+
+          table.insert(
+            diagnostics,
+            vim.tbl_extend("keep", {
+              bufnr = file_bufnr,
+              lnum = region.startLine - 1,
+              end_lnum = region.endLine and region.endLine - 1,
+              col = region.startColumn and region.startColumn - 1 or 0,
+              end_col = region.endColumn and region.endColumn - 2 or default_end_col,
+              severity = severities[result.level],
+              message = result.message.text,
+              source = source,
+              code = result.ruleId,
+            }, skeleton or {})
+          )
+        end
+      end
+    end
+
+    return diagnostics
+  end
+end
+
 ---Return a parse function that uses an errorformat to parse the output.
 ---@param efm string Format following |errorformat|
 ---@param skeleton table<string, any> | vim.Diagnostic default values
