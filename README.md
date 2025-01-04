@@ -172,6 +172,7 @@ Other dedicated linters that are built-in are:
 | [phpmd][phpmd]                         | `phpmd`                |
 | [php][php]                             | `php`                  |
 | [phpstan][phpstan]                     | `phpstan`              |
+| [pmd][pmd]                             | `pmd`                  |
 | [ponyc][ponyc]                         | `pony`                 |
 | [prisma-lint][prisma-lint]             | `prisma-lint`          |
 | [proselint][proselint]                 | `proselint`            |
@@ -586,3 +587,4 @@ busted tests/
 [yq]: https://mikefarah.gitbook.io/yq
 [svlint]: https://github.com/dalance/svlint
 [slang]: https://github.com/MikePopoloski/slang
+[pmd]: https://pmd.github.io/
