@@ -1,4 +1,12 @@
-local M = {
+local M
+
+local function rulesets()
+  if M.rulesets == nil then
+    error("Missing pmd ruleset. e.g.: `require('lint.linters.pmd').rulesets = '/rulesets/java/quickstart.xml,/path/to/custom/ruleset.xml'`")
+  end
+end
+
+M = {
   cmd = "pmd",
   stdin = false,
   args = {
@@ -6,7 +14,7 @@ local M = {
     "--format",
     "json",
     "--rulesets",
-    "category/java/bestpractices.xml",
+    rulesets,
     "--dir",
   },
   ignore_exitcode = true,
@@ -53,6 +61,8 @@ local M = {
 
     return diagnostics
   end,
+  -- Use the suggested one by default.
+  rulesets = "rulesets/java/quickstart.xml",
 }
 
 return M
