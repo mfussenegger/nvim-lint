@@ -18,9 +18,14 @@ local severity_by_qftype = {
 ---@class lint.SarifOptions
 ---@field default_end_col? lint.DefaultEndColumn the default end column (defaults to "eol")
 ---@field fname_to_bufnr? fun(fname: string): number a function to transform a file name to a buffer number, this is mainly meant for testing
+---@field get_severity? fun(result: table, rule: table | nil): number | nil a function to get the severity from a result and optional rule. a nil return value causes the result to be ignored
 
 ---Return a parse function for the Static Analysis Results Interchange Format (SARIF).
 ---https://sarifweb.azurewebsites.net/
+---Note that the returned parser does not fully implement the entire SARIF
+---specification. It only implements as much as is needed for the tools that use
+---it. If you use the parser for a new tool, make sure that the diagnostics are
+---parsed correctly.
 ---@param skeleton? table<string, any> | vim.Diagnostic default values
 ---@param opts? lint.SarifOptions SARIF-related options
 ---@return fun(output: string, bufnr: number): vim.Diagnostic[] parser a SARIF parser
@@ -42,6 +47,58 @@ function M.for_sarif(skeleton, opts)
     warning = vd.severity.WARN,
     note = vd.severity.INFO,
   }
+  opts.get_severity = opts.get_severity
+    or function(result, rule)
+      local kind = result.kind or "fail"
+      if kind ~= "fail" then
+        return nil
+      end
+
+      if kind == "fail" and result.level == nil and rule.defaultConfiguration and rule.defaultConfiguration.level then
+        return severities[rule.defaultConfiguration.level]
+      end
+
+      return severities[result.level]
+    end
+
+  ---@param result table
+  ---@param rules table
+  ---@return table | nil
+  local function get_rule(result, rules)
+    local rule = nil
+
+    if type(result.ruleIndex) == "number" then
+      rule = rules[result.ruleIndex + 1]
+    end
+
+    if not rule and result.rule and type(result.rule.index) == "number" then
+      rule = rules[result.rule.index + 1]
+    end
+
+    return rule
+  end
+
+  ---@param result table
+  ---@param rule table | nil
+  ---@return string
+  local function get_code(result, rule)
+    if rule and type(rule.id) == "string" then
+      return rule.id
+    end
+
+    return result.ruleId
+  end
+
+  ---@param result table
+  ---@param rule table | nil
+  ---@return string
+  local function get_message(result, rule)
+    if rule and rule.shortDescription and type(rule.shortDescription.text) == "string" then
+      return rule.shortDescription.text
+    end
+
+    return result.message.text
+  end
 
   ---@param output string the output of the tool
   ---@param linter_bufnr number the number of the buffer the linter ran on
@@ -52,29 +109,43 @@ function M.for_sarif(skeleton, opts)
     local decoded = vim.json.decode(output) or {}
 
     for _, run in ipairs(decoded.runs or {}) do
-      local source = run.tool and run.tool.driver and run.tool.driver.name
+      local driver = run.tool and run.tool.driver
+
+      local source = driver.name
+
+      local rules = driver.rules or {}
 
       for _, result in ipairs(run.results or {}) do
-        for _, location in ipairs(result.locations) do
-          local file_bufnr = opts.fname_to_bufnr(location.physicalLocation.artifactLocation.uri)
+        local rule = get_rule(result, rules)
+        local severity = opts.get_severity(result, rule)
+        local message = get_message(result, rule)
+        local code = get_code(result, rule)
 
-          if linter_bufnr == file_bufnr then
-            local region = location.physicalLocation.region
+        if severity ~= nil then
+          for _, location in ipairs(result.locations) do
+            local ok, file_bufnr = pcall(opts.fname_to_bufnr, location.physicalLocation.artifactLocation.uri)
+            if not ok then
+              file_bufnr = linter_bufnr
+            end
 
-            table.insert(
-              diagnostics,
-              vim.tbl_extend("keep", {
-                bufnr = file_bufnr,
-                lnum = region.startLine - 1,
-                end_lnum = region.endLine and region.endLine - 1,
-                col = region.startColumn and region.startColumn - 1 or 0,
-                end_col = region.endColumn and region.endColumn - 2 or default_end_col,
-                severity = severities[result.level],
-                message = result.message.text,
-                source = source,
-                code = result.ruleId,
-              }, skeleton or {})
-            )
+            if linter_bufnr == file_bufnr then
+              local region = location.physicalLocation.region
+
+              table.insert(
+                diagnostics,
+                vim.tbl_extend("keep", {
+                  bufnr = file_bufnr,
+                  lnum = region.startLine - 1,
+                  end_lnum = region.endLine and region.endLine - 1,
+                  col = region.startColumn and region.startColumn - 1 or 0,
+                  end_col = region.endColumn and region.endColumn - 2 or default_end_col,
+                  severity = severity,
+                  message = message,
+                  source = source,
+                  code = code,
+                }, skeleton or {})
+              )
+            end
           end
         end
       end
