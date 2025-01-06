@@ -11,8 +11,13 @@ local severity_by_qftype = {
   N = vd.severity.HINT,
 }
 
+---@alias lint.DefaultEndColumn
+---| "+1" one after the start column
+---| "eol" the end of the line
+
 ---@class lint.SarifOptions
----@field default_end_col "+1" | "eol" the default end column, "+1" (defaults to the end of the line)
+---@field default_end_col? lint.DefaultEndColumn the default end column (defaults to "eol")
+---@field fname_to_bufnr? fun(fname: string): number a function to transform a file name to a buffer number, this is mainly meant for testing
 
 ---Return a parse function for the Static Analysis Results Interchange Format (SARIF).
 ---https://sarifweb.azurewebsites.net/
@@ -26,6 +31,11 @@ function M.for_sarif(skeleton, opts)
   opts = opts or {}
   opts.default_end_col = opts.default_end_col or "eol"
   local default_end_col = opts.default_end_col == "eol" and 999999 or nil
+
+  opts.fname_to_bufnr = opts.fname_to_bufnr
+    or function(fname)
+      vim.uri_to_bufnr(vim.uri_from_fname(vim.fs.abspath(fname)))
+    end
 
   local severities = {
     error = vd.severity.ERROR,
@@ -41,37 +51,31 @@ function M.for_sarif(skeleton, opts)
 
     local decoded = vim.json.decode(output) or {}
 
-    local run = decoded.runs and decoded.runs[1] or {}
+    for _, run in ipairs(decoded.runs or {}) do
+      local source = run.tool and run.tool.driver and run.tool.driver.name
 
-    local source = run.tool and run.tool.driver and run.tool.driver.name
+      for _, result in ipairs(run.results or {}) do
+        for _, location in ipairs(result.locations) do
+          local file_bufnr = opts.fname_to_bufnr(location.physicalLocation.artifactLocation.uri)
 
-    local results = run.results or {}
+          if linter_bufnr == file_bufnr then
+            local region = location.physicalLocation.region
 
-    for _, result in ipairs(results) do
-      for _, location in ipairs(result.locations) do
-        local file_bufnr =
-          vim.uri_to_bufnr(vim.uri_from_fname(vim.fs.abspath(location.physicalLocation.artifactLocation.uri)))
-
-        -- TODO: This check can be removed, once nvim-lint supports multiple
-        -- buffers.
-        -- https://github.com/mfussenegger/nvim-lint/issues/716
-        if linter_bufnr == file_bufnr then
-          local region = location.physicalLocation.region
-
-          table.insert(
-            diagnostics,
-            vim.tbl_extend("keep", {
-              bufnr = file_bufnr,
-              lnum = region.startLine - 1,
-              end_lnum = region.endLine and region.endLine - 1,
-              col = region.startColumn and region.startColumn - 1 or 0,
-              end_col = region.endColumn and region.endColumn - 2 or default_end_col,
-              severity = severities[result.level],
-              message = result.message.text,
-              source = source,
-              code = result.ruleId,
-            }, skeleton or {})
-          )
+            table.insert(
+              diagnostics,
+              vim.tbl_extend("keep", {
+                bufnr = file_bufnr,
+                lnum = region.startLine - 1,
+                end_lnum = region.endLine and region.endLine - 1,
+                col = region.startColumn and region.startColumn - 1 or 0,
+                end_col = region.endColumn and region.endColumn - 2 or default_end_col,
+                severity = severities[result.level],
+                message = result.message.text,
+                source = source,
+                code = result.ruleId,
+              }, skeleton or {})
+            )
+          end
         end
       end
     end
