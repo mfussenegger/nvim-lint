@@ -1,4 +1,4 @@
-local efm = "%E%f (line %l): %m,%C%p^,%C%.%#"
+local efm = "%E%f (%[%^ ]%# %l): %m,%C%p^,%C%.%#"
 return {
   cmd = "fish",
   args = { "--no-execute" },

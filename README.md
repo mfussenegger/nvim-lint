@@ -27,7 +27,7 @@ For example:
 ```bash
 git clone \
     https://github.com/mfussenegger/nvim-lint.git
-    ~/.config/nvim/pack/plugins/start/nvim-lint
+~/.config/nvim/pack/plugins/start/nvim-lint
 ```
 
 - If using [vim-plug][3]: `Plug 'mfussenegger/nvim-lint'`
@@ -39,8 +39,8 @@ git clone \
 Configure the linters you want to run per file type. For example:
 
 ```lua
-require('lint').linters_by_ft = {
-  markdown = {'vale'},
+require("lint").linters_by_ft = {
+  markdown = { "vale" },
 }
 ```
 
@@ -55,7 +55,6 @@ or with Lua autocmds:
 ```lua
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
-
     -- try_lint without arguments runs the linters defined in `linters_by_ft`
     -- for the current filetype
     require("lint").try_lint()
@@ -228,6 +227,7 @@ Other dedicated linters that are built-in are:
 | [write-good][write-good]               | `write_good`           |
 | [yamllint][yamllint]                   | `yamllint`             |
 | [yq][yq]                               | `yq`                   |
+| [zizmor][zizmor]                       | `zizmor`               |
 | [zsh][zsh]                             | `zsh`                  |
 
 ## Custom Linters
@@ -237,15 +237,15 @@ please consider contributing a linter if it is missing.
 
 
 ```lua
-require('lint').linters.your_linter_name = {
-  cmd = 'linter_cmd',
+require("lint").linters.your_linter_name = {
+  cmd = "linter_cmd",
   stdin = true, -- or false if it doesn't support content input via stdin. In that case the filename is automatically added to the arguments.
   append_fname = true, -- Automatically append the file name to `args` if `stdin = false` (default: true)
   args = {}, -- list of arguments. Can contain functions with zero arguments that will be evaluated once the linter is used.
   stream = nil, -- ('stdout' | 'stderr' | 'both') configure the stream to which the linter outputs the linting result.
   ignore_exitcode = false, -- set this to true if the linter exits with a code != 0 and that's considered normal.
   env = nil, -- custom environment table to use with the external process. Note that this replaces the *entire* environment, it is not additive.
-  parser = your_parse_function
+  parser = your_parse_function,
 }
 ```
 
@@ -312,7 +312,7 @@ The function takes two arguments: `errorformat` and `skeleton` (optional).
 Creates a parser function from a pattern.
 
 ```lua
-parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defaults, opts)
+parser = require("lint.parser").from_pattern(pattern, groups, severity_map, defaults, opts)
 ```
 
 ### pattern
@@ -344,8 +344,8 @@ The order of the groups must match the order of the captures within the pattern.
 An example:
 
 ```lua
-local pattern = '[^:]+:(%d+):(%d+):(%w+):(.+)'
-local groups = { 'lnum', 'col', 'code', 'message' }
+local pattern = "[^:]+:(%d+):(%d+):(%w+):(.+)"
+local groups = { "lnum", "col", "code", "message" }
 ```
 
 The captures in the pattern correspond to the group at the same position.
@@ -356,10 +356,10 @@ A mapping from severity codes to diagnostic codes
 
 ``` lua
 default_severity = {
-['error'] = vim.diagnostic.severity.ERROR,
-['warning'] = vim.diagnostic.severity.WARN,
-['information'] = vim.diagnostic.severity.INFO,
-['hint'] = vim.diagnostic.severity.HINT,
+  ["error"] = vim.diagnostic.severity.ERROR,
+  ["warning"] = vim.diagnostic.severity.WARN,
+  ["information"] = vim.diagnostic.severity.INFO,
+  ["hint"] = vim.diagnostic.severity.HINT,
 }
 ```
 
@@ -368,7 +368,7 @@ default_severity = {
 The defaults diagnostic values
 
 ```lua
-defaults = {["source"] = "mylint-name"}
+defaults = { ["source"] = "mylint-name" }
 ```
 
 ### opts
@@ -386,12 +386,12 @@ Additional options
 You can import a linter and modify its properties. An example:
 
 ```lua
-local phpcs = require('lint').linters.phpcs
+local phpcs = require("lint").linters.phpcs
 phpcs.args = {
-  '-q',
+  "-q",
   -- <- Add a new parameter here
-  '--report=json',
-  '-'
+  "--report=json",
+  "-",
 }
 ```
 
@@ -429,7 +429,7 @@ To include the running linters in the status line you could format them like thi
 local lint_progress = function()
   local linters = require("lint").get_running()
   if #linters == 0 then
-      return "󰦕"
+    return "󰦕"
   end
   return "󱉶 " .. table.concat(linters, ", ")
 end
@@ -607,4 +607,5 @@ busted tests/
 [yq]: https://mikefarah.gitbook.io/yq
 [svlint]: https://github.com/dalance/svlint
 [slang]: https://github.com/MikePopoloski/slang
+[zizmor]: https://github.com/woodruffw/zizmor
 [pmd]: https://pmd.github.io/
