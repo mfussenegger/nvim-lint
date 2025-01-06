@@ -275,13 +275,33 @@ Note that this completely overrides the environment, it does not add new
 environment variables. The one exception is that the `PATH` variable will be
 preserved if it is not explicitly set.
 
-You can generate a parse function from a Lua pattern or from an `errorformat`
-using the function in the `lint.parser` module:
+### for_sarif
+
+You can generate a [SARIF](https://sarifweb.azurewebsites.net/) parser with some
+options using the function in the `lint.parser` module:
+
+```lua
+parser = require("lint.parser").for_sarif()
+```
+
+The function takes two optional arguments:
+
+- `skeleton`: these are default values for the diagnostics
+- `options`:
+  - `default_end_col`: this can be either `"+1"` or `"eol"` (the default). It
+    controls the end column behavior, when there is none in the SARIF log.
+    - `"eol"`: This causes the same behavior as in the SARIF-spec, the
+      diagnostic goes to the end of the line
+    - `"+1"`: This does not generate `end_col` diagnostic fields, causing the
+      diagnostics to be one character wide.
 
 ### from_errorformat
 
+You can generate a parse function from a Lua pattern or from an `errorformat`
+using the function in the `lint.parser` module:
+
 ```lua
-parser = require('lint.parser').from_errorformat(errorformat)
+parser = require("lint.parser").from_errorformat(errorformat)
 ```
 
 The function takes two arguments: `errorformat` and `skeleton` (optional).

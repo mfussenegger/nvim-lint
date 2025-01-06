@@ -11,6 +11,79 @@ local severity_by_qftype = {
   N = vd.severity.HINT,
 }
 
+---@alias lint.DefaultEndColumn
+---| "+1" one after the start column
+---| "eol" the end of the line
+
+---@class lint.SarifOptions
+---@field default_end_col? lint.DefaultEndColumn the default end column (defaults to "eol")
+---@field fname_to_bufnr? fun(fname: string): number a function to transform a file name to a buffer number, this is mainly meant for testing
+
+---Return a parse function for the Static Analysis Results Interchange Format (SARIF).
+---https://sarifweb.azurewebsites.net/
+---@param skeleton? table<string, any> | vim.Diagnostic default values
+---@param opts? lint.SarifOptions SARIF-related options
+---@return fun(output: string, bufnr: number): vim.Diagnostic[] parser a SARIF parser
+function M.for_sarif(skeleton, opts)
+  skeleton = skeleton or {}
+  skeleton.severity = skeleton.severity or vd.severity.ERROR
+
+  opts = opts or {}
+  opts.default_end_col = opts.default_end_col or "eol"
+  local default_end_col = opts.default_end_col == "eol" and 999999 or nil
+
+  opts.fname_to_bufnr = opts.fname_to_bufnr
+    or function(fname)
+      vim.uri_to_bufnr(vim.uri_from_fname(vim.fs.abspath(fname)))
+    end
+
+  local severities = {
+    error = vd.severity.ERROR,
+    warning = vd.severity.WARN,
+    note = vd.severity.INFO,
+  }
+
+  ---@param output string the output of the tool
+  ---@param linter_bufnr number the number of the buffer the linter ran on
+  ---@return vim.Diagnostic[] the diagnostics
+  return function(output, linter_bufnr)
+    local diagnostics = {}
+
+    local decoded = vim.json.decode(output) or {}
+
+    for _, run in ipairs(decoded.runs or {}) do
+      local source = run.tool and run.tool.driver and run.tool.driver.name
+
+      for _, result in ipairs(run.results or {}) do
+        for _, location in ipairs(result.locations) do
+          local file_bufnr = opts.fname_to_bufnr(location.physicalLocation.artifactLocation.uri)
+
+          if linter_bufnr == file_bufnr then
+            local region = location.physicalLocation.region
+
+            table.insert(
+              diagnostics,
+              vim.tbl_extend("keep", {
+                bufnr = file_bufnr,
+                lnum = region.startLine - 1,
+                end_lnum = region.endLine and region.endLine - 1,
+                col = region.startColumn and region.startColumn - 1 or 0,
+                end_col = region.endColumn and region.endColumn - 2 or default_end_col,
+                severity = severities[result.level],
+                message = result.message.text,
+                source = source,
+                code = result.ruleId,
+              }, skeleton or {})
+            )
+          end
+        end
+      end
+    end
+
+    return diagnostics
+  end
+end
+
 ---Return a parse function that uses an errorformat to parse the output.
 ---@param efm string Format following |errorformat|
 ---@param skeleton table<string, any> | vim.Diagnostic default values
