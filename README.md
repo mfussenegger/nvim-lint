@@ -36,7 +36,10 @@ git clone \
 
 ## Usage
 
-Configure the linters you want to run per file type. For example:
+Configure the linters you want to run per file type. File type can be determined
+by running :lua print(vim.bo.filetype) in the buffer you'd like linted.
+
+For example:
 
 ```lua
 require('lint').linters_by_ft = {
