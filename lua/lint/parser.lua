@@ -39,7 +39,11 @@ function M.for_sarif(skeleton, opts)
 
   opts.fname_to_bufnr = opts.fname_to_bufnr
     or function(fname)
-      vim.uri_to_bufnr(vim.uri_from_fname(vim.fs.abspath(fname)))
+      if fname:find("^file://") then
+        return vim.uri_to_bufnr(fname)
+      end
+
+      return vim.uri_to_bufnr(vim.uri_from_fname(vim.fs.abspath(fname)))
     end
 
   local severities = {
