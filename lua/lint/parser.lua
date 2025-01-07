@@ -142,7 +142,7 @@ function M.for_sarif(skeleton, opts)
                   lnum = region.startLine - 1,
                   end_lnum = region.endLine and region.endLine - 1,
                   col = region.startColumn and region.startColumn - 1 or 0,
-                  end_col = region.endColumn and region.endColumn - 2 or default_end_col,
+                  end_col = region.endColumn and region.endColumn - 1 or default_end_col,
                   severity = severity,
                   message = message,
                   source = source,
