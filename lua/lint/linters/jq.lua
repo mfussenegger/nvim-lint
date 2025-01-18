@@ -4,7 +4,7 @@ return {
   stream = "stderr",
   ignore_exitcode = true,
   parser = require("lint.parser").from_pattern(
-    "^(.+): (.+) at line (%d+), column (%d+)$",
+    "^(.+): (.+) at line (%d+), column (%d+)",
     { "code", "message", "lnum", "col" },
     nil,
     nil,
