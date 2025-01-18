@@ -44,6 +44,8 @@ require('lint').linters_by_ft = {
 }
 ```
 
+To get the `filetype` of a buffer you can run `:= vim.bo.filetype`.
+
 Then setup a autocmd to trigger linting. For example:
 
 ```vimL
