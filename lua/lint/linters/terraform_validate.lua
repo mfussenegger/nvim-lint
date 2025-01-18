@@ -4,9 +4,13 @@ local terraform_severity_to_diagnostic_severity = {
   notice = vim.diagnostic.severity.INFO,
 }
 
+-- Allow ability to override of terraform command to support OpenTofu
+-- vim.g.nvim_lint_terraform = "tofu" -- set in options.lua or init.lua
+local terraform = vim.g.nvim_lint_terraform or "terraform"
+
 return function()
   return {
-    cmd = 'terraform',
+    cmd = terraform,
     args = { '-chdir=' .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':.:h'), 'validate', '-json' },
     append_fname = false,
     stdin = false,
