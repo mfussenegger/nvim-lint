@@ -216,6 +216,7 @@ Other dedicated linters that are built-in are:
 | [tfsec][tfsec]                         | `tfsec`                |
 | [tlint][tlint]                         | `tlint`                |
 | [trivy][trivy]                         | `trivy`                |
+| [ts-standard][ts-standard]             | `ts-standard`          |
 | [typos][typos]                         | `typos`                |
 | [Vala][vala-lint]                      | `vala_lint`            |
 | [Vale][8]                              | `vale`                 |
@@ -588,3 +589,4 @@ busted tests/
 [svlint]: https://github.com/dalance/svlint
 [slang]: https://github.com/MikePopoloski/slang
 [zizmor]: https://github.com/woodruffw/zizmor
+[ts-standard]: https://github.com/standard/ts-standard
