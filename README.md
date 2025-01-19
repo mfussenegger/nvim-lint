@@ -206,6 +206,7 @@ Other dedicated linters that are built-in are:
 | [Spectral][spectral]                   | `spectral`             |
 | [sphinx-lint][sphinx-lint]             | `sphinx-lint`          |
 | [sqlfluff][sqlfluff]                   | `sqlfluff`             |
+| [sqruff][sqruff]                       | `sqruff`               |
 | [standardjs][standardjs]               | `standardjs`           |
 | [StandardRB][27]                       | `standardrb`           |
 | [statix check][33]                     | `statix`               |
@@ -529,6 +530,7 @@ busted tests/
 [cue]: https://github.com/cue-lang/cue
 [curlylint]: https://www.curlylint.org/
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff
+[sqruff]: https://github.com/quarylabs/sqruff
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
