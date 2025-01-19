@@ -29,7 +29,7 @@ return {
         col = msg.range.start.character - 1,
         end_col = msg.range["end"].character - 1,
         message = msg.message,
-        code = msg.source, -- TODO: https://github.com/quarylabs/sqruff/issues/1219
+        -- code not provided: https://github.com/quarylabs/sqruff/issues/1219
         source = msg.source,
         severity = assert(severities[msg.severity], "missing mapping for severity " .. msg.severity),
       })
