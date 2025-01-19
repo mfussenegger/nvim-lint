@@ -5,6 +5,7 @@ local severities = {
 
 return {
   cmd = "sqruff",
+  stdin = true,
   args = {
     "lint",
     "--format=json",
