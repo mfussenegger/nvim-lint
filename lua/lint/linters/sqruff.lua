@@ -17,10 +17,6 @@ return {
       return {}
     end
 
-    if not vim.startswith(output, "{") then
-      vim.notify(output)
-      return {}
-    end
 
     local decoded = vim.json.decode(output)
     local diagnostics = {}
