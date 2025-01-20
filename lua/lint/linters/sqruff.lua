@@ -17,7 +17,6 @@ return {
       return {}
     end
 
-
     local decoded = vim.json.decode(output)
     local diagnostics = {}
     local messages = decoded["<string>"]
@@ -29,7 +28,7 @@ return {
         col = msg.range.start.character - 1,
         end_col = msg.range["end"].character - 1,
         message = msg.message,
-        -- code not provided: https://github.com/quarylabs/sqruff/issues/1219
+        code = msg.code,
         source = msg.source,
         severity = assert(severities[msg.severity], "missing mapping for severity " .. msg.severity),
       })
