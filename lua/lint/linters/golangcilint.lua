@@ -12,6 +12,7 @@ return {
     'run',
     '--out-format',
     'json',
+    '--issues-exit-code=0',
     '--show-stats=false',
     '--print-issued-lines=false',
     '--print-linter-name=false',
@@ -20,7 +21,6 @@ return {
     end
   },
   stream = 'stdout',
-  ignore_exitcode = true,
   parser = function(output, bufnr, cwd)
     if output == '' then
       return {}
