@@ -4,7 +4,7 @@
 local function get_cur_file_type(bufnr)
   -- Logic taken from https://github.com/bazelbuild/buildtools/blob/master/build/lex.go#L125
   bufnr = bufnr or 0
-  local fname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+  local fname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ':t')
   fname = string.lower(fname)
 
   if fname == "module.bazel" then
@@ -41,9 +41,9 @@ local function parse_stdout_json(bufnr, line)
       lnum = 0,
       col = 0,
       severity = vim.diagnostic.severity.HINT,
-      source = "buildifier",
-      message = "Please run buildifier to reformat the file contents.",
-      code = "reformat",
+      source = 'buildifier',
+      message = 'Please run buildifier to reformat the file contents.',
+      code = 'reformat',
     })
   end
 
@@ -60,8 +60,8 @@ local function parse_stdout_json(bufnr, line)
       end_lnum = item["end"].line - 1,
       end_col = item["end"].column - 1,
       severity = severity,
-      source = "buildifier",
-      message = item.message .. "\n\n" .. item.url,
+      source = 'buildifier',
+      message = item.message .. '\n\n' .. item.url,
       code = item.category,
     })
   end
@@ -88,43 +88,36 @@ local function parse_stderr_line(bufnr, line)
   end
 
   if message ~= "" then
-    return {
-      {
-        bufnr = bufnr,
-        lnum = lnum,
-        col = col,
-        severity = vim.diagnostic.severity.ERROR,
-        source = "buildifier",
-        message = message:gsub("^%s+", ""),
-        code = "syntax",
-      },
-    }
+    return {{
+      bufnr = bufnr,
+      lnum = lnum,
+      col = col,
+      severity = vim.diagnostic.severity.ERROR,
+      source = 'buildifier',
+      message = message:gsub("^%s+", ""),
+      code = 'syntax',
+    }}
   end
 
   return {}
 end
 
 return {
-  cmd = "buildifier",
+  cmd = 'buildifier',
   args = {
-    "-lint",
-    "warn",
-    "-mode",
-    "check",
-    "-warnings",
-    "all",
-    "-format",
-    "json",
-    "-type",
-    get_cur_file_type,
+    "-lint", "warn",
+    "-mode", "check",
+    "-warnings", "all",
+    "-format", "json",
+    "-type", get_cur_file_type
   },
   stream = "both",
   parser = function(output, bufnr)
     local diagnostics = {}
 
-    local lines = vim.split(output, "\n")
+    local lines = vim.split(output, '\n')
     for _, line in ipairs(lines) do
-      if vim.startswith(line, "{") then
+      if vim.startswith(line, '{') then
         for _, d in ipairs(parse_stdout_json(bufnr, line)) do
           table.insert(diagnostics, d)
         end
