@@ -10,6 +10,7 @@ local severities = {
 return {
   cmd = 'mypy',
   stdin = false,
+  stream = "both",
   ignore_exitcode = true,
   args = {
     '--show-column-numbers',

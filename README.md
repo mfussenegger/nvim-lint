@@ -44,6 +44,8 @@ require("lint").linters_by_ft = {
 }
 ```
 
+To get the `filetype` of a buffer you can run `:= vim.bo.filetype`.
+
 Then setup a autocmd to trigger linting. For example:
 
 ```vimL
@@ -204,6 +206,7 @@ Other dedicated linters that are built-in are:
 | [Spectral][spectral]                   | `spectral`             |
 | [sphinx-lint][sphinx-lint]             | `sphinx-lint`          |
 | [sqlfluff][sqlfluff]                   | `sqlfluff`             |
+| [sqruff][sqruff]                       | `sqruff`               |
 | [standardjs][standardjs]               | `standardjs`           |
 | [StandardRB][27]                       | `standardrb`           |
 | [statix check][33]                     | `statix`               |
@@ -216,6 +219,7 @@ Other dedicated linters that are built-in are:
 | [tfsec][tfsec]                         | `tfsec`                |
 | [tlint][tlint]                         | `tlint`                |
 | [trivy][trivy]                         | `trivy`                |
+| [ts-standard][ts-standard]             | `ts-standard`          |
 | [typos][typos]                         | `typos`                |
 | [Vala][vala-lint]                      | `vala_lint`            |
 | [Vale][8]                              | `vale`                 |
@@ -546,6 +550,7 @@ busted tests/
 [cue]: https://github.com/cue-lang/cue
 [curlylint]: https://www.curlylint.org/
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff
+[sqruff]: https://github.com/quarylabs/sqruff
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
@@ -608,4 +613,5 @@ busted tests/
 [svlint]: https://github.com/dalance/svlint
 [slang]: https://github.com/MikePopoloski/slang
 [zizmor]: https://github.com/woodruffw/zizmor
+[ts-standard]: https://github.com/standard/ts-standard
 [pmd]: https://pmd.github.io/
