@@ -315,6 +315,9 @@ local function with_cwd(cwd, fn, ...)
   if curcwd == cwd then
     return fn(...)
   else
+    if type(cwd) == 'function' then
+      cwd = cwd()
+    end
     local mods = { noautocmd = true }
     vim.cmd.cd({cwd, mods = mods})
     local ok, result = pcall(fn, ...)
