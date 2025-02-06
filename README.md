@@ -45,14 +45,21 @@ require('lint').linters_by_ft = {
 ```
 
 To get the `filetype` of a buffer you can run `:= vim.bo.filetype`.
+The `filetype` can also be a compound `filetype`. For example, if you have a buffer
+with a `filetype` like `yaml.ghaction`, you can use either `ghaction`, `yaml` or
+the full `yaml.ghaction` as key in the `linters_by_ft` table and the linter
+will be picked up in that buffer. This is useful for linters like
+[actionlint][actionlint] in combination with `vim.filetype` patterns like
+`[".*/.github/workflows/.*%.yml"] = "yaml.ghaction",`
 
-Then setup a autocmd to trigger linting. For example:
+
+Then setup a `autocmd` to trigger linting. For example:
 
 ```vimL
 au BufWritePost * lua require('lint').try_lint()
 ```
 
-or with Lua autocmds:
+or with Lua auto commands:
 
 ```lua
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -70,7 +77,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 ```
 
 Some linters require a file to be saved to disk, others support linting `stdin`
-input. For such linters you could also define a more aggressive autocmd, for
+input. For such linters you could also define a more aggressive `autocmd`, for
 example on the `InsertLeave` or `TextChanged` events.
 
 
