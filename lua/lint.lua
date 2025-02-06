@@ -305,6 +305,27 @@ local function eval_fn_or_id(x)
   end
 end
 
+--- Run given function with `cwd` set as :cd, restore original cwd afterwards
+---
+---@param cwd string
+---@param fn fun(...):any
+---@return any
+local function with_cwd(cwd, fn, ...)
+  local curcwd = vim.fn.getcwd()
+  if curcwd == cwd then
+    return fn(...)
+  else
+    local mods = { noautocmd = true }
+    vim.cmd.cd({cwd, mods = mods})
+    local ok, result = pcall(fn, ...)
+    vim.cmd.cd({curcwd , mods = mods})
+    if ok then
+      return result
+    end
+    error(result)
+  end
+end
+
 
 --- Runs the given linter.
 --- This is usually not used directly but called via `try_lint`
@@ -323,15 +344,21 @@ function M.lint(linter, opts)
   local args = {}
   local bufnr = api.nvim_get_current_buf()
   local iswin = vim.fn.has("win32") == 1
+  opts = opts or {}
+  local cwd = opts.cwd or linter.cwd or vim.fn.getcwd()
+
+  local function eval(...)
+    return with_cwd(cwd, eval_fn_or_id, ...)
+  end
+
   if iswin then
     linter = vim.tbl_extend("force", linter, {
       cmd = "cmd.exe",
       args = { "/C", linter.cmd, unpack(linter.args or {}) },
     })
   end
-  opts = opts or {}
   if linter.args then
-    vim.list_extend(args, vim.tbl_map(eval_fn_or_id, linter.args))
+    vim.list_extend(args, vim.tbl_map(eval, linter.args))
   end
   if not linter.stdin and linter.append_fname ~= false then
     table.insert(args, api.nvim_buf_get_name(bufnr))
@@ -350,7 +377,7 @@ function M.lint(linter, opts)
     args = args,
     stdio = { stdin, stdout, stderr },
     env = env,
-    cwd = opts.cwd or linter.cwd or vim.fn.getcwd(),
+    cwd = cwd,
     -- Linter may launch child processes so set this as a group leader and
     -- manually track and kill processes as we need to.
     -- Don't detach on windows since that may cause shells to
@@ -361,7 +388,7 @@ function M.lint(linter, opts)
   if iswin then
     linter_opts.hide = true
   end
-  local cmd = eval_fn_or_id(linter.cmd)
+  local cmd = eval(linter.cmd)
   assert(cmd, 'Linter definition must have a `cmd` set: ' .. vim.inspect(linter))
   handle, pid_or_err = uv.spawn(cmd, linter_opts, function(code)
     if handle and not handle:is_closing() then
