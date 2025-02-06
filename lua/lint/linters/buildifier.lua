@@ -111,8 +111,6 @@ return {
     "-format", "json",
     "-type", get_cur_file_type
   },
-  stdin = true,
-  append_fname = false,
   stream = "both",
   parser = function(output, bufnr)
     local diagnostics = {}
