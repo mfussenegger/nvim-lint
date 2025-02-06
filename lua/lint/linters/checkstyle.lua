@@ -1,23 +1,25 @@
-local format = '[%tRROR] %f:%l:%c: %m, [%tRROR] %f:%l: %m, [%tARN] %f:%l:%c: %m, [%tARN] %f:%l: %m, [%tNFO] %f:%l:%c: %m, [%tNFO] %f:%l: %m'
-
 local M
 
 local function config()
   if M.config_file == nil then
-    error "Missing checkstyle config. e.g.: `require('lint.linters.checkstyle').config_file = '/path/to/checkstyle_config.xml'`"
+    error(
+      "Missing checkstyle config. e.g.: `require('lint.linters.checkstyle').config_file = '/path/to/checkstyle_config.xml'`"
+    )
   end
   return M.config_file
 end
 
 M = {
-  cmd = 'checkstyle',
-  args = {'-c', config},
+  cmd = "checkstyle",
+  args = { "-f", "sarif", "-c", config },
   ignore_exitcode = true,
-  parser = require('lint.parser').from_errorformat(format, {
-    source = 'checkstyle',
-  }),
   -- use the bundled Google style by default
-  config_file = '/google_checks.xml'
+  config_file = "/google_checks.xml",
+  diagnostic_skeleton = {},
+  ---@type lint.SarifOptions
+  sarif_config = { default_end_col = "+1" },
 }
+
+M.parser = require("lint.parser").for_sarif(M.diagnostic_skeleton, M.sarif_config)
 
 return M
