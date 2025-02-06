@@ -52,4 +52,20 @@ describe('lint', function()
     assert.are.same({}, lint.get_running())
     assert.is_false(captured_proc.handle:is_active())
   end)
+
+  it("args and cmd are evaluated with cwd changed to opts.cwd", function()
+    local captured_cwd
+    local linter = {
+      name = "dummy",
+      cmd = function ()
+        captured_cwd = vim.fn.getcwd()
+        return "echo"
+      end
+    }
+    lint.linters.dummy = linter
+    local cwd = os.getenv("TMPDIR") or "/tmp"
+    lint.try_lint("dummy", { cwd = cwd, ignore_errors = true })
+    assert.are.same(cwd, captured_cwd)
+    assert.are_not.same(cwd, vim.fn.getcwd())
+  end)
 end)
