@@ -147,6 +147,7 @@ Other dedicated linters that are built-in are:
 | [gitlint][gitlint]                     | `gitlint`              |
 | [glslc][glslc]                         | `glslc`                |
 | [Golangci-lint][16]                    | `golangcilint`         |
+| [graylint][graylint]                   | `graylint`             |
 | [hadolint][28]                         | `hadolint`             |
 | [hledger][hledger]                     | `hledger`              |
 | [hlint][32]                            | `hlint`                |
@@ -601,3 +602,4 @@ busted tests/
 [slang]: https://github.com/MikePopoloski/slang
 [zizmor]: https://github.com/woodruffw/zizmor
 [ts-standard]: https://github.com/standard/ts-standard
+[graylint]: https://github.com/akaihola/graylint
