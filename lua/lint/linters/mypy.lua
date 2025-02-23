@@ -18,11 +18,7 @@ return {
     '--hide-error-context',
     '--no-color-output',
     '--no-error-summary',
-    '--no-pretty',
-    '--python-executable',
-    function()
-      return vim.fn.exepath 'python3' or vim.fn.exepath 'python'
-    end
+    '--no-pretty'
   },
   parser = require('lint.parser').from_pattern(
     pattern,
