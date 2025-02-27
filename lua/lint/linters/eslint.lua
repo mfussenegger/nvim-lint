@@ -7,7 +7,7 @@ local severities = {
 return {
   cmd = function()
     local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
-    return vim.loop.fs_stat(local_binary) and local_binary or binary_name
+    return vim.loop.fs_stat(local_binary) and local_binary or "npx " .. binary_name
   end,
   args = {
     '--format',
