@@ -491,7 +491,7 @@ busted tests/
 [pydocstyle]: https://www.pydocstyle.org/en/stable/
 [prisma-lint]: https://github.com/loop-payments/prisma-lint
 [checkpatch]: https://docs.kernel.org/dev-tools/checkpatch.html
-[checkstyle]: https://checkstyle.sourceforge.io/
+[checkstyle]: https://checkstyle.org/
 [jshint]: https://jshint.com/
 [jsonlint]: https://github.com/zaach/jsonlint
 [rflint]: https://github.com/boakley/robotframework-lint
