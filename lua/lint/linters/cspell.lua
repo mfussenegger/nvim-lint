@@ -7,7 +7,9 @@ return {
     '--no-color',
     '--no-progress',
     '--no-summary',
+    function() return 'stdin://' .. vim.api.nvim_buf_get_name(0) end,
   },
+  stdin = true,
   stream = 'stdout',
   parser = function(output)
     local lines = vim.split(output, '\n')
