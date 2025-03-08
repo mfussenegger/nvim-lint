@@ -33,8 +33,9 @@ return {
     local diagnostics = {}
     for _, item in ipairs(decoded["Issues"]) do
       local curfile = vim.api.nvim_buf_get_name(bufnr)
-      local lintedfile = cwd .. "/" .. item.Pos.Filename
-      if vim.fn.fnamemodify(curfile, ":p") == vim.fn.fnamemodify(lintedfile, ":p") then
+      -- convert absolute path to relative from cwd as linter returns
+      local relative_curfile = vim.fn.fnamemodify(curfile, ":~:.")
+      if relative_curfile == item.Pos.Filename then
         -- only publish if those are the current file diagnostics
         local sv = severities[item.Severity] or severities.warning
         table.insert(diagnostics, {
