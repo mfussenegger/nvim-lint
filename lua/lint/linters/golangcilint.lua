@@ -33,8 +33,14 @@ return {
     local diagnostics = {}
     for _, item in ipairs(decoded["Issues"]) do
       local curfile = vim.api.nvim_buf_get_name(bufnr)
+      local curfile_abs = vim.fn.fnamemodify(curfile, ":p")
+      local curfile_norm = vim.fs.normalize(curfile_abs)
+
       local lintedfile = cwd .. "/" .. item.Pos.Filename
-      if vim.fn.fnamemodify(curfile, ":p") == vim.fn.fnamemodify(lintedfile, ":p") then
+      local lintedfile_abs = vim.fn.fnamemodify(lintedfile, ":p")
+      local lintedfile_norm = vim.fs.normalize(lintedfile_abs)
+
+      if curfile_norm == lintedfile_norm then
         -- only publish if those are the current file diagnostics
         local sv = severities[item.Severity] or severities.warning
         table.insert(diagnostics, {
