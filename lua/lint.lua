@@ -5,6 +5,7 @@
 local uv = vim.loop
 local api = vim.api
 local notify = vim.notify_once or vim.notify
+local SIGKILL_WAIT_MS = 10000
 local M = {}
 
 --- Running processes by buffer -> by linter name
@@ -132,9 +133,18 @@ function M.get_running(bufnr)
   return linters
 end
 
-
-
-
+---@return integer
+local function count_running_procs()
+  local num_procs = 0
+  for _, linters in pairs(running_procs_by_buf) do
+    for _, proc in pairs(linters) do
+      if proc.handle and not proc.handle:is_closing() then
+        num_procs = num_procs + 1
+      end
+    end
+  end
+  return num_procs
+end
 
 ---Table with the available linters
 ---@type table<string, lint.Linter|fun():lint.Linter>
@@ -284,16 +294,14 @@ function LintProc:cancel()
   -- This is mostly useful for when `cmd` is a script with a shebang.
   handle:kill('sigint')
 
-  vim.wait(10000, function()
-    return handle:is_closing() or false
-  end)
-
-  if not handle:is_closing() then
-    -- 'sigint' didn't work, hit it with a 'sigkill'.
-    -- This should also kill any attached child processes since
-    -- handle is a process group leader (due to it being detached).
-    handle:kill('sigkill')
-  end
+  vim.defer_fn(function()
+    if not handle:is_closing() then
+      -- 'sigint' didn't work, hit it with a 'sigkill'.
+      -- This should also kill any attached child processes since
+      -- handle is a process group leader (due to it being detached).
+      handle:kill("sigkill")
+    end
+  end, SIGKILL_WAIT_MS)
 end
 
 
@@ -326,6 +334,25 @@ local function with_cwd(cwd, fn, ...)
   end
 end
 
+local _vim_leave_autocmd_id = nil
+local function create_vim_leave_autocmd()
+  if _vim_leave_autocmd_id then
+    return
+  end
+  _vim_leave_autocmd_id = vim.api.nvim_create_autocmd("VimLeavePre", {
+    desc = "nvim-lint cancel all running linters before exit",
+    callback = function()
+      for _, linters in pairs(running_procs_by_buf) do
+        for _, proc in pairs(linters) do
+          proc:cancel()
+        end
+      end
+      vim.wait(SIGKILL_WAIT_MS, function()
+        return count_running_procs() == 0
+      end)
+    end,
+  })
+end
 
 --- Runs the given linter.
 --- This is usually not used directly but called via `try_lint`
@@ -335,6 +362,7 @@ end
 ---@return lint.LintProc|nil
 function M.lint(linter, opts)
   assert(linter, 'lint must be called with a linter')
+  create_vim_leave_autocmd()
   local stdin = assert(uv.new_pipe(false), "Must be able to create pipe")
   local stdout = assert(uv.new_pipe(false), "Must be able to create pipe")
   local stderr = assert(uv.new_pipe(false), "Must be able to create pipe")
