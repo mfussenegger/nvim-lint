@@ -6,7 +6,7 @@ local terraform_severity_to_diagnostic_severity = {
 
 return {
   cmd = "tflint",
-  args = {"--format=json"},
+  args = {"--format=json", "--recursive"},
   append_fname = false,
   stdin = false,
   ignore_exitcode = true,
@@ -14,7 +14,7 @@ return {
     local decoded = vim.json.decode(output) or {}
     local issues = decoded["issues"] or {}
     local diagnostics = {}
-    local buf_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+    local buf_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":.")
 
     for _, issue in ipairs(issues) do
       if issue.range.filename == buf_path then
