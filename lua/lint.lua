@@ -284,16 +284,15 @@ function LintProc:cancel()
   -- This is mostly useful for when `cmd` is a script with a shebang.
   handle:kill('sigint')
 
-  vim.wait(10000, function()
-    return handle:is_closing() or false
-  end)
+  vim.defer_fn(function()
+    if not handle:is_closing() then
+      -- 'sigint' didn't work, hit it with a 'sigkill'.
+      -- This should also kill any attached child processes since
+      -- handle is a process group leader (due to it being detached).
+      handle:kill("sigkill")
+    end
+  end, 10000)
 
-  if not handle:is_closing() then
-    -- 'sigint' didn't work, hit it with a 'sigkill'.
-    -- This should also kill any attached child processes since
-    -- handle is a process group leader (due to it being detached).
-    handle:kill('sigkill')
-  end
 end
 
 
