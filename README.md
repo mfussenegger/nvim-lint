@@ -386,7 +386,6 @@ phpcs.args = {
 }
 
 -- or prepend to existing arguments
-
 local mypy = require('lint').linters.mypy
 mypy.args = vim.list_extend({'--strict', '--allow-untyped-call'}, mypy.args)
 ```
