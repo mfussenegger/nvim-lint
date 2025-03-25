@@ -36,7 +36,7 @@ end
 --- ```
 ---
 ---@param linter lint.Linter|fun():lint.Linter
----@param map fun(d: vim.Diagnostic): vim.Diagnostic
+---@param map fun(d: vim.Diagnostic): vim.Diagnostic|nil
 ---@return lint.Linter|fun():lint.Linter
 function M.wrap(linter, map)
   local function _wrap(l, m)
