@@ -8,15 +8,32 @@ local severities = {
 return {
   cmd = 'golangci-lint',
   append_fname = false,
-  args = {
-    'run',
-    '--output.json.path=stdout',
-    '--issues-exit-code=0',
-    '--show-stats=false',
-    function()
-      return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+  args = (function()
+    if string.find(vim.fn.system { 'golangci-lint', 'version' }, 'version v2') then
+      return {
+        'run',
+        '--output.json.path=stdout',
+        '--issues-exit-code=0',
+        '--show-stats=false',
+        function()
+          return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+        end
+      }
+    else
+      return {
+        'run',
+        '--out-format',
+        'json',
+        '--issues-exit-code=0',
+        '--show-stats=false',
+        '--print-issued-lines=false',
+        '--print-linter-name=false',
+        function()
+          return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+        end
+      }
     end
-  },
+  end)(),
   stream = 'stdout',
   parser = function(output, bufnr, cwd)
     if output == '' then
