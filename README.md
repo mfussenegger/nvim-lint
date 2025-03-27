@@ -227,6 +227,7 @@ Other dedicated linters that are built-in are:
 | [tlint][tlint]                         | `tlint`                |
 | [trivy][trivy]                         | `trivy`                |
 | [ts-standard][ts-standard]             | `ts-standard`          |
+| [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
 | [typos][typos]                         | `typos`                |
 | [Vala][vala-lint]                      | `vala_lint`            |
 | [Vale][8]                              | `vale`                 |
@@ -601,3 +602,4 @@ busted tests/
 [slang]: https://github.com/MikePopoloski/slang
 [zizmor]: https://github.com/woodruffw/zizmor
 [ts-standard]: https://github.com/standard/ts-standard
+[twig-cs-fixer]: https://github.com/VincentLanglet/Twig-CS-Fixer
