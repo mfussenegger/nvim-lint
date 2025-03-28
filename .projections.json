@@ -1,0 +1,8 @@
+{
+    "lua/lint/linters/*.lua" : {
+        "alternate" : "spec/{}_spec.lua"
+    },
+    "spec/*_spec.lua" : {
+        "alternate" : "lua/lint/linters/{}.lua"
+    }
+}
