@@ -141,6 +141,7 @@ Other dedicated linters that are built-in are:
 | [fish][fish]                           | `fish`                 |
 | [Flake8][13]                           | `flake8`               |
 | [flawfinder][35]                       | `flawfinder`           |
+| [fortitude][fortitude]                 | `fortitude`            |
 | [gawk][gawk]                           | `gawk`                 |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
 | [GHDL][ghdl]                           | `ghdl`                 |
@@ -603,3 +604,4 @@ busted tests/
 [zizmor]: https://github.com/woodruffw/zizmor
 [ts-standard]: https://github.com/standard/ts-standard
 [twig-cs-fixer]: https://github.com/VincentLanglet/Twig-CS-Fixer
+[fortitude]: https://github.com/PlasmaFAIR/fortitude
