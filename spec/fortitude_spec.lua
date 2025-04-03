@@ -2,8 +2,8 @@ describe("linter.fortitude", function()
   it("doesn't error on empty output", function()
     local parser = require("lint.linters.fortitude").parser
     local bufnr = vim.api.nvim_get_current_buf()
-    parser("", bufnr, "")
-    parser("    ", bufnr, "")
+    parser("", bufnr)
+    parser("    ", bufnr)
   end)
 
   it("parses output correctly", function()
@@ -59,7 +59,7 @@ describe("linter.fortitude", function()
 ]
 ]]
 
-    local result = parser(test_data, bufnr, "")
+    local result = parser(test_data, bufnr)
 
     local expected = {
       {
