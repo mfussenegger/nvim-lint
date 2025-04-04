@@ -5,6 +5,25 @@ local severities = {
   convention = vim.diagnostic.severity.HINT,
 }
 
+local find_go_mod_dir = function(start_dir)
+  local dir = start_dir or vim.fn.getcwd()
+  local parent = dir
+
+  while true do
+    local go_mod_path = parent .. '/go.mod'
+    local file = io.open(go_mod_path, 'r')
+    if file then
+      file:close()
+      return parent
+    end
+    local next_parent = vim.fn.fnamemodify(parent, ':h')
+    if next_parent == parent then
+      return nil -- reached filesystem root without finding go.mod
+    end
+    parent = next_parent
+  end
+end
+
 -- Gets the correct agruements to run based on the version of golangci-lint
 local getArgs = function()
   local ok, output = pcall(vim.fn.system, { 'golangci-lint', 'version' })
@@ -35,7 +54,7 @@ local getArgs = function()
     '--issues-exit-code=0',
     '--show-stats=false',
     function()
-      return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+      return find_go_mod_dir(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p')) .. '/...'
     end,
   }
 end
