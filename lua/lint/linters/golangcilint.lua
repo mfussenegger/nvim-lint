@@ -24,7 +24,7 @@ local find_go_mod_dir = function(start_dir)
   end
 end
 
--- Gets the correct agruements to run based on the version of golangci-lint
+-- Gets the correct arguments to run based on the version of golangci-lint
 local getArgs = function()
   local ok, output = pcall(vim.fn.system, { 'golangci-lint', 'version' })
   if not ok then
@@ -51,6 +51,15 @@ local getArgs = function()
   return {
     'run',
     '--output.json.path=stdout',
+    -- Overwrite values possibly set in .golangci.yml
+    '--output.text.path=',
+    '--output.tab.path=',
+    '--output.html.path=',
+    '--output.checkstyle.path=',
+    '--output.code-climate.path=',
+    '--output.junit-xml.path=',
+    '--output.teamcity.path=',
+    '--output.sarif.path=',
     '--issues-exit-code=0',
     '--show-stats=false',
     function()

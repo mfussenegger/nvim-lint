@@ -29,7 +29,8 @@ describe('linter.phpstan', function()
             "message": "Property never read, only written.",
             "line": 6,
             "ignorable": true,
-            "tip": "See: https://phpstan.org/developing-extensions/always-read-written-properties"
+            "tip": "See: https://phpstan.org/developing-extensions/always-read-written-properties",
+            "identifier": "property.onlyWritten"
           }
         ]
       }
@@ -52,6 +53,7 @@ describe('linter.phpstan', function()
         lnum = 5,
         message = 'Property never read, only written.',
         source = 'phpstan',
+        code = 'property.onlyWritten',
       },
     }
 

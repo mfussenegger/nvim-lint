@@ -30,6 +30,7 @@ return {
         col = 0,
         message = message.message,
         source = bin,
+        code = message.identifier,
       })
     end
 
