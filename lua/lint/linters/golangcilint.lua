@@ -5,16 +5,22 @@ local severities = {
   convention = vim.diagnostic.severity.HINT,
 }
 
--- Gets the correct arguments to run based on the version of golangci-lint
-local getArgs = function()
+--- check golangci-lint version is v1
+--- @return boolean
+local is_version_v1 = function()
   local ok, output = pcall(vim.fn.system, { 'golangci-lint', 'version' })
   if not ok then
-    return
+    -- default to v2
+    return false
   end
-
   -- The golangci-lint install script and prebuilt binaries strip the v from the version
   --   tag so both strings must be checked
-  if string.find(output, 'version v1') or string.find(output, 'version 1') then
+  return string.find(output, 'version v1') ~= nil or string.find(output, 'version 1') ~= nil
+end
+
+-- Gets the correct arguments to run based on the version of golangci-lint
+local getArgs = function()
+  if is_version_v1() then
     return {
       'run',
       '--out-format',
@@ -61,6 +67,15 @@ return {
     local decoded = vim.json.decode(output)
     if decoded["Issues"] == nil or type(decoded["Issues"]) == 'userdata' then
       return {}
+    end
+
+    -- if is version v2, Pos.Filename is relative to config file directory
+    if not is_version_v1() then
+      -- get config path
+      local ok, config_path = pcall(vim.fn.system, { 'golangci-lint', 'config', 'path' })
+      if ok then
+        cwd = vim.fn.fnamemodify(config_path, ':h')
+      end
     end
 
     local diagnostics = {}
