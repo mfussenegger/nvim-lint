@@ -1,5 +1,5 @@
 -- path/to/file:line:severity:code:message
-local pattern = '([^:]+):(%d+):(%a+):(.+):(.+)'
+local pattern = '([^:]+):(%d+):(%a+):([^:]+):(.+)'
 local groups = { 'file', 'lnum', 'severity', 'code', 'message' }
 local severity_map = {
   ['error'] = vim.diagnostic.severity.ERROR,
