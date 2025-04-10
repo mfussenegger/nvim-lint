@@ -3,9 +3,9 @@ describe('linter.oelint-adv', function()
     local parser = require('lint.linters.oelint-adv').parser
     local bufnr = vim.uri_to_bufnr('file:///foo.bb')
     local result = parser([[
-/foo.bb:1:error:oelint.var.mandatoryvar.HOMEPAGE:Variable 'HOMEPAGE' should be set
-/foo.bb:1:info:oelint.var.suggestedvar.CVE_PRODUCT:Variable 'CVE_PRODUCT' should be set
-/foo.bb:2:warning:oelint.vars.spacesassignment:Suggest spaces around variable assignment. E.g. 'FOO = "BAR"'
+/foo.bb:1:error:oelint.var.mandatoryvar.HOMEPAGE:Variable 'HOMEPAGE' should be set [branch:true]
+/foo.bb:1:info:oelint.var.suggestedvar.CVE_PRODUCT:Variable 'CVE_PRODUCT' should be set [branch:true]
+/foo.bb:2:warning:oelint.vars.spacesassignment:Suggest spaces around variable assignment. E.g. 'FOO = "BAR"' [branch:true]
 ]], bufnr)
 
   assert.are.same(3, #result)
@@ -13,7 +13,7 @@ describe('linter.oelint-adv', function()
   local expected_error = {
     code = 'oelint.var.mandatoryvar.HOMEPAGE',
     source = 'oelint-adv',
-    message = 'Variable \'HOMEPAGE\' should be set',
+    message = 'Variable \'HOMEPAGE\' should be set [branch:true]',
     lnum = 0,
     col = 0,
     end_lnum = 0,
@@ -26,7 +26,7 @@ describe('linter.oelint-adv', function()
   local expected_info = {
     code = 'oelint.var.suggestedvar.CVE_PRODUCT',
     source = 'oelint-adv',
-    message = 'Variable \'CVE_PRODUCT\' should be set',
+    message = 'Variable \'CVE_PRODUCT\' should be set [branch:true]',
     lnum = 0,
     col = 0,
     end_lnum = 0,
@@ -39,7 +39,7 @@ describe('linter.oelint-adv', function()
   local expected_warning = {
     code = 'oelint.vars.spacesassignment',
     source = 'oelint-adv',
-    message = 'Suggest spaces around variable assignment. E.g. \'FOO = "BAR"\'',
+    message = 'Suggest spaces around variable assignment. E.g. \'FOO = "BAR"\' [branch:true]',
     lnum = 1,
     col = 0,
     end_lnum = 1,
