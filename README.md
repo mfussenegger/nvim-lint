@@ -193,6 +193,7 @@ Other dedicated linters that are built-in are:
 | [Pylint][15]                           | `pylint`               |
 | [pyproject-flake8][pflake8]            | `pflake8`              |
 | [quick-lint-js][quick-lint-js]         | `quick-lint-js`        |
+| [redocly][redocly]                     | `redolcy`              |
 | [regal][regal]                         | `regal`                |
 | [Revive][14]                           | `revive`               |
 | [rflint][rflint]                       | `rflint`               |
@@ -605,3 +606,4 @@ busted tests/
 [ts-standard]: https://github.com/standard/ts-standard
 [twig-cs-fixer]: https://github.com/VincentLanglet/Twig-CS-Fixer
 [fortitude]: https://github.com/PlasmaFAIR/fortitude
+[redocly]: https://redocly.com/docs/cli/commands/lint
