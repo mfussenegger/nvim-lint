@@ -10,7 +10,7 @@ local severity_map = {
 
 return {
   cmd = "fortitude",
-  stdin = true,
+  stdin = false,
   append_fname = true,
   args = { "check", "--output-format", "json" },
   stream = nil,
