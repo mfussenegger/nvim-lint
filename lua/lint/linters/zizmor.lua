@@ -7,7 +7,7 @@ return {
   cmd = "zizmor",
   args = { "--format", "json" },
   stdin = false,
-  ignore_exitcode = true, -- 14
+  ignore_exitcode = true,
 
   parser = function(output, _)
     local items = {}
@@ -17,17 +17,19 @@ return {
     end
 
     local decoded = vim.json.decode(output) or {}
-    local bufpath = vim.fn.expand("%:p")
 
     for _, diag in ipairs(decoded) do
-      if diag.locations[1].symbolic.key.Local.path == bufpath then
+      for _, loc in ipairs(diag.locations) do
+        local location = loc.concrete.location
+        local msg = string.format("%s (%s)\nMore Info: %s", loc.symbolic.annotation, diag.desc, diag.url)
         table.insert(items, {
           source = "zizmor",
-          lnum = diag.locations[1].concrete.location.start_point.row,
-          col = diag.locations[1].concrete.location.start_point.column,
-          end_lnum = diag.locations[1].concrete.location.end_point.row - 1,
-          end_col = diag.locations[1].concrete.location.end_point.column,
-          message = diag.desc,
+          lnum = location.start_point.row,
+          col = location.start_point.column,
+          end_lnum = location.end_point.row,
+          end_col = location.end_point.column,
+          message = msg,
+          code = diag.ident,
           severity = assert(
             severities[diag.determinations.severity],
             "missing mapping for severity " .. diag.determinations.severity
