@@ -49,6 +49,18 @@ local getArgs = function()
   }
 end
 
+local ok, config_path = pcall(vim.fn.system, { 'golangci-lint', 'config', 'path' })
+if not ok then
+  return
+end
+
+-- Take folder path from golangci-lint config, defaults to current directory
+if config_path == 'level=warning msg="No config file detected"\n' then
+  config_path = '.'
+else
+  config_path = vim.fn.fnamemodify(config_path, ":h")
+end
+
 return {
   cmd = 'golangci-lint',
   append_fname = false,
@@ -69,7 +81,7 @@ return {
       local curfile_abs = vim.fn.fnamemodify(curfile, ":p")
       local curfile_norm = vim.fs.normalize(curfile_abs)
 
-      local lintedfile = cwd .. "/" .. item.Pos.Filename
+      local lintedfile = cwd .. "/" .. config_path .. "/" .. item.Pos.Filename
       local lintedfile_abs = vim.fn.fnamemodify(lintedfile, ":p")
       local lintedfile_norm = vim.fs.normalize(lintedfile_abs)
 
