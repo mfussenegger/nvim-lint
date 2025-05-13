@@ -1,4 +1,4 @@
-local pattern = [[(%S+):(%d+):%s(%a+):%s(.*)]]
+local pattern = [[(.+):(%d+):%s(%a+):%s(.*)]]
 local groups = {
   'file',
   'lnum',
