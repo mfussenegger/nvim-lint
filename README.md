@@ -228,6 +228,7 @@ Other dedicated linters that are built-in are:
 | [tfsec][tfsec]                         | `tfsec`                |
 | [tlint][tlint]                         | `tlint`                |
 | [trivy][trivy]                         | `trivy`                |
+| [trivy_secret][trivy_secret]           | `trivy_secret`         |
 | [ts-standard][ts-standard]             | `ts-standard`          |
 | [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
 | [typos][typos]                         | `typos`                |
@@ -548,6 +549,7 @@ busted tests/
 [tfsec]: https://github.com/aquasecurity/tfsec
 [tlint]: https://github.com/tighten/tlint
 [trivy]: https://github.com/aquasecurity/trivy
+[trivy_secret]: https://github.com/aquasecurity/trivy
 [djlint]: https://djlint.com/
 [buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
 [solhint]: https://protofire.github.io/solhint/
