@@ -25,7 +25,9 @@ return {
     local diagnostics = {}
     local buffer_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":~:.")
 
-    for _, item in ipairs(vim.json.decode(output) or {}) do
+    local success, decoded = pcall(vim.json.decode, output)
+    if not success then decoded = {} end
+    for _, item in ipairs(decoded) do
       if not item.path or vim.fn.fnamemodify(item.path, ":~:.") == buffer_path then
         local column = item.column > 0 and item.column or 0
         local end_column = item.endColumn ~= vim.NIL and item.endColumn or column
