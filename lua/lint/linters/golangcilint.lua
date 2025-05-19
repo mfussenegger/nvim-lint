@@ -43,6 +43,7 @@ local getArgs = function()
     '--output.sarif.path=',
     '--issues-exit-code=0',
     '--show-stats=false',
+    '--path-mode=abs',
     function()
       return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
     end,
@@ -73,7 +74,7 @@ return {
       local lintedfile_abs = vim.fn.fnamemodify(lintedfile, ":p")
       local lintedfile_norm = vim.fs.normalize(lintedfile_abs)
 
-      if curfile_norm == lintedfile_norm then
+      if curfile_norm == item.Pos.Filename or curfile_norm == lintedfile_norm then
         -- only publish if those are the current file diagnostics
         local sv = severities[item.Severity] or severities.warning
         table.insert(diagnostics, {
