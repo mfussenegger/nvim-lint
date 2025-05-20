@@ -29,6 +29,29 @@ local getArgs = function()
     }
   end
 
+  -- Omit --path-mode=abs, as it was added on v2.1.0
+  -- Make sure it won't break v2.0.{0,1,2}
+  if string.find(output, 'version v2.0.') or string.find(output, 'version 2.0.') then
+    return {
+      'run',
+      '--output.json.path=stdout',
+      -- Overwrite values possibly set in .golangci.yml
+      '--output.text.path=',
+      '--output.tab.path=',
+      '--output.html.path=',
+      '--output.checkstyle.path=',
+      '--output.code-climate.path=',
+      '--output.junit-xml.path=',
+      '--output.teamcity.path=',
+      '--output.sarif.path=',
+      '--issues-exit-code=0',
+      '--show-stats=false',
+      function()
+        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+      end,
+    }
+  end
+
   return {
     'run',
     '--output.json.path=stdout',
@@ -43,6 +66,7 @@ local getArgs = function()
     '--output.sarif.path=',
     '--issues-exit-code=0',
     '--show-stats=false',
+    -- Get absolute path of the linted file
     '--path-mode=abs',
     function()
       return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
