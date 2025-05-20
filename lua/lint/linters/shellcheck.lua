@@ -9,7 +9,7 @@ return {
   cmd = 'shellcheck',
   stdin = true,
   args = {
-    '--format', 'json',
+    '--format', 'json1',
     '-',
   },
   ignore_exitcode = true,
@@ -17,7 +17,7 @@ return {
     if output == "" then return {} end
     local decoded = vim.json.decode(output)
     local diagnostics = {}
-    for _, item in ipairs(decoded or {}) do
+    for _, item in ipairs(decoded.comments or {}) do
       table.insert(diagnostics, {
         lnum = item.line - 1,
         col = item.column - 1,
