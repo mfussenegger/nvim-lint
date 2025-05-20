@@ -14,6 +14,9 @@ return {
   args = {
     '-q',
     '--report=json',
+    function ()
+      return '--stdin-path=' .. vim.fn.expand('%:p:.')
+    end,
     '-', -- need `-` at the end for stdin support
   },
   ignore_exitcode = true,
@@ -28,9 +31,10 @@ return {
     end
 
     local decoded = vim.json.decode(output)
-    local diagnostics = {}
-    local messages = decoded['files']['STDIN']['messages']
+    local file_path, _ = next(decoded['files'])
+    local messages = decoded['files'][file_path]['messages']
 
+    local diagnostics = {}
     for _, msg in ipairs(messages or {}) do
       table.insert(diagnostics, {
         lnum = msg.line - 1,
