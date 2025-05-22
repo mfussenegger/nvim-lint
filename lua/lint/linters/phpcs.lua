@@ -14,6 +14,9 @@ return {
   args = {
     '-q',
     '--report=json',
+    function ()
+      return '--stdin-path=' .. vim.fn.expand('%:p:.')
+    end,
     '-', -- need `-` at the end for stdin support
   },
   ignore_exitcode = true,
@@ -22,28 +25,22 @@ return {
       return {}
     end
 
-    if not vim.startswith(output,'{') then
-      vim.notify(output)
-      return {}
-    end
-
-    local decoded = vim.json.decode(output)
     local diagnostics = {}
-    local messages = decoded['files']['STDIN']['messages']
-
-    for _, msg in ipairs(messages or {}) do
-      table.insert(diagnostics, {
-        lnum = msg.line - 1,
-        end_lnum = msg.line - 1,
-        col = msg.column - 1,
-        end_col = msg.column - 1,
-        message = msg.message,
-        code = msg.source,
-        source = bin,
-        severity = assert(severities[msg.type], 'missing mapping for severity ' .. msg.type),
-      })
+    local decoded = vim.json.decode(output)
+    for _, result in pairs(decoded.files) do
+      for _, msg in ipairs(result.messages or {}) do
+        table.insert(diagnostics, {
+          lnum = msg.line - 1,
+          end_lnum = msg.line - 1,
+          col = msg.column - 1,
+          end_col = msg.column - 1,
+          message = msg.message,
+          code = msg.source,
+          source = bin,
+          severity = assert(severities[msg.type], 'missing mapping for severity ' .. msg.type),
+        })
+      end
     end
-
     return diagnostics
   end
 }
