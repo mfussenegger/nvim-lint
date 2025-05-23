@@ -32,6 +32,11 @@ local getArgs = function()
   -- Omit --path-mode=abs, as it was added on v2.1.0
   -- Make sure it won't break v2.0.{0,1,2}
   if string.find(output, 'version v2.0.') or string.find(output, 'version 2.0.') then
+    -- If the linter is not working as expected, users should explicitly add
+    -- `run.relative-path-mode: wd` to their .golangci.yaml as a workaround to preserve the previous behavior.
+    -- Prior to v2.0.0, the default for `run.relative-path-mode` was "wd".
+    -- See: https://golangci-lint.run/product/migration-guide/#runrelative-path-mode
+
     return {
       'run',
       '--output.json.path=stdout',
