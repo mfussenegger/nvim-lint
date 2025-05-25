@@ -25,9 +25,15 @@ return {
     local diagnostics = {}
 
     for _, message in ipairs(file.messages or {}) do
+      local lnum = type(message.line) == "number" and (message.line - 1) or 0
+      local linecont = vim.api.nvim_buf_get_lines(bufnr, lnum, lnum + 1, false)[1] or ""
+      local col = linecont:match("()%S") or 0
+      local end_col = linecont:match(".*%S()") or 0
+
       table.insert(diagnostics, {
-        lnum = type(message.line) == 'number' and (message.line - 1) or 0,
-        col = 0,
+        lnum = lnum,
+        col = col - 1,
+        end_col = end_col - 1,
         message = message.message,
         source = bin,
         code = message.identifier,
