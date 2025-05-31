@@ -157,6 +157,7 @@ Other dedicated linters that are built-in are:
 | [janet][janet]                         | `janet`                |
 | [joker][joker]                         | `joker`                |
 | [jshint][jshint]                       | `jshint`               |
+| [json5][json5]                         | `json5`                |
 | [jsonlint][jsonlint]                   | `jsonlint`             |
 | [ksh][ksh]                             | `ksh`                  |
 | [ktlint][ktlint]                       | `ktlint`               |
@@ -496,6 +497,7 @@ busted tests/
 [checkpatch]: https://docs.kernel.org/dev-tools/checkpatch.html
 [checkstyle]: https://checkstyle.org/
 [jshint]: https://jshint.com/
+[json5]: https://json5.org/
 [jsonlint]: https://github.com/zaach/jsonlint
 [rflint]: https://github.com/boakley/robotframework-lint
 [robocop]: https://github.com/MarketSquare/robotframework-robocop
