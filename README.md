@@ -183,6 +183,7 @@ Other dedicated linters that are built-in are:
 | [phpmd][phpmd]                         | `phpmd`                |
 | [php][php]                             | `php`                  |
 | [phpstan][phpstan]                     | `phpstan`              |
+| [pmd][pmd]                             | `pmd`                  |
 | [ponyc][ponyc]                         | `pony`                 |
 | [prisma-lint][prisma-lint]             | `prisma-lint`          |
 | [proselint][proselint]                 | `proselint`            |
@@ -622,3 +623,4 @@ busted tests/
 [fortitude]: https://github.com/PlasmaFAIR/fortitude
 [redocly]: https://redocly.com/docs/cli/commands/lint
 [sarif]: https://sarifweb.azurewebsites.net/
+[pmd]: https://pmd.github.io/

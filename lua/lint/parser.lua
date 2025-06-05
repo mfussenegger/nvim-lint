@@ -171,13 +171,29 @@ function M.for_sarif(skeleton)
     local diagnostics = {}
     local decoded = vim.json.decode(output) or {}
     for _, run in ipairs(decoded.runs or {}) do
-      local source = run.tool and run.tool.driver and run.tool.driver.name
+      local tool = run.tool or {}
+      local driver = tool.driver or {}
+      local source = driver.name
+      local rules = driver.rules or {}
+      local id_rules = {}
+      for _, rule in ipairs(rules) do
+        id_rules[rule.id] = rule
+      end
       for _, result in ipairs(run.results or {}) do
         for _, location in ipairs(result.locations) do
           local uri = location.physicalLocation.artifactLocation.uri
           local location_bufnr = vim.uri_to_bufnr(uri)
           if bufnr == location_bufnr then
             local region = location.physicalLocation.region
+
+            local rule = result.ruleId and id_rules[result.ruleId]
+            if not rule then
+              rule = result.ruleIndex and rules[result.ruleIndex + 1] or {}
+            end
+
+            local severity = result.level
+              and severities[result.level]
+              or vim.tbl_get(rule, "properties", "priority")
 
             -- If endColumn is absent, it SHALL default to a value one greater
             -- than the column number of the last character on the line,
@@ -190,7 +206,7 @@ function M.for_sarif(skeleton)
                 end_lnum = region.endLine and region.endLine - 1,
                 col = region.startColumn and region.startColumn - 1 or 0,
                 end_col = end_col,
-                severity = severities[result.level],
+                severity = severity,
                 message = result.message.text,
                 source = source,
                 code = result.ruleId,
