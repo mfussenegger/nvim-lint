@@ -290,8 +290,20 @@ Note that this completely overrides the environment, it does not add new
 environment variables. The one exception is that the `PATH` variable will be
 preserved if it is not explicitly set.
 
-You can generate a parse function from a Lua pattern or from an `errorformat`
-using the function in the `lint.parser` module:
+You can generate a parse function from a Lua pattern, from an `errorformat`
+or for [SARIF][sarif] using the functions in the `lint.parser` module:
+
+
+### for_sarif
+
+```lua
+parser = require("lint.parser").for_sarif()
+```
+
+The function takes an optional argument:
+
+- `skeleton`: Default values for the diagnostics
+
 
 ### from_errorformat
 
@@ -609,3 +621,4 @@ busted tests/
 [twig-cs-fixer]: https://github.com/VincentLanglet/Twig-CS-Fixer
 [fortitude]: https://github.com/PlasmaFAIR/fortitude
 [redocly]: https://redocly.com/docs/cli/commands/lint
+[sarif]: https://sarifweb.azurewebsites.net/

@@ -150,6 +150,61 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
 end
 
 
+---Return a parse function for the Static Analysis Results Interchange Format (SARIF).
+---https://sarifweb.azurewebsites.net/
+---@param skeleton? table<string, any> | vim.Diagnostic default values
+---@return lint.parse
+function M.for_sarif(skeleton)
+  skeleton = skeleton or {}
+  skeleton.severity = skeleton.severity or vd.severity.ERROR
+
+  local severities = {
+    error = vd.severity.ERROR,
+    warning = vd.severity.WARN,
+    note = vd.severity.INFO,
+  }
+
+  ---@param output string the output of the tool
+  ---@param bufnr number the number of the buffer the linter ran on
+  ---@return vim.Diagnostic[] the diagnostics
+  return function(output, bufnr)
+    local diagnostics = {}
+    local decoded = vim.json.decode(output) or {}
+    for _, run in ipairs(decoded.runs or {}) do
+      local source = run.tool and run.tool.driver and run.tool.driver.name
+      for _, result in ipairs(run.results or {}) do
+        for _, location in ipairs(result.locations) do
+          local uri = location.physicalLocation.artifactLocation.uri
+          local location_bufnr = vim.uri_to_bufnr(uri)
+          if bufnr == location_bufnr then
+            local region = location.physicalLocation.region
+
+            -- If endColumn is absent, it SHALL default to a value one greater
+            -- than the column number of the last character on the line,
+            -- excluding any newline sequence.
+            local end_col = region.endColumn and region.endColumn - 2 or math.huge
+            table.insert(
+              diagnostics,
+              vim.tbl_extend("keep", {
+                lnum = region.startLine - 1,
+                end_lnum = region.endLine and region.endLine - 1,
+                col = region.startColumn and region.startColumn - 1 or 0,
+                end_col = end_col,
+                severity = severities[result.level],
+                message = result.message.text,
+                source = source,
+                code = result.ruleId,
+              }, skeleton or {})
+            )
+          end
+        end
+      end
+    end
+    return diagnostics
+  end
+end
+
+
 local parse_failure_msg = [[Parser failed. Error message:
 %s
 
