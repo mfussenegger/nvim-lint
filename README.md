@@ -564,7 +564,7 @@ busted tests/
 [tlint]: https://github.com/tighten/tlint
 [trivy]: https://github.com/aquasecurity/trivy
 [djlint]: https://djlint.com/
-[buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
+[buildifier]: https://github.com/bazelbuild/buildtools/tree/main/buildifier
 [solhint]: https://protofire.github.io/solhint/
 [perlimports]: https://github.com/perl-ide/App-perlimports
 [perlcritic]: https://github.com/Perl-Critic/Perl-Critic
