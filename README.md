@@ -526,7 +526,7 @@ busted tests/
 [ksh]: https://github.com/ksh93/ksh
 [ktlint]: https://github.com/pinterest/ktlint
 [php]: https://www.php.net/
-[phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
+[phpcs]: https://github.com/PHPCSStandards/PHP_CodeSniffer
 [phpinsights]: https://github.com/nunomaduro/phpinsights
 [phpmd]: https://phpmd.org/
 [phpstan]: https://phpstan.org/
