@@ -403,6 +403,18 @@ phpcs.args = {
 }
 ```
 
+Some linters are defined as function for lazy evaluation of some properties.
+In this case, you need to wrap them like this:
+
+```lua
+local original = require("lint").linters.terraform_validate
+require("lint").linters.terraform_validate = function()
+  local linter = original()
+  linter.cmd = "my_custom"
+  return linter
+end
+```
+
 You can also post-process the diagnostics produced by a linter by wrapping it.
 For example, to change the severity of all diagnostics created by `cspell`:
 
