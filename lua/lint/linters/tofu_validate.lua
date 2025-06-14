@@ -26,7 +26,7 @@ return function()
           lnum = 0,
           col = 0,
           source = "tofu validate",
-          severity = tofu_severity_to_diagnostic_severity[new_diagnostic.severity],
+          severity = tofu_severity_to_diagnostic_severity[diagnostic.severity],
           filename = buf_path,
         }
         local range = diagnostic.range
