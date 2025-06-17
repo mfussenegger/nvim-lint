@@ -2,12 +2,25 @@ local function get_file_name()
   return vim.api.nvim_buf_get_name(0)
 end
 
-local error = vim.diagnostic.severity.ERROR
-local severities = {
-  ["F821"] = error, -- undefined name `name`
-  ["E902"] = error, -- `IOError`
-  ["E999"] = error, -- `SyntaxError`
-}
+local function get_message_severity(result_code, result_message)
+  local error = vim.diagnostic.severity.ERROR
+
+  local severities = {
+    ["F821"] = error, -- undefined name `name`
+    ["E902"] = error, -- `IOError`
+    ["E999"] = error, -- `SyntaxError`
+  }
+
+  if severities[result_code] then
+    return severities[result_code]
+  end
+
+  if result_message:find("^SyntaxError:") then
+    return error
+  end
+
+  return vim.diagnostic.severity.WARN
+end
 
 return {
   cmd = "ruff",
@@ -39,7 +52,7 @@ return {
         lnum = result.location.row - 1,
         end_lnum = result.end_location.row - 1,
         code = result.code,
-        severity = severities[result.code] or vim.diagnostic.severity.WARN,
+        severity = get_message_severity(result.code, result.message),
         source = "ruff",
       }
       table.insert(diagnostics, diagnostic)
