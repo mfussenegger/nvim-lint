@@ -9,6 +9,17 @@ local severities = {
   ["E999"] = error, -- `SyntaxError`
 }
 
+local function get_severity(result_code, result_message)
+  local severity = severities[result_code]
+  if severity then
+    return severity
+  end
+  if result_message:find("^SyntaxError:") then
+    return error
+  end
+  return vim.diagnostic.severity.WARN
+end
+
 return {
   cmd = "ruff",
   stdin = true,
@@ -39,7 +50,7 @@ return {
         lnum = result.location.row - 1,
         end_lnum = result.end_location.row - 1,
         code = result.code,
-        severity = severities[result.code] or vim.diagnostic.severity.WARN,
+        severity = get_severity(result.code, result.message),
         source = "ruff",
       }
       table.insert(diagnostics, diagnostic)
