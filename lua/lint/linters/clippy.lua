@@ -5,8 +5,15 @@ local severities = {
 }
 
 local function parse(diagnostics, file_name, item)
+  local project_root
+  if item.spans[1] then
+    project_root = (
+      vim.fs.root(item.spans[1].file_name, "Cargo.toml") or vim.fs.root(item.spans[1].file_name, "Cargo.lock")
+    ) .. "/"
+  end
+
   for _, span in ipairs(item.spans) do
-    if span.file_name == file_name then
+    if project_root .. span.file_name == file_name then
       local message = item.message
       if span.suggested_replacement ~= vim.NIL then
         message = message .. "\nSuggested replacement:\n\n" .. tostring(span.suggested_replacement)
@@ -19,7 +26,10 @@ local function parse(diagnostics, file_name, item)
         end_col = span.column_end - 1,
         severity = severities[item.level],
         source = "clippy",
-        message = message
+        message = message,
+        user_data = {
+          rendered = item.rendered or item.message,
+        },
       })
     end
   end
@@ -34,11 +44,12 @@ return {
   args = { "clippy", "--message-format=json" },
   stdin = false,
   append_fname = false,
+  ignore_exitcode = true,
   parser = function(output, bufnr)
     local diagnostics = {}
     local items = #output > 0 and vim.split(output, "\n") or {}
     local file_name = vim.api.nvim_buf_get_name(bufnr)
-    file_name = vim.fn.fnamemodify(file_name, ":.")
+    file_name = vim.fn.fnamemodify(file_name, ":p")
 
     for _, i in ipairs(items) do
       local item = i ~= "" and vim.json.decode(i) or {}
