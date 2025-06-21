@@ -19,6 +19,11 @@ local function parse(diagnostics, file_name, item)
         message = message .. "\nSuggested replacement:\n\n" .. tostring(span.suggested_replacement)
       end
 
+      local rendered = item.message
+      if item.rendered ~= vim.NIL then
+        rendered = item.rendered
+      end
+
       table.insert(diagnostics, {
         lnum = span.line_start - 1,
         end_lnum = span.line_end - 1,
@@ -28,7 +33,7 @@ local function parse(diagnostics, file_name, item)
         source = "clippy",
         message = message,
         user_data = {
-          rendered = item.rendered or item.message,
+          rendered = rendered,
         },
       })
     end
