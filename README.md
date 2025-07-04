@@ -175,7 +175,7 @@ Other dedicated linters that are built-in are:
 | [npm-groovy-lint][npm-groovy-lint]     | `npm-groovy-lint`      |
 | [oelint-adv][oelint-adv]               | `oelint-adv`           |
 | [opa_check][opa_check]                 | `opa_check`            |
-| [tofu_validate][tofu_validate]         | `tofu_validate`        |
+| [tofu][tofu]                           | `tofu`                 |
 | [oxlint][oxlint]                       | `oxlint`               |
 | [perlcritic][perlcritic]               | `perlcritic`           |
 | [perlimports][perlimports]             | `perlimports`          |
@@ -625,4 +625,4 @@ busted tests/
 [redocly]: https://redocly.com/docs/cli/commands/lint
 [sarif]: https://sarifweb.azurewebsites.net/
 [pmd]: https://pmd.github.io/
-[tofu_validate]: https://opentofu.org/
+[tofu]: https://opentofu.org/
