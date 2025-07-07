@@ -24,7 +24,7 @@ local getArgs = function()
       '--print-issued-lines=false',
       '--print-linter-name=false',
       function()
-        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p")
       end
     }
   end
@@ -52,7 +52,7 @@ local getArgs = function()
       '--issues-exit-code=0',
       '--show-stats=false',
       function()
-        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p")
       end,
     }
   end
@@ -74,7 +74,7 @@ local getArgs = function()
     -- Get absolute path of the linted file
     '--path-mode=abs',
     function()
-      return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+      return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p")
     end,
   }
 end
