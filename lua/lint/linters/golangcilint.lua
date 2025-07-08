@@ -17,14 +17,14 @@ local getArgs = function()
   -- the current buffer path to golangci-lint instead of it's parent directory to allow
   -- the buffer content to be linted, otherwise golangci-lint will raise an error
   local go_mod_location
-  ok, go_mod_location = pcall(vim.fn.system, { 'go', 'env', "GOMOD" })
+  ok, go_mod_location = pcall(vim.fn.system, { 'go', 'env', 'GOMOD' })
   if not ok then
     return
   end
-  local filename_modifier = ":h"
+  local filename_modifier = ':h'
   -- No go.mod file was found, so just lint the buffer directly
-  if go_mod_location:gsub("%s+", "") == "/dev/null" then
-    filename_modifier = ":p"
+  if go_mod_location:gsub('%s+', '') == '/dev/null' then
+    filename_modifier = ':p'
   end
 
   -- The golangci-lint install script and prebuilt binaries strip the v from the version
