@@ -16,6 +16,7 @@ local getArgs = function()
   -- the go.mod file can't be found by golangci-lint. In this situation, we need to provide
   -- the current buffer path to golangci-lint instead of it's parent directory to allow
   -- the buffer content to be linted, otherwise golangci-lint will raise an error
+  ---@diagnostic disable-next-line: redefined-local
   local ok, go_mod_location = pcall(vim.fn.system, { 'go', 'env', "GOMOD" })
   if not ok then
     return
