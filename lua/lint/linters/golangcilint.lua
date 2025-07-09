@@ -22,8 +22,10 @@ local getArgs = function()
     return
   end
   local filename_modifier = ':h'
+  -- Remove extra whitespace like newline characters
+  go_mod_location = go_mod_location:gsub('%s+', '')
   -- No go.mod file was found, so just lint the buffer directly
-  if go_mod_location:gsub('%s+', '') == '/dev/null' then
+  if go_mod_location == '/dev/null' or go_mod_location == '' then
     filename_modifier = ':p'
   end
 
