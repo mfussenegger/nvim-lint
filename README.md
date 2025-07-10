@@ -142,6 +142,7 @@ Other dedicated linters that are built-in are:
 | [Flake8][13]                           | `flake8`               |
 | [flawfinder][35]                       | `flawfinder`           |
 | [fortitude][fortitude]                 | `fortitude`            |
+| [fsharplint][fsharplint]               | `fsharplint`           |
 | [gawk][gawk]                           | `gawk`                 |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
 | [GHDL][ghdl]                           | `ghdl`                 |
@@ -651,3 +652,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [tofu]: https://opentofu.org/
 [vimcats]: https://github.com/mrcjkb/vimcats
 [lslint]: https://github.com/Makopo/lslint/
+[fsharplint]: https://github.com/fsprojects/FSharpLint
