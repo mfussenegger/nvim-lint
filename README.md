@@ -142,6 +142,7 @@ Other dedicated linters that are built-in are:
 | [Flake8][13]                           | `flake8`               |
 | [flawfinder][35]                       | `flawfinder`           |
 | [fortitude][fortitude]                 | `fortitude`            |
+| [fsharplint][fsharplint]               | `fsharplint`           |
 | [gawk][gawk]                           | `gawk`                 |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
 | [GHDL][ghdl]                           | `ghdl`                 |
@@ -638,3 +639,4 @@ busted tests/
 [sarif]: https://sarifweb.azurewebsites.net/
 [pmd]: https://pmd.github.io/
 [tofu]: https://opentofu.org/
+[fsharplint]: https://github.com/fsprojects/FSharpLint
