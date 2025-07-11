@@ -163,6 +163,7 @@ Other dedicated linters that are built-in are:
 | [ktlint][ktlint]                       | `ktlint`               |
 | [lacheck][lacheck]                     | `lacheck`              |
 | [Languagetool][5]                      | `languagetool`         |
+| [lslint][lslint]                       | `lslint`               |
 | [luac][luac]                           | `luac`                 |
 | [luacheck][19]                         | `luacheck`             |
 | [markdownlint][26]                     | `markdownlint`         |
@@ -649,3 +650,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [pmd]: https://pmd.github.io/
 [tofu]: https://opentofu.org/
 [vimcats]: https://github.com/mrcjkb/vimcats
+[lslint]: https://github.com/Makopo/lslint/
