@@ -163,6 +163,7 @@ Other dedicated linters that are built-in are:
 | [ktlint][ktlint]                       | `ktlint`               |
 | [lacheck][lacheck]                     | `lacheck`              |
 | [Languagetool][5]                      | `languagetool`         |
+| [lslint][lslint]               | `lslint`             |
 | [luac][luac]                           | `luac`                 |
 | [luacheck][19]                         | `luacheck`             |
 | [markdownlint][26]                     | `markdownlint`         |
@@ -638,3 +639,4 @@ busted tests/
 [sarif]: https://sarifweb.azurewebsites.net/
 [pmd]: https://pmd.github.io/
 [tofu]: https://opentofu.org/
+[lslint]: https://github.com/Makopo/lslint/
