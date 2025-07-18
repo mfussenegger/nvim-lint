@@ -1,3 +1,4 @@
+*lint.txt*                                         An asynchronous linter plugin
 ==============================================================================
 Table of Contents                                                     *lint.toc*
 
