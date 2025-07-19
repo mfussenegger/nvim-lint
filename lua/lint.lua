@@ -1,3 +1,7 @@
+---@brief [[
+---*lint.txt*                                       An asynchronous linter plugin
+---@brief ]]
+
 ---@toc lint.toc
 ---
 ---@mod lint Main nvim-lint API

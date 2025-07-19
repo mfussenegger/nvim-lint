@@ -1,3 +1,5 @@
+*lint.txt*                                       An asynchronous linter plugin
+
 ==============================================================================
 Table of Contents                                                     *lint.toc*
 
@@ -7,7 +9,7 @@ Parsers and parse functions ··························
 ==============================================================================
 Main nvim-lint API                                                        *lint*
 
-M.linters_by_ft                                                *M.linters_by_ft*
+M.linters_by_ft                                             *lint.linters_by_ft*
     A table listing which linters to run via `try_lint`.
     The key is the filetype. The values are a list of linter names
 
@@ -61,7 +63,7 @@ M.get_running({bufnr?})                                       *lint.get_running*
         (string[])
 
 
-M.linters                                                            *M.linters*
+M.linters                                                         *lint.linters*
     Table with the available linters
 
     Type: ~
@@ -152,6 +154,17 @@ M.from_pattern({pattern}, {groups}, {severity_map?}, {defaults?}, {opts?})
         {severity_map?}  (table<string,vim.diagnostic.Severity>)
         {defaults?}      (table)
         {opts?}          ({col_offset?:integer,end_col_offset?:integer,lnum_offset?:integer,end_lnum_offset?:integer})
+
+    Returns: ~
+        (lint.parse)
+
+
+M.for_sarif({skeleton?})                                 *lint.parser.for_sarif*
+    Return a parse function for the Static Analysis Results Interchange Format (SARIF).
+    https://sarifweb.azurewebsites.net/
+
+    Parameters: ~
+        {skeleton?}  (table<string,any>|vim.Diagnostic)  default values
 
     Returns: ~
         (lint.parse)
