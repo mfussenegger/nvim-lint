@@ -479,6 +479,16 @@ Luarocks][neovim-luarocks] for installation instructions.
 busted tests/
 ```
 
+
+### Docs
+
+API docs is generated using [vimcats]:
+
+```vimcats
+vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
+```
+
+
 [1]: https://github.com/dense-analysis/ale
 [3]: https://github.com/junegunn/vim-plug
 [4]: https://github.com/wbthomason/packer.nvim
@@ -639,4 +649,5 @@ busted tests/
 [sarif]: https://sarifweb.azurewebsites.net/
 [pmd]: https://pmd.github.io/
 [tofu]: https://opentofu.org/
+[vimcats]: https://github.com/mrcjkb/vimcats
 [lslint]: https://github.com/Makopo/lslint/
