@@ -24,6 +24,7 @@ describe('compiler', function()
     local result = vim.diagnostic.get(bufnr)
     for _, d in pairs(result) do
       d.namespace = nil
+      d._extmark_id = nil
     end
     local expected = {
       {
