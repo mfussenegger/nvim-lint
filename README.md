@@ -142,6 +142,7 @@ Other dedicated linters that are built-in are:
 | [Flake8][13]                           | `flake8`               |
 | [flawfinder][35]                       | `flawfinder`           |
 | [fortitude][fortitude]                 | `fortitude`            |
+| [fsharplint][fsharplint]               | `fsharplint`           |
 | [gawk][gawk]                           | `gawk`                 |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
 | [GHDL][ghdl]                           | `ghdl`                 |
@@ -157,11 +158,13 @@ Other dedicated linters that are built-in are:
 | [janet][janet]                         | `janet`                |
 | [joker][joker]                         | `joker`                |
 | [jshint][jshint]                       | `jshint`               |
+| [json5][json5]                         | `json5`                |
 | [jsonlint][jsonlint]                   | `jsonlint`             |
 | [ksh][ksh]                             | `ksh`                  |
 | [ktlint][ktlint]                       | `ktlint`               |
 | [lacheck][lacheck]                     | `lacheck`              |
 | [Languagetool][5]                      | `languagetool`         |
+| [lslint][lslint]                       | `lslint`               |
 | [luac][luac]                           | `luac`                 |
 | [luacheck][19]                         | `luacheck`             |
 | [markdownlint][26]                     | `markdownlint`         |
@@ -174,6 +177,7 @@ Other dedicated linters that are built-in are:
 | [npm-groovy-lint][npm-groovy-lint]     | `npm-groovy-lint`      |
 | [oelint-adv][oelint-adv]               | `oelint-adv`           |
 | [opa_check][opa_check]                 | `opa_check`            |
+| [tofu][tofu]                           | `tofu`                 |
 | [oxlint][oxlint]                       | `oxlint`               |
 | [perlcritic][perlcritic]               | `perlcritic`           |
 | [perlimports][perlimports]             | `perlimports`          |
@@ -182,6 +186,7 @@ Other dedicated linters that are built-in are:
 | [phpmd][phpmd]                         | `phpmd`                |
 | [php][php]                             | `php`                  |
 | [phpstan][phpstan]                     | `phpstan`              |
+| [pmd][pmd]                             | `pmd`                  |
 | [ponyc][ponyc]                         | `pony`                 |
 | [prisma-lint][prisma-lint]             | `prisma-lint`          |
 | [proselint][proselint]                 | `proselint`            |
@@ -290,8 +295,20 @@ Note that this completely overrides the environment, it does not add new
 environment variables. The one exception is that the `PATH` variable will be
 preserved if it is not explicitly set.
 
-You can generate a parse function from a Lua pattern or from an `errorformat`
-using the function in the `lint.parser` module:
+You can generate a parse function from a Lua pattern, from an `errorformat`
+or for [SARIF][sarif] using the functions in the `lint.parser` module:
+
+
+### for_sarif
+
+```lua
+parser = require("lint.parser").for_sarif()
+```
+
+The function takes an optional argument:
+
+- `skeleton`: Default values for the diagnostics
+
 
 ### from_errorformat
 
@@ -390,6 +407,18 @@ phpcs.args = {
 }
 ```
 
+Some linters are defined as function for lazy evaluation of some properties.
+In this case, you need to wrap them like this:
+
+```lua
+local original = require("lint").linters.terraform_validate
+require("lint").linters.terraform_validate = function()
+  local linter = original()
+  linter.cmd = "my_custom"
+  return linter
+end
+```
+
 You can also post-process the diagnostics produced by a linter by wrapping it.
 For example, to change the severity of all diagnostics created by `cspell`:
 
@@ -452,6 +481,16 @@ Luarocks][neovim-luarocks] for installation instructions.
 busted tests/
 ```
 
+
+### Docs
+
+API docs is generated using [vimcats]:
+
+```vimcats
+vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
+```
+
+
 [1]: https://github.com/dense-analysis/ale
 [3]: https://github.com/junegunn/vim-plug
 [4]: https://github.com/wbthomason/packer.nvim
@@ -497,6 +536,7 @@ busted tests/
 [checkpatch]: https://docs.kernel.org/dev-tools/checkpatch.html
 [checkstyle]: https://checkstyle.org/
 [jshint]: https://jshint.com/
+[json5]: https://json5.org/
 [jsonlint]: https://github.com/zaach/jsonlint
 [rflint]: https://github.com/boakley/robotframework-lint
 [robocop]: https://github.com/MarketSquare/robotframework-robocop
@@ -512,7 +552,7 @@ busted tests/
 [ksh]: https://github.com/ksh93/ksh
 [ktlint]: https://github.com/pinterest/ktlint
 [php]: https://www.php.net/
-[phpcs]: https://github.com/squizlabs/PHP_CodeSniffer
+[phpcs]: https://github.com/PHPCSStandards/PHP_CodeSniffer
 [phpinsights]: https://github.com/nunomaduro/phpinsights
 [phpmd]: https://phpmd.org/
 [phpstan]: https://phpstan.org/
@@ -551,7 +591,7 @@ busted tests/
 [trivy]: https://github.com/aquasecurity/trivy
 [trivy_secret]: https://github.com/aquasecurity/trivy
 [djlint]: https://djlint.com/
-[buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier
+[buildifier]: https://github.com/bazelbuild/buildtools/tree/main/buildifier
 [solhint]: https://protofire.github.io/solhint/
 [perlimports]: https://github.com/perl-ide/App-perlimports
 [perlcritic]: https://github.com/Perl-Critic/Perl-Critic
@@ -609,3 +649,9 @@ busted tests/
 [twig-cs-fixer]: https://github.com/VincentLanglet/Twig-CS-Fixer
 [fortitude]: https://github.com/PlasmaFAIR/fortitude
 [redocly]: https://redocly.com/docs/cli/commands/lint
+[sarif]: https://sarifweb.azurewebsites.net/
+[pmd]: https://pmd.github.io/
+[tofu]: https://opentofu.org/
+[vimcats]: https://github.com/mrcjkb/vimcats
+[lslint]: https://github.com/Makopo/lslint/
+[fsharplint]: https://github.com/fsprojects/FSharpLint

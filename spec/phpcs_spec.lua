@@ -9,7 +9,6 @@ describe('linter.phpcs', function()
   it('parses json output correctly', function()
     local parser = require('lint.linters.phpcs').parser
     -- json sourced from sample here: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Reporting#printing-a-json-report
-    -- slightly modified for STDIN result format
     local result = parser([[
 {
   "totals": {
@@ -18,7 +17,7 @@ describe('linter.phpcs', function()
     "fixable": 3
   },
   "files": {
-    "STDIN": {
+    "\/path\/to\/code\/classA.php": {
       "errors": 4,
       "warnings": 1,
       "messages": [

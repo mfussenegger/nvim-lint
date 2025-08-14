@@ -29,6 +29,34 @@ local getArgs = function()
     }
   end
 
+  -- Omit --path-mode=abs, as it was added on v2.1.0
+  -- Make sure it won't break v2.0.{0,1,2}
+  if string.find(output, 'version v2.0.') or string.find(output, 'version 2.0.') then
+    -- If the linter is not working as expected, users should explicitly add
+    -- `run.relative-path-mode: wd` to their .golangci.yaml as a workaround to preserve the previous behavior.
+    -- Prior to v2.0.0, the default for `run.relative-path-mode` was "wd".
+    -- See: https://golangci-lint.run/product/migration-guide/#runrelative-path-mode
+
+    return {
+      'run',
+      '--output.json.path=stdout',
+      -- Overwrite values possibly set in .golangci.yml
+      '--output.text.path=',
+      '--output.tab.path=',
+      '--output.html.path=',
+      '--output.checkstyle.path=',
+      '--output.code-climate.path=',
+      '--output.junit-xml.path=',
+      '--output.teamcity.path=',
+      '--output.sarif.path=',
+      '--issues-exit-code=0',
+      '--show-stats=false',
+      function()
+        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+      end,
+    }
+  end
+
   return {
     'run',
     '--output.json.path=stdout',
@@ -43,6 +71,8 @@ local getArgs = function()
     '--output.sarif.path=',
     '--issues-exit-code=0',
     '--show-stats=false',
+    -- Get absolute path of the linted file
+    '--path-mode=abs',
     function()
       return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
     end,
@@ -73,7 +103,7 @@ return {
       local lintedfile_abs = vim.fn.fnamemodify(lintedfile, ":p")
       local lintedfile_norm = vim.fs.normalize(lintedfile_abs)
 
-      if curfile_norm == lintedfile_norm then
+      if curfile_norm == item.Pos.Filename or curfile_norm == lintedfile_norm then
         -- only publish if those are the current file diagnostics
         local sv = severities[item.Severity] or severities.warning
         table.insert(diagnostics, {
