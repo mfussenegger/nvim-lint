@@ -653,3 +653,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [vimcats]: https://github.com/mrcjkb/vimcats
 [lslint]: https://github.com/Makopo/lslint/
 [fsharplint]: https://github.com/fsprojects/FSharpLint
+[fieldalignment]: https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment
