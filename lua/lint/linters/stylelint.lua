@@ -43,24 +43,22 @@ return {
       }
     end
     local diagnostics = {}
-    if decoded.errored then
-      for _, message in ipairs(decoded.warnings) do
-        table.insert(diagnostics, {
-          lnum = message.line - 1,
-          col = message.column - 1,
-          end_lnum = message.line - 1,
-          end_col = message.column - 1,
-          message = message.text,
-          code = message.rule,
-          user_data = {
-            lsp = {
-              code = message.rule,
-            }
+    for _, message in ipairs(decoded.warnings) do
+      table.insert(diagnostics, {
+        lnum = message.line - 1,
+        col = message.column - 1,
+        end_lnum = message.line - 1,
+        end_col = message.column - 1,
+        message = message.text,
+        code = message.rule,
+        user_data = {
+          lsp = {
+            code = message.rule,
           },
-          severity = severities[message.severity],
-          source = "stylelint",
-        })
-      end
+        },
+        severity = severities[message.severity],
+        source = "stylelint",
+      })
     end
     return diagnostics
   end
