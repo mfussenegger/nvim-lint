@@ -106,7 +106,7 @@ function M.from_pattern(pattern, groups, severity_map, defaults, opts)
     local end_lnum_offset = opts.end_lnum_offset or 0
     local col_offset = opts.col_offset or -1
     local end_col_offset = opts.end_col_offset or -1
-    local lnum = tonumber(captures.lnum) - 1
+    local lnum = captures.lnum and tonumber(captures.lnum) - 1 or 0
     local end_lnum = captures.end_lnum and (tonumber(captures.end_lnum) - 1) or lnum
     local col = tonumber(captures.col) and (tonumber(captures.col) + col_offset) or 0
     local end_col = tonumber(captures.end_col) and (tonumber(captures.end_col) + end_col_offset) or col
