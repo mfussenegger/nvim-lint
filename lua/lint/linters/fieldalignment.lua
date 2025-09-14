@@ -11,7 +11,7 @@ return {
     "-json",
   },
   ignore_exitcode = true,
-  parser = function(output, bufnr)
+  parser = function(output)
     if output == "" then
       return {}
     end
@@ -25,11 +25,10 @@ return {
           lnum = tonumber(lnum) or 1
           col = tonumber(col) or 1
           local message = issue.message
-          local suggested_fix = ""
           if issue.suggested_fixes and #issue.suggested_fixes > 0 then
             local fix = issue.suggested_fixes[1]
             if fix.edits and #fix.edits > 0 then
-              suggested_fix = fix.edits[1].new
+              local suggested_fix = fix.edits[1].new
               suggested_fix = suggested_fix:gsub("\n", "\n\t"):gsub("\t", "  ")
               message = message .. "\nSuggested struct:\n" .. suggested_fix
             end
