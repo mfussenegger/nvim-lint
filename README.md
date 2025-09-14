@@ -138,6 +138,7 @@ Other dedicated linters that are built-in are:
 | [eslint_d][37]                         | `eslint_d`             |
 | [eugene][eugene]                       | `eugene`               |
 | [fennel][fennel]                       | `fennel`               |
+| [fieldalignment][fieldalignment]       | `fieldalignment`       |
 | [fish][fish]                           | `fish`                 |
 | [Flake8][13]                           | `flake8`               |
 | [flawfinder][35]                       | `flawfinder`           |
@@ -653,3 +654,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [vimcats]: https://github.com/mrcjkb/vimcats
 [lslint]: https://github.com/Makopo/lslint/
 [fsharplint]: https://github.com/fsprojects/FSharpLint
+[fieldalignment]: https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment
