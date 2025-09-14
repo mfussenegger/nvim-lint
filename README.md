@@ -138,6 +138,7 @@ Other dedicated linters that are built-in are:
 | [eslint_d][37]                         | `eslint_d`             |
 | [eugene][eugene]                       | `eugene`               |
 | [fennel][fennel]                       | `fennel`               |
+| [fieldalignment][fieldalignment]       | `fieldalignment`       |
 | [fish][fish]                           | `fish`                 |
 | [Flake8][13]                           | `flake8`               |
 | [flawfinder][35]                       | `flawfinder`           |
