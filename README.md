@@ -117,6 +117,7 @@ Other dedicated linters that are built-in are:
 | [clippy][clippy]                       | `clippy`               |
 | [clj-kondo][24]                        | `clj-kondo`            |
 | [cmakelint][cmakelint]                 | `cmakelint`            |
+| [cmake-lint][cmake_format]             | `cmake_lint`           |
 | [codespell][18]                        | `codespell`            |
 | [commitlint][commitlint]               | `commitlint`           |
 | [cppcheck][22]                         | `cppcheck`             |
@@ -161,6 +162,7 @@ Other dedicated linters that are built-in are:
 | [jshint][jshint]                       | `jshint`               |
 | [json5][json5]                         | `json5`                |
 | [jsonlint][jsonlint]                   | `jsonlint`             |
+| [json.tool][json.py]                   | `json_tool`             |
 | [ksh][ksh]                             | `ksh`                  |
 | [ktlint][ktlint]                       | `ktlint`               |
 | [lacheck][lacheck]                     | `lacheck`              |
@@ -538,6 +540,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [jshint]: https://jshint.com/
 [json5]: https://json5.org/
 [jsonlint]: https://github.com/zaach/jsonlint
+[json.py]: https://docs.python.org/3/library/json.html#module-json.tool
 [rflint]: https://github.com/boakley/robotframework-lint
 [robocop]: https://github.com/MarketSquare/robotframework-robocop
 [vsg]: https://github.com/jeremiah-c-leary/vhdl-style-guide
@@ -547,6 +550,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [proselint]: https://github.com/amperser/proselint
 [protolint]: https://github.com/yoheimuta/protolint
 [cmakelint]: https://github.com/cmake-lint/cmake-lint
+[cmake_format]: https://github.com/cheshirekow/cmake_format
 [rstcheck]: https://github.com/myint/rstcheck
 [rstlint]: https://github.com/twolfson/restructuredtext-lint
 [ksh]: https://github.com/ksh93/ksh
