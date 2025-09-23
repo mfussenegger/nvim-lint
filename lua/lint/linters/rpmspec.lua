@@ -31,10 +31,10 @@ return {
   args = { '-P' },
   stream = 'stderr',
   ignore_exitcode = true,
-  parser = function(output, bufnr)
+  parser = function(output, bufnr, linter_cwd)
     local diagnostics = {}
     for _, parser in ipairs(parsers) do
-      local result = parser(output, bufnr)
+      local result = parser(output, bufnr, linter_cwd)
       vim.list_extend(diagnostics, result)
     end
     return diagnostics
