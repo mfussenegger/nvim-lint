@@ -231,11 +231,32 @@ local linter_proc_mt = {
 }
 
 
+---@param diagnostics vim.Diagnostic[]
 function LintProc:publish(diagnostics)
-  -- By the time the linter is finished the user might have deleted the buffer
-  if api.nvim_buf_is_valid(self.bufnr) and not self.cancelled then
-    vim.diagnostic.set(self.ns, self.bufnr, diagnostics)
+  if not self.cancelled then
+    -- A map where the key is the bufnr and the value is a list of all diagnostics
+    -- in that buffer.
+    ---@type table<integer,vim.Diagnostic[]>
+    local buffer_diagnostics = {}
+
+    for _, item in ipairs(diagnostics) do
+      local bufnr = item.bufnr or self.bufnr
+
+      if nil == buffer_diagnostics[bufnr] then
+        buffer_diagnostics[bufnr] = {}
+      end
+
+      table.insert(buffer_diagnostics[bufnr], item)
+    end
+
+    for buf, diags in pairs(buffer_diagnostics) do
+      -- By the time the linter is finished some buffers may be deleted.
+      if api.nvim_buf_is_valid(buf) then
+        vim.diagnostic.set(self.ns, buf, diags)
+      end
+    end
   end
+
   self.stdout:shutdown()
   self.stdout:close()
   self.stderr:shutdown()
