@@ -248,6 +248,7 @@ Other dedicated linters that are built-in are:
 | [yamllint][yamllint]                   | `yamllint`             |
 | [yq][yq]                               | `yq`                   |
 | [zizmor][zizmor]                       | `zizmor`               |
+| [zlint][zlint]                         | `zlint`                |
 | [zsh][zsh]                             | `zsh`                  |
 
 ## Custom Linters
@@ -655,3 +656,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [lslint]: https://github.com/Makopo/lslint/
 [fsharplint]: https://github.com/fsprojects/FSharpLint
 [fieldalignment]: https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment
+[zlint]: https://donisaac.github.io/zlint/
