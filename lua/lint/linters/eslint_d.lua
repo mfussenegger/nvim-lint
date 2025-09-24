@@ -15,6 +15,9 @@ return {
   stream = 'stdout',
   ignore_exitcode = true,
   parser = function(output, bufnr)
+    if string.find(output, "Error: Could not find config file") then
+      return {}
+    end
     local result = require("lint.linters.eslint").parser(output, bufnr)
     for _, d in ipairs(result) do
       d.source = binary_name
