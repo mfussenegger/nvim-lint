@@ -26,7 +26,10 @@ return {
     end
     local decode_opts = { luanil = { object = true, array = true } }
     local ok, data = pcall(vim.json.decode, output, decode_opts)
-    if string.find(trimmed_output, "No ESLint configuration found") then
+    if
+      string.find(trimmed_output, "No ESLint configuration found")
+      or string.find(trimmed_output, "Error: Could not find config file")
+    then
       vim.notify_once(trimmed_output, vim.log.levels.WARN)
       return {}
     end
