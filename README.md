@@ -148,6 +148,7 @@ Other dedicated linters that are built-in are:
 | [gawk][gawk]                           | `gawk`                 |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
 | [GHDL][ghdl]                           | `ghdl`                 |
+| [gitleaks][gitleaks]                   | `gitleaks`             |
 | [gitlint][gitlint]                     | `gitlint`              |
 | [glslc][glslc]                         | `glslc`                |
 | [Golangci-lint][16]                    | `golangcilint`         |
