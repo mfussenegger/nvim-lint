@@ -130,6 +130,7 @@ Other dedicated linters that are built-in are:
 | [dclint][dclint]                       | `dclint`               |
 | [deadnix][deadnix]                     | `deadnix`              |
 | [deno][deno]                           | `deno`                 |
+| [detect-secrets][detect-secrets]       | `detect-secrets`       |
 | [dmypy][dmypy]                         | `dmypy`                |
 | [DirectX Shader Compiler][dxc]         | `dxc`                  |
 | [djlint][djlint]                       | `djlint`               |
