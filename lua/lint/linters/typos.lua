@@ -25,7 +25,7 @@ return {
     --   {"type":"binary_file","path":"./lua/init_rs.so"}
     --   {"type":"typo","path":"./lua/plugins/23_package-info-nvim.lua","line_num":15,"byte_offset":37,"typo":"nd","corrections":["and"]}
     --   {"type":"binary_file","path":"./spell/en.utf-8.add.spl"}
-    for json in string.gmatch(output, "[%S]+") do
+    for json in string.gmatch(output, "[^\n]+") do
       local item = vim.json.decode(json)
 
       if item ~= nil and item.line_num ~= nil then
