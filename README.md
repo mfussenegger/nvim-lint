@@ -127,6 +127,7 @@ Other dedicated linters that are built-in are:
 | [cue][cue]                             | `cue`                  |
 | [curlylint][curlylint]                 | `curlylint`            |
 | [dash][dash]                           | `dash`                 |
+| [dclint][dclint]                       | `dclint`               |
 | [deadnix][deadnix]                     | `deadnix`              |
 | [deno][deno]                           | `deno`                 |
 | [dmypy][dmypy]                         | `dmypy`                |
@@ -661,3 +662,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [fsharplint]: https://github.com/fsprojects/FSharpLint
 [fieldalignment]: https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment
 [zlint]: https://donisaac.github.io/zlint/
+[dclint]: https://github.com/zavoloklom/docker-compose-linter
