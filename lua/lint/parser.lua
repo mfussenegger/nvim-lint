@@ -198,7 +198,7 @@ function M.for_sarif(skeleton)
             -- If endColumn is absent, it SHALL default to a value one greater
             -- than the column number of the last character on the line,
             -- excluding any newline sequence.
-            local end_col = region.endColumn and region.endColumn - 2 or math.huge
+            local end_col = region.endColumn and region.endColumn - 2 or -1
             table.insert(
               diagnostics,
               vim.tbl_extend("keep", {
