@@ -335,7 +335,7 @@ parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defa
 
 The function allows to parse the linter's output using a pattern which can be either:
 
-- A Lua pattern. See `:help lua-patterns`.
+- A Lua pattern. See `:help lua-pattern`.
 - A LPEG pattern object. See `:help vim.lpeg`.
 - A function (`fun(line: string):string[]`). It takes one parameter - a line
   from the linter output and must return a string array with the matches. The
