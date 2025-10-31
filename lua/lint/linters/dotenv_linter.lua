@@ -1,7 +1,7 @@
 return {
   cmd = "dotenv-linter",
   stdin = false,
-  args = { "--quiet", "--no-color" },
+  args = { "check", "--quiet" },
   stream = "stdout",
   ignore_exitcode = true,
   env = nil,
