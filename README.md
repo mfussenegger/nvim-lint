@@ -216,6 +216,7 @@ Other dedicated linters that are built-in are:
 | [RuboCop][rubocop]                     | `rubocop`              |
 | [Ruby][ruby]                           | `ruby`                 |
 | [Ruff][ruff]                           | `ruff`                 |
+| [rumdl][rumdl]                         | `rumdl`                |
 | [salt-lint][salt-lint]                 | `saltlint`             |
 | [Selene][31]                           | `selene`               |
 | [ShellCheck][10]                       | `shellcheck`           |
@@ -669,3 +670,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [detect-secrets]: https://github.com/Yelp/detect-secrets
 [tombi]: https://github.com/tombi-toml/tombi
 [mado]: https://github.com/akiomik/mado
+[rumdl]: https://github.com/rvben/rumdl
