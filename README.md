@@ -127,6 +127,7 @@ Other dedicated linters that are built-in are:
 | [cue][cue]                             | `cue`                  |
 | [curlylint][curlylint]                 | `curlylint`            |
 | [dash][dash]                           | `dash`                 |
+| [dclint][dclint]                       | `dclint`               |
 | [deadnix][deadnix]                     | `deadnix`              |
 | [deno][deno]                           | `deno`                 |
 | [dmypy][dmypy]                         | `dmypy`                |
@@ -334,7 +335,7 @@ parser = require('lint.parser').from_pattern(pattern, groups, severity_map, defa
 
 The function allows to parse the linter's output using a pattern which can be either:
 
-- A Lua pattern. See `:help lua-patterns`.
+- A Lua pattern. See `:help lua-pattern`.
 - A LPEG pattern object. See `:help vim.lpeg`.
 - A function (`fun(line: string):string[]`). It takes one parameter - a line
   from the linter output and must return a string array with the matches. The
@@ -661,3 +662,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [fsharplint]: https://github.com/fsprojects/FSharpLint
 [fieldalignment]: https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment
 [zlint]: https://donisaac.github.io/zlint/
+[dclint]: https://github.com/zavoloklom/docker-compose-linter
