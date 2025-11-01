@@ -664,3 +664,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [fieldalignment]: https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment
 [zlint]: https://donisaac.github.io/zlint/
 [dclint]: https://github.com/zavoloklom/docker-compose-linter
+[detect-secrets]: https://github.com/Yelp/detect-secrets
