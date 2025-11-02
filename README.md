@@ -237,6 +237,7 @@ Other dedicated linters that are built-in are:
 | [tflint][tflint]                       | `tflint`               |
 | [tfsec][tfsec]                         | `tfsec`                |
 | [tlint][tlint]                         | `tlint`                |
+| [Tombi][tombi]                         | `tombi`                |
 | [trivy][trivy]                         | `trivy`                |
 | [ts-standard][ts-standard]             | `ts-standard`          |
 | [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
@@ -665,3 +666,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [zlint]: https://donisaac.github.io/zlint/
 [dclint]: https://github.com/zavoloklom/docker-compose-linter
 [detect-secrets]: https://github.com/Yelp/detect-secrets
+[tombi]: https://github.com/tombi-toml/tombi
