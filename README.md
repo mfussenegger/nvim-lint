@@ -172,6 +172,7 @@ Other dedicated linters that are built-in are:
 | [lslint][lslint]                       | `lslint`               |
 | [luac][luac]                           | `luac`                 |
 | [luacheck][19]                         | `luacheck`             |
+| [mado][mado]                           | `mado`                 |
 | [markdownlint][26]                     | `markdownlint`         |
 | [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 | [markuplint][markuplint]               | `markuplint`           |
@@ -667,3 +668,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [dclint]: https://github.com/zavoloklom/docker-compose-linter
 [detect-secrets]: https://github.com/Yelp/detect-secrets
 [tombi]: https://github.com/tombi-toml/tombi
+[mado]: https://github.com/akiomik/mado
