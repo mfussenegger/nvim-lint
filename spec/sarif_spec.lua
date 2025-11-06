@@ -1,8 +1,10 @@
 local bufnr = vim.uri_to_bufnr("file:///foo.java")
+local api = vim.api
+local parser = require("lint.parser")
 
 describe("for_sarif", function()
   it("ignores results for other buffers", function()
-    local parser = require("lint.parser").for_sarif({})
+    local parse = parser.for_sarif({})
     local output = [[
 {
   "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
@@ -61,13 +63,13 @@ describe("for_sarif", function()
   ]
 }
     ]]
-    local result = parser(output, bufnr, vim.fn.getcwd())
+    local result = parse(output, bufnr, vim.fn.getcwd())
     assert.are.same(1, #result)
 
     assert.are.same({
       lnum = 0,
       col = 9,
-      end_col = math.huge,
+      end_col = parser.maxint,
       severity = vim.diagnostic.severity.WARN,
       message = "This is a placeholder message.",
       source = "SpecTool",
@@ -76,7 +78,7 @@ describe("for_sarif", function()
   end)
 
   it("creates diagnostics for all runs", function()
-    local parser = require("lint.parser").for_sarif({})
+    local parse = parser.for_sarif({})
     local output = [[
 {
   "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
@@ -145,14 +147,14 @@ describe("for_sarif", function()
   ]
 }
     ]]
-    local result = parser(output, bufnr, vim.fn.getcwd())
+    local result = parse(output, bufnr, vim.fn.getcwd())
 
     assert.are.same(2, #result)
 
     assert.are.same({
       lnum = 0,
       col = 9,
-      end_col = math.huge,
+      end_col = parser.maxint,
       severity = vim.diagnostic.severity.WARN,
       message = "This is a placeholder message.",
       source = "SpecTool",
@@ -162,7 +164,7 @@ describe("for_sarif", function()
     assert.are.same({
       lnum = 0,
       col = 9,
-      end_col = math.huge,
+      end_col = parser.maxint,
       severity = vim.diagnostic.severity.WARN,
       message = "This is another placeholder message.",
       source = "SpecTool2",
@@ -171,7 +173,7 @@ describe("for_sarif", function()
   end)
 
   it("creates diagnostics for all locations in a result", function()
-    local parser = require("lint.parser").for_sarif({})
+    local parse = parser.for_sarif({})
     local output = [[
 {
   "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
@@ -221,13 +223,13 @@ describe("for_sarif", function()
   ]
 }
     ]]
-    local result = parser(output, bufnr, vim.fn.getcwd())
+    local result = parse(output, bufnr, vim.fn.getcwd())
     assert.are.same(2, #result)
 
     assert.are.same({
       lnum = 0,
       col = 9,
-      end_col = math.huge,
+      end_col = parser.maxint,
       severity = vim.diagnostic.severity.WARN,
       message = "This is a placeholder message.",
       source = "SpecTool",
@@ -237,7 +239,7 @@ describe("for_sarif", function()
     assert.are.same({
       lnum = 19,
       col = 14,
-      end_col = math.huge,
+      end_col = parser.maxint,
       severity = vim.diagnostic.severity.WARN,
       message = "This is a placeholder message.",
       source = "SpecTool",
@@ -246,7 +248,7 @@ describe("for_sarif", function()
   end)
 
   it("creates diagnostics spanning to the end of the line, without endCol", function()
-    local parser = require("lint.parser").for_sarif({})
+    local parse = parser.for_sarif({})
     local output = [[
 {
   "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
@@ -285,21 +287,27 @@ describe("for_sarif", function()
   ]
 }
     ]]
-    local result = parser(output, bufnr, vim.fn.getcwd())
+    local result = parse(output, bufnr, vim.fn.getcwd())
     assert.are.same(1, #result)
     assert.are.same({
       lnum = 0,
       col = 9,
-      end_col = math.huge,
+      end_col = 2 ^ 32 - 1,
       severity = vim.diagnostic.severity.WARN,
       message = "This is a placeholder message.",
       source = "SpecTool",
       code = "placeholder.code",
     }, result[1])
+
+    local ns = api.nvim_create_namespace("dummy")
+    vim.diagnostic.set(ns, bufnr, result)
+    api.nvim_buf_call(bufnr, function()
+      vim.diagnostic.setloclist()
+    end)
   end)
 
   it("creates diagnostics spanning to the end column, with endCol", function()
-    local parser = require("lint.parser").for_sarif({})
+    local parse = parser.for_sarif({})
     local output = [[
 {
   "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
@@ -339,7 +347,7 @@ describe("for_sarif", function()
   ]
 }
     ]]
-    local result = parser(output, bufnr, vim.fn.getcwd())
+    local result = parse(output, bufnr, vim.fn.getcwd())
     assert.are.same(1, #result)
     assert.are.same({
       lnum = 0,

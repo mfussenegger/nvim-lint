@@ -54,7 +54,7 @@ describe('linter.checkstyle', function()
       message = "'static' modifier out of order with the JLS suggestions.",
       lnum = 175,
       col = 18,
-      end_col = math.huge,
+      end_col = require("lint.parser").maxint,
       severity = vim.diagnostic.severity.ERROR,
       code = "mod.order"
     }
