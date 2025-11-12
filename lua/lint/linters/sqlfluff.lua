@@ -3,8 +3,6 @@ return {
   args = {
     "lint",
     "--format=json",
-    -- note: users will have to replace the --dialect argument accordingly
-    "--dialect=ansi",
   },
   ignore_exitcode = true,
   stdin = false,
