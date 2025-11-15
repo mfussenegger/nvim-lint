@@ -170,6 +170,7 @@ Other dedicated linters that are built-in are:
 | [lacheck][lacheck]                     | `lacheck`              |
 | [Languagetool][5]                      | `languagetool`         |
 | [lslint][lslint]                       | `lslint`               |
+| [ls-lint][ls-lint]                     | `ls_lint`              |
 | [luac][luac]                           | `luac`                 |
 | [luacheck][19]                         | `luacheck`             |
 | [mado][mado]                           | `mado`                 |
@@ -671,3 +672,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [tombi]: https://github.com/tombi-toml/tombi
 [mado]: https://github.com/akiomik/mado
 [rumdl]: https://github.com/rvben/rumdl
+[ls-lint]: https://github.com/loeffel-io/ls-lint
