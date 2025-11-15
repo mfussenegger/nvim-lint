@@ -1,8 +1,12 @@
+local pattern = "([^:]+):(%d+):%s%[(%w+%d+)%]%s(.+)"
+local groups = { "file", "lnum", "code", "message" }
+local defaults = { source = "cmake-lint", severity = vim.diagnostic.severity.WARN }
+
 return {
-  cmd = 'cmake-lint',
-  args = {'--quiet'},
+  cmd = "cmake-lint",
+  args = { "--suppress-decorations" },
   stdin = false,
-  parser = require('lint.parser').from_errorformat('%f:%l,%c: %m', {
-    source = 'cmake-lint'
-  })
+  stream = "stdout",
+  ignore_exitcode = true,
+  parser = require("lint.parser").from_pattern(pattern, groups, nil, defaults),
 }
