@@ -174,7 +174,7 @@ Other dedicated linters that are built-in are:
 | [luac][luac]                           | `luac`                 |
 | [luacheck][19]                         | `luacheck`             |
 | [mado][mado]                           | `mado`                 |
-| [mago][mago]                           | `mago`                 |
+| [mago_lint][mago]                           | `mago_lint`                 |
 | [mago_analyze][mago]                           | `mago_analyze`                 |
 | [markdownlint][26]                     | `markdownlint`         |
 | [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
