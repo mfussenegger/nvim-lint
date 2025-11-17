@@ -10,7 +10,7 @@ local groups = { 'lnum', 'col', 'severity', 'code', 'message' }
 
 return {
   cmd = "mago",
-  args = { "--no-colors", "lint", "--reporting-format=short" },
+  args = { "--colors=never", "lint", "--reporting-format=short" },
   append_fname = true,
   stdin = false,
   ignore_exitcode = true,
@@ -18,6 +18,6 @@ return {
     pattern,
     groups,
     severities,
-    { ['source'] = 'mago' }
+    { ['source'] = 'mago_lint' }
   ),
 }
