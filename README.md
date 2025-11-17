@@ -174,6 +174,7 @@ Other dedicated linters that are built-in are:
 | [luac][luac]                           | `luac`                 |
 | [luacheck][19]                         | `luacheck`             |
 | [mado][mado]                           | `mado`                 |
+| [mago][mago]                           | `mago`                 |
 | [markdownlint][26]                     | `markdownlint`         |
 | [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 | [markuplint][markuplint]               | `markuplint`           |
@@ -673,3 +674,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [mado]: https://github.com/akiomik/mado
 [rumdl]: https://github.com/rvben/rumdl
 [ls-lint]: https://github.com/loeffel-io/ls-lint
+[mago]: https://mago.carthage.software/
