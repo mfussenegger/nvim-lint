@@ -227,6 +227,7 @@ Other dedicated linters that are built-in are:
 | [sphinx-lint][sphinx-lint]             | `sphinx-lint`          |
 | [sqlfluff][sqlfluff]                   | `sqlfluff`             |
 | [sqruff][sqruff]                       | `sqruff`               |
+| [squawk][squawk]                       | `squawk`               |
 | [standardjs][standardjs]               | `standardjs`           |
 | [StandardRB][27]                       | `standardrb`           |
 | [statix check][33]                     | `statix`               |
@@ -591,6 +592,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [curlylint]: https://www.curlylint.org/
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff
 [sqruff]: https://github.com/quarylabs/sqruff
+[squawk]: https://github.com/quarylabs/sqruff
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
