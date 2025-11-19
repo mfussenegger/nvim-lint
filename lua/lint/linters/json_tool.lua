@@ -1,8 +1,14 @@
 return {
-  cmd = 'python3',
-  args = {'-m', 'json.tool'},
+  cmd = "python3",
+  args = {"-m", "json.tool"},
+  stdin = true,
+  stream = "stderr",
   ignore_exitcode = true,
-  parser = require('lint.parser').from_errorformat('%m: line %l column %c (char %r)', {
-    source = 'json.tool'
-  })
+  parser = require("lint.parser").from_pattern(
+    "^(.+): line (%d+) column (%d+) .+",
+    { "message", "lnum", "col" },
+    nil,
+    nil,
+    { lnum_offset = -1 }
+  ),
 }
