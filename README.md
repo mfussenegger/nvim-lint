@@ -239,6 +239,7 @@ Other dedicated linters that are built-in are:
 | [SwiftLint][swiftlint]                 | `swiftlint`            |
 | [systemd-analyze][systemd-analyze]     | `systemd-analyze`      |
 | [systemdlint][systemdlint]             | `systemdlint`          |
+| [tclint][tclint]                       | `tclint`               |
 | [tflint][tflint]                       | `tflint`               |
 | [tfsec][tfsec]                         | `tfsec`                |
 | [tlint][tlint]                         | `tlint`                |
@@ -646,6 +647,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [markuplint]: https://markuplint.dev/
 [markdownlint-cli2]: https://github.com/DavidAnson/markdownlint-cli2
 [swiftlint]: https://github.com/realm/SwiftLint
+[tclint]: https://github.com/nmoroze/tclint
 [tflint]: https://github.com/terraform-linters/tflint
 [ameba]: https://github.com/crystal-ameba/ameba
 [eugene]: https://github.com/kaaveland/eugene
