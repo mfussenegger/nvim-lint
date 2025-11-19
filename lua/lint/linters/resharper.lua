@@ -29,10 +29,10 @@ return function()
     return {}
   end
 
-  -- local solution_directory = vim.fn.fnamemodify(root_file, ":h")
+  local solution_directory = vim.fn.fnamemodify(root_file, ":h")
 
-  -- local relative_filepath = filepath:sub(#solution_directory + 2)
-  -- local cache_directory = vim.fn.stdpath("cache")
+  local relative_filepath = filepath:sub(#solution_directory + 2)
+  local cache_directory = vim.fn.stdpath("cache")
 
   return {
     cmd = "jb",
@@ -40,14 +40,14 @@ return function()
     append_fname = false,
     args = {
       "inspectcode",
-      -- "--no-swea",
-      -- "--no-build",
-      -- "--jobs=0",
-      -- "--severity=INFO",
+      "--no-swea",
+      "--no-build",
+      "--jobs=0",
+      "--severity=INFO",
       "--output=-",
       "--absolute-paths",
-      -- "--include=" .. relative_filepath,
-      -- "--caches-home=" .. cache_directory,
+      "--include=" .. relative_filepath,
+      "--caches-home=" .. cache_directory,
       root_file,
     },
     stream = nil,
