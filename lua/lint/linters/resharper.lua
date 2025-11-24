@@ -32,7 +32,10 @@ return function()
   local solution_directory = vim.fn.fnamemodify(root_file, ":h")
 
   local relative_filepath = filepath:sub(#solution_directory + 2)
-  local cache_directory = vim.fn.stdpath("cache")
+  local cache_directory = vim.fn.stdpath("cache") .. "/nvim-lint-resharper"
+
+  -- Ensure cache directory exists
+  vim.fn.mkdir(cache_directory, "p")
 
   return {
     cmd = "jb",
