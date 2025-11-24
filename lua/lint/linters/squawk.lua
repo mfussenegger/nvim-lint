@@ -18,7 +18,7 @@ return {
     local diagnostics = {}
 
     for _, diag in ipairs(decoded) do
-      local severity = severities[string.lower(diag.level)] or vim.diagnostic.severity.WARN
+      local severity = severities[diag.level] or vim.diagnostic.severity.WARN
       local message = diag.message or ""
       if diag.rule_name then
         message = message .. " (" .. diag.rule_name .. ")"
