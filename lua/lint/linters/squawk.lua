@@ -14,11 +14,14 @@ return {
       return {}
     end
 
-    local decoded = vim.json.decode(output) or {}
+    local ok, decoded = pcall(vim.json.decode, output)
+    if not ok or not decoded then
+      return {}
+    end
     local diagnostics = {}
 
     for _, diag in ipairs(decoded) do
-      local severity = severities[diag.level] or vim.diagnostic.severity.WARN
+      local severity = severities[diag.level]
       local message = diag.message or ""
       if diag.rule_name then
         message = message .. " (" .. diag.rule_name .. ")"
