@@ -206,6 +206,7 @@ Other dedicated linters that are built-in are:
 | [pydocstyle][pydocstyle]               | `pydocstyle`           |
 | [Pylint][15]                           | `pylint`               |
 | [pyproject-flake8][pflake8]            | `pflake8`              |
+| [pyrefly][pyrefly]                     | `pyrefly`              |
 | [quick-lint-js][quick-lint-js]         | `quick-lint-js`        |
 | [redocly][redocly]                     | `redolcy`              |
 | [regal][regal]                         | `regal`                |
@@ -678,3 +679,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [rumdl]: https://github.com/rvben/rumdl
 [ls-lint]: https://github.com/loeffel-io/ls-lint
 [mago]: https://mago.carthage.software/
+[pyrefly]: https://pyrefly.org/
