@@ -179,6 +179,7 @@ Other dedicated linters that are built-in are:
 | [markdownlint][26]                     | `markdownlint`         |
 | [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 | [markuplint][markuplint]               | `markuplint`           |
+| [mh_lint][miss_hit]                    | `mh_lint`              |
 | [mlint][34]                            | `mlint`                |
 | [Mypy][11]                             | `mypy`                 |
 | [Nagelfar][nagelfar]                   | `nagelfar`             |
@@ -678,3 +679,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [rumdl]: https://github.com/rvben/rumdl
 [ls-lint]: https://github.com/loeffel-io/ls-lint
 [mago]: https://mago.carthage.software/
+[miss_hit]: https://github.com/florianschanda/miss_hit
