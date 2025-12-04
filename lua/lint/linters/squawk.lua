@@ -8,8 +8,7 @@ return {
   stream = "stdout",
   stdin = false,
   ignore_exitcode = true,
-
-  parser = function(output, bufnr)
+  parser = function(output)
     if output == "" then
       return {}
     end
