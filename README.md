@@ -251,6 +251,7 @@ Other dedicated linters that are built-in are:
 | [ts-standard][ts-standard]             | `ts-standard`          |
 | [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
 | [typos][typos]                         | `typos`                |
+| [vacuum][vacuum]                       | `vacuum`               |
 | [Vala][vala-lint]                      | `vala_lint`            |
 | [Vale][8]                              | `vale`                 |
 | [Verilator][verilator]                 | `verilator`            |
@@ -684,3 +685,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [mago]: https://mago.carthage.software/
 [miss_hit]: https://github.com/florianschanda/miss_hit
 [pyrefly]: https://pyrefly.org/
+[Vacuum]: https://quobix.com/vacuum/
