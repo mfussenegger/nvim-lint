@@ -179,7 +179,7 @@ Other dedicated linters that are built-in are:
 | [markdownlint][26]                     | `markdownlint`         |
 | [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 | [markuplint][markuplint]               | `markuplint`           |
-| [mh_style][miss_hit]			 | `mh_lint`		  |
+| [mh_lint][miss_hit]                    | `mh_lint`              |
 | [mlint][34]                            | `mlint`                |
 | [Mypy][11]                             | `mypy`                 |
 | [Nagelfar][nagelfar]                   | `nagelfar`             |
