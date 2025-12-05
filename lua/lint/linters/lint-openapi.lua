@@ -31,18 +31,8 @@ return {
   args = { '--json' },
   append_fname = true,
   ignore_exitcode = true,
-  parser = function(output, bufnr, _)
+  parser = function(output)
     if vim.trim(output) == '' then
-      return {}
-    end
-
-    local allowed_filenames = {
-      ['openapi.json'] = true,
-      ['openapi.yaml'] = true,
-    }
-
-    local filename = vim.fs.basename(vim.api.nvim_buf_get_name(bufnr))
-    if not allowed_filenames[filename] then
       return {}
     end
 
