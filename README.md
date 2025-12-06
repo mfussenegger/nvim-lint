@@ -600,7 +600,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [curlylint]: https://www.curlylint.org/
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff
 [sqruff]: https://github.com/quarylabs/sqruff
-[squawk]: https://github.com/quarylabs/sqruff
+[squawk]: https://github.com/sbdchd/squawk
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
