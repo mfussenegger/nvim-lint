@@ -209,7 +209,7 @@ Other dedicated linters that are built-in are:
 | [pyproject-flake8][pflake8]            | `pflake8`              |
 | [pyrefly][pyrefly]                     | `pyrefly`              |
 | [quick-lint-js][quick-lint-js]         | `quick-lint-js`        |
-| [redocly][redocly]                     | `redolcy`              |
+| [redocly][redocly]                     | `redocly`              |
 | [regal][regal]                         | `regal`                |
 | [Revive][14]                           | `revive`               |
 | [rflint][rflint]                       | `rflint`               |
