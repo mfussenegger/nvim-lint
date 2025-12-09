@@ -567,6 +567,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [luac]: https://www.lua.org/manual/5.1/luac.html
 [credo]: https://github.com/rrrene/credo
 [ghdl]: https://github.com/ghdl/ghdl
+[gitleaks]: https://github.com/gitleaks/gitleaks
 [glslc]: https://github.com/google/shaderc
 [rubocop]: https://github.com/rubocop/rubocop
 [dxc]: https://github.com/microsoft/DirectXShaderCompiler
