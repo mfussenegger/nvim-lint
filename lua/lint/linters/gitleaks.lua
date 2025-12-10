@@ -12,7 +12,6 @@ return {
   parser = function(output, bufnr, _)
     local decoded_output = vim.json.decode(output)
 
-    ---Diagnostics generated with the output of 'gitleaks'
     ---@type vim.Diagnostic[]
     local diagnostics = {}
 
