@@ -1,4 +1,8 @@
--- NOTE: see require("lint.linters.api_linter_buf") for a real-world implementation of api-linter, leveraging the buf CLI.
+-- Basic api-linter integration.
+--
+-- This linter works best for simple projects without third-party proto imports.
+-- For projects using buf with external dependencies, see api_linter_buf which
+-- uses `buf build` to generate a descriptor file containing all imports.
 --
 -- api-linter v2.x requires files to be specified as relative paths from the
 -- working directory. When using with buf, set cwd to the buf.yaml directory
@@ -29,9 +33,6 @@ return {
   append_fname = false,
   args = {
     "--output-format=json",
-    "--disable-rule=core::0191::java-multiple-files",
-    "--disable-rule=core::0191::java-package",
-    "--disable-rule=core::0191::java-outer-classname",
     function()
       -- Manually add the filename as relative path from cwd.
       -- This is required for api-linter v2.x which expects relative paths.
