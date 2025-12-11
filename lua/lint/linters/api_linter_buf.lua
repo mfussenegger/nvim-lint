@@ -135,11 +135,24 @@ end
 
 -- --------------------- api_linter_buf configuration ---------------------
 
+local function build_args()
+  local args = {}
+  -- Copy all args except the last one (which is the filename function)
+  for i = 1, #api_linter.args - 1 do
+    table.insert(args, api_linter.args[i])
+  end
+  -- Insert descriptor_set_in before the filename
+  table.insert(args, descriptor_set_in)
+  -- Add the filename function last
+  table.insert(args, api_linter.args[#api_linter.args])
+  return args
+end
+
 return {
   cmd = api_linter.cmd,
   stdin = api_linter.stdin,
   append_fname = api_linter.append_fname,
-  args = table.insert(api_linter.args, descriptor_set_in),
+  args = build_args(),
   stream = api_linter.stream,
   ignore_exitcode = api_linter.ignore_exitcode,
   env = api_linter.env,
