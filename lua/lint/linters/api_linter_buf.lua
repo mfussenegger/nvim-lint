@@ -126,7 +126,7 @@ local function autocmd(cwd)
   vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
     pattern = { "*.proto" },
     callback = function()
-      require("lint").try_lint("api_linter", {
+      require("lint").try_lint("api_linter_buf", {
         cwd = cwd(),
       })
     end,
