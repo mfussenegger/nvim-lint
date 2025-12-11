@@ -10,7 +10,7 @@
 
 --- Get relative path of file from cwd
 local function get_relative_path(file, cwd)
-  if not cwd:sub(-1) == "/" then
+  if cwd:sub(-1) ~= "/" then
     cwd = cwd .. "/"
   end
   local start, stop = file:find(cwd, 1, true)
