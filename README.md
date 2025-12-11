@@ -150,6 +150,7 @@ Other dedicated linters that are built-in are:
 | [gawk][gawk]                           | `gawk`                 |
 | [gdlint (gdtoolkit)][gdlint]           | `gdlint`               |
 | [GHDL][ghdl]                           | `ghdl`                 |
+| [gitleaks][gitleaks]                   | `gitleaks`             |
 | [gitlint][gitlint]                     | `gitlint`              |
 | [glslc][glslc]                         | `glslc`                |
 | [Golangci-lint][16]                    | `golangcilint`         |
@@ -179,6 +180,7 @@ Other dedicated linters that are built-in are:
 | [markdownlint][26]                     | `markdownlint`         |
 | [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 | [markuplint][markuplint]               | `markuplint`           |
+| [mh_lint][miss_hit]                    | `mh_lint`              |
 | [mlint][34]                            | `mlint`                |
 | [Mypy][11]                             | `mypy`                 |
 | [Nagelfar][nagelfar]                   | `nagelfar`             |
@@ -206,8 +208,9 @@ Other dedicated linters that are built-in are:
 | [pydocstyle][pydocstyle]               | `pydocstyle`           |
 | [Pylint][15]                           | `pylint`               |
 | [pyproject-flake8][pflake8]            | `pflake8`              |
+| [pyrefly][pyrefly]                     | `pyrefly`              |
 | [quick-lint-js][quick-lint-js]         | `quick-lint-js`        |
-| [redocly][redocly]                     | `redolcy`              |
+| [redocly][redocly]                     | `redocly`              |
 | [regal][regal]                         | `regal`                |
 | [Revive][14]                           | `revive`               |
 | [rflint][rflint]                       | `rflint`               |
@@ -231,6 +234,7 @@ Other dedicated linters that are built-in are:
 | [sphinx-lint][sphinx-lint]             | `sphinx-lint`          |
 | [sqlfluff][sqlfluff]                   | `sqlfluff`             |
 | [sqruff][sqruff]                       | `sqruff`               |
+| [squawk][squawk]                       | `squawk`               |
 | [standardjs][standardjs]               | `standardjs`           |
 | [StandardRB][27]                       | `standardrb`           |
 | [statix check][33]                     | `statix`               |
@@ -248,6 +252,7 @@ Other dedicated linters that are built-in are:
 | [ts-standard][ts-standard]             | `ts-standard`          |
 | [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
 | [typos][typos]                         | `typos`                |
+| [vacuum][vacuum]                       | `vacuum`               |
 | [Vala][vala-lint]                      | `vala_lint`            |
 | [Vale][8]                              | `vale`                 |
 | [Verilator][verilator]                 | `verilator`            |
@@ -575,6 +580,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [luac]: https://www.lua.org/manual/5.1/luac.html
 [credo]: https://github.com/rrrene/credo
 [ghdl]: https://github.com/ghdl/ghdl
+[gitleaks]: https://github.com/gitleaks/gitleaks
 [glslc]: https://github.com/google/shaderc
 [rubocop]: https://github.com/rubocop/rubocop
 [dxc]: https://github.com/microsoft/DirectXShaderCompiler
@@ -596,6 +602,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [curlylint]: https://www.curlylint.org/
 [sqlfluff]: https://github.com/sqlfluff/sqlfluff
 [sqruff]: https://github.com/quarylabs/sqruff
+[squawk]: https://github.com/sbdchd/squawk
 [verilator]: https://verilator.org/guide/latest/
 [actionlint]: https://github.com/rhysd/actionlint
 [buf_lint]: https://github.com/bufbuild/buf
@@ -678,3 +685,6 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [rumdl]: https://github.com/rvben/rumdl
 [ls-lint]: https://github.com/loeffel-io/ls-lint
 [mago]: https://mago.carthage.software/
+[miss_hit]: https://github.com/florianschanda/miss_hit
+[pyrefly]: https://pyrefly.org/
+[Vacuum]: https://quobix.com/vacuum/

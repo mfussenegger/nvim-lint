@@ -3,9 +3,10 @@ return {
   args = {
     "lint",
     "--format=json",
+    "-",
   },
   ignore_exitcode = true,
-  stdin = false,
+  stdin = true,
   parser = function(output, _)
     local per_filepath = {}
     if #output > 0 then
