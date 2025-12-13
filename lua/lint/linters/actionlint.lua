@@ -1,7 +1,17 @@
+local function get_file_name()
+  return vim.api.nvim_buf_get_name(0)
+end
+
 return {
   cmd = 'actionlint',
   stdin = true,
-  args = { '-format', '{{json .}}', '-' },
+  args = {
+    '-format',
+    '{{json .}}',
+    '-stdin-filename',
+    get_file_name,
+    '-',
+  },
   ignore_exitcode = true,
   parser = function(output)
     if output == '' then
