@@ -1,6 +1,7 @@
 local severities = {
   High = vim.diagnostic.severity.ERROR,
   Medium = vim.diagnostic.severity.WARN,
+  Low = vim.diagnostic.severity.INFO,
 }
 
 return {
