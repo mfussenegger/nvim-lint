@@ -17,6 +17,7 @@ describe('linter.sqlfluff', function()
       lnum = 67, -- mind the line indexing
       col = 0, -- mind the column indexing
       severity = vim.diagnostic.severity.WARN,
+      code = 'L003',
       user_data = {lsp = {code = 'L003'}},
     }
     assert.are.same(expected[1], result[1])
@@ -27,6 +28,7 @@ describe('linter.sqlfluff', function()
       lnum = 67,
       col = 0,
       severity = vim.diagnostic.severity.WARN,
+      code = 'L013',
       user_data = {lsp = {code = 'L013'}},
     }
     assert.are.same(expected[2], result[2])
@@ -49,6 +51,7 @@ describe('linter.sqlfluff', function()
       lnum = 67, -- mind the line indexing
       col = 0, -- mind the column indexing
       severity = vim.diagnostic.severity.WARN,
+      code = 'L003',
       user_data = {lsp = {code = 'L003'}},
     }
     assert.are.same(expected[1], result[1])
@@ -59,6 +62,7 @@ describe('linter.sqlfluff', function()
       lnum = 67,
       col = 0,
       severity = vim.diagnostic.severity.WARN,
+      code = 'L013',
       user_data = {lsp = {code = 'L013'}},
     }
     assert.are.same(expected[2], result[2])
