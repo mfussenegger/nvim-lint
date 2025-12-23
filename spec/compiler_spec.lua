@@ -48,4 +48,15 @@ describe('compiler', function()
     }
     assert.are.same(expected, result)
   end)
+  it('substitutes filenames in makeprg', function()
+    local a = vim.api
+    local bufnr = a.nvim_create_buf(true, true)
+    a.nvim_buf_set_name(bufnr, "bogus/path.py")
+    a.nvim_set_current_buf(bufnr)
+    a.nvim_buf_set_option(bufnr, 'errorformat', '%f:%l: %m')
+    a.nvim_buf_set_option(bufnr, 'makeprg', 'python %<')
+    local linter = require('lint').linters.compiler()
+    local expected = 'python bogus/path'
+    assert.are.same(expected, linter.args[2])
+  end)
 end)

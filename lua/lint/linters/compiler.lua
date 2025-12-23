@@ -11,10 +11,9 @@ return function()
   if not ok then
     makeprg = vim.o.makeprg
   end
-  local bufname = api.nvim_buf_get_name(0)
   local args = {
     api.nvim_get_option('shellcmdflag'),
-    makeprg:gsub(' %%', ' ' .. bufname),
+    vim.fn.expandcmd(makeprg),
   }
   return {
     cmd = vim.opt.shell:get(),
