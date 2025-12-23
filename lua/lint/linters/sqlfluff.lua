@@ -45,6 +45,7 @@ return {
           end_col = violation.end_line_pos and (violation.end_line_pos - 1) or nil,
           severity = severity,
           message = violation.description,
+          code = violation.code,
           user_data = { lsp = { code = violation.code } },
         })
       end
