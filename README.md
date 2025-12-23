@@ -503,7 +503,7 @@ luarocks test
 
 If you get an error like:
 
-```
+```text
 E5113: Error while calling lua chunk: ...uarocks/lib/luarocks/rocks-5.1/busted/2.2.0-1/bin/busted:3: module 'busted.runner' not found:
 	no field package.preload['busted.runner']
 ```
