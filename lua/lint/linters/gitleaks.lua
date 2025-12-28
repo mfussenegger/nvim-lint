@@ -1,12 +1,12 @@
-local LINTER_NAME = "gitleaks"
+local LINTER_NAME = 'gitleaks'
 
 ---@type lint.Linter
 return {
   name = LINTER_NAME,
   cmd = "gitleaks",
-  stdin = false,
+  stdin = true,
   append_fname = true,
-  args = { "--report-format=json", "--report-path=-", "--exit-code=0", "file" },
+  args = { "stdin", "--report-format=json", "--report-path=-", "--exit-code=0" },
   stream = "stdout",
   ignore_exitcode = false,
   parser = function(output, bufnr, _)
