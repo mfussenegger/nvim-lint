@@ -1,4 +1,4 @@
-local LINTER_NAME = 'gitleaks'
+local LINTER_NAME = "gitleaks"
 
 ---@type lint.Linter
 return {
