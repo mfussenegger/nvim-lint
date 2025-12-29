@@ -22,6 +22,7 @@ return {
         file = file_key,
         code = item.check_path,
         severity = vim.diagnostic.severity.INFO,
+        source = 'proselint',
       })
     end
     return diagnostics
