@@ -1,7 +1,7 @@
 local severity_map = {
-  error = vim.diagnostic.severity.ERROR,
-  warning = vim.diagnostic.severity.WARN,
   info = vim.diagnostic.severity.INFO,
+  warning = vim.diagnostic.severity.WARN,
+  error = vim.diagnostic.severity.ERROR,
 }
 local bin = "npm-groovy-lint"
 
