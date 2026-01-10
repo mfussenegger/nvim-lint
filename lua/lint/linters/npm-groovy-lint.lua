@@ -7,7 +7,7 @@ local bin = "npm-groovy-lint"
 
 return {
   cmd = bin,
-  args = { "--failon", "none", "-o", "json", "-" },
+  args = { "-o", "json", "-" },
   stdin = true,
   ignore_exitcode = true,
   parser = function(output, _)
