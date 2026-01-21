@@ -84,6 +84,13 @@ example on the `InsertLeave` or `TextChanged` events.
 If you want to customize how the diagnostics are displayed, read `:help
 vim.diagnostic.config`.
 
+## Security
+
+Some linters prioritize using an executable relative to the current working
+directory over the executable in `$PATH`. For example the `eslint` linter will
+use `./node_modules/.bin/eslint` if it exists. The executable is executed with
+your users permission. Because of that, you must _not_ call `try_lint()` in
+untrusted repositories.
 
 ## Available Linters
 
