@@ -22,6 +22,11 @@ return {
       return {}
     end
 
+    -- spectral returns `[]No results with a severity of 'error' found!` on no errors, which is not valid JSON
+    if string.find(output, "No results with a severity of 'error' found!") ~= nil then
+      return {}
+    end
+
     local result = vim.json.decode(output)
 
     -- prevent warning on yaml files without supported schema
