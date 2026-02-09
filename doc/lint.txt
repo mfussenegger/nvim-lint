@@ -26,14 +26,25 @@ M.linters_by_ft                                             *lint.linters_by_ft*
         (table<string,string[]>)
 
 
+lint.TryLintOpts                                              *lint.TryLintOpts*
+
+    Fields: ~
+        {cwd?}            (string)   Working directory for the linter process.
+        {ignore_errors?}  (boolean)  If true, do not notify on linter errors.
+        {filter?}         ()         Filter linters to be run.
+                                     If "stdin_only", only linters supporting stdin are run.
+                                     If a function, it is called for each linter and the linter
+                                     is only run if the function returns true.
+
+
 M.try_lint({names?}, {opts?})                                    *lint.try_lint*
      Run the linters with the given names.
      If no names are given, it runs the linters configured in `linters_by_ft`
 
 
     Parameters: ~
-        {names?}  (string|string[])                       name of the linter
-        {opts?}   ({cwd?:string,ignore_errors?:boolean})  options
+        {names?}  (string|string[])   name of the linter
+        {opts?}   (lint.TryLintOpts)  options
 
 
 M.get_namespace({name})                                     *lint.get_namespace*
