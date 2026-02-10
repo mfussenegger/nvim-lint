@@ -54,7 +54,7 @@ M.linters_by_ft = {
 --- If no names are given, it runs the linters configured in `linters_by_ft`
 ---
 ---@param names? string|string[] name of the linter
----@param opts? {cwd?: string, ignore_errors?: boolean} options
+---@param opts? {cwd?: string, ignore_errors?: boolean, stdin_only?: boolean} options
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
@@ -82,16 +82,21 @@ function M.try_lint(names, opts)
   local running_procs = running_procs_by_buf[bufnr] or {}
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
-    local proc = running_procs[linter.name]
-    if proc then
-      proc:cancel()
-    end
-    running_procs[linter.name] = nil
-    local ok, lintproc_or_error = pcall(M.lint, linter, opts)
-    if ok then
-      running_procs[linter.name] = lintproc_or_error
-    elseif not opts.ignore_errors then
-      notify(lintproc_or_error --[[@as string]], vim.log.levels.WARN)
+    if not opts.stdin_only or linter.stdin then
+      local proc = running_procs[linter.name]
+      if proc then
+        proc:cancel()
+      end
+      running_procs[linter.name] = nil
+      local ok, lintproc_or_error = pcall(M.lint, linter, {
+        cwd = opts.cwd,
+        ignore_errors = opts.ignore_errors,
+      })
+      if ok then
+        running_procs[linter.name] = lintproc_or_error
+      elseif not opts.ignore_errors then
+        notify(lintproc_or_error --[[@as string]], vim.log.levels.WARN)
+      end
     end
   end
   running_procs_by_buf[bufnr] = running_procs

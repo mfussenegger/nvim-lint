@@ -32,8 +32,8 @@ M.try_lint({names?}, {opts?})                                    *lint.try_lint*
 
 
     Parameters: ~
-        {names?}  (string|string[])                       name of the linter
-        {opts?}   ({cwd?:string,ignore_errors?:boolean})  options
+        {names?}  (string|string[])                                           name of the linter
+        {opts?}   ({cwd?:string,ignore_errors?:boolean,stdin_only?:boolean})  options
 
 
 M.get_namespace({name})                                     *lint.get_namespace*
