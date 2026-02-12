@@ -10,7 +10,7 @@ return function()
     args = { '-chdir=' .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':.:h'), 'validate', '-json' },
     append_fname = false,
     stdin = false,
-    stream = 'both',
+    stream = 'stdout',
     ignore_exitcode = true,
     parser = function(output, bufnr)
       local decoded = vim.json.decode(output) or {}
