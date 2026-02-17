@@ -275,11 +275,11 @@ function LintProc:start_read()
     parser = require('lint.parser').accumulate_chunks(parser)
   end
   assert(
-    parser.on_chunk and type(parser.on_chunk == 'function'),
+    parser.on_chunk and type(parser.on_chunk) == 'function',
     'Parser requires a `on_chunk` function'
   )
   assert(
-    parser.on_done and type(parser.on_done == 'function'),
+    parser.on_done and type(parser.on_done) == 'function',
     'Parser requires a `on_done` function'
   )
   local stream = self.linter.stream
