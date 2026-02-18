@@ -49,12 +49,21 @@ M.linters_by_ft = {
   terraform = {'tflint'},
 }
 
+---@class lint.try_lint.Opts
+---@field cwd? string Working directory for the linter process.
+---@field ignore_errors? boolean If true, do not notify on linter errors.
+---Filter linters to be run.
+---If "stdin", only linters supporting stdin are run.
+---If a function, it is called for each linter and the linter
+---is only run if the function returns true.
+---@field filter? "stdin" | fun(linter: lint.Linter): boolean
+
 
 --- Run the linters with the given names.
 --- If no names are given, it runs the linters configured in `linters_by_ft`
 ---
 ---@param names? string|string[] name of the linter
----@param opts? {cwd?: string, ignore_errors?: boolean} options
+---@param opts? lint.try_lint.Opts options
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
@@ -67,6 +76,14 @@ function M.try_lint(names, opts)
   if not names then
     names = M._resolve_linter_by_ft(vim.bo.filetype)
   end
+
+  local use_linter = opts.filter or function(_) return true end
+  if use_linter == "stdin" then
+    use_linter = function(linter)
+      return linter.stdin == true
+    end
+  end
+  assert(type(use_linter) == "function", "opts.filter must be a function or 'stdin'")
 
   local lookup_linter = function(name)
     local linter = M.linters[name]
@@ -82,16 +99,21 @@ function M.try_lint(names, opts)
   local running_procs = running_procs_by_buf[bufnr] or {}
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
-    local proc = running_procs[linter.name]
-    if proc then
-      proc:cancel()
-    end
-    running_procs[linter.name] = nil
-    local ok, lintproc_or_error = pcall(M.lint, linter, opts)
-    if ok then
-      running_procs[linter.name] = lintproc_or_error
-    elseif not opts.ignore_errors then
-      notify(lintproc_or_error --[[@as string]], vim.log.levels.WARN)
+    if use_linter(linter) then
+      local proc = running_procs[linter.name]
+      if proc then
+        proc:cancel()
+      end
+      running_procs[linter.name] = nil
+      local ok, lintproc_or_error = pcall(M.lint, linter, {
+        cwd = opts.cwd,
+        ignore_errors = opts.ignore_errors,
+      })
+      if ok then
+        running_procs[linter.name] = lintproc_or_error
+      elseif not opts.ignore_errors then
+        notify(lintproc_or_error --[[@as string]], vim.log.levels.WARN)
+      end
     end
   end
   running_procs_by_buf[bufnr] = running_procs

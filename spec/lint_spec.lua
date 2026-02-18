@@ -68,4 +68,33 @@ describe('lint', function()
     assert.are.same(cwd, captured_cwd)
     assert.are_not.same(cwd, vim.fn.getcwd())
   end)
+
+  it("uses opts.filter to only run matching linters", function()
+    local linter_used = 0
+    local linter = {
+      name = "dummy",
+      cmd = function()
+        linter_used = linter_used + 1
+        return "echo"
+      end,
+      parser = function()
+        return {}
+      end
+    }
+    lint.linters.dummy = linter
+
+    lint.try_lint("dummy", {
+      filter = function (l)
+        return l.name ~= "dummy"
+      end
+    })
+    assert.are.same(0, linter_used)
+
+    lint.try_lint("dummy", {
+      filter = function (l)
+        return l.name == "dummy"
+      end
+    })
+    assert.are.same(1, linter_used)
+  end)
 end)
