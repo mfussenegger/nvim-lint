@@ -256,6 +256,7 @@ Other dedicated linters that are built-in are:
 | [tlint][tlint]                         | `tlint`                |
 | [Tombi][tombi]                         | `tombi`                |
 | [trivy][trivy]                         | `trivy`                |
+| [trivy_secret][trivy_secret]           | `trivy_secret`         |
 | [ts-standard][ts-standard]             | `ts-standard`          |
 | [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
 | [typos][typos]                         | `typos`                |
@@ -635,6 +636,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [tfsec]: https://github.com/aquasecurity/tfsec
 [tlint]: https://github.com/tighten/tlint
 [trivy]: https://github.com/aquasecurity/trivy
+[trivy_secret]: https://github.com/aquasecurity/trivy
 [djlint]: https://djlint.com/
 [buildifier]: https://github.com/bazelbuild/buildtools/tree/main/buildifier
 [solhint]: https://protofire.github.io/solhint/
