@@ -49,21 +49,21 @@ M.linters_by_ft = {
   terraform = {'tflint'},
 }
 
----@class lint.TryLintOpts
+---@class lint.try_lint.Opts
 ---@field cwd? string Working directory for the linter process.
 ---@field ignore_errors? boolean If true, do not notify on linter errors.
 ---Filter linters to be run.
----If "stdin_only", only linters supporting stdin are run.
+---If "stdin", only linters supporting stdin are run.
 ---If a function, it is called for each linter and the linter
 ---is only run if the function returns true.
----@field filter? "stdin_only" | fun(linter: lint.Linter): boolean
+---@field filter? "stdin" | fun(linter: lint.Linter): boolean
 
 
 --- Run the linters with the given names.
 --- If no names are given, it runs the linters configured in `linters_by_ft`
 ---
 ---@param names? string|string[] name of the linter
----@param opts? lint.TryLintOpts options
+---@param opts? lint.try_lint.Opts options
 function M.try_lint(names, opts)
   assert(
     vim.diagnostic,
@@ -77,15 +77,13 @@ function M.try_lint(names, opts)
     names = M._resolve_linter_by_ft(vim.bo.filetype)
   end
 
-  local function should_run(linter)
-    local filter = opts.filter
-    if filter == "stdin_only" then
-      return linter.stdin
-    elseif type(filter) == "function" then
-      return filter(linter)
+  local use_linter = opts.filter or function(_) return true end
+  if use_linter == "stdin" then
+    use_linter = function(linter)
+      return linter.stdin == true
     end
-    return true
   end
+  assert(type(use_linter) == "function", "opts.filter must be a function or 'stdin'")
 
   local lookup_linter = function(name)
     local linter = M.linters[name]
@@ -101,7 +99,7 @@ function M.try_lint(names, opts)
   local running_procs = running_procs_by_buf[bufnr] or {}
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
-    if should_run(linter) then
+    if use_linter(linter) then
       local proc = running_procs[linter.name]
       if proc then
         proc:cancel()
