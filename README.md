@@ -219,6 +219,7 @@ Other dedicated linters that are built-in are:
 | [quick-lint-js][quick-lint-js]         | `quick-lint-js`        |
 | [redocly][redocly]                     | `redocly`              |
 | [regal][regal]                         | `regal`                |
+| [resharper][resharper] (*)             | `resharper`            |
 | [Revive][14]                           | `revive`               |
 | [rflint][rflint]                       | `rflint`               |
 | [robocop][robocop]                     | `robocop`              |
@@ -273,6 +274,8 @@ Other dedicated linters that are built-in are:
 | [zizmor][zizmor]                       | `zizmor`               |
 | [zlint][zlint]                         | `zlint`                |
 | [zsh][zsh]                             | `zsh`                  |
+
+(*) resharper requires version 2025.2 or newer of command line tools (earlier versions don't support stdout)
 
 ## Custom Linters
 
@@ -673,6 +676,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [opa_check]: https://www.openpolicyagent.org/
 [oxlint]: https://oxc-project.github.io/
 [regal]: https://github.com/StyraInc/regal
+[resharper]: https://www.jetbrains.com/help/resharper/ReSharper_Command_Line_Tools.html
 [vala-lint]: https://github.com/vala-lang/vala-lint
 [systemdlint]: https://github.com/priv-kweihmann/systemdlint
 [htmlhint]: https://htmlhint.com/
