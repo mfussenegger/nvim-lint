@@ -1,4 +1,5 @@
-local name = "linter-secrets"
+local name = "detect-secrets"
+
 return function()
   local args = { "scan" }
 
