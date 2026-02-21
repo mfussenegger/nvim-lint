@@ -26,7 +26,7 @@ return function()
 
       for _, leaks in pairs(decoded_output.results) do
         for _, leak in ipairs(leaks) do
-          ---@type vim.Diagnostic.Set
+          ---@type vim.Diagnostic
           local new_diagnostic = {
             col = 0,
             source = name,
