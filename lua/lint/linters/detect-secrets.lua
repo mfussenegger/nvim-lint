@@ -28,6 +28,7 @@ return function()
         for _, leak in ipairs(leaks) do
           ---@type vim.Diagnostic.Set
           local new_diagnostic = {
+            col = 0,
             source = name,
             lnum = leak.line_number - 1, -- 'detect-secrets' uses 1-indexed line numbers
             message = leak.type,
