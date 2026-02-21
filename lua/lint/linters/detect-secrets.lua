@@ -1,4 +1,5 @@
-local name = "linter-secrets"
+local name = "detect-secrets"
+
 return function()
   local args = { "scan" }
 
@@ -25,8 +26,9 @@ return function()
 
       for _, leaks in pairs(decoded_output.results) do
         for _, leak in ipairs(leaks) do
-          ---@type vim.Diagnostic.Set
+          ---@type vim.Diagnostic
           local new_diagnostic = {
+            col = 0,
             source = name,
             lnum = leak.line_number - 1, -- 'detect-secrets' uses 1-indexed line numbers
             message = leak.type,
