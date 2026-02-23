@@ -499,7 +499,7 @@ end
 Running tests requires [busted][busted].
 
 ```bash
-busted tests/
+busted spec/
 ```
 
 Or with [luarocks]:
