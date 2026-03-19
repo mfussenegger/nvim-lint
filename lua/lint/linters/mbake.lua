@@ -1,8 +1,3 @@
-local function get_config()
-  local local_cfg = vim.fn.findfile(".bake.toml", ".;")
-  return local_cfg ~= "" and local_cfg or vim.fn.expand("~/.config/.bake.toml")
-end
-
 return {
   cmd = "mbake",
   stdin = false,
@@ -11,8 +6,6 @@ return {
   ignore_exitcode = true,
   args = {
     "validate",
-    "--config",
-    get_config(),
   },
   parser = function(output, bufnr)
     local diagnostics = {}
