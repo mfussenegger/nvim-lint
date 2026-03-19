@@ -187,6 +187,7 @@ Other dedicated linters that are built-in are:
 | [markdownlint][26]                     | `markdownlint`         |
 | [markdownlint-cli2][markdownlint-cli2] | `markdownlint-cli2`    |
 | [markuplint][markuplint]               | `markuplint`           |
+| [mbake][mbake]                         | `mbake`                |
 | [mh_lint][miss_hit]                    | `mh_lint`              |
 | [mlint][34]                            | `mlint`                |
 | [Mypy][11]                             | `mypy`                 |
@@ -714,3 +715,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [pyrefly]: https://pyrefly.org/
 [Vacuum]: https://quobix.com/vacuum/
 [luarocks]: https://luarocks.org/
+[mbake]: https://github.com/EbodShojaei/bake
