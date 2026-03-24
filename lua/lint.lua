@@ -379,7 +379,7 @@ function M.lint(linter, opts)
   if iswin then
     linter = vim.tbl_extend("force", linter, {
       cmd = "cmd.exe",
-      args = { "/C", linter.cmd, unpack(linter.args or {}) },
+      args = { "/C", linter.cmd },
     })
   end
   if linter.args then
