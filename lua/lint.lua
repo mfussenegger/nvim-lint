@@ -175,11 +175,13 @@ M.linters = setmetatable({}, {
 })
 
 
+---@alias lint.Args (string|fun():string)[]
+
 ---A Linter
 ---@class lint.Linter
 ---@field name string
 ---@field cmd string command/executable
----@field args? (string|fun():string)[] command arguments
+---@field args? lint.Args|(fun():lint.Args) command arguments
 ---@field stdin? boolean send content via stdin. Defaults to false
 ---Automatically add the current file name to the commands arguments.
 ---Only has an effect if stdin is false
@@ -383,7 +385,14 @@ function M.lint(linter, opts)
     })
   end
   if linter.args then
-    vim.list_extend(args, vim.tbl_map(eval, linter.args))
+    local linter_args
+    if type(linter.args) == 'function' then
+      linter_args = linter.args()
+    else
+      ---@type lint.Args; It should not be a function at this point.
+      linter_args = linter.args
+    end
+    vim.list_extend(args, vim.tbl_map(eval, linter_args))
   end
   if not linter.stdin and linter.append_fname ~= false then
     table.insert(args, api.nvim_buf_get_name(bufnr))
