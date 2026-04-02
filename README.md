@@ -115,6 +115,7 @@ Other dedicated linters that are built-in are:
 | [buildifier][buildifier]               | `buildifier`           |
 | [cfn-lint][cfn-lint]                   | `cfn_lint`             |
 | [cfn_nag][cfn_nag]                     | `cfn_nag`              |
+| [checkbashisms][checkbashisms]         | `checkbashisms`
 | [checkmake][checkmake]                 | `checkmake`            |
 | [checkpatch.pl][checkpatch]            | `checkpatch`           |
 | [checkstyle][checkstyle]               | `checkstyle`           |
@@ -618,6 +619,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [nagelfar]: https://nagelfar.sourceforge.net/
 [oelint-adv]: https://github.com/priv-kweihmann/oelint-adv
 [cfn_nag]: https://github.com/stelligent/cfn_nag
+[checkbashisms]: https://tracker.debian.org/pkg/devscripts
 [checkmake]: https://github.com/mrtazz/checkmake
 [ruff]: https://github.com/astral-sh/ruff
 [janet]: https://github.com/janet-lang/janet
