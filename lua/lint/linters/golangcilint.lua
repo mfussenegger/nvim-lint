@@ -21,11 +21,23 @@ local getArgs = function()
   if not ok then
     return
   end
+
+  local go_work_location
+  ok, go_work_location = pcall(vim.fn.system, { 'go', 'env', 'GOWORK' })
+  if not ok then
+    return
+  end
+
   local filename_modifier = ':h'
   -- Remove extra whitespace like newline characters
   go_mod_location = go_mod_location:gsub('%s+', '')
-  -- No go.mod file was found, so just lint the buffer directly
-  if go_mod_location == '/dev/null' or go_mod_location == '' then
+  go_work_location = go_work_location:gsub('%s+', '')
+
+  -- No go.mod or go.work file was found, so just lint the buffer directly
+  local no_gomod = go_mod_location == '/dev/null' or go_mod_location == ''
+  local no_gowork = go_work_location == '/dev/null' or go_work_location == ''
+
+  if no_gomod and no_gowork then
     filename_modifier = ':p'
   end
 
