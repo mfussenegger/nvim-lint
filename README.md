@@ -200,6 +200,7 @@ Other dedicated linters that are built-in are:
 | [opa_check][opa_check]                 | `opa_check`            |
 | [tofu][tofu]                           | `tofu`                 |
 | [oxlint][oxlint]                       | `oxlint`               |
+| [Panache][panache]                     | `panache`              |
 | [perlcritic][perlcritic]               | `perlcritic`           |
 | [perlimports][perlimports]             | `perlimports`          |
 | [phpcs][phpcs]                         | `phpcs`                |
@@ -720,3 +721,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [Vacuum]: https://quobix.com/vacuum/
 [luarocks]: https://luarocks.org/
 [mbake]: https://github.com/EbodShojaei/bake
+[panache]: https://github.com/jolars/panache
