@@ -164,6 +164,7 @@ Other dedicated linters that are built-in are:
 | [glslc][glslc]                         | `glslc`                |
 | [Golangci-lint][16]                    | `golangcilint`         |
 | [hadolint][28]                         | `hadolint`             |
+| [herb][herb]                           | `herb`                 |
 | [hledger][hledger]                     | `hledger`              |
 | [hlint][32]                            | `hlint`                |
 | [htmlhint][htmlhint]                   | `htmlhint`             |
@@ -722,3 +723,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [luarocks]: https://luarocks.org/
 [mbake]: https://github.com/EbodShojaei/bake
 [panache]: https://github.com/jolars/panache
+[herb]: https://herb-tools.dev/
