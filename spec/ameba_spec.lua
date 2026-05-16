@@ -81,4 +81,45 @@ describe("linter.ameba", function()
     local result = parser([[{ "sources": [] }]])
     assert.are.same(0, #result)
   end)
+
+  it("can handle end_location having null values", function()
+    local parser = require("lint.linters.ameba").parser
+    local result = parser([[
+      {
+        "sources": [
+          {
+            "path": "src/test.cr",
+            "issues": [
+              {
+                "rule_name": "Documentation/DocumentationAdmonition",
+                "severity": "Warning",
+                "message": "Found a TODO admonition in the documentation",
+                "location": {
+                  "line": 5,
+                  "column": 1
+                },
+                "end_location": {
+                  "line": null,
+                  "column": null
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]])
+
+    local expected = {
+      source = "ameba",
+      lnum = 4,
+      col = 0,
+      end_lnum = nil,
+      end_col = nil,
+      severity = vim.diagnostic.severity.WARN,
+      message = "Found a TODO admonition in the documentation",
+      code = "Documentation/DocumentationAdmonition",
+    }
+
+    assert.are.same(expected, result[1])
+  end)
 end)
