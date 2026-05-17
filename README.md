@@ -263,6 +263,7 @@ Other dedicated linters that are built-in are:
 | [trivy][trivy]                         | `trivy`                |
 | [ts-standard][ts-standard]             | `ts-standard`          |
 | [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
+| [ty][ty]                               | `ty`                   |
 | [typos][typos]                         | `typos`                |
 | [vacuum][vacuum]                       | `vacuum`               |
 | [Vala][vala-lint]                      | `vala_lint`            |
@@ -700,6 +701,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [zizmor]: https://github.com/woodruffw/zizmor
 [ts-standard]: https://github.com/standard/ts-standard
 [twig-cs-fixer]: https://github.com/VincentLanglet/Twig-CS-Fixer
+[ty]: https://docs.astral.sh/ty/
 [fortitude]: https://github.com/PlasmaFAIR/fortitude
 [redocly]: https://redocly.com/docs/cli/commands/lint
 [sarif]: https://sarifweb.azurewebsites.net/
