@@ -1,5 +1,5 @@
-local pattern = [[([^:]*):(%d+):(%d+): (%w+): ([^[]+)]]
-local groups = { 'file', 'lnum', 'col', 'severity', 'message' }
+local pattern = [=[([^:]*):(%d+):(%d+): (%w+): ([^[]+) %[(.*)%]]=]
+local groups = { 'file', 'lnum', 'col', 'severity', 'message', 'code' }
 
 local severity_map = {
   ['error'] = vim.diagnostic.severity.ERROR,
