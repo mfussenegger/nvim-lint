@@ -28,8 +28,8 @@ return {
         code = issue.rule_name,
         lnum = issue.location.line - 1,
         col = issue.location.column - 1,
-        end_col = issue.end_location.column,
-        end_lnum = issue.end_location.line - 1,
+        end_col = type(issue.end_location.column) == "number" and issue.end_location.column or nil,
+        end_lnum = type(issue.end_location.line) == "number" and issue.end_location.line - 1 or nil,
         message = issue.message,
         severity = severity_map[issue.severity],
       })
