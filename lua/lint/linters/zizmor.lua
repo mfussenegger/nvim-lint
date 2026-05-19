@@ -7,11 +7,11 @@ local severities = {
 
 return {
   cmd = "zizmor",
-  args = { "--format", "json-v1" },
-  stdin = false,
+  args = { "--format", "json-v1", "-" },
+  stdin = true,
   ignore_exitcode = true,
 
-  parser = function(output, _)
+  parser = function(output, bufnr)
     local items = {}
 
     if output == "" then
@@ -26,11 +26,11 @@ return {
       for _, loc in
         ipairs(diag.locations)
       do
-        local fname = loc.symbolic.key.Local.given_path
+        local uri = loc.symbolic.key.Stdin and vim.uri_from_bufnr(bufnr) or vim.uri_from_fname(loc.symbolic.key.Local.given_path)
         related[#related + 1] = {
           message = loc.symbolic.annotation,
           location = {
-            uri = vim.uri_from_fname(fname),
+            uri = uri,
             range = {
               ["start"] = {
                 line = loc.concrete.location.start_point.row,
