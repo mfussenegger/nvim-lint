@@ -38,7 +38,13 @@ return {
     local diagnostics = {}
     local items = #output > 0 and vim.split(output, "\n") or {}
     local file_name = vim.api.nvim_buf_get_name(bufnr)
-    file_name = vim.fn.fnamemodify(file_name, ":.")
+    local lsp_root = vim.lsp.get_clients({ bufnr = bufnr })[1].root_dir
+    if not lsp_root or string.len(lsp_root) == 0 then
+      file_name = vim.fn.fnamemodify(file_name, ":.")
+    else
+      file_name = vim.fn.fnamemodify(file_name, "p:")
+      file_name = vim.fn.fnamemodify(file_name, ":s?"..lsp_root.."/??")
+    end
 
     for _, i in ipairs(items) do
       local item = i ~= "" and vim.json.decode(i) or {}
