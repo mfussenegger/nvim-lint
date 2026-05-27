@@ -7,6 +7,19 @@ local severity_map = {
   ['info'] = vim.diagnostic.severity.INFO,
 }
 
+local parser_core = require('lint.parser').from_pattern(
+  pattern, groups, severity_map,
+  { ['source'] = 'oelint-adv' }
+)
+
+local function strip_ansi_codes(s)
+  return s and s:gsub('\27%[[0-9;]*m', '') or s
+end
+
+local function parser(output, ...)
+  return parser_core(strip_ansi_codes(output), ...)
+end
+
 return {
   cmd = 'oelint-adv',
   stdin = false,
@@ -16,8 +29,5 @@ return {
   },
   ignore_exitcode = true,
   stream = 'stderr',
-  parser = require('lint.parser').from_pattern(
-    pattern, groups, severity_map,
-    { ['source'] = 'oelint-adv' }
-  ),
+  parser = parser,
 }
