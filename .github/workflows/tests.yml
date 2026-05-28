@@ -15,7 +15,7 @@ jobs:
         neovim_version: ['nightly', 'v0.9.5']
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup neovim
         uses: rhysd/action-setup-vim@v1
@@ -24,7 +24,7 @@ jobs:
           version: ${{ matrix.neovim_version }}
 
       - name: Install Lua
-        uses: leso-kn/gh-actions-lua@master
+        uses: leafo/gh-actions-lua@v13
         with:
           luaVersion: "5.1"
 
