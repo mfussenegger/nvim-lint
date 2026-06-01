@@ -303,6 +303,7 @@ Other dedicated linters that are built-in are:
 | [ts-standard][ts-standard]             | `ts-standard`          |
 | [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
 | [typos][typos]                         | `typos`                |
+| [unmake][unmake]                       | `unmake`               |
 | [vacuum][vacuum]                       | `vacuum`               |
 | [Vala][vala-lint]                      | `vala_lint`            |
 | [Vale][8]                              | `vale`                 |
@@ -576,7 +577,6 @@ API docs is generated using [vimcats]:
 vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 ```
 
-
 [1]: https://github.com/dense-analysis/ale
 [3]: https://github.com/junegunn/vim-plug
 [4]: https://github.com/wbthomason/packer.nvim
@@ -764,3 +764,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [panache]: https://github.com/jolars/panache
 [herb]: https://herb-tools.dev/
 [bubblewrap]: https://github.com/containers/bubblewrap
+[unmake]: https://github.com/mcandre/unmake
