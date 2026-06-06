@@ -29,12 +29,13 @@ M.linters_by_ft                                             *lint.linters_by_ft*
 lint.try_lint.Opts                                          *lint.try_lint.Opts*
 
     Fields: ~
-        {cwd?}            (string)   Working directory for the linter process.
-        {ignore_errors?}  (boolean)  If true, do not notify on linter errors.
-        {filter?}         ()         Filter linters to be run.
-                                     If "stdin", only linters supporting stdin are run.
-                                     If a function, it is called for each linter and the linter
-                                     is only run if the function returns true.
+        {cwd?}            (string)                               Working directory for the linter process.
+        {ignore_errors?}  (boolean)                              If true, do not notify on linter errors.
+        {wrap_linter?}    (fun(linter:lint.Linter):lint.Linter)  Modify linter before use. This is called before cmd/args properties are evaluated.
+        {filter?}         ()                                     Filter linters to be run.
+                                                                 If "stdin", only linters supporting stdin are run.
+                                                                 If a function, it is called for each linter and the linter
+                                                                 is only run if the function returns true.
 
 
 M.try_lint({names?}, {opts?})                                    *lint.try_lint*
