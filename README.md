@@ -131,6 +131,7 @@ Other dedicated linters that are built-in are:
 | [cppcheck][22]                         | `cppcheck`             |
 | [cpplint][cpplint]                     | `cpplint`              |
 | [credo][credo]                         | `credo`                |
+| [csharpier][csharpier]                 | `csharpier`            |
 | [dialyxir][dialyxir]                   | `dialyxir`             |
 | [cspell][36]                           | `cspell`               |
 | [cue][cue]                             | `cue`                  |
@@ -609,6 +610,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [lacheck]: https://www.ctan.org/tex-archive/support/lacheck
 [luac]: https://www.lua.org/manual/5.1/luac.html
 [credo]: https://github.com/rrrene/credo
+[csharpier]: https://github.com/belav/csharpier
 [dialyxir]: https://github.com/jeremyjh/dialyxir
 [ghdl]: https://github.com/ghdl/ghdl
 [gitleaks]: https://github.com/gitleaks/gitleaks
