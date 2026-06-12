@@ -3,7 +3,7 @@ return {
   stdin = false,
   args = { "-bp " },
   stream = "stdout",
-  ignore_exitcode = false,
+  ignore_exitcode = true,
   parser = require("lint.parser").from_pattern(
     "([^:]+):(%d+):(%d+): ([^[]+) %[(.+)%]",
     { "file", "lnum", "col", "message", "rule" },
