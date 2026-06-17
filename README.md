@@ -92,6 +92,45 @@ use `./node_modules/.bin/eslint` if it exists. The executable is executed with
 your users permission. Because of that, you must _not_ call `try_lint()` in
 untrusted repositories.
 
+To improve security you could run linters using sandbox systems like
+[bubblewrap] using the `wrap_linter` functionality. Here is an example using
+`systemd-run`:
+
+
+```lua
+local lint = require("lint")
+
+
+---@param linter lint.Linter
+---@return lint.Linter
+local function systemd_run(linter)
+  local cwd = vim.fn.getcwd()
+  local args = {
+    "--user",
+    "--collect",
+    "--same-dir",
+    "--quiet",
+    "--pipe",
+    "-p", "PrivateUsers=true",
+    "-p", "ProtectSystem=true",
+    "-p", "PrivateNetwork=true",
+    "-p", string.format("BindReadOnlyPaths='%s':'%s'", cwd, cwd),
+    "-E", "PATH=" .. os.getenv("PATH"),
+    linter.cmd,
+  }
+  linter.cmd = "systemd-run"
+  vim.list_extend(args, linter.args or {})
+  linter.args = args
+  return linter
+end
+
+
+lint.try_lint(nil, {
+    wrap_linter = systemd_run
+})
+```
+
+
 ## Available Linters
 
 There is a generic linter called `compiler` that uses the `makeprg` and
@@ -264,6 +303,7 @@ Other dedicated linters that are built-in are:
 | [ts-standard][ts-standard]             | `ts-standard`          |
 | [twig-cs-fixer][twig-cs-fixer]         | `twig-cs-fixer`        |
 | [typos][typos]                         | `typos`                |
+| [unmake][unmake]                       | `unmake`               |
 | [vacuum][vacuum]                       | `vacuum`               |
 | [Vala][vala-lint]                      | `vala_lint`            |
 | [Vale][8]                              | `vale`                 |
@@ -537,7 +577,6 @@ API docs is generated using [vimcats]:
 vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 ```
 
-
 [1]: https://github.com/dense-analysis/ale
 [3]: https://github.com/junegunn/vim-plug
 [4]: https://github.com/wbthomason/packer.nvim
@@ -724,3 +763,5 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [mbake]: https://github.com/EbodShojaei/bake
 [panache]: https://github.com/jolars/panache
 [herb]: https://herb-tools.dev/
+[bubblewrap]: https://github.com/containers/bubblewrap
+[unmake]: https://github.com/mcandre/unmake
