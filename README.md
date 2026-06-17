@@ -324,6 +324,20 @@ Other dedicated linters that are built-in are:
 You can register custom linters by adding them to the `linters` table, but
 please consider contributing a linter if it is missing.
 
+Consider the contribution guidelines:
+
+- Linters must not have custom logic to detect a project root. Users should
+  pass the `cwd` to `try_lint` instead
+- Linters must not have complex pre-processing logic. A linter should only call
+  a command and parse the output. Ideally using one of the predefined parser
+  functions. `for_sarif` is the preferred option. If that's not possible either
+  `from_errorformat` or `from_pattern` can be used. If neither of those options
+  are appropriate, parsing JSON output using `vim.json.decode` is okay too.
+- Don't contribute using generative AI. If you can't be bothered defining a
+  table and a parser yourself, I can't be bothered to review it.
+- Tests are optional for linter additions, but help ensure they don't regress
+  and are a good way to make sure format patterns are correct.
+
 
 ```lua
 require('lint').linters.your_linter_name = {
