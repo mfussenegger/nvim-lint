@@ -26,7 +26,7 @@ For example:
 
 ```bash
 git clone \
-    https://github.com/mfussenegger/nvim-lint.git
+    https://codeberg.org/mfussenegger/nvim-lint.git
     ~/.config/nvim/pack/plugins/start/nvim-lint
 ```
 
