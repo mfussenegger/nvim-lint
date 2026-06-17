@@ -37,16 +37,6 @@ local namespaces = setmetatable({}, {
 ---
 ---@type table<string, string[]>
 M.linters_by_ft = {
-  text = {'vale',},
-  json = {'jsonlint',},
-  markdown = {'vale',},
-  rst = {'vale',},
-  ruby = {'ruby',},
-  janet = {'janet',},
-  inko = {'inko',},
-  clojure = {'clj-kondo',},
-  dockerfile = {'hadolint',},
-  terraform = {'tflint'},
 }
 
 ---@class lint.try_lint.Opts
