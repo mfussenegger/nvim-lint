@@ -37,21 +37,13 @@ local namespaces = setmetatable({}, {
 ---
 ---@type table<string, string[]>
 M.linters_by_ft = {
-  text = {'vale',},
-  json = {'jsonlint',},
-  markdown = {'vale',},
-  rst = {'vale',},
-  ruby = {'ruby',},
-  janet = {'janet',},
-  inko = {'inko',},
-  clojure = {'clj-kondo',},
-  dockerfile = {'hadolint',},
-  terraform = {'tflint'},
 }
 
 ---@class lint.try_lint.Opts
 ---@field cwd? string Working directory for the linter process.
 ---@field ignore_errors? boolean If true, do not notify on linter errors.
+---Modify linter before use. This is called before cmd/args properties are evaluated.
+---@field wrap_linter? fun(linter: lint.Linter): lint.Linter
 ---Filter linters to be run.
 ---If "stdin", only linters supporting stdin are run.
 ---If a function, it is called for each linter and the linter
@@ -100,6 +92,9 @@ function M.try_lint(names, opts)
   for _, linter_name in pairs(names) do
     local linter = lookup_linter(linter_name)
     if use_linter(linter) then
+      if opts.wrap_linter then
+        linter = opts.wrap_linter(vim.deepcopy(linter))
+      end
       local proc = running_procs[linter.name]
       if proc then
         proc:cancel()
@@ -340,7 +335,7 @@ local function with_cwd(cwd, fn, ...)
   if curcwd == cwd then
     return fn(...)
   else
-    local mods = { noautocmd = true }
+    local mods = { noautocmd = true, silent = true }
     vim.cmd.cd({cwd, mods = mods})
     local ok, result = pcall(fn, ...)
     vim.cmd.cd({curcwd , mods = mods})
