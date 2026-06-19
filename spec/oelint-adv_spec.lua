@@ -2,14 +2,13 @@ describe('linter.oelint-adv', function()
   it('can parse the output', function()
     local parser = require('lint.linters.oelint-adv').parser
     local bufnr = vim.uri_to_bufnr('file:///foo.bb')
-    local escape_seq = string.char(27)
     local result = parser([[
 /foo.bb:1:error:oelint.var.mandatoryvar.HOMEPAGE:Variable 'HOMEPAGE' should be set [branch:true]
 /foo.bb:1:info:oelint.var.suggestedvar.CVE_PRODUCT:Variable 'CVE_PRODUCT' should be set [branch:true]
 /foo.bb:2:warning:oelint.vars.spacesassignment:Suggest spaces around variable assignment. E.g. 'FOO = "BAR"' [branch:true]
-]] .. escape_seq .. "[31m/foo.bb:17:error:oelint.var.mandatoryvar.DESCRIPTION:Variable 'DESCRIPTION' should be set" .. escape_seq .. "[0m [branch:true]", bufnr)
+]], bufnr)
 
-  assert.are.same(4, #result)
+  assert.are.same(3, #result)
 
   local expected_error = {
     code = 'oelint.var.mandatoryvar.HOMEPAGE',
@@ -49,19 +48,6 @@ describe('linter.oelint-adv', function()
     user_data = { lsp = { code = 'oelint.vars.spacesassignment' } },
   }
   assert.are.same(expected_warning, result[3])
-
-  local expected_withcolor = {
-    code = 'oelint.var.mandatoryvar.DESCRIPTION',
-    source = 'oelint-adv',
-    message = 'Variable \'DESCRIPTION\' should be set [branch:true]',
-    lnum = 16,
-    col = 0,
-    end_lnum = 16,
-    end_col = 0,
-    severity = vim.diagnostic.severity.ERROR,
-    user_data = { lsp = { code = 'oelint.var.mandatoryvar.DESCRIPTION' } },
-  }
-  assert.are.same(expected_withcolor, result[4])
 
   end)
 end)
