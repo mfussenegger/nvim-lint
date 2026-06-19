@@ -154,7 +154,7 @@ Other dedicated linters that are built-in are:
 | [buildifier][buildifier]               | `buildifier`           |
 | [cfn-lint][cfn-lint]                   | `cfn_lint`             |
 | [cfn_nag][cfn_nag]                     | `cfn_nag`              |
-| [checkbashisms][checkbashisms]         | `checkbashisms`
+| [checkbashisms][checkbashisms]         | `checkbashisms`        |
 | [checkmake][checkmake]                 | `checkmake`            |
 | [checkpatch.pl][checkpatch]            | `checkpatch`           |
 | [checkstyle][checkstyle]               | `checkstyle`           |
@@ -179,6 +179,7 @@ Other dedicated linters that are built-in are:
 | [deadnix][deadnix]                     | `deadnix`              |
 | [deno][deno]                           | `deno`                 |
 | [detect-secrets][detect-secrets]       | `detect-secrets`       |
+| [detekt][detekt]                       | `detekt`               |
 | [dmypy][dmypy]                         | `dmypy`                |
 | [DirectX Shader Compiler][dxc]         | `dxc`                  |
 | [djlint][djlint]                       | `djlint`               |
@@ -779,3 +780,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [herb]: https://herb-tools.dev/
 [bubblewrap]: https://github.com/containers/bubblewrap
 [unmake]: https://github.com/mcandre/unmake
+[detekt]: https://detekt.dev/
