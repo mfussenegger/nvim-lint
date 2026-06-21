@@ -16,6 +16,7 @@ return {
   },
   env = {
     ["NO_COLOR"] = "1",
+    ["HOME"] = os.getenv("HOME"),
   },
   ignore_exitcode = true,
   stream = 'stderr',
