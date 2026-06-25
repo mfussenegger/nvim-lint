@@ -14,6 +14,10 @@ return {
     '--quiet',
     '--messageformat={path}:{line}:{severity}:{id}:{msg}',
   },
+  env = {
+    ["NO_COLOR"] = "1",
+    ["HOME"] = os.getenv("HOME"),
+  },
   ignore_exitcode = true,
   stream = 'stderr',
   parser = require('lint.parser').from_pattern(
