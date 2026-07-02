@@ -149,6 +149,7 @@ Other dedicated linters that are built-in are:
 | [bash][bash]                           | `bash`                 |
 | [bean-check][bean-check]               | `bean_check`           |
 | [biomejs][biomejs]                     | `biomejs`              |
+| [bloc][bloc]                           | `bloc`                 |
 | [blocklint][blocklint]                 | `blocklint`            |
 | [buf_lint][buf_lint]                   | `buf_lint`             |
 | [buildifier][buildifier]               | `buildifier`           |
@@ -783,3 +784,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [bubblewrap]: https://github.com/containers/bubblewrap
 [unmake]: https://github.com/mcandre/unmake
 [detekt]: https://detekt.dev/
+[bloc]: https://bloclibrary.dev/
