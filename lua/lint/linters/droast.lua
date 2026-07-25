@@ -33,7 +33,7 @@ return {
     "json",
     "--no-roast",
     "--no-fail",
-    "--check-dockerignore=false",
+    "--check-ignorefile=false",
   },
   stream = "both",
   ignore_exitcode = true,
