@@ -3,6 +3,7 @@ local severity_map = {
   WARN = vim.diagnostic.severity.WARN,
   INFO = vim.diagnostic.severity.INFO,
 }
+
 local function diagnostic_from_finding(finding)
   local line = math.max((finding.line or 1) - 1, 0)
   local column = math.max((finding.column or 1) - 1, 0)
