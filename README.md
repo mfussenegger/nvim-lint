@@ -184,6 +184,7 @@ Other dedicated linters that are built-in are:
 | [DirectX Shader Compiler][dxc]         | `dxc`                  |
 | [djlint][djlint]                       | `djlint`               |
 | [dotenv-linter][dotenv-linter]         | `dotenv_linter`        |
+| [droast][droast]                       | `droast`               |
 | [editorconfig-checker][ec]             | `editorconfig-checker` |
 | [erb-lint][erb-lint]                   | `erb_lint`             |
 | [ESLint][25]                           | `eslint`               |
@@ -783,3 +784,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [bubblewrap]: https://github.com/containers/bubblewrap
 [unmake]: https://github.com/mcandre/unmake
 [detekt]: https://detekt.dev/
+[droast]: https://github.com/immanuwell/dockerfile-roast
