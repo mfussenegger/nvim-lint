@@ -1,6 +1,7 @@
 local severities = {
   error = vim.diagnostic.severity.ERROR,
   warning = vim.diagnostic.severity.WARN,
+  info = vim.diagnostic.severity.INFO,
 }
 
 local function get_file_name()
