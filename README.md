@@ -201,6 +201,7 @@ Other dedicated linters that are built-in are:
 | [GHDL][ghdl]                           | `ghdl`                 |
 | [gitleaks][gitleaks]                   | `gitleaks`             |
 | [gitlint][gitlint]                     | `gitlint`              |
+| [glinter][glinter]                     | `glinter`              |
 | [glslc][glslc]                         | `glslc`                |
 | [Golangci-lint][16]                    | `golangcilint`         |
 | [hadolint][28]                         | `hadolint`             |
@@ -783,3 +784,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [bubblewrap]: https://github.com/containers/bubblewrap
 [unmake]: https://github.com/mcandre/unmake
 [detekt]: https://detekt.dev/
+[glinter]: https://github.com/pairshaped/glinter
