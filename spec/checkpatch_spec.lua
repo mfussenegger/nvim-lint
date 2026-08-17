@@ -1,12 +1,17 @@
 describe('linter.checkpatch', function()
   it('can parse the output', function()
-    local parser = require('lint.linters.checkpatch').parser
+    local linter = require('lint.linters.checkpatch')
+    if type(linter) == 'function' then
+      linter = linter()
+    end
+    local parser = linter.parser
     local bufnr = vim.uri_to_bufnr('file:///foo.c')
-    local result = parser([[
-/foo.c:6: CHECK: Please don't use multiple blank lines
-/foo.c:8: WARNING: Missing a blank line after declarations
-/foo.c:10: ERROR: switch and case should be at the same indent
-]], bufnr)
+    local test_output = [[
+-:9: CHECK: Please don't use multiple blank lines
+-:11: WARNING: Missing a blank line after declarations
+-:13: ERROR: switch and case should be at the same indent
+]]
+    local result = parser(test_output, bufnr)
 
   assert.are.same(3, #result)
 
