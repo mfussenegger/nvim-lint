@@ -4,6 +4,7 @@ local severity_map = {
   ["error"] = vim.diagnostic.severity.ERROR,
   ["warning"] = vim.diagnostic.severity.WARN,
 }
+local defaults = { ["source"] = "zlint" }
 
 return {
   name = "zlint",
@@ -13,6 +14,6 @@ return {
   append_fname = false,
   stream = "both",
   ignore_exitcode = true,
-  parser = require("lint.parser").from_pattern(pattern, groups, severity_map),
+  parser = require("lint.parser").from_pattern(pattern, groups, severity_map, defaults),
 }
 
