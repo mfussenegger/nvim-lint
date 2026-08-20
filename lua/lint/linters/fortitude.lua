@@ -28,8 +28,8 @@ return {
     for _, item in ipairs(output_decoded) do
       table.insert(diagnostics, {
         bufnr = bufnr,
-        lnum = item.location.row - 1,
-        end_lnum = item.end_location.row - 1,
+        lnum = item.location.line - 1,
+        end_lnum = item.end_location.line - 1,
         col = item.location.column - 1,
         end_col = item.end_location.column - 1,
         severity = severity_map[item.code:match("^(%a+)(%d+)")] or vim.diagnostic.severity.WARN,

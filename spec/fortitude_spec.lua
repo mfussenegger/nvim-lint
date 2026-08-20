@@ -16,7 +16,7 @@ describe("linter.fortitude", function()
     "code": "C003",
     "end_location": {
       "column": 18,
-      "row": 3
+      "line": 3
     },
     "filename": "/home/user/documents/somefortranfile.f90",
     "fix": {
@@ -26,11 +26,11 @@ describe("linter.fortitude", function()
           "content": " (type, external)",
           "end_location": {
             "column": 18,
-            "row": 3
+            "line": 3
           },
           "location": {
             "column": 18,
-            "row": 3
+            "line": 3
           }
         }
       ],
@@ -38,7 +38,7 @@ describe("linter.fortitude", function()
     },
     "location": {
       "column": 5,
-      "row": 3
+      "line": 3
     },
     "message": "'implicit none' missing 'external'"
   },
@@ -46,13 +46,13 @@ describe("linter.fortitude", function()
     "code": "E001",
     "end_location": {
       "column": 14,
-      "row": 7
+      "line": 7
     },
     "filename": "/home/user/documents/somefortranfile.f90",
     "fix": null,
     "location": {
       "column": 13,
-      "row": 7
+      "line": 7
     },
     "message": "Syntax error"
   }
