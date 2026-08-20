@@ -169,8 +169,9 @@ function M.for_sarif(skeleton)
 
   ---@param output string the output of the tool
   ---@param bufnr number the number of the buffer the linter ran on
+  ---@param linter_cwd string
   ---@return vim.Diagnostic[] the diagnostics
-  return function(output, bufnr)
+  return function(output, bufnr, linter_cwd)
     local diagnostics = {}
     local decoded = vim.json.decode(output) or {}
     for _, run in ipairs(decoded.runs or {}) do
@@ -185,7 +186,17 @@ function M.for_sarif(skeleton)
       for _, result in ipairs(run.results or {}) do
         for _, location in ipairs(result.locations) do
           local uri = location.physicalLocation.artifactLocation.uri
-          local location_bufnr = vim.uri_to_bufnr(uri)
+          local location_bufnr
+          -- TODO: Handle uriBaseId
+          if vim.startswith(uri, "file:///") then
+            location_bufnr = vim.uri_to_bufnr(uri)
+          else
+            if vim.fs.joinpath then
+              location_bufnr = vim.fn.bufadd(vim.fs.joinpath(linter_cwd, uri))
+            else
+              location_bufnr = vim.fn.bufadd(uri)
+            end
+          end
           if bufnr == location_bufnr then
             local region = location.physicalLocation.region
 
