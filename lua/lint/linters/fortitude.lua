@@ -26,12 +26,19 @@ return {
     local diagnostics = {}
 
     for _, item in ipairs(output_decoded) do
+      local location = item.location
+      local end_location = item.end_location
+
+      -- Fortitude renamed `row` to `line` (PlasmaFAIR/fortitude@0eda11975096517b16bf30bf683011f83a24e55e)
+      local line = location.line or location.row
+      local end_line = end_location.line or end_location.row
+
       table.insert(diagnostics, {
         bufnr = bufnr,
-        lnum = item.location.row - 1,
-        end_lnum = item.end_location.row - 1,
-        col = item.location.column - 1,
-        end_col = item.end_location.column - 1,
+        lnum = line - 1,
+        end_lnum = end_line - 1,
+        col = location.column - 1,
+        end_col = end_location.column - 1,
         severity = severity_map[item.code:match("^(%a+)(%d+)")] or vim.diagnostic.severity.WARN,
         message = item.message,
         source = "fortitude",
