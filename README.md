@@ -265,6 +265,7 @@ Other dedicated linters that are built-in are:
 | [pyrefly][pyrefly]                     | `pyrefly`              |
 | [quick-lint-js][quick-lint-js]         | `quick-lint-js`        |
 | [redocly][redocly]                     | `redocly`              |
+| [refurb][refurb]                       | `refurb`               |
 | [regal][regal]                         | `regal`                |
 | [Revive][14]                           | `revive`               |
 | [rflint][rflint]                       | `rflint`               |
@@ -790,3 +791,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [detekt]: https://detekt.dev/
 [glinter]: https://github.com/pairshaped/glinter
 [droast]: https://github.com/immanuwell/dockerfile-roast
+[refurb]: https://github.com/dosisod/refurb
