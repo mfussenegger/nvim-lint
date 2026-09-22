@@ -212,6 +212,7 @@ Other dedicated linters that are built-in are:
 | [htmlhint][htmlhint]                   | `htmlhint`             |
 | [HTML Tidy][12]                        | `tidy`                 |
 | [Inko][17]                             | `inko`                 |
+| [j2lint][j2lint]                       | `j2lint`               |
 | [janet][janet]                         | `janet`                |
 | [joker][joker]                         | `joker`                |
 | [jshint][jshint]                       | `jshint`               |
@@ -792,3 +793,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [glinter]: https://github.com/pairshaped/glinter
 [droast]: https://github.com/immanuwell/dockerfile-roast
 [refurb]: https://github.com/dosisod/refurb
+[j2lint]: https://github.com/aristanetworks/j2lint
