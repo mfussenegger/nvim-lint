@@ -341,6 +341,9 @@ Consider the contribution guidelines:
   table and a parser yourself, I can't be bothered to review it.
 - Tests are optional for linter additions, but help ensure they don't regress
   and are a good way to make sure format patterns are correct.
+- PRs should be opened on the [main
+  repository](https://codeberg.org/mfussenegger/nvim-lint). Github is only a
+  mirror.
 
 
 ```lua
