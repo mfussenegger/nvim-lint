@@ -13,7 +13,7 @@ local function diagnostic_from_finding(finding)
     severity = severity_map[finding.severity] or vim.diagnostic.severity.WARN,
     source = "droast",
     code = finding.rule,
-    message = string.format("[%s] %s", finding.rule, finding.message),
+    message = finding.message,
   }
   if finding.end_line then
     diagnostic.end_lnum = math.max(finding.end_line - 1, line)
