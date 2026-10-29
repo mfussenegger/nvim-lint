@@ -418,4 +418,35 @@ describe("for_sarif", function()
       result
     )
   end)
+  it("Can results without locations result in no diagnostics", function()
+    local parse = parser.for_sarif({})
+    local bufnr = vim.uri_to_bufnr("file:///foo/bar/baz.java")
+    local output = [[
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "language": "en",
+          "name": "SpecTool"
+        }
+      },
+      "results": [
+        {
+          "level": "warning",
+          "message": {
+            "text": "This is a placeholder message."
+          },
+          "ruleId": "placeholder.code"
+        }
+      ]
+    }
+  ]
+}
+    ]]
+    local result = parse(output, bufnr, "/")
+    assert.are.same(#result, 0)
+  end)
 end)

@@ -184,7 +184,10 @@ function M.for_sarif(skeleton)
         id_rules[rule.id] = rule
       end
       for _, result in ipairs(run.results or {}) do
-        for _, location in ipairs(result.locations) do
+        -- TODO:
+        -- Could check analysisTarget.uri if locations are missing and create
+        -- diagnostic in line=0 col=0
+        for _, location in ipairs(result.locations or {}) do
           local uri = location.physicalLocation.artifactLocation.uri
           local location_bufnr
           -- TODO: Handle uriBaseId
