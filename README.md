@@ -149,6 +149,7 @@ Other dedicated linters that are built-in are:
 | [bash][bash]                           | `bash`                 |
 | [bean-check][bean-check]               | `bean_check`           |
 | [biomejs][biomejs]                     | `biomejs`              |
+| [bloc][bloc]                           | `bloc`                 |
 | [blocklint][blocklint]                 | `blocklint`            |
 | [buf_lint][buf_lint]                   | `buf_lint`             |
 | [buildifier][buildifier]               | `buildifier`           |
@@ -794,3 +795,4 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [droast]: https://github.com/immanuwell/dockerfile-roast
 [refurb]: https://github.com/dosisod/refurb
 [j2lint]: https://github.com/aristanetworks/j2lint
+[bloc]: https://bloclibrary.dev/
