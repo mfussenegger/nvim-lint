@@ -214,6 +214,7 @@ Other dedicated linters that are built-in are:
 | [HTML Tidy][12]                        | `tidy`                 |
 | [Inko][17]                             | `inko`                 |
 | [j2lint][j2lint]                       | `j2lint`               |
+| [jactionlint][jactionlint]             | `jactionlint`          |
 | [janet][janet]                         | `janet`                |
 | [joker][joker]                         | `joker`                |
 | [jshint][jshint]                       | `jshint`               |
@@ -689,6 +690,7 @@ vimcats -t -f lua/lint.lua lua/lint/parser.lua > doc/lint.txt
 [checkbashisms]: https://tracker.debian.org/pkg/devscripts
 [checkmake]: https://github.com/mrtazz/checkmake
 [ruff]: https://github.com/astral-sh/ruff
+[jactionlint]: https://github.com/jdx/jactionlint
 [janet]: https://github.com/janet-lang/janet
 [bandit]: https://bandit.readthedocs.io/en/latest/
 [bash]: https://www.gnu.org/software/bash/
